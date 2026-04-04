@@ -239,12 +239,13 @@ const Game = (() => {
       return { line: effectiveStageData.traitLines[trait], stage: newStage, stageChanged: false, npc, forgetting };
     }
 
-    // Cross-reference lines — suppressed during Forgetting
-    if (!forgetting && effectiveStageData.crossRef && effectiveStageData.crossRef.length) {
-      for (const ref of effectiveStageData.crossRef) {
-        if (ref.condition && meetsConditions([ref.condition])) {
-          return { line: ref.line, stage: newStage, stageChanged: false, npc, forgetting };
-        }
+    // Cross-reference lines — suppressed during Forgetting, fires once per NPC
+    if (!forgetting && stageData.crossReference && !State.get('crossRef_' + npcId)) {
+      const npcMemAll = State.get('npcMemory') || {};
+      const metCount = Object.keys(npcMemAll).filter(id => npcMemAll[id] && npcMemAll[id].visitCount > 0).length;
+      if (metCount >= stageData.crossReference.minNpcsMet) {
+        State.set('crossRef_' + npcId, true);
+        return { line: stageData.crossReference, stage: newStage, stageChanged: false, npc, forgetting };
       }
     }
 

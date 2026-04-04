@@ -97,7 +97,7 @@ const Engine = (() => {
     let _lastTapMs = 0;
     const DEBOUNCE_MS = 300;
     canvas.addEventListener('click', e => {
-      if (Date.now() - _lastTapMs < DEBOUNCE_MS) return;
+      if (Date.now() - _lastTapMs <= DEBOUNCE_MS) return;
       _lastTapMs = Date.now();
       handleTap(e.clientX, e.clientY);
     });

@@ -217,22 +217,10 @@ const UI = (() => {
       State.recordDiscovery('watcher_sighting', { awareness: 1, resonance: 1 });
     }
 
-    // Ueda + Miyamoto: arrival pause — let the canvas scene breathe before text appears
+    // Walking thoughts already provide breathing room before location text.
+    // No additional pause — the player should see content immediately.
     panel.innerHTML = '';
-    let _arrivalSkipped = false;
-    const _arrivalTimer = setTimeout(_showLocationText, 1500);
-    function _onArrivalTap() {
-      if (!_arrivalSkipped) {
-        _arrivalSkipped = true;
-        clearTimeout(_arrivalTimer);
-        _showLocationText();
-      }
-    }
-    panel.addEventListener('click', _onArrivalTap, { once: true });
-
-    function _showLocationText() {
-      _arrivalSkipped = true;
-      panel.removeEventListener('click', _onArrivalTap);
+    (function _showLocationText() {
 
     let html = '<p class="location-name location-name-fade">' + esc(loc.name) + '<span class="time-indicator">' + esc(period) + '</span></p>';
 
@@ -327,7 +315,15 @@ const UI = (() => {
         vendor_call: 'A vendor calls out. The words are lost in the crowd.',
         weed_through_concrete: 'A weed pushes through the concrete. Green and insistent.',
         distant_crane: 'A crane on the skyline. Still. Waiting.',
-        wall_scar: 'The scar in the brick where a building used to be.'
+        wall_scar: 'The scar in the brick where a building used to be.',
+        radiator_click: 'The radiator clicks. A rhythm only this room knows.',
+        window_light: 'Light through the window moves across the table.',
+        water_drip: 'Water drips from the lock mechanism. Steady. Patient.',
+        mechanism_creak: 'The lock gate creaks. Iron remembering its shape.',
+        distant_boat: 'A narrowboat engine somewhere beyond the lock. Fading.',
+        wind_through_gap: 'Wind through the gap where a wall used to be.',
+        fox_distant: 'A fox, somewhere close. You smell it before you see it.',
+        sky_open: 'The sky is bigger here. Nothing between you and it.'
       };
       const key = loc.ambientLife[Math.floor(Math.random() * loc.ambientLife.length)];
       const text = ambientTexts[key];
@@ -506,7 +502,7 @@ const UI = (() => {
       nbBtn.addEventListener('click', () => showNotebook('people'));
     }
 
-    } // end _showLocationText
+    })(); // end _showLocationText
   }
 
   // --- Lore Fragment ---
@@ -658,13 +654,7 @@ const UI = (() => {
     let html = '<p class="inv-name">' + esc(investigation.name) + '</p>';
     html += '<p class="inv-consequence">' + esc(consequence.narrativeText) + '</p>';
 
-    if (consequence.xp) {
-      const parts = [];
-      for (const [stat, val] of Object.entries(consequence.xp)) {
-        parts.push(stat.charAt(0).toUpperCase() + stat.slice(1) + ' +' + val);
-      }
-      html += '<p class="inv-xp">' + parts.join(' · ') + '</p>';
-    }
+    // Ueda: XP notification removed — the consequence text is the reward
 
     html += '<button class="inv-continue-btn">...</button>';
 
@@ -925,7 +915,7 @@ const UI = (() => {
     // Provider select
     html += '<div class="notebook-entry">';
     html += '<p class="notebook-npc-name">Provider</p>';
-    html += '<select id="ai-provider" style="background:#1a1a20;border:1px solid rgba(200,180,140,0.12);color:#c8b8a0;font-family:\'Courier New\',monospace;font-size:0.78rem;padding:0.4rem;width:100%;margin-top:0.4rem;">';
+    html += '<select id="ai-provider" style="background:#1a1a20;border:1px solid rgba(200,180,140,0.12);color:#c8b8a0;font-family:\'Courier New\',monospace;font-size:16px;padding:0.4rem;width:100%;margin-top:0.4rem;">';
     for (const p of providers) {
       html += '<option value="' + esc(p.key) + '"' + (p.key === currentProvider ? ' selected' : '') + '>' + esc(p.name) + '</option>';
     }
@@ -935,7 +925,7 @@ const UI = (() => {
     // Model select
     html += '<div class="notebook-entry">';
     html += '<p class="notebook-npc-name">Model</p>';
-    html += '<select id="ai-model" style="background:#1a1a20;border:1px solid rgba(200,180,140,0.12);color:#c8b8a0;font-family:\'Courier New\',monospace;font-size:0.78rem;padding:0.4rem;width:100%;margin-top:0.4rem;">';
+    html += '<select id="ai-model" style="background:#1a1a20;border:1px solid rgba(200,180,140,0.12);color:#c8b8a0;font-family:\'Courier New\',monospace;font-size:16px;padding:0.4rem;width:100%;margin-top:0.4rem;">';
     const firstProvider = providers.find(p => p.key === currentProvider) || providers[0];
     for (const m of firstProvider.models) {
       html += '<option value="' + esc(m) + '">' + esc(m) + '</option>';
@@ -946,7 +936,7 @@ const UI = (() => {
     // API key
     html += '<div class="notebook-entry">';
     html += '<p class="notebook-npc-name">API Key</p>';
-    html += '<input id="ai-key" type="password" placeholder="paste your key" style="background:#1a1a20;border:1px solid rgba(200,180,140,0.12);color:#c8b8a0;font-family:\'Courier New\',monospace;font-size:0.78rem;padding:0.4rem;width:100%;margin-top:0.4rem;">';
+    html += '<input id="ai-key" type="password" placeholder="paste your key" style="background:#1a1a20;border:1px solid rgba(200,180,140,0.12);color:#c8b8a0;font-family:\'Courier New\',monospace;font-size:16px;padding:0.4rem;width:100%;margin-top:0.4rem;">';
     html += '</div>';
 
     // Status
