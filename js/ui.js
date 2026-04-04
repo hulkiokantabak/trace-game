@@ -278,7 +278,8 @@ const UI = (() => {
     }
 
     // Metzen: ambient life — the world breathes between player actions
-    if (loc.ambientLife && loc.ambientLife.length > 0 && Math.random() < 0.4) {
+    // Ueda: 25% — each ambient moment should feel like a gift, not chatter
+    if (loc.ambientLife && loc.ambientLife.length > 0 && Math.random() < 0.25) {
       const ambientTexts = {
         chain_clink: 'A chain clinks against a mooring ring. Rhythmic.',
         heron: 'A heron stands on the lock gate. Perfectly still.',
@@ -321,10 +322,7 @@ const UI = (() => {
       html += '<p class="time-text">Morning light. The city before it remembers itself.</p>';
     }
 
-    // The Forgetting — subtle atmospheric note
-    if (forgetting) {
-      html += '<p class="forgetting-text">Something is quieter today. The edges feel soft.</p>';
-    }
+    // Ueda: Forgetting text removed — the desaturation overlay IS the feeling
 
     // Night Fox — appears at L10 and L01 at dusk/night
     if (!forgetting && (locId === 'L10' || locId === 'L01') && (period === 'evening' || period === 'night') && Math.random() < 0.35) {
@@ -375,12 +373,7 @@ const UI = (() => {
       }
     }
 
-    // Miyamoto: first-play canvas hint — teach through a whisper, then disappear
-    const discoveries = State.get('discoveries') || [];
-    if (discoveries.length === 0 && !State.get('seenCanvasHint')) {
-      html += '<p class="time-text" style="color:#4a4838;">The canvas holds details. Tap to look closer.</p>';
-      State.set('seenCanvasHint', true);
-    }
+    // Ueda: canvas hint removed — the tap ring teaches through play
 
     // Notebook — always available
     html += '<button class="notebook-btn" data-tab="people">Notebook</button>';
@@ -492,7 +485,7 @@ const UI = (() => {
 
     let html = '<p class="fragment-title">' + esc(fragment.title) + '</p>';
     html += '<p class="fragment-text">' + esc(fragment.text) + '</p>';
-    html += '<p class="discovery-xp">Awareness +1 · Resonance +1</p>';
+    // Ueda: XP notification removed — the fragment speaks for itself
     html += '<button class="discovery-back-btn">...' + (_seenEllipsis ? '' : '<span class="ellipsis-hint">continue</span>') + '</button>';
 
     panel.innerHTML = html;
@@ -510,9 +503,7 @@ const UI = (() => {
     const stats = State.get('stats');
 
     let html = '<p class="discovery-text">' + esc(detail.discovery_text) + '</p>';
-    if (detail.xp && detail.xp.awareness) {
-      html += '<p class="discovery-xp">Awareness +' + detail.xp.awareness + '</p>';
-    }
+    // Ueda: XP notification removed — the discovery is the reward
     html += '<button class="discovery-back-btn">...' + (_seenEllipsis ? '' : '<span class="ellipsis-hint">continue</span>') + '</button>';
 
     panel.innerHTML = html;
@@ -539,15 +530,9 @@ const UI = (() => {
     Engine.onCanvasTap(null); // disable tap during dialogue
     const { line, stage, stageChanged, npc } = result;
 
+    // Ueda: no stage-shift text, no proximity hint — the dialogue IS the shift
     let html = '<p class="npc-name">' + esc(npc.name) + '</p>';
-    if (stageChanged) {
-      html += '<p class="stage-shift">Something has shifted.</p>';
-    }
     html += '<p class="npc-dialogue">' + esc(line.text) + '</p>';
-    // Meier: soft hint when one visit away from next stage
-    if (result.nearStageShift) {
-      html += '<p class="npc-physical" style="color:#6a7a5a;">They seem to recognise you now.</p>';
-    }
     const details = npc.physicalSignature.split('. ').map(s => s.replace(/\.$/, ''));
     html += '<p class="npc-physical">' + esc(details[Math.floor(Math.random() * details.length)]) + '.</p>';
     html += '<button class="dialogue-back-btn">...' + (_seenEllipsis ? '' : '<span class="ellipsis-hint">continue</span>') + '</button>';
