@@ -111,22 +111,22 @@ const UI = (() => {
           '<button class="trait-btn trait-locked" disabled>' +
             '<span class="trait-name">The Photographer</span>' +
             '<span class="trait-desc">You see what others miss. Light tells you everything.</span>' +
-            '<span class="trait-soon">coming</span>' +
+            '<span class="trait-soon">Greenwich awaits</span>' +
           '</button>' +
           '<button class="trait-btn trait-locked" disabled>' +
             '<span class="trait-name">The Wanderer</span>' +
             '<span class="trait-desc">You feel what others ignore. Every street has a temperature.</span>' +
-            '<span class="trait-soon">coming</span>' +
+            '<span class="trait-soon">Bermondsey remembers</span>' +
           '</button>' +
           '<button class="trait-btn trait-locked" disabled>' +
             '<span class="trait-name">The Barista</span>' +
             '<span class="trait-desc">You connect what others separate. People are your instrument.</span>' +
-            '<span class="trait-soon">coming</span>' +
+            '<span class="trait-soon">Greenwich stirs</span>' +
           '</button>' +
           '<button class="trait-btn trait-locked" disabled>' +
             '<span class="trait-name">The Shopkeeper</span>' +
             '<span class="trait-desc">You remember what others forget. Objects hold their history.</span>' +
-            '<span class="trait-soon">coming</span>' +
+            '<span class="trait-soon">Bermondsey waits</span>' +
           '</button>' +
         '</div>' +
       '</div>';
@@ -199,7 +199,13 @@ const UI = (() => {
     const forgetting = Game.isForgettingActive();
     Engine.setForgetting(forgetting);
     const isExterior = loc.type === 'exterior';
-    Engine.setWatcherVisible(!forgetting && awareness >= 5 && isExterior && Math.random() < 0.35);
+    const watcherVisible = !forgetting && awareness >= 5 && isExterior && Math.random() < 0.35;
+    Engine.setWatcherVisible(watcherVisible);
+    // Metzen: first Watcher sighting seeds the notebook
+    if (watcherVisible && !State.get('watcherFirstSeen')) {
+      State.set('watcherFirstSeen', true);
+      State.recordDiscovery('watcher_sighting', { awareness: 1, resonance: 1 });
+    }
 
     let html = '<p class="location-name">' + esc(loc.name) + '<span class="time-indicator">' + esc(period) + '</span></p>';
 
@@ -218,6 +224,20 @@ const UI = (() => {
       html += '<p class="location-text">' + esc(loc.body) + '</p>';
     }
 
+    // Metzen: post-investigation world scars — the world carries consequences
+    const investigations = State.get('investigations') || {};
+    if (locId === 'L02' && investigations['LI-02'] && investigations['LI-02'].complete) {
+      const choice = investigations['LI-02'].choiceMade;
+      if (choice === 'tell') {
+        html += '<p class="loc-known">The barista is quieter today. No humming.</p>';
+      } else if (choice === 'silence') {
+        html += '<p class="loc-known">The melody drifts from behind the counter. Still.</p>';
+      }
+    }
+    if (locId === 'L04' && investigations['LI-01'] && investigations['LI-01'].complete) {
+      html += '<p class="loc-known">The printouts are still pinned. The canal route map faces the wall now.</p>';
+    }
+
     // Tell engine about discovered detail hitboxes for visual markers
     if (typeof Engine.setDiscoveredDetails === 'function') {
       Engine.setDiscoveredDetails(locDiscoveries.map(d => d.hitbox));
@@ -231,6 +251,43 @@ const UI = (() => {
     const weather = Game.getWeather();
     if (loc.weatherEffects && loc.weatherEffects[weather]) {
       html += '<p class="weather-text">' + esc(loc.weatherEffects[weather]) + '</p>';
+    }
+
+    // Metzen: ambient life — the world breathes between player actions
+    if (loc.ambientLife && loc.ambientLife.length > 0 && Math.random() < 0.4) {
+      const ambientTexts = {
+        chain_clink: 'A chain clinks against a mooring ring. Rhythmic.',
+        heron: 'A heron stands on the lock gate. Perfectly still.',
+        narrowboat_smoke: 'Smoke drifts from a narrowboat chimney.',
+        jogger: 'A jogger passes. Headphones. Already gone.',
+        steam_from_machine: 'The espresso machine hisses. Steam curls.',
+        cat_on_doorstep: 'The cat on the doorstep watches you with one eye.',
+        window_light_shift: 'Light through the window shifts across the counter.',
+        wind_through_graves: 'Wind moves through the grass between the graves.',
+        distant_traffic: 'Traffic on the highway. Close but invisible.',
+        bird_unseen: 'A bird you can\'t see. Singing.',
+        equipment_hum: 'Equipment hums in the dark. A low, patient frequency.',
+        cable_coils: 'Cables coiled on the floor like sleeping things.',
+        monitor_glow: 'Monitor light paints the wall blue-green.',
+        glass_clink: 'Glasses clink behind the bar. A steady rhythm.',
+        thames_through_window: 'The Thames moves past the back window. Always.',
+        floorboard_creak: 'The floorboard creaks under someone you can\'t see.',
+        needle_buzz: 'The needle buzzes from behind the curtain.',
+        neon_flicker: 'Neon flickers in the window. Pink, gone, pink.',
+        radio_low: 'Radio low. A song from another decade.',
+        announcement_loop: 'The announcement loops. No one listens.',
+        pigeon_flutter: 'Pigeons in the rafters. A burst, then stillness.',
+        wind_channel: 'Wind channels through the platform. Sharp.',
+        bass_thump: 'Bass from somewhere underground. You feel it in your feet.',
+        smoke_drift: 'Charcoal smoke drifts between the stalls.',
+        vendor_call: 'A vendor calls out. The words are lost in the crowd.',
+        weed_through_concrete: 'A weed pushes through the concrete. Green and insistent.',
+        distant_crane: 'A crane on the skyline. Still. Waiting.',
+        wall_scar: 'The scar in the brick where a building used to be.'
+      };
+      const key = loc.ambientLife[Math.floor(Math.random() * loc.ambientLife.length)];
+      const text = ambientTexts[key];
+      if (text) html += '<p class="ambient-encounter">' + esc(text) + '</p>';
     }
 
     // Time-of-day flavor (evening/night feel different)
