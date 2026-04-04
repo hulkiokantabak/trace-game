@@ -132,6 +132,16 @@
         "timeOfDay": ["morning"],
         "discovery_text": "A palette, paint still wet. A cloth folded on the stone beside it. Someone was here before you. Will be, again.",
         "xp": { "awareness": 1 }
+      },
+      {
+        "id": "canal_reflection",
+        "hitbox": { "x": 120, "y": 160, "w": 40, "h": 12 },
+        "description": "The canal surface in rain. Reflections that don't match.",
+        "trait_required": "musician",
+        "awareness_required": 2,
+        "weather": ["rain"],
+        "discovery_text": "Raindrops on the canal. The reflections ripple. For a moment, the buildings in the water have different windows. A different Limehouse, underneath.",
+        "xp": { "awareness": 2, "insight": 1 }
       }
     ],
     "npcs_present": {
@@ -249,6 +259,16 @@
         "awareness_required": 0,
         "discovery_text": "A library archive sticker. Catalogue number: LMA/4521/B/03/012. Someone was counting these.",
         "xp": { "awareness": 1 }
+      },
+      {
+        "id": "wet_inscription",
+        "hitbox": { "x": 60, "y": 148, "w": 16, "h": 10 },
+        "description": "An inscription on a gravestone. Visible only when wet.",
+        "trait_required": null,
+        "awareness_required": 1,
+        "weather": ["rain"],
+        "discovery_text": "The rain fills the letters carved into stone. A name. A date. And below: 'Still listening.' The rain stops. The letters vanish.",
+        "xp": { "awareness": 2, "resonance": 1 }
       }
     ],
     "npcs_present": {
@@ -445,6 +465,16 @@
         "awareness_required": 0,
         "discovery_text": "Small marks scratched into the iron. Not graffiti — too deliberate. Arrows, distances, a symbol you don't recognise. Someone was routing something through here.",
         "xp": { "awareness": 1 }
+      },
+      {
+        "id": "rain_frequency",
+        "hitbox": { "x": 80, "y": 130, "w": 30, "h": 15 },
+        "description": "The lock mechanism in rain. A different sound.",
+        "trait_required": "musician",
+        "awareness_required": 0,
+        "weather": ["rain"],
+        "discovery_text": "Rain on iron. The lock gates vibrate at a frequency you almost recognise. 47 hertz. The same as the canal recording. The gates remember.",
+        "xp": { "awareness": 1, "resonance": 1 }
       }
     ],
     "npcs_present": {},

@@ -19,6 +19,8 @@ const Engine = (() => {
   let _hintPulse = 0; // animation counter
   let _discoveredDetails = []; // [{x,y,w,h}] hitboxes of found details
   let _hasUndiscovered = false; // Meier: whether location has undiscovered details
+  let _discoveryFlash = null; // { x, y, w, h, age } — brief glow on discovery
+  let _discoveryPreview = null; // { text, x, y, age } — floating text preview
 
   // Pre-computed rain drop positions
   const RAIN_DROPS = Array.from({ length: 40 }, () => ({
@@ -332,6 +334,40 @@ const Engine = (() => {
     ctx.fillRect(0, 44, 7, 88);
     ctx.fillStyle = '#b09060';
     ctx.fillRect(4, 86, 2, 2);
+
+    // Flat evolution — visual milestones
+    const discoveries = typeof State !== 'undefined' ? (State.get('discoveries') || []).length : 0;
+    const npcsMet = typeof State !== 'undefined' ? Object.keys(State.get('npcMemory') || {}).filter(id => (State.get('npcMemory') || {})[id] && (State.get('npcMemory') || {})[id].visitCount > 0).length : 0;
+    const invs = typeof State !== 'undefined' ? State.get('investigations') || {} : {};
+    const anyInvComplete = Object.values(invs).some(i => i.complete);
+
+    // Notebook on table (first discovery)
+    if (discoveries >= 1) {
+      ctx.fillStyle = '#d8c8a0';
+      ctx.fillRect(95, 105, 8, 6);
+      ctx.fillStyle = '#4a3a28';
+      ctx.fillRect(96, 106, 6, 4); // pages
+    }
+
+    // Mark on window (5+ discoveries) — a small drawn symbol
+    if (discoveries >= 5) {
+      ctx.fillStyle = 'rgba(200,180,140,0.15)';
+      ctx.fillRect(152, 54, 3, 3);
+    }
+
+    // Warmer radiator glow (3+ NPCs met)
+    if (npcsMet >= 3) {
+      ctx.fillStyle = 'rgba(200,120,60,0.06)';
+      ctx.fillRect(30, 100, 20, 30);
+    }
+
+    // Object on shelf (investigation complete)
+    if (anyInvComplete) {
+      ctx.fillStyle = '#8a7a60';
+      ctx.fillRect(200, 80, 5, 4);
+      ctx.fillStyle = '#6a5a40';
+      ctx.fillRect(201, 81, 3, 2);
+    }
   }
 
   // --- Coffee Shop interior scene ---
@@ -1127,6 +1163,34 @@ const Engine = (() => {
           }
         }
 
+        // Discovery flash — brief glow at detail location
+        if (_discoveryFlash) {
+          _discoveryFlash.age += 0.03;
+          const fa = Math.max(0, 0.4 - _discoveryFlash.age);
+          if (fa > 0) {
+            ctx.fillStyle = `rgba(220,200,140,${fa.toFixed(3)})`;
+            ctx.fillRect(_discoveryFlash.x - 1, _discoveryFlash.y - 1, _discoveryFlash.w + 2, _discoveryFlash.h + 2);
+          } else {
+            _discoveryFlash = null;
+          }
+        }
+
+        // Discovery preview — floating text near detail
+        if (_discoveryPreview) {
+          _discoveryPreview.age += 0.015;
+          const pa = Math.max(0, 0.9 - _discoveryPreview.age);
+          if (pa > 0) {
+            ctx.save();
+            ctx.font = '5px monospace';
+            ctx.fillStyle = `rgba(200,180,140,${pa.toFixed(2)})`;
+            ctx.textAlign = 'center';
+            ctx.fillText(_discoveryPreview.text, _discoveryPreview.x, _discoveryPreview.y - _discoveryPreview.age * 10);
+            ctx.restore();
+          } else {
+            _discoveryPreview = null;
+          }
+        }
+
         // Hint pulse — ambient scene breathing when undiscovered details exist
         _hintPulse = (t * 0.0008) % (Math.PI * 2);
         if (_discoveredDetails.length === 0) {
@@ -1552,6 +1616,42 @@ const Engine = (() => {
       this._note(293.66, t + 0.4, 0.6, 0.08, 'triangle');
     },
 
+    // Lore fragment — deeper, more resonant tone
+    playFragmentSound() {
+      if (!this._ctx) return;
+      const t = this._ctx.currentTime;
+      const osc = this._ctx.createOscillator();
+      const g = this._ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(220, t);
+      osc.frequency.exponentialRampToValueAtTime(165, t + 0.8);
+      g.gain.setValueAtTime(0.12, t);
+      g.gain.exponentialRampToValueAtTime(0.001, t + 1.2);
+      osc.connect(g);
+      g.connect(this._master);
+      osc.start(t);
+      osc.stop(t + 1.2);
+    },
+
+    // Investigation reveal — rising sequence
+    playInvestigationReveal() {
+      if (!this._ctx) return;
+      const t = this._ctx.currentTime;
+      [330, 392, 440].forEach((freq, i) => {
+        const osc = this._ctx.createOscillator();
+        const g = this._ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.value = freq;
+        g.gain.setValueAtTime(0, t + i * 0.15);
+        g.gain.linearRampToValueAtTime(0.08, t + i * 0.15 + 0.05);
+        g.gain.exponentialRampToValueAtTime(0.001, t + i * 0.15 + 0.4);
+        osc.connect(g);
+        g.connect(this._master);
+        osc.start(t + i * 0.15);
+        osc.stop(t + i * 0.15 + 0.4);
+      });
+    },
+
     // Choice moment — suspended tension
     playChoice() {
       if (!this._ctx) return;
@@ -1577,6 +1677,10 @@ const Engine = (() => {
     setForgetting(v) { _forgetting = !!v; },
     setDiscoveredDetails(details) { _discoveredDetails = details || []; },
     setHasUndiscovered(v) { _hasUndiscovered = !!v; },
+    flashDiscovery(hitbox, text) {
+      _discoveryFlash = { x: hitbox.x, y: hitbox.y, w: hitbox.w, h: hitbox.h, age: 0 };
+      _discoveryPreview = { text: text.split(' ').slice(0, 4).join(' '), x: hitbox.x + hitbox.w/2, y: hitbox.y - 6, age: 0 };
+    },
     audio
   };
 })();

@@ -38,7 +38,8 @@
         ],
         "traitLines": {
           "musician": { "text": "The song. I hum it every morning. I don't know why.", "tag": "musician" }
-        }
+        },
+        "crossReference": { "text": "The painter asked about you. Be careful.", "minNpcsMet": 3 }
       },
       "familiar_aware": {
         "entry": { "text": "I looked it up. The recording. After you told me.", "tag": "neutral" },
@@ -102,7 +103,8 @@
         ],
         "traitLines": {
           "musician": { "text": "It's not echo. It's origin. The canal remembers.", "tag": "musician" }
-        }
+        },
+        "crossReference": { "text": "The pub landlord hears it too. He won't say.", "minNpcsMet": 3 }
       }
     }
   },
@@ -144,7 +146,8 @@
         ],
         "traitLines": {
           "musician": { "text": "The cellar. The tapes. 1967. I wasn't going to say.", "tag": "musician" }
-        }
+        },
+        "crossReference": { "text": "The artist in the warehouse. She knows more than me.", "minNpcsMet": 3 }
       }
     }
   },
@@ -186,7 +189,8 @@
         ],
         "traitLines": {
           "musician": { "text": "The door leads somewhere real. I can feel it.", "tag": "musician" }
-        }
+        },
+        "crossReference": { "text": "The courier sees it too. The figure. At the edge.", "minNpcsMet": 3 }
       }
     }
   },
@@ -228,7 +232,8 @@
         ],
         "traitLines": {
           "musician": { "text": "I hear it in the paint. The frequency. Your note.", "tag": "musician" }
-        }
+        },
+        "crossReference": { "text": "The barista's song. I painted it once. The same shape.", "minNpcsMet": 3 }
       }
     }
   },
@@ -269,7 +274,8 @@
         ],
         "traitLines": {
           "musician": { "text": "The platform hums your note. I timed it.", "tag": "musician" }
-        }
+        },
+        "crossReference": { "text": "The tattoo artist drew something. I've seen it moving.", "minNpcsMet": 3 }
       }
     }
   },
@@ -310,7 +316,8 @@
         ],
         "traitLines": {
           "musician": { "text": "The bass follows you. I've watched it move.", "tag": "musician" }
-        }
+        },
+        "crossReference": { "text": "Someone watches all of you. I know the name.", "minNpcsMet": 4 }
       }
     }
   },

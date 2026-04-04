@@ -246,6 +246,8 @@ const Game = (() => {
       if (detail.awareness_required > awareness) continue;
       // Time-of-day gate
       if (detail.timeOfDay && !detail.timeOfDay.includes(period)) continue;
+      // Weather gate
+      if (detail.weather && !detail.weather.includes(getWeather())) continue;
       // Investigation gate
       if (detail.requires_investigation) {
         const req = detail.requires_investigation;

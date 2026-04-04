@@ -480,7 +480,7 @@ const UI = (() => {
 
   function showFragment(fragment) {
     Engine.onCanvasTap(null);
-    Engine.audio.playInvestigation();
+    Engine.audio.playFragmentSound ? Engine.audio.playFragmentSound() : Engine.audio.playInvestigation();
     Game.discoverFragment(fragment.id);
 
     let html = '<p class="fragment-title">' + esc(fragment.title) + '</p>';
@@ -506,6 +506,9 @@ const UI = (() => {
     // Ueda: XP notification removed — the discovery is the reward
     html += '<button class="discovery-back-btn">...' + (_seenEllipsis ? '' : '<span class="ellipsis-hint">continue</span>') + '</button>';
 
+    if (typeof Engine.flashDiscovery === 'function') {
+      Engine.flashDiscovery(detail.hitbox, detail.discovery_text);
+    }
     panel.innerHTML = html;
 
     panel.querySelector('.discovery-back-btn').addEventListener('click', () => {
@@ -549,7 +552,7 @@ const UI = (() => {
 
   function showInvestigationStep(triggered) {
     Engine.onCanvasTap(null);
-    Engine.audio.playInvestigation();
+    Engine.audio.playInvestigationReveal ? Engine.audio.playInvestigationReveal() : Engine.audio.playInvestigation();
     const step = triggered.step;
 
     let html = '';
