@@ -26,6 +26,12 @@
           { "text": "You look like you need the window seat.", "tag": "neutral" },
           { "text": "The machine's been making this sound all...", "tag": "neutral" }
         ],
+        "weatherLines": {
+          "rain": { "text": "Rain day. Everyone comes in wet and...", "tag": "neutral" }
+        },
+        "timeLines": {
+          "morning": { "text": "First one in. The machine's still warming.", "tag": "neutral" }
+        },
         "traitLines": {
           "musician": { "text": "Funny. I don't know where I learned that...", "tag": "musician" }
         }
@@ -91,6 +97,12 @@
           { "text": "I recorded something at the basin. Impossible.", "tag": "neutral" },
           { "text": "The frequencies don't match anything in the archive.", "tag": "neutral" }
         ],
+        "weatherLines": {
+          "rain": { "text": "Rain on the canal. 800 hertz. Beautiful noise floor.", "tag": "neutral" }
+        },
+        "timeLines": {
+          "night": { "text": "The frequencies shift after midnight. Quieter. Truer.", "tag": "neutral" }
+        },
         "traitLines": {
           "musician": { "text": "You hear it too. The sustained note. 47 hertz.", "tag": "musician" }
         }
@@ -134,6 +146,12 @@
           { "text": "Careful walking the basin at night.", "tag": "neutral" },
           { "text": "The building settles after midnight. Sounds like...", "tag": "neutral" }
         ],
+        "weatherLines": {
+          "rain": { "text": "Wet out? Stay. The fire's on.", "tag": "neutral" }
+        },
+        "timeLines": {
+          "night": { "text": "Late one tonight. Careful walking home.", "tag": "neutral" }
+        },
         "traitLines": {
           "musician": { "text": "The cellar hums. Always has. Don't ask me why.", "tag": "musician" }
         }
@@ -177,6 +195,9 @@
           { "text": "I drew a door last night. Woke up drawing it.", "tag": "neutral" },
           { "text": "The designs come from somewhere. Not me.", "tag": "neutral" }
         ],
+        "weatherLines": {
+          "rain": { "text": "Rain makes people braver. About what they want.", "tag": "neutral" }
+        },
         "traitLines": {
           "musician": { "text": "I drew this one hearing that melody. Your melody.", "tag": "musician" }
         }
@@ -220,6 +241,12 @@
           { "text": "The light here is honest. Not like Greenwich.", "tag": "neutral" },
           { "text": "I paint what the canal shows me. It varies.", "tag": "neutral" }
         ],
+        "weatherLines": {
+          "rain": { "text": "The rain turns everything to one colour. Slate.", "tag": "neutral" }
+        },
+        "timeLines": {
+          "morning": { "text": "Morning light. Cerulean. My favourite hour.", "tag": "neutral" }
+        },
         "traitLines": {
           "musician": { "text": "The water changes colour when you hum. Notice that?", "tag": "musician" }
         }
@@ -296,7 +323,10 @@
         "ambient": [
           { "text": "The market closes at two. Or it doesn't.", "tag": "neutral" },
           { "text": "Everyone's looking for something here.", "tag": "neutral" }
-        ]
+        ],
+        "timeLines": {
+          "night": { "text": "Late. Good. The real crowd comes late.", "tag": "neutral" }
+        }
       },
       "acquaintance": {
         "trigger": { "visitCount": 3, "acrossDays": true },

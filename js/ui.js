@@ -217,21 +217,39 @@ const UI = (() => {
       State.recordDiscovery('watcher_sighting', { awareness: 1, resonance: 1 });
     }
 
-    let html = '<p class="location-name">' + esc(loc.name) + '<span class="time-indicator">' + esc(period) + '</span></p>';
+    // Ueda + Miyamoto: arrival pause — let the canvas scene breathe before text appears
+    panel.innerHTML = '';
+    let _arrivalSkipped = false;
+    const _arrivalTimer = setTimeout(_showLocationText, 1500);
+    function _onArrivalTap() {
+      if (!_arrivalSkipped) {
+        _arrivalSkipped = true;
+        clearTimeout(_arrivalTimer);
+        _showLocationText();
+      }
+    }
+    panel.addEventListener('click', _onArrivalTap, { once: true });
+
+    function _showLocationText() {
+      _arrivalSkipped = true;
+      panel.removeEventListener('click', _onArrivalTap);
+
+    let html = '<p class="location-name location-name-fade">' + esc(loc.name) + '<span class="time-indicator">' + esc(period) + '</span></p>';
 
     // Post-discovery enrichment — location acknowledges what you've noticed
     const locDiscoveries = (loc.interactableDetails || []).filter(d => State.isDiscovered(d.id));
     const discoveryCount = locDiscoveries.length;
     const totalDetails = (loc.interactableDetails || []).length;
 
+    const locTextClass = forgetting ? 'location-text forgetting-muted' : 'location-text';
     if (discoveryCount > 0 && discoveryCount >= totalDetails && totalDetails > 0) {
-      html += '<p class="location-text">' + esc(loc.body) + '</p>';
+      html += '<p class="' + locTextClass + '">' + esc(loc.body) + '</p>';
       html += '<p class="loc-known">You know this place now. Every surface has spoken.</p>';
     } else if (discoveryCount >= 2) {
-      html += '<p class="location-text">' + esc(loc.body) + '</p>';
+      html += '<p class="' + locTextClass + '">' + esc(loc.body) + '</p>';
       html += '<p class="loc-known">Familiar ground. You see what others walk past.</p>';
     } else {
-      html += '<p class="location-text">' + esc(loc.body) + '</p>';
+      html += '<p class="' + locTextClass + '">' + esc(loc.body) + '</p>';
     }
 
     // Metzen: post-investigation world scars — the world carries consequences
@@ -279,7 +297,8 @@ const UI = (() => {
 
     // Metzen: ambient life — the world breathes between player actions
     // Ueda: 25% — each ambient moment should feel like a gift, not chatter
-    if (loc.ambientLife && loc.ambientLife.length > 0 && Math.random() < 0.25) {
+    // Suppressed during Forgetting — the world holds its breath
+    if (!forgetting && loc.ambientLife && loc.ambientLife.length > 0 && Math.random() < 0.25) {
       const ambientTexts = {
         chain_clink: 'A chain clinks against a mooring ring. Rhythmic.',
         heron: 'A heron stands on the lock gate. Perfectly still.',
@@ -459,10 +478,22 @@ const UI = (() => {
           else Engine.audio.stopRain();
         }
 
-        if (result && result.thought) {
+        if (result) {
           Engine.setLocation(targetId);
           Engine.setTimePeriod(Game.getTimePeriod());
-          showWalkingThought(result.thought, () => showLocation());
+
+          // Return-to-flat reflections — unique thoughts when coming home after milestones
+          let thought = result.thought;
+          if (targetId === 'flat') {
+            const reflections = getHomeReflection();
+            if (reflections) thought = reflections;
+          }
+
+          if (thought) {
+            showWalkingThought(thought, () => showLocation());
+          } else {
+            showLocation();
+          }
         } else {
           showLocation();
         }
@@ -474,6 +505,8 @@ const UI = (() => {
     if (nbBtn) {
       nbBtn.addEventListener('click', () => showNotebook('people'));
     }
+
+    } // end _showLocationText
   }
 
   // --- Lore Fragment ---
@@ -531,13 +564,18 @@ const UI = (() => {
 
   function showDialogue(result) {
     Engine.onCanvasTap(null); // disable tap during dialogue
-    const { line, stage, stageChanged, npc } = result;
+    const { line, stage, stageChanged, npc, forgetting } = result;
 
     // Ueda: no stage-shift text, no proximity hint — the dialogue IS the shift
     let html = '<p class="npc-name">' + esc(npc.name) + '</p>';
     html += '<p class="npc-dialogue">' + esc(line.text) + '</p>';
-    const details = npc.physicalSignature.split('. ').map(s => s.replace(/\.$/, ''));
-    html += '<p class="npc-physical">' + esc(details[Math.floor(Math.random() * details.length)]) + '.</p>';
+    // During Forgetting, physical signatures blur — you can't hold onto the details
+    if (forgetting) {
+      html += '<p class="npc-physical">Something familiar about them. You can\'t place it.</p>';
+    } else {
+      const details = npc.physicalSignature.split('. ').map(s => s.replace(/\.$/, ''));
+      html += '<p class="npc-physical">' + esc(details[Math.floor(Math.random() * details.length)]) + '.</p>';
+    }
     html += '<button class="dialogue-back-btn">...' + (_seenEllipsis ? '' : '<span class="ellipsis-hint">continue</span>') + '</button>';
 
     panel.innerHTML = html;
@@ -575,9 +613,10 @@ const UI = (() => {
     Engine.onCanvasTap(null);
     Engine.audio.playChoice();
 
+    // Ueda: show prompt first, delay choice buttons to give weight to the decision
     let html = '<p class="inv-name">' + esc(investigation.name) + '</p>';
     html += '<p class="inv-choice-prompt">' + esc(choice.prompt) + '</p>';
-    html += '<div class="inv-choices">';
+    html += '<div class="inv-choices" style="display:none">';
     for (const option of choice.options) {
       html += '<button class="inv-choice-btn" data-choice="' + esc(option.id) + '">' + esc(option.text) + '</button>';
     }
@@ -585,12 +624,34 @@ const UI = (() => {
 
     panel.innerHTML = html;
 
-    panel.querySelectorAll('.inv-choice-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const consequence = Game.makeInvestigationChoice(invId, btn.dataset.choice);
-        if (consequence) showConsequence(investigation, consequence);
+    let _choiceRevealed = false;
+    function _revealChoices() {
+      if (_choiceRevealed) return;
+      _choiceRevealed = true;
+      panel.removeEventListener('click', _revealChoices);
+      const choicesDiv = panel.querySelector('.inv-choices');
+      if (choicesDiv) {
+        choicesDiv.style.display = '';
+        choicesDiv.classList.add('inv-choices-fade');
+      }
+      _bindChoiceButtons();
+    }
+
+    function _bindChoiceButtons() {
+      panel.querySelectorAll('.inv-choice-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const consequence = Game.makeInvestigationChoice(invId, btn.dataset.choice);
+          if (consequence) showConsequence(investigation, consequence);
+        });
       });
-    });
+    }
+
+    const _choiceTimer = setTimeout(_revealChoices, 3000);
+    // Tap panel to skip the wait
+    panel.addEventListener('click', function _onChoiceTap() {
+      clearTimeout(_choiceTimer);
+      _revealChoices();
+    }, { once: true });
   }
 
   function showConsequence(investigation, consequence) {
@@ -954,6 +1015,37 @@ const UI = (() => {
 
     // Back
     document.getElementById('ai-back').addEventListener('click', () => showNotebook('me'));
+  }
+
+  function getHomeReflection() {
+    const discoveries = (State.get('discoveries') || []).length;
+    const npcMem = State.get('npcMemory') || {};
+    const npcsMet = Object.keys(npcMem).filter(id => npcMem[id] && npcMem[id].visitCount > 0).length;
+    const investigations = State.get('investigations') || {};
+    const anyComplete = Object.values(investigations).some(i => i.complete);
+    const visitedLocs = (State.get('visitedLocations') || []).length;
+
+    // Each reflection fires once, tracked by state
+    const seen = State.get('homeReflections') || [];
+
+    const check = (key, condition, text) => {
+      if (condition && !seen.includes(key)) {
+        const updated = [...seen, key];
+        State.set('homeReflections', updated);
+        return text;
+      }
+      return null;
+    };
+
+    // Priority order — most significant first
+    return check('inv_complete', anyComplete, 'The flat is quieter now. You know something you didn\'t before.') ||
+      check('five_npcs', npcsMet >= 5, 'Five people. Five faces that know yours. Limehouse isn\'t a place anymore. It\'s a neighbourhood.') ||
+      check('ten_disc', discoveries >= 10, 'The notebook is getting heavy. Ten things noticed. The city is opening.') ||
+      check('all_locs', visitedLocs >= 10, 'You\'ve walked every street. Every corner. The map is yours now.') ||
+      check('three_npcs', npcsMet >= 3, 'Three people who know your name. More than you had before.') ||
+      check('five_disc', discoveries >= 5, 'Five things. The flat feels different now. Warmer.') ||
+      check('first_npc', npcsMet >= 1, 'Someone knows your face now. That changes things.') ||
+      null;
   }
 
   return { init, showLocation };

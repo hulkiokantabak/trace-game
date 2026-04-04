@@ -1360,11 +1360,13 @@ const Engine = (() => {
 
       // --- Base drone (all types) ---
       const droneFreqs = { canal: 55, street: 65, interior: 50 };
+      const timeFactors = { morning: 1.15, afternoon: 1.0, evening: 0.9, night: 0.8 };
+      const timeFactor = timeFactors[timePeriod] || 1.0;
       const drone = this._ctx.createOscillator();
       drone.type = 'sine';
-      drone.frequency.value = droneFreqs[type] || 55;
+      drone.frequency.value = (droneFreqs[type] || 55) * timeFactor;
       const droneG = this._ctx.createGain();
-      droneG.gain.value = 0.04;
+      droneG.gain.value = 0.04 * (timePeriod === 'night' ? 1.5 : 1.0);
       drone.connect(droneG);
       droneG.connect(gain);
       drone.start();
@@ -1388,6 +1390,7 @@ const Engine = (() => {
         filt.frequency.value = 300; // interior hush
         noiseG.gain.value = 0.012;
       }
+      filt.frequency.value *= timeFactor;
       noise.connect(filt);
       filt.connect(noiseG);
       noiseG.connect(gain);
@@ -1397,7 +1400,7 @@ const Engine = (() => {
       // --- Location-specific accent layer ---
       this._addAccent(layer, gain, nodes);
 
-      return { nodes, gain, type, layer };
+      return { nodes, gain, type, layer, timePeriod };
     },
 
     // Add unique sonic accent per musicLayer
@@ -1503,7 +1506,7 @@ const Engine = (() => {
     setAmbient(musicLayer) {
       if (!this._ctx || !musicLayer) return;
       // Skip if already playing this layer
-      if (this._ambient && this._ambient.layer === musicLayer) return;
+      if (this._ambient && this._ambient.layer === musicLayer && this._ambient.timePeriod === timePeriod) return;
 
       const type = LAYER_TO_AMBIENT[musicLayer] || 'street';
       const newAmb = this._buildAmbient(type, musicLayer);

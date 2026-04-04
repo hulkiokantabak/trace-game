@@ -189,6 +189,7 @@ const Game = (() => {
     if (!npc) return null;
 
     State.recordNpcVisit(npcId);
+    const forgetting = isForgettingActive();
     const mem = State.getNpcMemory(npcId);
 
     // Calculate stage and update if changed
@@ -200,9 +201,15 @@ const Game = (() => {
     const stageData = npc.dialogue[newStage];
     if (!stageData) return null;
 
+    // The Forgetting: familiar NPCs feel like acquaintances — the mythological
+    // warmth recedes and only the surface relationship remains
+    const effectiveStageData = forgetting && newStage.startsWith('familiar') && npc.dialogue['acquaintance']
+      ? npc.dialogue['acquaintance']
+      : stageData;
+
     // On stage transition or first visit in this stage, show entry line
     if (stageChanged || mem.visitCount === 1) {
-      return { line: stageData.entry, stage: newStage, stageChanged, npc };
+      return { line: effectiveStageData.entry, stage: newStage, stageChanged, npc, forgetting };
     }
 
     // Meier: soft progression hint — when close to next stage, show warmth
@@ -210,22 +217,43 @@ const Game = (() => {
     for (const ns of nextStages) {
       const nsTrigger = npc.dialogue[ns] && npc.dialogue[ns].trigger;
       if (nsTrigger && newStage !== ns && mem.visitCount === nsTrigger.visitCount - 1) {
-        return { line: stageData.entry, stage: newStage, stageChanged: false, npc, nearStageShift: true };
+        return { line: effectiveStageData.entry, stage: newStage, stageChanged: false, npc, nearStageShift: true, forgetting };
       }
     }
 
-    // Trait-specific line (25% chance)
+    // Weather-variant line (20% chance)
+    const weather = getWeather();
+    if (effectiveStageData.weatherLines && effectiveStageData.weatherLines[weather] && Math.random() < 0.20) {
+      return { line: effectiveStageData.weatherLines[weather], stage: newStage, stageChanged: false, npc, forgetting };
+    }
+
+    // Time-variant line (20% chance)
+    const timePd = getTimePeriod();
+    if (effectiveStageData.timeLines && effectiveStageData.timeLines[timePd] && Math.random() < 0.20) {
+      return { line: effectiveStageData.timeLines[timePd], stage: newStage, stageChanged: false, npc, forgetting };
+    }
+
+    // Trait-specific line (25% chance) — suppressed during Forgetting (mythological layer quiet)
     const trait = State.get('trait');
-    if (trait && stageData.traitLines && stageData.traitLines[trait] && Math.random() < 0.25) {
-      return { line: stageData.traitLines[trait], stage: newStage, stageChanged: false, npc };
+    if (!forgetting && trait && effectiveStageData.traitLines && effectiveStageData.traitLines[trait] && Math.random() < 0.25) {
+      return { line: effectiveStageData.traitLines[trait], stage: newStage, stageChanged: false, npc, forgetting };
+    }
+
+    // Cross-reference lines — suppressed during Forgetting
+    if (!forgetting && effectiveStageData.crossRef && effectiveStageData.crossRef.length) {
+      for (const ref of effectiveStageData.crossRef) {
+        if (ref.condition && meetsConditions([ref.condition])) {
+          return { line: ref.line, stage: newStage, stageChanged: false, npc, forgetting };
+        }
+      }
     }
 
     // Ambient line
-    if (stageData.ambient && stageData.ambient.length) {
-      return { line: pick(stageData.ambient), stage: newStage, stageChanged: false, npc };
+    if (effectiveStageData.ambient && effectiveStageData.ambient.length) {
+      return { line: pick(effectiveStageData.ambient), stage: newStage, stageChanged: false, npc, forgetting };
     }
 
-    return { line: stageData.entry, stage: newStage, stageChanged: false, npc };
+    return { line: effectiveStageData.entry, stage: newStage, stageChanged: false, npc, forgetting };
   }
 
   // --- Noticing ---
@@ -253,6 +281,12 @@ const Game = (() => {
         const req = detail.requires_investigation;
         const inv = State.getInvestigation(req.id);
         if (inv.currentStep < req.minStep) continue;
+      }
+      // Deep discovery gate — only appears when all other details at this location are found
+      if (detail.requires_all_discovered) {
+        const otherDetails = loc.interactableDetails.filter(d => d.id !== detail.id && !d.requires_all_discovered);
+        const allOthersFound = otherDetails.every(d => State.isDiscovered(d.id));
+        if (!allOthersFound) continue;
       }
       const h = detail.hitbox;
       if (cx >= h.x && cx <= h.x + h.w && cy >= h.y && cy <= h.y + h.h) {

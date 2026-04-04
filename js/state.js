@@ -15,6 +15,7 @@ const State = (() => {
     investigations: {},
     discoveries: [],
     flatObjects: [],
+    homeReflections: [],
     firstPlay: true,
     createdAt: null,
     lastPlayed: null
@@ -47,6 +48,7 @@ const State = (() => {
         if (!Array.isArray(state.visitedLocations)) state.visitedLocations = [];
         if (!Array.isArray(state.discoveries)) state.discoveries = [];
         if (!Array.isArray(state.flatObjects)) state.flatObjects = [];
+        if (!Array.isArray(state.homeReflections)) state.homeReflections = [];
         if (typeof state.stats !== 'object') state.stats = { awareness: 0, connection: 0, insight: 0, resonance: 0 };
         if (typeof state.npcMemory !== 'object') state.npcMemory = {};
         if (typeof state.investigations !== 'object') state.investigations = {};

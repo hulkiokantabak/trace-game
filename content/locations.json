@@ -60,6 +60,16 @@
         "requires_investigation": { "id": "LI-02", "minStep": 2 },
         "discovery_text": "A groove in the wood, where someone stood for hours. At a microphone, maybe. Or a music stand. This room was a studio once.",
         "xp": { "awareness": 2 }
+      },
+      {
+        "id": "flat_wall_frequency",
+        "hitbox": { "x": 40, "y": 60, "w": 30, "h": 20 },
+        "description": "A vibration in the wall. You can feel it now.",
+        "trait_required": "musician",
+        "awareness_required": 3,
+        "requires_all_discovered": true,
+        "discovery_text": "Your hand on the wall. The building hums. 47 hertz. The same as the canal, the lock gates, the studio. Your flat was part of it all along.",
+        "xp": { "awareness": 3, "resonance": 2 }
       }
     ],
     "npcs_present": {},
@@ -142,6 +152,16 @@
         "weather": ["rain"],
         "discovery_text": "Raindrops on the canal. The reflections ripple. For a moment, the buildings in the water have different windows. A different Limehouse, underneath.",
         "xp": { "awareness": 2, "insight": 1 }
+      },
+      {
+        "id": "canal_depth_sound",
+        "hitbox": { "x": 100, "y": 90, "w": 40, "h": 20 },
+        "description": "The water itself. Not the surface. Below.",
+        "trait_required": "musician",
+        "awareness_required": 4,
+        "requires_all_discovered": true,
+        "discovery_text": "You listen past the surface. Past the diesel. Past the lapping. There — a sustained note. Rising from the silt. The canal has been singing since before the city was named.",
+        "xp": { "awareness": 3, "resonance": 3 }
       }
     ],
     "npcs_present": {
@@ -269,6 +289,16 @@
         "weather": ["rain"],
         "discovery_text": "The rain fills the letters carved into stone. A name. A date. And below: 'Still listening.' The rain stops. The letters vanish.",
         "xp": { "awareness": 2, "resonance": 1 }
+      },
+      {
+        "id": "church_resonance",
+        "hitbox": { "x": 140, "y": 30, "w": 40, "h": 30 },
+        "description": "The church tower. Listening back.",
+        "trait_required": null,
+        "awareness_required": 4,
+        "requires_all_discovered": true,
+        "discovery_text": "You stand still. The tower is not silent. It resonates. A low B-flat, sustained, as if the stone itself is remembering a congregation that sang here centuries ago.",
+        "xp": { "awareness": 3, "insight": 2 }
       }
     ],
     "npcs_present": {
@@ -368,6 +398,16 @@
         "awareness_required": 2,
         "discovery_text": "Sound rises from the cellar. Not barrels settling. A resonance. As if the foundation stones are singing to each other.",
         "xp": { "awareness": 3 }
+      },
+      {
+        "id": "pub_cellar_sound",
+        "hitbox": { "x": 5, "y": 108, "w": 12, "h": 22 },
+        "description": "The cellar door. Something behind it.",
+        "trait_required": null,
+        "awareness_required": 3,
+        "requires_all_discovered": true,
+        "discovery_text": "You press your ear to the cellar door. Music. Faint, layered, decades old. A woman's voice singing in a dialect you almost understand. The tapes. They're still playing.",
+        "xp": { "awareness": 2, "resonance": 3 }
       }
     ],
     "npcs_present": {
