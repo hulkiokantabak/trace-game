@@ -6,6 +6,7 @@ const UI = (() => {
   let panel;
   let _seenEllipsis = false;
   let _viewId = 0;
+  let _aiSettingsReturnTo = null;
 
   const AMBIENT_TEXTS = {
     chain_clink: 'A chain clinks against a mooring ring. Rhythmic.',
@@ -66,8 +67,55 @@ const UI = (() => {
   function showTitle(hasSave) {
     Engine.setState('title');
     Engine.setTimePeriod('evening');
-    panel.innerHTML = '<button id="begin-btn">' + (hasSave ? 'Continue' : 'Begin') + '</button>';
+    let html = '<button id="begin-btn">' + (hasSave ? 'Continue' : 'Begin') + '</button>';
+    html += '<button id="title-settings-btn" class="title-settings">Settings</button>';
+    panel.innerHTML = html;
     document.getElementById('begin-btn').addEventListener('click', () => onBegin(hasSave));
+    document.getElementById('title-settings-btn').addEventListener('click', () => showTitleSettings(hasSave));
+  }
+
+  function showTitleSettings(hasSave) {
+    ++_viewId;
+    let html = '<div class="notebook">';
+    html += '<p class="notebook-title">Settings</p>';
+    html += '<div class="notebook-content">';
+
+    // AI Configuration
+    html += '<div class="notebook-entry settings-section">';
+    html += '<p class="notebook-npc-name">Living Conversations</p>';
+    html += '<p class="journal-stat">Connect an AI provider to give NPCs living voices. You supply the API key — it stays in your browser.</p>';
+    if (typeof AI !== 'undefined' && AI.isEnabled()) {
+      html += '<p class="settings-status settings-on">Connected</p>';
+    } else {
+      html += '<p class="settings-status settings-off">Not configured</p>';
+    }
+    html += '<button class="settings-action-btn" id="title-ai-btn">Configure AI</button>';
+    html += '</div>';
+
+    // About
+    html += '<div class="notebook-entry settings-section">';
+    html += '<p class="notebook-npc-name">About</p>';
+    html += '<p class="journal-stat">Trace — a game about noticing.</p>';
+    html += '<p class="journal-stat" style="color:#3a3530;">East London. Present day. The mythological layer beneath the everyday city.</p>';
+    html += '</div>';
+
+    html += '</div>';
+    html += '<button class="notebook-close-btn" id="title-settings-back">Back</button>';
+    html += '</div>';
+
+    panel.innerHTML = html;
+
+    document.getElementById('title-ai-btn').addEventListener('click', () => {
+      // Reuse AI settings page but return to title settings
+      showAiSettingsFrom('title', hasSave);
+    });
+    document.getElementById('title-settings-back').addEventListener('click', () => showTitle(hasSave));
+  }
+
+  function showAiSettingsFrom(source, hasSave) {
+    // Store where to return to after AI settings
+    _aiSettingsReturnTo = { source, hasSave };
+    showAiSettings();
   }
 
   function onBegin(hasSave) {
@@ -443,8 +491,11 @@ const UI = (() => {
 
     // Ueda: canvas hint removed — the tap ring teaches through play
 
-    // Notebook — always available
+    // Notebook & Settings — always available
+    html += '<div class="bottom-actions">';
     html += '<button class="notebook-btn" data-tab="people">Notebook</button>';
+    html += '<button class="settings-btn">Settings</button>';
+    html += '</div>';
 
     panel.innerHTML = html;
     const fadeCls = locId === 'flat' ? 'scene-fade-warm' : 'scene-fade';
@@ -573,6 +624,12 @@ const UI = (() => {
     const nbBtn = panel.querySelector('.notebook-btn');
     if (nbBtn) {
       nbBtn.addEventListener('click', () => showNotebook('people'));
+    }
+
+    // Settings
+    const settingsBtn = panel.querySelector('.settings-btn');
+    if (settingsBtn) {
+      settingsBtn.addEventListener('click', () => showSettings());
     }
 
     })(); // end _showLocationText
@@ -977,7 +1034,10 @@ const UI = (() => {
 
     // AI settings button
     const aiBtn = panel.querySelector('.ai-settings-btn');
-    if (aiBtn) aiBtn.addEventListener('click', () => showAiSettings());
+    if (aiBtn) aiBtn.addEventListener('click', () => {
+      _aiSettingsReturnTo = { source: 'notebook' };
+      showAiSettings();
+    });
   }
 
   // --- AI Settings ---
@@ -1084,8 +1144,106 @@ const UI = (() => {
       });
     }
 
-    // Back
-    document.getElementById('ai-back').addEventListener('click', () => showNotebook('me'));
+    // Back — return to wherever the player came from
+    document.getElementById('ai-back').addEventListener('click', () => {
+      const returnTo = _aiSettingsReturnTo;
+      _aiSettingsReturnTo = null;
+      if (returnTo && returnTo.source === 'title') {
+        showTitleSettings(returnTo.hasSave);
+      } else if (returnTo && returnTo.source === 'notebook') {
+        showNotebook('me');
+      } else {
+        showSettings();
+      }
+    });
+  }
+
+  // --- Settings ---
+
+  function showSettings() {
+    ++_viewId;
+    Engine.onCanvasTap(null);
+    let html = '<div class="notebook">';
+    html += '<p class="notebook-title">Settings</p>';
+    html += '<div class="notebook-content">';
+
+    // === AI / Living Conversations ===
+    html += '<div class="notebook-entry settings-section">';
+    html += '<p class="notebook-npc-name">Living Conversations</p>';
+    html += '<p class="journal-stat">NPCs speak with their own voice using AI. You supply the API key — it stays in your browser.</p>';
+    if (typeof AI !== 'undefined' && AI.isEnabled()) {
+      html += '<p class="settings-status settings-on">Connected</p>';
+    } else {
+      html += '<p class="settings-status settings-off">Not configured</p>';
+    }
+    html += '<button class="settings-action-btn" id="settings-ai">Configure AI</button>';
+    html += '</div>';
+
+    // === Sound ===
+    html += '<div class="notebook-entry settings-section">';
+    html += '<p class="notebook-npc-name">Sound</p>';
+    const muted = Engine.audio && Engine.audio.isMuted && Engine.audio.isMuted();
+    html += '<button class="settings-action-btn" id="settings-sound">' + (muted ? 'Unmute Audio' : 'Mute Audio') + '</button>';
+    html += '</div>';
+
+    // === Save Management ===
+    html += '<div class="notebook-entry settings-section">';
+    html += '<p class="notebook-npc-name">Save</p>';
+    const trait = State.get('trait') || 'unknown';
+    const discoveries = (State.get('discoveries') || []).length;
+    html += '<p class="journal-stat">Playing as The ' + esc(trait.charAt(0).toUpperCase() + trait.slice(1)) + '. ' + discoveries + ' discoveries.</p>';
+    html += '<button class="settings-action-btn settings-danger" id="settings-reset">Reset Save</button>';
+    html += '</div>';
+
+    // === About ===
+    html += '<div class="notebook-entry settings-section">';
+    html += '<p class="notebook-npc-name">About</p>';
+    html += '<p class="journal-stat">Trace — a game about noticing.</p>';
+    html += '<p class="journal-stat" style="color:#3a3530;">East London. Present day. The mythological layer beneath the everyday city.</p>';
+    html += '</div>';
+
+    html += '</div>';
+    html += '<button class="notebook-close-btn" id="settings-close">Close</button>';
+    html += '</div>';
+
+    panel.innerHTML = html;
+
+    // Configure AI
+    document.getElementById('settings-ai').addEventListener('click', () => showAiSettings());
+
+    // Sound toggle
+    document.getElementById('settings-sound').addEventListener('click', () => {
+      if (Engine.audio && Engine.audio.toggleMute) {
+        Engine.audio.toggleMute();
+      }
+      showSettings(); // refresh to show updated state
+    });
+
+    // Reset save
+    document.getElementById('settings-reset').addEventListener('click', () => showResetConfirm());
+
+    // Close
+    document.getElementById('settings-close').addEventListener('click', () => showLocation());
+  }
+
+  function showResetConfirm() {
+    let html = '<div class="notebook">';
+    html += '<p class="notebook-title">Reset Save</p>';
+    html += '<div class="notebook-content">';
+    html += '<p class="journal-stat" style="color:#8a6a4a;">This will delete all your progress — discoveries, relationships, investigations, everything. This cannot be undone.</p>';
+    html += '<div style="display:flex;gap:0.8rem;margin-top:1.2rem;">';
+    html += '<button class="settings-action-btn settings-danger" id="confirm-reset">Delete Everything</button>';
+    html += '<button class="settings-action-btn" id="cancel-reset">Cancel</button>';
+    html += '</div>';
+    html += '</div></div>';
+
+    panel.innerHTML = html;
+
+    document.getElementById('confirm-reset').addEventListener('click', () => {
+      State.reset();
+      showTitle(false);
+    });
+    document.getElementById('cancel-reset').addEventListener('click', () => showSettings());
   }
 
   function getHomeReflection() {

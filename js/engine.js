@@ -1334,6 +1334,22 @@ const Engine = (() => {
     _ambient: null,      // { nodes[], gain, type, layer }
     _rain: null,         // { nodes[], gain }
     _crossfadeSec: 2,
+    _muted: false,
+    _preMuteVolume: 0.5,
+
+    isMuted() { return this._muted; },
+
+    toggleMute() {
+      if (!this._master) return;
+      if (this._muted) {
+        this._master.gain.value = this._preMuteVolume;
+        this._muted = false;
+      } else {
+        this._preMuteVolume = this._master.gain.value;
+        this._master.gain.value = 0;
+        this._muted = true;
+      }
+    },
 
     init() {
       try {

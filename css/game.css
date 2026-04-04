@@ -129,6 +129,27 @@ html, body {
   50% { border-color: rgba(200, 180, 140, 0.35); }
 }
 
+.title-settings {
+  background: none;
+  border: none;
+  color: #4a4038;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.72rem;
+  cursor: pointer;
+  letter-spacing: 0.12em;
+  text-transform: lowercase;
+  padding: 0.5rem 1rem;
+  min-height: 44px;
+  margin-top: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+@media (hover: hover) {
+  .title-settings:hover {
+    color: #8a7a60;
+  }
+}
+
 /* --- Game Text --- */
 
 .location-text {
@@ -1038,6 +1059,88 @@ html, body {
   .ai-settings-btn:hover {
     border-color: rgba(200, 180, 140, 0.15);
     color: #6a5a48;
+  }
+}
+
+/* --- Bottom Actions (Notebook + Settings) --- */
+
+.bottom-actions {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 0.6rem;
+}
+
+.settings-btn {
+  background: none;
+  border: 1px solid rgba(200, 180, 140, 0.08);
+  color: #5a5040;
+  padding: 0.4rem 1rem;
+  min-height: 44px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.78rem;
+  cursor: pointer;
+  text-transform: lowercase;
+  letter-spacing: 0.08em;
+  transition: all 0.3s ease;
+}
+
+@media (hover: hover) {
+  .settings-btn:hover {
+    border-color: rgba(200, 180, 140, 0.2);
+    color: #8a7a60;
+  }
+}
+
+/* --- Settings Screen --- */
+
+.settings-section {
+  margin-bottom: 0.4rem;
+}
+
+.settings-status {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.72rem;
+  margin-top: 0.3rem;
+}
+
+.settings-on {
+  color: #6a8a6a;
+}
+
+.settings-off {
+  color: #5a5040;
+}
+
+.settings-action-btn {
+  background: none;
+  border: 1px solid rgba(200, 180, 140, 0.12);
+  color: #8a7a60;
+  padding: 0.5rem 1.2rem;
+  min-height: 44px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.78rem;
+  cursor: pointer;
+  text-transform: lowercase;
+  letter-spacing: 0.06em;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+  width: 100%;
+  text-align: left;
+}
+
+.settings-action-btn.settings-danger {
+  border-color: rgba(140, 80, 60, 0.2);
+  color: #8a5a4a;
+}
+
+@media (hover: hover) {
+  .settings-action-btn:hover {
+    border-color: rgba(200, 180, 140, 0.25);
+    color: #c8b8a0;
+  }
+  .settings-action-btn.settings-danger:hover {
+    border-color: rgba(140, 80, 60, 0.4);
+    color: #aa6a5a;
   }
 }
 
