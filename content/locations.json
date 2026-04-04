@@ -330,7 +330,7 @@
     "name": "The Coffee Shop",
     "neighborhood": "limehouse",
     "type": "interior",
-    "body": "Espresso and steam. The counter is reclaimed wood with a burn mark. One table by the window gets all the morning light.",
+    "body": "Espresso and steam. The counter is scarred where something hot sat too long. One table by the window gets all the morning light.",
     "available": {
       "timeOfDay": ["morning", "afternoon", "evening"],
       "weather": ["clear", "rain"]

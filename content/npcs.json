@@ -15,7 +15,7 @@
         "entry": { "text": "What can I get you?", "tag": "neutral" },
         "ambient": [
           { "text": "Quiet morning.", "tag": "neutral" },
-          { "text": "The milk does this thing in winter where it...", "tag": "neutral" },
+          { "text": "The milk does this thing in winter. Never mind.", "tag": "neutral" },
           { "text": "That table gets the light. If you want it.", "tag": "neutral" }
         ]
       },
@@ -103,7 +103,7 @@
         "entry": { "text": "Mind the cables. They're... organized.", "tag": "neutral" },
         "ambient": [
           { "text": "The canal sounds different at 4am.", "tag": "neutral" },
-          { "text": "This room has a resonant frequency of...", "tag": "neutral" }
+          { "text": "This room has a resonant frequency. I'll find it.", "tag": "neutral" }
         ]
       },
       "acquaintance": {
@@ -159,7 +159,7 @@
       "stranger": {
         "entry": { "text": "What'll it be.", "tag": "neutral" },
         "ambient": [
-          { "text": "New to the area, then.", "tag": "neutral" },
+          { "text": "New. I can tell by the way you hold the glass.", "tag": "neutral" },
           { "text": "The Thames is through the back window.", "tag": "neutral" }
         ]
       },
@@ -217,7 +217,7 @@
         "entry": { "text": "Looking, or getting?", "tag": "neutral" },
         "ambient": [
           { "text": "The flash on the left wall. Those are mine.", "tag": "neutral" },
-          { "text": "Skin remembers everything. Even what you forget.", "tag": "neutral" }
+          { "text": "Skin holds everything. Even what the mind drops.", "tag": "neutral" }
         ]
       },
       "acquaintance": {
@@ -278,7 +278,7 @@
         "trigger": { "visitCount": 3, "acrossDays": true },
         "entry": { "text": "You see the water differently now.", "tag": "neutral" },
         "ambient": [
-          { "text": "The light here is honest. Not like Greenwich.", "tag": "neutral" },
+          { "text": "The light here doesn't flatter. That's why I paint it.", "tag": "neutral" },
           { "text": "I paint what the canal shows me. It varies.", "tag": "neutral" }
         ],
         "weatherLines": {
@@ -328,7 +328,7 @@
         "entry": { "text": "Can't stop. Late. Always late.", "tag": "neutral" },
         "ambient": [
           { "text": "The board said something weird just now.", "tag": "neutral" },
-          { "text": "This platform. Something about this platform.", "tag": "neutral" }
+          { "text": "This platform. I've counted the tiles three times.", "tag": "neutral" }
         ]
       },
       "acquaintance": {
@@ -378,7 +378,7 @@
         "entry": { "text": "You looking for something specific?", "tag": "neutral" },
         "ambient": [
           { "text": "The market closes at two. Or it doesn't.", "tag": "neutral" },
-          { "text": "Everyone's looking for something here.", "tag": "neutral" }
+          { "text": "Everyone here wants something. Most won't say what.", "tag": "neutral" }
         ],
         "timeLines": {
           "night": { "text": "Late. Good. The real crowd comes late.", "tag": "neutral" }
@@ -431,7 +431,7 @@
         "entry": { "text": "It's been sleeping under the river. The river knows.", "tag": "neutral" },
         "ambient": [
           { "text": "The ground is warm where it breathes. Stand still.", "tag": "neutral" },
-          { "text": "Everyone leaves marks. Some marks leave everyone.", "tag": "neutral" }
+          { "text": "Marks on the stone. Marks on the people. The stone outlasts.", "tag": "neutral" }
         ]
       },
       "acquaintance": {
