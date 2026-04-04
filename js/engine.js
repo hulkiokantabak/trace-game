@@ -14,6 +14,8 @@ const Engine = (() => {
   let _raining = false;
   let _watcherVisible = false;
   let _forgetting = false;
+  let _awarenessLevel = 0;
+  let _resonanceLevel = 0;
   let _tapRing = null; // { x, y, age } for tap feedback
   let _lastTapTime = 0;
   let _hintPulse = 0; // animation counter
@@ -26,6 +28,7 @@ const Engine = (() => {
   let _transitionCallback = null;
   let _firstShimmer = null; // { x, y, w, h, age }
   let _playerTrait = 'musician';
+  let _walkingThought = null; // { text, age }
   let _lastTimestamp = 0;
   let _traitObjects = null; // [{trait,x,y,w,h,color,label,index}] for character creation
 
@@ -1167,6 +1170,7 @@ const Engine = (() => {
           default:     sceneCanalBasin(t); break;
         }
         // The Watcher — still figure at edge of any exterior scene
+        // Scales with awareness: larger and more present as player notices more
         if (_watcherVisible) {
           const WATCHER_POS = {
             L01: [290, 116], L03: [20, 116], L07: [12, 118],
@@ -1177,11 +1181,38 @@ const Engine = (() => {
           ctx.save();
           ctx.globalAlpha = 0.35;
           ctx.fillStyle = '#0a0a10';
-          ctx.fillRect(wx, wy, 4, 5);       // head
-          ctx.fillRect(wx - 1, wy + 5, 6, 9); // body (long coat)
-          ctx.fillRect(wx, wy + 14, 2, 5);  // left leg
-          ctx.fillRect(wx + 2, wy + 14, 2, 5); // right leg
+          if (_awarenessLevel >= 10) {
+            // Large Watcher — 8x10 head, proportional body
+            ctx.fillRect(wx - 2, wy - 5, 8, 10);      // head
+            ctx.fillRect(wx - 3, wy + 5, 10, 14);      // body (long coat)
+            ctx.fillRect(wx - 1, wy + 19, 4, 7);       // left leg
+            ctx.fillRect(wx + 3, wy + 19, 4, 7);       // right leg
+          } else if (_awarenessLevel >= 8) {
+            // Medium Watcher — 6x8 head, proportional body
+            ctx.fillRect(wx - 1, wy - 3, 6, 8);        // head
+            ctx.fillRect(wx - 2, wy + 5, 8, 12);       // body (long coat)
+            ctx.fillRect(wx, wy + 17, 3, 6);            // left leg
+            ctx.fillRect(wx + 3, wy + 17, 3, 6);        // right leg
+          } else {
+            // Default small Watcher — original 4x5 proportions
+            ctx.fillRect(wx, wy, 4, 5);                 // head
+            ctx.fillRect(wx - 1, wy + 5, 6, 9);         // body (long coat)
+            ctx.fillRect(wx, wy + 14, 2, 5);            // left leg
+            ctx.fillRect(wx + 2, wy + 14, 2, 5);        // right leg
+          }
           ctx.restore();
+
+          // Watcher mirror effect — at awareness >= 10, a dot appears at the
+          // last tap location as if the Watcher looked where you tapped
+          if (_awarenessLevel >= 10 && _tapRing) {
+            const mirrorAlpha = Math.max(0, 0.3 - _tapRing.age * 0.3);
+            if (mirrorAlpha > 0.01) {
+              ctx.globalAlpha = mirrorAlpha;
+              ctx.fillStyle = '#2a2830';
+              ctx.fillRect(Math.floor(_tapRing.x) - 1, Math.floor(_tapRing.y) - 1, 2, 2);
+              ctx.globalAlpha = 1;
+            }
+          }
         }
 
         // Discovered detail markers — subtle shimmer at found detail locations
@@ -1329,6 +1360,26 @@ const Engine = (() => {
           if (_transitionAlpha > 0) {
             ctx.fillStyle = 'rgba(0,0,0,' + _transitionAlpha.toFixed(3) + ')';
             ctx.fillRect(0, 0, W, H);
+          }
+        }
+        // Walking thought — floating pixel text on darkened canvas during fade
+        if (_walkingThought) {
+          _walkingThought.age += dt;
+          // Fade in over 0.5s, hold, fade out after 3s
+          const fadeIn = Math.min(1, _walkingThought.age / 0.5);
+          const fadeOut = _walkingThought.age > 3 ? Math.max(0, 1 - (_walkingThought.age - 3) / 1) : 1;
+          const alpha = fadeIn * fadeOut;
+          if (alpha > 0.01) {
+            ctx.globalAlpha = alpha * 0.7;
+            ctx.fillStyle = '#c8b8a0';
+            ctx.font = '5px monospace';
+            ctx.textAlign = 'center';
+            ctx.fillText(_walkingThought.text, W / 2, H / 2 + 5);
+            ctx.textAlign = 'left';
+            ctx.globalAlpha = 1;
+          }
+          if (_walkingThought.age > 4) {
+            _walkingThought = null;
           }
         }
         break;
@@ -1499,6 +1550,21 @@ const Engine = (() => {
       drone.start();
       nodes.push(drone, droneG);
 
+      // --- Awareness harmonic overtone (awareness >= 6) ---
+      // Subtle first harmonic enriches the drone — barely audible but felt
+      if (_awarenessLevel >= 6) {
+        const baseFreq = (droneFreqs[type] || 55) * timeFactor;
+        const harmonic = this._ctx.createOscillator();
+        harmonic.type = 'sine';
+        harmonic.frequency.value = baseFreq * 2; // first overtone
+        const hGain = this._ctx.createGain();
+        hGain.gain.value = 0.02;
+        harmonic.connect(hGain);
+        hGain.connect(gain);
+        harmonic.start();
+        nodes.push(harmonic, hGain);
+      }
+
       // --- Filtered noise bed ---
       const noise = this._ctx.createBufferSource();
       noise.buffer = this._noiseBuffer(4);
@@ -1618,16 +1684,17 @@ const Engine = (() => {
     // Stop and disconnect all nodes in an ambient set
     _killAmbient(amb) {
       if (!amb) return;
+      const effectiveCrossfade = this._crossfadeSec + (_resonanceLevel >= 8 ? 2 : _resonanceLevel >= 4 ? 1 : 0);
       const t = this._ctx.currentTime;
       amb.gain.gain.setValueAtTime(amb.gain.gain.value, t);
-      amb.gain.gain.linearRampToValueAtTime(0.001, t + this._crossfadeSec);
+      amb.gain.gain.linearRampToValueAtTime(0.001, t + effectiveCrossfade);
       setTimeout(() => {
         for (const n of amb.nodes) {
           try { if (n.stop) n.stop(); } catch (_) {}
           try { n.disconnect(); } catch (_) {}
         }
         try { amb.gain.disconnect(); } catch (_) {}
-      }, (this._crossfadeSec + 0.5) * 1000);
+      }, (effectiveCrossfade + 0.5) * 1000);
     },
 
     // Set the ambient soundscape for a location's musicLayer
@@ -1640,11 +1707,14 @@ const Engine = (() => {
       const newAmb = this._buildAmbient(type, musicLayer);
       if (!newAmb) return;
 
+      // Resonance-based crossfade: higher resonance = smoother, longer transitions
+      const effectiveCrossfade = this._crossfadeSec + (_resonanceLevel >= 8 ? 2 : _resonanceLevel >= 4 ? 1 : 0);
+
       // Crossfade: fade out old, fade in new
       this._killAmbient(this._ambient);
       const t = this._ctx.currentTime;
       newAmb.gain.gain.setValueAtTime(0.001, t);
-      newAmb.gain.gain.linearRampToValueAtTime(1, t + this._crossfadeSec);
+      newAmb.gain.gain.linearRampToValueAtTime(1, t + effectiveCrossfade);
       this._ambient = newAmb;
     },
 
@@ -1889,6 +1959,10 @@ const Engine = (() => {
     }
   };
 
+  function setWalkingThought(text) {
+    _walkingThought = text ? { text: text, age: 0 } : null;
+  }
+
   function fadeTransition(callback) {
     _transitionDir = 1;
     _transitionAlpha = 0;
@@ -1908,9 +1982,12 @@ const Engine = (() => {
     setRaining(v) { _raining = !!v; },
     setWatcherVisible(v) { _watcherVisible = !!v; },
     setForgetting(v) { _forgetting = !!v; },
+    setAwarenessLevel(level) { _awarenessLevel = level || 0; },
+    setResonanceLevel(level) { _resonanceLevel = level || 0; },
     setDiscoveredDetails(details) { _discoveredDetails = details || []; },
     setHasUndiscovered(v) { _hasUndiscovered = !!v; },
     fadeTransition,
+    setWalkingThought,
     setTraitObjects(objects) { _traitObjects = objects; },
     setPlayerTrait(t) { _playerTrait = t || 'musician'; },
     setFirstShimmer(hitbox) { _firstShimmer = { x: hitbox.x, y: hitbox.y, w: hitbox.w, h: hitbox.h, age: 0 }; },

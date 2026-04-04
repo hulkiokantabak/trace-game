@@ -733,6 +733,14 @@ html, body {
   animation: fadeIn 0.8s ease;
 }
 
+.inv-insight {
+  font-size: 0.78rem;
+  color: #8a8a6a;
+  font-style: italic;
+  line-height: 1.6;
+  margin-top: 0.4rem;
+}
+
 .inv-choice-prompt {
   font-size: 0.88rem;
   line-height: 1.7;
@@ -1209,6 +1217,32 @@ html, body {
     padding: 1rem;
     padding-left: max(1rem, env(safe-area-inset-left));
     padding-right: max(1rem, env(safe-area-inset-right));
+  }
+}
+
+/* --- Leave London ending button --- */
+
+.leave-london-btn {
+  background: none;
+  border: 1px solid rgba(140, 100, 70, 0.15);
+  color: #6a5a48;
+  padding: 0.5rem 1.2rem;
+  min-height: 44px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.78rem;
+  cursor: pointer;
+  letter-spacing: 0.08em;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+  width: 100%;
+  text-align: center;
+  font-style: italic;
+}
+
+@media (hover: hover) {
+  .leave-london-btn:hover {
+    border-color: rgba(140, 100, 70, 0.35);
+    color: #8a7a60;
   }
 }
 

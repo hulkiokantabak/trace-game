@@ -7,6 +7,7 @@ const UI = (() => {
   let _seenEllipsis = false;
   let _viewId = 0;
   let _aiSettingsReturnTo = null;
+  let _typewriterTimer = null;
 
   const AMBIENT_TEXTS = {
     chain_clink: 'A chain clinks against a mooring ring. Rhythmic.',
@@ -51,6 +52,36 @@ const UI = (() => {
   function esc(s) {
     if (typeof s !== 'string') return '';
     return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  function typewriterReveal(element, text, msPerWord, onComplete) {
+    const words = text.split(' ');
+    let idx = 0;
+    let done = false;
+    element.textContent = '';
+
+    function addWord() {
+      if (done || idx >= words.length) {
+        element.textContent = text;
+        if (onComplete && !done) onComplete();
+        done = true;
+        return;
+      }
+      element.textContent = words.slice(0, ++idx).join(' ');
+      _typewriterTimer = setTimeout(addWord, msPerWord);
+    }
+
+    // Tap to skip
+    const skipHandler = () => {
+      done = true;
+      clearTimeout(_typewriterTimer);
+      element.textContent = text;
+      if (onComplete) onComplete();
+    };
+    panel.addEventListener('click', skipHandler, { once: true });
+
+    addWord();
+    return () => { done = true; clearTimeout(_typewriterTimer); panel.removeEventListener('click', skipHandler); };
   }
 
   function init(el) {
@@ -365,6 +396,9 @@ const UI = (() => {
 
     // The Watcher appears when awareness >= 5, with random chance
     const awareness = (State.get('stats') || {}).awareness || 0;
+    // Pass stat levels to engine for Watcher scaling and ambient response
+    if (typeof Engine.setAwarenessLevel === 'function') Engine.setAwarenessLevel(awareness);
+    if (typeof Engine.setResonanceLevel === 'function') Engine.setResonanceLevel((State.get('stats') || {}).resonance || 0);
     const forgetting = Game.isForgettingActive();
     Engine.setForgetting(forgetting);
     const isExterior = loc.type === 'exterior';
@@ -445,12 +479,29 @@ const UI = (() => {
     if (!Game.isLocationAvailable(locId)) {
       html += '<p class="location-closed">This place is quiet now.</p>';
     }
+    // NPC ghost lines — ambient memory of NPCs visited 3+ times who aren't present
+    const NPC_GHOSTS = {
+      barista: 'The counter still smells like her coffee. Warm.',
+      sound_artist: 'Soldering flux lingers in the air. He was here.',
+      pub_landlord: 'A glass ring on the bar. Still wet.',
+      tattoo_artist: 'The needle buzz echoes. Or you imagine it does.',
+      canal_painter: 'Paint flecks on the towpath wall. Fresh.',
+      bike_courier: 'Tyre marks on the platform. She was moving fast.',
+      nightclub_promoter: 'Cigarette smoke ghosts by the entrance.',
+      street_preacher: 'The churchyard gate is open. Someone was speaking here.'
+    };
+
     // NPCs present
     for (const entry of npcs) {
       if (entry.available) {
         html += '<button class="npc-btn" data-npc="' + esc(entry.id) + '">' + esc(entry.npc.name) + '</button>';
       } else {
-        html += '<p class="npc-absent">' + esc(entry.npc.schedule.unavailable_reason || 'They\'re not here right now.') + '</p>';
+        const npcMem = State.getNpcMemory(entry.id);
+        if (npcMem.visitCount >= 3 && Math.random() < 0.15 && NPC_GHOSTS[entry.id]) {
+          html += '<p class="ambient-encounter">' + esc(NPC_GHOSTS[entry.id]) + '</p>';
+        } else {
+          html += '<p class="npc-absent">' + esc(entry.npc.schedule.unavailable_reason || 'They\'re not here right now.') + '</p>';
+        }
       }
     }
 
@@ -520,6 +571,10 @@ const UI = (() => {
         }
         html += '</div>';
       }
+
+      if (Game.canLeaveLondon()) {
+        html += '<button class="leave-london-btn" id="leave-london">Pack your things.</button>';
+      }
     }
 
     // Ueda: canvas hint removed — the tap ring teaches through play
@@ -531,11 +586,25 @@ const UI = (() => {
     html += '</div>';
 
     panel.innerHTML = html;
+
+    if (isFirstVisit) {
+      const bodyEl = panel.querySelector('.location-text');
+      if (bodyEl) {
+        typewriterReveal(bodyEl, loc.body, 50);
+      }
+    }
+
     const fadeCls = locId === 'flat' ? 'scene-fade-warm' : 'scene-fade';
     panel.classList.add(fadeCls);
     const fadeCleanup = () => panel.classList.remove('scene-fade', 'scene-fade-warm');
     panel.addEventListener('animationend', fadeCleanup, { once: true });
     setTimeout(fadeCleanup, 1500);
+
+    // Leave London button
+    const leaveBtn = panel.querySelector('#leave-london');
+    if (leaveBtn) {
+      leaveBtn.addEventListener('click', () => showLeaveSequence());
+    }
 
     // Check investigation triggers
     const triggered = Game.checkInvestigationTriggers();
@@ -644,7 +713,9 @@ const UI = (() => {
           }
 
           if (thought) {
-            showWalkingThought(thought, () => showLocation());
+            Engine.setWalkingThought(thought);
+            // Wait for fade transition + thought duration, then show location
+            setTimeout(() => showLocation(), 1800);
           } else {
             showLocation();
           }
@@ -686,6 +757,11 @@ const UI = (() => {
 
     panel.innerHTML = html;
 
+    const fragmentEl = panel.querySelector('.fragment-text');
+    if (fragmentEl) {
+      typewriterReveal(fragmentEl, fragment.text, 40);
+    }
+
     panel.querySelector('.discovery-back-btn').addEventListener('click', () => {
       _seenEllipsis = true;
       showLocation();
@@ -706,6 +782,11 @@ const UI = (() => {
       Engine.flashDiscovery(detail.hitbox, detail.discovery_text);
     }
     panel.innerHTML = html;
+
+    const discoveryEl = panel.querySelector('.discovery-text');
+    if (discoveryEl) {
+      typewriterReveal(discoveryEl, detail.discovery_text, 45);
+    }
 
     panel.querySelector('.discovery-back-btn').addEventListener('click', () => {
       _seenEllipsis = true;
@@ -768,6 +849,10 @@ const UI = (() => {
     }
     html += '<p class="inv-name">' + esc(triggered.investigation.name) + '</p>';
     html += '<p class="inv-step-text">' + esc(step.text) + '</p>';
+    // Stat interaction: high insight reveals a bonus line on deeper investigation steps
+    if (step.id > 1 && ((State.get('stats') || {}).insight || 0) >= 6) {
+      html += '<p class="inv-insight">Something beneath the surface here. You almost see it.</p>';
+    }
     html += '<button class="inv-continue-btn">...</button>';
 
     panel.innerHTML = html;
@@ -1203,6 +1288,119 @@ const UI = (() => {
       showTitle(false);
     });
     document.getElementById('cancel-reset').addEventListener('click', () => showSettings());
+  }
+
+  // --- Leave London Ending Sequence ---
+
+  function showLeaveSequence() {
+    ++_viewId;
+    Engine.onCanvasTap(null);
+    Engine.audio.fadeOut(8);
+
+    // Gather the player's 3 most-visited locations (excluding flat)
+    const visited = State.get('visitedLocations') || [];
+    const locVisits = {};
+    for (const locId of visited) {
+      if (locId === 'flat') continue;
+      locVisits[locId] = State.getLocationVisitCount(locId);
+    }
+    const topLocs = Object.entries(locVisits)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 3)
+      .map(e => e[0]);
+
+    if (topLocs.length === 0) topLocs.push('L01');
+
+    const memories = {
+      L01: 'The canal. Still water. The painter\'s colours on the towpath wall.',
+      L02: 'The coffee shop. Steam rising. A melody you almost remember.',
+      L03: 'The churchyard. Shadows falling wrong. The preacher\'s voice, fading.',
+      L04: 'The warehouse. That frequency. 47Hz. Still humming in your chest.',
+      L05: 'The pub. Thames through the back window. Always moving.',
+      L06: 'The parlour. Needle buzz. Doors drawn in skin.',
+      L07: 'The lock gates. Iron remembering its shape. Cold seam at your ankles.',
+      L08: 'The platform. MERIDIAN — 3 MIN. A train that never came.',
+      L09: 'The market. Bass in your feet. Smoke between the stalls.',
+      L10: 'The empty lot. Weeds through concrete. The fox that watched you.'
+    };
+
+    let step = 0;
+
+    function showFlashback() {
+      if (step >= topLocs.length) {
+        showFarewell();
+        return;
+      }
+
+      const locId = topLocs[step];
+      const loc = Game.getLocation(locId);
+      const memory = memories[locId] || 'A place you remember.';
+
+      Engine.setLocation(locId);
+      Engine.setTimePeriod('evening');
+
+      let html = '<p class="fragment-title" style="color:#5a5040;">You remember.</p>';
+      html += '<p class="location-text" style="margin-top:1rem;">' + esc(memory) + '</p>';
+
+      panel.innerHTML = html;
+      panel.classList.add('scene-fade');
+      const fadeCleanup = () => panel.classList.remove('scene-fade', 'scene-fade-warm');
+      panel.addEventListener('animationend', fadeCleanup, { once: true });
+      setTimeout(fadeCleanup, 1500);
+
+      let advanced = false;
+      const advance = () => {
+        if (advanced) return;
+        advanced = true;
+        step++;
+        Engine.fadeTransition(() => {
+          showFlashback();
+        });
+      };
+
+      setTimeout(advance, 4000);
+      panel.addEventListener('click', advance, { once: true });
+    }
+
+    function showFarewell() {
+      Engine.setLocation('flat');
+      Engine.setTimePeriod('night');
+
+      const trait = State.get('trait') || 'musician';
+      const traitFarewells = {
+        musician: 'The flat is quiet now. No hum beneath the floorboards. Just the radiator\'s rhythm, one last time.',
+        photographer: 'The light through the window finds the empty table. One last exposure.',
+        wanderer: 'Your feet remember every cobblestone. The ground remembers you.',
+        barista: 'The cup on the table is cold. The last one you\'ll make here.',
+        shopkeeper: 'The brass key on the table. You leave it for the next tenant.'
+      };
+
+      let html = '<p class="fragment-title">Leaving Limehouse</p>';
+      html += '<p class="location-text" style="margin-top:1rem;">' + esc(traitFarewells[trait] || traitFarewells.musician) + '</p>';
+      html += '<p class="location-text" style="margin-top:1.5rem;color:#8a7a60;">You leave Limehouse. But Limehouse does not leave you.</p>';
+
+      const discoveries = (State.get('discoveries') || []).length;
+      const npcMem = State.get('npcMemory') || {};
+      const npcsMet = Object.keys(npcMem).filter(id => npcMem[id] && npcMem[id].visitCount > 0).length;
+      html += '<p class="journal-stat" style="margin-top:2rem;color:#4a4038;">' + discoveries + ' things noticed. ' + npcsMet + ' people known.</p>';
+
+      html += '<button class="notebook-close-btn" style="margin-top:2rem;" id="farewell-end">...</button>';
+
+      panel.innerHTML = html;
+      panel.classList.add('scene-fade-warm');
+      const fadeCleanup = () => panel.classList.remove('scene-fade', 'scene-fade-warm');
+      panel.addEventListener('animationend', fadeCleanup, { once: true });
+      setTimeout(fadeCleanup, 1500);
+
+      document.getElementById('farewell-end').addEventListener('click', () => {
+        State.set('completed', true);
+        showTitle(true);
+      });
+    }
+
+    Engine.fadeTransition(() => {
+      showFlashback();
+    });
   }
 
   function getHomeReflection() {

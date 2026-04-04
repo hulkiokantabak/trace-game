@@ -248,10 +248,15 @@ const Game = (() => {
     }
 
     // Cross-reference lines — suppressed during Forgetting, fires once per NPC
+    // Stat interaction: high awareness + connection reduces the NPC threshold by 1
     if (!forgetting && stageData.crossReference && !State.get('crossRef_' + npcId)) {
       const npcMemAll = State.get('npcMemory') || {};
       const metCount = Object.keys(npcMemAll).filter(id => npcMemAll[id] && npcMemAll[id].visitCount > 0).length;
-      if (metCount >= stageData.crossReference.minNpcsMet) {
+      const stats = State.get('stats') || {};
+      const crossRefThreshold = ((stats.awareness || 0) >= 6 && (stats.connection || 0) >= 4)
+        ? Math.max(1, stageData.crossReference.minNpcsMet - 1)
+        : stageData.crossReference.minNpcsMet;
+      if (metCount >= crossRefThreshold) {
         State.set('crossRef_' + npcId, true);
         return { line: { text: stageData.crossReference.text, tag: 'neutral' }, stage: newStage, stageChanged: false, npc, forgetting };
       }
@@ -448,16 +453,29 @@ const Game = (() => {
     return consequence;
   }
 
+  // --- Leave London ---
+
+  function canLeaveLondon() {
+    const investigations = State.get('investigations') || {};
+    const completed = Object.values(investigations).filter(i => i.complete).length;
+    const npcMem = State.get('npcMemory') || {};
+    const npcsMet = Object.keys(npcMem).filter(id => npcMem[id] && npcMem[id].visitCount > 0).length;
+    return completed >= 3 && npcsMet >= 5;
+  }
+
   // --- Lore Fragments ---
 
   function checkFragmentAtLocation(locId) {
     if (!content.fragments) return null;
     const trait = State.get('trait');
-    const awareness = (State.get('stats') || {}).awareness || 0;
+    const stats = State.get('stats') || {};
+    const awareness = stats.awareness || 0;
+    // Stat interaction: high resonance lowers the awareness threshold for fragments
+    const resonanceBonus = (stats.resonance || 0) >= 4 ? 1 : 0;
     for (const [id, frag] of Object.entries(content.fragments)) {
       if (frag.location !== locId) continue;
       if (frag.trait !== trait) continue;
-      if (awareness < frag.awareness_required) continue;
+      if (awareness < frag.awareness_required - resonanceBonus) continue;
       if (State.get('discoveries').includes('frag_' + id)) continue;
       return frag;
     }
@@ -478,6 +496,7 @@ const Game = (() => {
     getNpcsAtLocation, getNpcStage, interactWithNpc,
     checkDetailAt, discoverDetail, checkDiscoveredDetailAt,
     checkInvestigationTriggers, getActiveInvestigations, getInvestigationChoice, makeInvestigationChoice,
-    checkFragmentAtLocation, discoverFragment
+    checkFragmentAtLocation, discoverFragment,
+    canLeaveLondon
   };
 })();
