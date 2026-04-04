@@ -591,7 +591,8 @@ const Engine = (() => {
     ctx.fillRect(248, 88, 34, 24);
 
     // Cables on floor
-    ctx.fillStyle = '#0e0c16';
+    ctx.strokeStyle = '#0e0c16';
+    ctx.lineWidth = 1;
     ctx.beginPath(); ctx.moveTo(50, 135); ctx.quadraticCurveTo(120, 160, 200, 135); ctx.stroke();
     ctx.fillStyle = '#0e0c16';
     for (let x = 80; x < 200; x += 8) {

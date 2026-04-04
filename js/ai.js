@@ -211,13 +211,17 @@ Respond with ONLY the dialogue line. No quotes, no attribution, no stage directi
     const systemPrompt = buildNpcPrompt(npc, stage, trait, context);
     const messages = [{ role: 'user', text: playerMessage || 'The player approaches.' }];
 
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 15000);
     try {
       const req = provider.buildRequest(_model, systemPrompt, messages, 60);
       const response = await fetch(req.url, {
         method: 'POST',
         headers: req.headers,
-        body: req.body
+        body: req.body,
+        signal: controller.signal
       });
+      clearTimeout(timeout);
 
       if (!response.ok) {
         console.warn('AI request failed:', response.status);
@@ -235,6 +239,11 @@ Respond with ONLY the dialogue line. No quotes, no attribution, no stage directi
       }
       return null;
     } catch (e) {
+      clearTimeout(timeout);
+      if (e.name === 'AbortError') {
+        console.warn('AI request timed out');
+        return null;
+      }
       console.warn('AI chat error:', e);
       return null;
     }
@@ -246,6 +255,8 @@ Respond with ONLY the dialogue line. No quotes, no attribution, no stage directi
     const provider = PROVIDERS[_provider];
     if (!provider) return { ok: false, error: 'Unknown provider' };
 
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 15000);
     try {
       const req = provider.buildRequest(
         _model,
@@ -256,13 +267,20 @@ Respond with ONLY the dialogue line. No quotes, no attribution, no stage directi
       const response = await fetch(req.url, {
         method: 'POST',
         headers: req.headers,
-        body: req.body
+        body: req.body,
+        signal: controller.signal
       });
+      clearTimeout(timeout);
       if (!response.ok) return { ok: false, error: 'HTTP ' + response.status };
       const data = await response.json();
       const text = provider.parseResponse(data);
       return { ok: !!text, response: text };
     } catch (e) {
+      clearTimeout(timeout);
+      if (e.name === 'AbortError') {
+        console.warn('AI request timed out');
+        return { ok: false, error: 'Request timed out' };
+      }
       return { ok: false, error: e.message };
     }
   }

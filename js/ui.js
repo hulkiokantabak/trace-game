@@ -6,6 +6,45 @@ const UI = (() => {
   let panel;
   let _seenEllipsis = false;
 
+  const AMBIENT_TEXTS = {
+    chain_clink: 'A chain clinks against a mooring ring. Rhythmic.',
+    heron: 'A heron stands on the lock gate. Perfectly still.',
+    narrowboat_smoke: 'Smoke drifts from a narrowboat chimney.',
+    jogger: 'A jogger passes. Headphones. Already gone.',
+    steam_from_machine: 'The espresso machine hisses. Steam curls.',
+    cat_on_doorstep: 'The cat on the doorstep watches you with one eye.',
+    window_light_shift: 'Light through the window shifts across the counter.',
+    wind_through_graves: 'Wind moves through the grass between the graves.',
+    distant_traffic: 'Traffic on the highway. Close but invisible.',
+    bird_unseen: 'A bird you can\'t see. Singing.',
+    equipment_hum: 'Equipment hums in the dark. A low, patient frequency.',
+    cable_coils: 'Cables coiled on the floor like sleeping things.',
+    monitor_glow: 'Monitor light paints the wall blue-green.',
+    glass_clink: 'Glasses clink behind the bar. A steady rhythm.',
+    thames_through_window: 'The Thames moves past the back window. Always.',
+    floorboard_creak: 'The floorboard creaks under someone you can\'t see.',
+    needle_buzz: 'The needle buzzes from behind the curtain.',
+    neon_flicker: 'Neon flickers in the window. Pink, gone, pink.',
+    radio_low: 'Radio low. A song from another decade.',
+    announcement_loop: 'The announcement loops. No one listens.',
+    pigeon_flutter: 'Pigeons in the rafters. A burst, then stillness.',
+    wind_channel: 'Wind channels through the platform. Sharp.',
+    bass_thump: 'Bass from somewhere underground. You feel it in your feet.',
+    smoke_drift: 'Charcoal smoke drifts between the stalls.',
+    vendor_call: 'A vendor calls out. The words are lost in the crowd.',
+    weed_through_concrete: 'A weed pushes through the concrete. Green and insistent.',
+    distant_crane: 'A crane on the skyline. Still. Waiting.',
+    wall_scar: 'The scar in the brick where a building used to be.',
+    radiator_click: 'The radiator clicks. A rhythm only this room knows.',
+    window_light: 'Light through the window moves across the table.',
+    water_drip: 'Water drips from the lock mechanism. Steady. Patient.',
+    mechanism_creak: 'The lock gate creaks. Iron remembering its shape.',
+    distant_boat: 'A narrowboat engine somewhere beyond the lock. Fading.',
+    wind_through_gap: 'Wind through the gap where a wall used to be.',
+    fox_distant: 'A fox, somewhere close. You smell it before you see it.',
+    sky_open: 'The sky is bigger here. Nothing between you and it.'
+  };
+
   /** Escape HTML to prevent XSS from JSON content or localStorage data */
   function esc(s) {
     if (typeof s !== 'string') return '';
@@ -272,9 +311,11 @@ const UI = (() => {
     let html = '<p class="' + locNameClass + '">' + esc(loc.name) + '<span class="time-indicator">' + esc(period) + '</span></p>';
 
     // Post-discovery enrichment — location acknowledges what you've noticed
-    const locDiscoveries = (loc.interactableDetails || []).filter(d => State.isDiscovered(d.id));
+    const trait = State.get('trait');
+    const visibleDetails = (loc.interactableDetails || []).filter(d => !d.trait_required || d.trait_required === trait);
+    const locDiscoveries = visibleDetails.filter(d => State.isDiscovered(d.id));
     const discoveryCount = locDiscoveries.length;
-    const totalDetails = (loc.interactableDetails || []).length;
+    const totalDetails = visibleDetails.length;
 
     const locTextClass = forgetting ? 'location-text forgetting-muted' : 'location-text';
     if (discoveryCount > 0 && discoveryCount >= totalDetails && totalDetails > 0) {
@@ -334,46 +375,8 @@ const UI = (() => {
     // Ueda: 15% — each ambient moment should feel like a gift, not chatter
     // Suppressed during Forgetting and on first visit
     if (!forgetting && !isFirstVisit && loc.ambientLife && loc.ambientLife.length > 0 && Math.random() < 0.15) {
-      const ambientTexts = {
-        chain_clink: 'A chain clinks against a mooring ring. Rhythmic.',
-        heron: 'A heron stands on the lock gate. Perfectly still.',
-        narrowboat_smoke: 'Smoke drifts from a narrowboat chimney.',
-        jogger: 'A jogger passes. Headphones. Already gone.',
-        steam_from_machine: 'The espresso machine hisses. Steam curls.',
-        cat_on_doorstep: 'The cat on the doorstep watches you with one eye.',
-        window_light_shift: 'Light through the window shifts across the counter.',
-        wind_through_graves: 'Wind moves through the grass between the graves.',
-        distant_traffic: 'Traffic on the highway. Close but invisible.',
-        bird_unseen: 'A bird you can\'t see. Singing.',
-        equipment_hum: 'Equipment hums in the dark. A low, patient frequency.',
-        cable_coils: 'Cables coiled on the floor like sleeping things.',
-        monitor_glow: 'Monitor light paints the wall blue-green.',
-        glass_clink: 'Glasses clink behind the bar. A steady rhythm.',
-        thames_through_window: 'The Thames moves past the back window. Always.',
-        floorboard_creak: 'The floorboard creaks under someone you can\'t see.',
-        needle_buzz: 'The needle buzzes from behind the curtain.',
-        neon_flicker: 'Neon flickers in the window. Pink, gone, pink.',
-        radio_low: 'Radio low. A song from another decade.',
-        announcement_loop: 'The announcement loops. No one listens.',
-        pigeon_flutter: 'Pigeons in the rafters. A burst, then stillness.',
-        wind_channel: 'Wind channels through the platform. Sharp.',
-        bass_thump: 'Bass from somewhere underground. You feel it in your feet.',
-        smoke_drift: 'Charcoal smoke drifts between the stalls.',
-        vendor_call: 'A vendor calls out. The words are lost in the crowd.',
-        weed_through_concrete: 'A weed pushes through the concrete. Green and insistent.',
-        distant_crane: 'A crane on the skyline. Still. Waiting.',
-        wall_scar: 'The scar in the brick where a building used to be.',
-        radiator_click: 'The radiator clicks. A rhythm only this room knows.',
-        window_light: 'Light through the window moves across the table.',
-        water_drip: 'Water drips from the lock mechanism. Steady. Patient.',
-        mechanism_creak: 'The lock gate creaks. Iron remembering its shape.',
-        distant_boat: 'A narrowboat engine somewhere beyond the lock. Fading.',
-        wind_through_gap: 'Wind through the gap where a wall used to be.',
-        fox_distant: 'A fox, somewhere close. You smell it before you see it.',
-        sky_open: 'The sky is bigger here. Nothing between you and it.'
-      };
       const key = loc.ambientLife[Math.floor(Math.random() * loc.ambientLife.length)];
-      const text = ambientTexts[key];
+      const text = AMBIENT_TEXTS[key];
       if (text) html += '<p class="ambient-encounter">' + esc(text) + '</p>';
     }
 
@@ -496,8 +499,11 @@ const UI = (() => {
     });
 
     // NPC interaction (one conversation per location visit)
+    let _talkingTo = null;
     panel.querySelectorAll('.npc-btn').forEach(btn => {
       btn.addEventListener('click', async () => {
+        if (_talkingTo) return;
+        _talkingTo = btn.dataset.npc;
         const result = Game.interactWithNpc(btn.dataset.npc);
         if (result) {
           Engine.audio.playNpcGreet();
@@ -511,7 +517,7 @@ const UI = (() => {
           }
           showDialogue(result);
         }
-      }, { once: true }); // only fires once — no spam-clicking
+      });
     });
 
     // Navigation
@@ -627,7 +633,9 @@ const UI = (() => {
     if (forgetting) {
       html += '<p class="npc-physical">Something familiar about them. You can\'t place it.</p>';
     } else {
-      const details = npc.physicalSignature.split('. ').map(s => s.replace(/\.$/, ''));
+      const sig = npc.physicalSignature || '';
+      const details = sig.split('. ').filter(s => s).map(s => s.replace(/\.$/, ''));
+      if (details.length === 0) details.push('');
       html += '<p class="npc-physical">' + esc(details[Math.floor(Math.random() * details.length)]) + '.</p>';
     }
     html += '<button class="dialogue-back-btn">...' + (_seenEllipsis ? '' : '<span class="ellipsis-hint">continue</span>') + '</button>';

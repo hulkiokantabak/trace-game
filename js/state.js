@@ -6,6 +6,7 @@ const State = (() => {
   const SAVE_KEY = 'trace_save';
 
   const defaults = {
+    version: 1,
     trait: null,
     location: 'flat',
     visitedLocations: [],
@@ -25,6 +26,7 @@ const State = (() => {
 
   function save() {
     state.lastPlayed = Date.now();
+    // state.version persists automatically — bump in defaults when schema changes
     try {
       localStorage.setItem(SAVE_KEY, JSON.stringify(state));
     } catch (e) {
@@ -44,6 +46,10 @@ const State = (() => {
           return false;
         }
         state = Object.assign(JSON.parse(JSON.stringify(defaults)), parsed);
+        // Save versioning — enables future migration
+        if (typeof state.version !== 'number' || state.version < 1) {
+          state.version = 1;
+        }
         // Ensure arrays exist (guard against partial corruption)
         if (!Array.isArray(state.visitedLocations)) state.visitedLocations = [];
         if (!Array.isArray(state.discoveries)) state.discoveries = [];

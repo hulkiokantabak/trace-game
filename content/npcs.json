@@ -41,7 +41,7 @@
         }
       },
       "familiar": {
-        "trigger": { "visitCount": 8, "acrossDays": true, "requiresInvestigation": "LI-02.step1" },
+        "trigger": { "visitCount": 8, "acrossDays": true, "requiresInvestigation": "LI-02" },
         "entry": { "text": "Sit. I saved your seat.", "tag": "neutral" },
         "ambient": [
           { "text": "I almost said something just now. Never mind.", "tag": "neutral" }
