@@ -138,13 +138,19 @@ const UI = (() => {
         '<p class="creation-text creation-delay-1">You listen. London answers.</p>';
       Engine.audio.playDiscovery();
 
-      setTimeout(() => {
+      // Miyamoto: tap to skip confirmation wait
+      let started = false;
+      const go = () => {
+        if (started) return;
+        started = true;
         State.set('trait', 'musician');
         State.set('createdAt', Date.now());
         State.set('firstPlay', false);
         State.visitLocation('flat');
         startGame();
-      }, 2200);
+      };
+      setTimeout(go, 2200);
+      panel.addEventListener('click', go, { once: true });
     });
   }
 
@@ -167,7 +173,11 @@ const UI = (() => {
     // Duration scales with text length: short thoughts breathe, long ones linger
     const words = text.split(' ').length;
     const duration = Math.max(1800, Math.min(3500, words * 350));
-    setTimeout(onDone, duration);
+    let done = false;
+    const finish = () => { if (!done) { done = true; onDone(); } };
+    setTimeout(finish, duration);
+    // Miyamoto: tap to dismiss — player's hand moves at the speed of their mind
+    panel.addEventListener('click', finish, { once: true });
   }
 
   // --- Location View ---
@@ -247,6 +257,20 @@ const UI = (() => {
       Engine.setHasUndiscovered(discoveryCount < totalDetails);
     }
 
+    // Miyamoto: interactive elements first — NPCs before atmosphere
+    // Time-closed locations show a note
+    if (!Game.isLocationAvailable(locId)) {
+      html += '<p class="location-closed">This place is quiet now.</p>';
+    }
+    // NPCs present
+    for (const entry of npcs) {
+      if (entry.available) {
+        html += '<button class="npc-btn" data-npc="' + esc(entry.id) + '">' + esc(entry.npc.name) + '</button>';
+      } else {
+        html += '<p class="npc-absent">' + esc(entry.npc.schedule.unavailable_reason || 'They\'re not here right now.') + '</p>';
+      }
+    }
+
     // Weather-specific description (from location JSON)
     const weather = Game.getWeather();
     if (loc.weatherEffects && loc.weatherEffects[weather]) {
@@ -315,20 +339,6 @@ const UI = (() => {
       html += '<p class="ambient-encounter">' + preacherLines + '</p>';
     }
 
-    // Time-closed locations show a note
-    if (!Game.isLocationAvailable(locId)) {
-      html += '<p class="location-closed">This place is quiet now.</p>';
-    }
-
-    // NPCs present
-    for (const entry of npcs) {
-      if (entry.available) {
-        html += '<button class="npc-btn" data-npc="' + esc(entry.id) + '">' + esc(entry.npc.name) + '</button>';
-      } else {
-        html += '<p class="npc-absent">' + esc(entry.npc.schedule.unavailable_reason || 'They\'re not here right now.') + '</p>';
-      }
-    }
-
     if (adjacent.length) {
       html += '<div class="nav-buttons">';
       for (const adj of adjacent) {
@@ -363,6 +373,13 @@ const UI = (() => {
         }
         html += '</div>';
       }
+    }
+
+    // Miyamoto: first-play canvas hint — teach through a whisper, then disappear
+    const discoveries = State.get('discoveries') || [];
+    if (discoveries.length === 0 && !State.get('seenCanvasHint')) {
+      html += '<p class="time-text" style="color:#4a4838;">The canvas holds details. Tap to look closer.</p>';
+      State.set('seenCanvasHint', true);
     }
 
     // Notebook — always available

@@ -226,10 +226,10 @@ html, body {
   animation: fadeIn 1s ease;
 }
 
-.creation-delay-1 { animation: fadeIn 1.2s ease; animation-delay: 1s; opacity: 0; animation-fill-mode: forwards; }
-.creation-delay-2 { animation: fadeIn 1.2s ease; animation-delay: 2.2s; opacity: 0; animation-fill-mode: forwards; }
-.creation-delay-3 { animation: fadeIn 1.2s ease; animation-delay: 3.5s; opacity: 0; animation-fill-mode: forwards; }
-.creation-delay-4 { animation: fadeIn 1.2s ease; animation-delay: 5s; opacity: 0; animation-fill-mode: forwards; }
+.creation-delay-1 { animation: fadeIn 1s ease; animation-delay: 0.5s; opacity: 0; animation-fill-mode: forwards; }
+.creation-delay-2 { animation: fadeIn 1s ease; animation-delay: 1.1s; opacity: 0; animation-fill-mode: forwards; }
+.creation-delay-3 { animation: fadeIn 1s ease; animation-delay: 1.8s; opacity: 0; animation-fill-mode: forwards; }
+.creation-delay-4 { animation: fadeIn 1s ease; animation-delay: 2.5s; opacity: 0; animation-fill-mode: forwards; }
 
 .creation-continue-btn {
   background: none;
