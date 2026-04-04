@@ -217,12 +217,16 @@ const UI = (() => {
       State.recordDiscovery('watcher_sighting', { awareness: 1, resonance: 1 });
     }
 
+    // Metzen: ambient life — the world breathes on return visits, not first encounters
+    const isFirstVisit = State.getLocationVisitCount(locId) <= 1;
+
     // Walking thoughts already provide breathing room before location text.
     // No additional pause — the player should see content immediately.
     panel.innerHTML = '';
     (function _showLocationText() {
 
-    let html = '<p class="location-name location-name-fade">' + esc(loc.name) + '<span class="time-indicator">' + esc(period) + '</span></p>';
+    const locNameClass = isFirstVisit ? 'location-name location-name-first' : 'location-name location-name-fade';
+    let html = '<p class="' + locNameClass + '">' + esc(loc.name) + '<span class="time-indicator">' + esc(period) + '</span></p>';
 
     // Post-discovery enrichment — location acknowledges what you've noticed
     const locDiscoveries = (loc.interactableDetails || []).filter(d => State.isDiscovered(d.id));
@@ -279,14 +283,14 @@ const UI = (() => {
 
     // Weather-specific description (from location JSON)
     const weather = Game.getWeather();
-    if (loc.weatherEffects && loc.weatherEffects[weather]) {
+    if (loc.weatherEffects && loc.weatherEffects[weather] && !isFirstVisit) {
       html += '<p class="weather-text">' + esc(loc.weatherEffects[weather]) + '</p>';
     }
 
-    // Metzen: ambient life — the world breathes between player actions
-    // Ueda: 25% — each ambient moment should feel like a gift, not chatter
-    // Suppressed during Forgetting — the world holds its breath
-    if (!forgetting && loc.ambientLife && loc.ambientLife.length > 0 && Math.random() < 0.25) {
+    // Metzen: ambient life — the world breathes on return visits, not first encounters
+    // Ueda: 15% — each ambient moment should feel like a gift, not chatter
+    // Suppressed during Forgetting and on first visit
+    if (!forgetting && !isFirstVisit && loc.ambientLife && loc.ambientLife.length > 0 && Math.random() < 0.15) {
       const ambientTexts = {
         chain_clink: 'A chain clinks against a mooring ring. Rhythmic.',
         heron: 'A heron stands on the lock gate. Perfectly still.',
@@ -330,22 +334,17 @@ const UI = (() => {
       if (text) html += '<p class="ambient-encounter">' + esc(text) + '</p>';
     }
 
-    // Time-of-day flavor (evening/night feel different)
-    if (period === 'night' && locId !== 'flat') {
-      html += '<p class="time-text">The dark changes everything here.</p>';
-    } else if (period === 'morning' && locId !== 'flat') {
-      html += '<p class="time-text">Morning light. The city before it remembers itself.</p>';
-    }
+    // Time-of-day communicated through canvas palette and ambient audio
 
     // Ueda: Forgetting text removed — the desaturation overlay IS the feeling
 
     // Night Fox — appears at L10 and L01 at dusk/night
-    if (!forgetting && (locId === 'L10' || locId === 'L01') && (period === 'evening' || period === 'night') && Math.random() < 0.35) {
+    if (!forgetting && !isFirstVisit && (locId === 'L10' || locId === 'L01') && (period === 'evening' || period === 'night') && Math.random() < 0.35) {
       html += '<p class="ambient-encounter">A fox sits at the edge of the light. It watches you. It doesn\'t leave.</p>';
     }
 
     // Street Preacher — rare appearances at L03 and L05
-    if (!forgetting && (locId === 'L03' || locId === 'L05') && period === 'afternoon' && Math.random() < 0.15) {
+    if (!forgetting && !isFirstVisit && (locId === 'L03' || locId === 'L05') && period === 'afternoon' && Math.random() < 0.15) {
       const preacherLines = locId === 'L03'
         ? 'A man stands by the churchyard gate. He speaks to no one. "The stones remember. The water remembers. Only we choose to forget."'
         : 'A voice from the corner, unhurried. "This pub was here before the street. The street was here before the city. The city was here before the name."';
@@ -424,6 +423,14 @@ const UI = (() => {
       }, 3000);
     }
 
+    // First discovery shimmer — teach the player to tap (flat, first time, zero discoveries)
+    if (locId === 'flat' && (State.get('discoveries') || []).length === 0) {
+      const loc_ = Game.getLocation('flat');
+      if (loc_ && loc_.interactableDetails && loc_.interactableDetails.length > 0) {
+        Engine.setFirstShimmer(loc_.interactableDetails[0].hitbox);
+      }
+    }
+
     // Canvas tap → discovery (new) or memory (already found)
     Engine.onCanvasTap((cx, cy) => {
       const detail = Game.checkDetailAt(cx, cy);
@@ -436,7 +443,12 @@ const UI = (() => {
       } else {
         // Check if tapping a previously discovered detail
         const remembered = Game.checkDiscoveredDetailAt(cx, cy);
-        if (remembered) showRemembered(remembered);
+        if (remembered) {
+          showRemembered(remembered);
+        } else {
+          // Empty tap — faint knock teaches that tapping is valid
+          Engine.audio.playEmptyTap();
+        }
       }
     });
 
@@ -475,8 +487,11 @@ const UI = (() => {
         }
 
         if (result) {
-          Engine.setLocation(targetId);
-          Engine.setTimePeriod(Game.getTimePeriod());
+          // Canvas fade transition — the darkness between places
+          Engine.fadeTransition(() => {
+            Engine.setLocation(targetId);
+            Engine.setTimePeriod(Game.getTimePeriod());
+          });
 
           // Return-to-flat reflections — unique thoughts when coming home after milestones
           let thought = result.thought;

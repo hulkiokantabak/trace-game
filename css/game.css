@@ -1033,6 +1033,17 @@ html, body {
   to { opacity: 1; letter-spacing: 0.15em; }
 }
 
+/* First visit: slower, more deliberate entrance — the place introduces itself */
+.location-name-first {
+  animation: fadeInFirst 1.4s ease;
+}
+
+@keyframes fadeInFirst {
+  0% { opacity: 0; transform: translateY(8px); letter-spacing: 0.15em; }
+  60% { opacity: 0.7; transform: translateY(2px); letter-spacing: 0.08em; }
+  100% { opacity: 1; transform: translateY(0); letter-spacing: 0.06em; }
+}
+
 /* --- Investigation choice weight: delayed fade-in --- */
 
 .inv-choices-fade {

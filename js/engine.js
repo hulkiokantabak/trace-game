@@ -21,6 +21,10 @@ const Engine = (() => {
   let _hasUndiscovered = false; // Meier: whether location has undiscovered details
   let _discoveryFlash = null; // { x, y, w, h, age } — brief glow on discovery
   let _discoveryPreview = null; // { text, x, y, age } — floating text preview
+  let _transitionAlpha = 0;
+  let _transitionDir = 0;    // 0 = none, 1 = fading out, -1 = fading in
+  let _transitionCallback = null;
+  let _firstShimmer = null; // { x, y, w, h, age }
 
   // Pre-computed rain drop positions
   const RAIN_DROPS = Array.from({ length: 40 }, () => ({
@@ -1175,6 +1179,25 @@ const Engine = (() => {
           }
         }
 
+        // First discovery shimmer — teaches the player to tap (one-time, first location only)
+        if (_firstShimmer) {
+          _firstShimmer.age += 0.02;
+          if (_firstShimmer.age < 5) { // 5 seconds then gone
+            const shimmer = Math.sin(_firstShimmer.age * 3) * 0.5 + 0.5;
+            const sa = 0.08 + shimmer * 0.12;
+            const cx = _firstShimmer.x + _firstShimmer.w / 2;
+            const cy = _firstShimmer.y + _firstShimmer.h / 2;
+            ctx.fillStyle = 'rgba(220,200,160,' + sa.toFixed(3) + ')';
+            ctx.fillRect(cx - 2, cy - 2, 4, 4);
+            // Outer pulse
+            const pr = 3 + shimmer * 4;
+            ctx.fillStyle = 'rgba(220,200,160,' + (sa * 0.3).toFixed(3) + ')';
+            ctx.beginPath(); ctx.arc(cx, cy, pr, 0, Math.PI * 2); ctx.fill();
+          } else {
+            _firstShimmer = null;
+          }
+        }
+
         // Discovery flash — brief glow at detail location
         if (_discoveryFlash) {
           _discoveryFlash.age += 0.03;
@@ -1245,6 +1268,22 @@ const Engine = (() => {
         if (_forgetting) {
           ctx.fillStyle = 'rgba(20,20,30,0.15)';
           ctx.fillRect(0, 0, W, H);
+        }
+        // Navigation transition overlay
+        if (_transitionDir !== 0) {
+          _transitionAlpha += _transitionDir * (_transitionDir === 1 ? 0.06 : 0.04);
+          if (_transitionDir === 1 && _transitionAlpha >= 1) {
+            _transitionAlpha = 1;
+            _transitionDir = -1;
+            if (_transitionCallback) { _transitionCallback(); _transitionCallback = null; }
+          } else if (_transitionDir === -1 && _transitionAlpha <= 0) {
+            _transitionAlpha = 0;
+            _transitionDir = 0;
+          }
+          if (_transitionAlpha > 0) {
+            ctx.fillStyle = 'rgba(0,0,0,' + _transitionAlpha.toFixed(3) + ')';
+            ctx.fillRect(0, 0, W, H);
+          }
         }
         break;
     }
@@ -1674,8 +1713,31 @@ const Engine = (() => {
       this._note(329.63, t, 1.5, 0.07, 'sine');
       this._note(392.00, t, 1.5, 0.07, 'sine');
       this._note(466.16, t, 1.5, 0.05, 'sine'); // tritone tension
+    },
+
+    // Empty tap — faint hollow knock, teaches tapping is valid
+    playEmptyTap() {
+      if (!this._ctx) return;
+      const t = this._ctx.currentTime;
+      const osc = this._ctx.createOscillator();
+      const g = this._ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(180, t);
+      osc.frequency.exponentialRampToValueAtTime(100, t + 0.15);
+      g.gain.setValueAtTime(0.04, t);
+      g.gain.exponentialRampToValueAtTime(0.001, t + 0.2);
+      osc.connect(g);
+      g.connect(this._master);
+      osc.start(t);
+      osc.stop(t + 0.25);
     }
   };
+
+  function fadeTransition(callback) {
+    _transitionDir = 1;
+    _transitionAlpha = 0;
+    _transitionCallback = callback;
+  }
 
   // --- Public API ---
 
@@ -1692,6 +1754,8 @@ const Engine = (() => {
     setForgetting(v) { _forgetting = !!v; },
     setDiscoveredDetails(details) { _discoveredDetails = details || []; },
     setHasUndiscovered(v) { _hasUndiscovered = !!v; },
+    fadeTransition,
+    setFirstShimmer(hitbox) { _firstShimmer = { x: hitbox.x, y: hitbox.y, w: hitbox.w, h: hitbox.h, age: 0 }; },
     flashDiscovery(hitbox, text) {
       _discoveryFlash = { x: hitbox.x, y: hitbox.y, w: hitbox.w, h: hitbox.h, age: 0 };
       _discoveryPreview = { text: text.split(' ').slice(0, 4).join(' '), x: hitbox.x + hitbox.w/2, y: hitbox.y - 6, age: 0 };
