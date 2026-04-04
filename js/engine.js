@@ -27,6 +27,7 @@ const Engine = (() => {
   let _firstShimmer = null; // { x, y, w, h, age }
   let _playerTrait = 'musician';
   let _lastTimestamp = 0;
+  let _traitObjects = null; // [{trait,x,y,w,h,color,label,index}] for character creation
 
   // Pre-computed rain drop positions
   const RAIN_DROPS = Array.from({ length: 40 }, () => ({
@@ -1137,8 +1138,17 @@ const Engine = (() => {
         drawTitle(titleAlpha);
         break;
       case 'character_creation':
-        sceneCanalBasin(t);
-        drawSilhouettes(t);
+        sceneFlat(t);
+        // Draw trait objects as subtle glowing items on the table
+        if (_traitObjects) {
+          for (const obj of _traitObjects) {
+            const pulse = 0.3 + 0.15 * Math.sin(t * 2 + obj.index * 1.2);
+            ctx.globalAlpha = pulse;
+            ctx.fillStyle = obj.color;
+            ctx.fillRect(obj.x, obj.y, obj.w, obj.h);
+            ctx.globalAlpha = 1;
+          }
+        }
         break;
       case 'playing':
         if (titleAlpha > 0) titleAlpha = Math.max(0, titleAlpha - 0.02);
@@ -1189,17 +1199,35 @@ const Engine = (() => {
         // First discovery shimmer — teaches the player to tap (one-time, first location only)
         if (_firstShimmer) {
           _firstShimmer.age += dt * 1.2;
-          if (_firstShimmer.age < 5) { // 5 seconds then gone
-            const shimmer = Math.sin(_firstShimmer.age * 3) * 0.5 + 0.5;
-            const sa = 0.08 + shimmer * 0.12;
+          if (_firstShimmer.age < 12) { // 10+ seconds then gone (age runs at 1.2x)
+            const shimmer = Math.sin(_firstShimmer.age * 2.5) * 0.5 + 0.5;
+            const breathe = Math.sin(_firstShimmer.age * 1.2) * 0.5 + 0.5;
+            const sa = 0.15 + shimmer * 0.2 + breathe * 0.1;
             const cx = _firstShimmer.x + _firstShimmer.w / 2;
             const cy = _firstShimmer.y + _firstShimmer.h / 2;
+            // Inner glow — larger, more visible
             ctx.fillStyle = 'rgba(220,200,160,' + sa.toFixed(3) + ')';
-            ctx.fillRect(cx - 2, cy - 2, 4, 4);
-            // Outer pulse
-            const pr = 3 + shimmer * 4;
-            ctx.fillStyle = 'rgba(220,200,160,' + (sa * 0.3).toFixed(3) + ')';
+            ctx.fillRect(cx - 3, cy - 3, 6, 6);
+            // Breathing circle pulse
+            const pr = 5 + breathe * 6 + shimmer * 3;
+            ctx.fillStyle = 'rgba(220,200,160,' + (sa * 0.4).toFixed(3) + ')';
             ctx.beginPath(); ctx.arc(cx, cy, pr, 0, Math.PI * 2); ctx.fill();
+            // Outer halo
+            const hr = pr + 3 + shimmer * 2;
+            ctx.fillStyle = 'rgba(220,200,160,' + (sa * 0.12).toFixed(3) + ')';
+            ctx.beginPath(); ctx.arc(cx, cy, hr, 0, Math.PI * 2); ctx.fill();
+
+            // Canvas hint text — appears after ~4s of no tap, fades out over time
+            if (_firstShimmer.age > 4.8 && _firstShimmer.age < 12) {
+              const hintAlpha = Math.min(1, (_firstShimmer.age - 4.8) * 2) * (1 - Math.max(0, (_firstShimmer.age - 9) / 3));
+              ctx.globalAlpha = hintAlpha * 0.3;
+              ctx.fillStyle = '#c8b8a0';
+              ctx.font = '5px monospace';
+              ctx.textAlign = 'center';
+              ctx.fillText('tap the scene above', W / 2, 172);
+              ctx.globalAlpha = 1;
+              ctx.textAlign = 'left';
+            }
           } else {
             _firstShimmer = null;
           }
@@ -1278,9 +1306,13 @@ const Engine = (() => {
             ctx.fillRect(d.x, y, 1, d.len);
           }
         }
-        // The Forgetting — desaturation overlay
+        // The Forgetting — the world loses definition and detail
         if (_forgetting) {
-          ctx.fillStyle = 'rgba(20,20,30,0.15)';
+          // Fog overlay — the world loses definition
+          ctx.fillStyle = 'rgba(10, 10, 15, 0.3)';
+          ctx.fillRect(0, 0, W, H);
+          // Additional desaturation layer
+          ctx.fillStyle = 'rgba(30, 28, 35, 0.15)';
           ctx.fillRect(0, 0, W, H);
         }
         // Navigation transition overlay
@@ -1704,21 +1736,83 @@ const Engine = (() => {
       this._note(783.99 * p, t + 0.1, 0.6, 0.04, 'sine');
     },
 
-    // NPC greeting — warm low tone
+    // NPC greeting — warm ascending two-tone (like a gentle "hello")
     playNpcGreet() {
       if (!this._ctx) return;
       const t = this._ctx.currentTime;
-      this._note(196.00, t, 0.5, 0.08, 'sine');
-      this._note(261.63, t + 0.08, 0.4, 0.06, 'triangle');
+      const o1 = this._ctx.createOscillator();
+      const o2 = this._ctx.createOscillator();
+      const g = this._ctx.createGain();
+      o1.type = 'sine';
+      o1.frequency.value = 330; // E4
+      o2.type = 'sine';
+      o2.frequency.value = 440; // A4
+      g.gain.setValueAtTime(0.08, t);
+      g.gain.linearRampToValueAtTime(0.001, t + 0.6);
+      o1.connect(g);
+      o2.connect(g);
+      g.connect(this._master);
+      o1.start(t);
+      o1.stop(t + 0.3);
+      o2.start(t + 0.15);
+      o2.stop(t + 0.5);
     },
 
-    // Investigation advance — descending mystery
+    // Navigation/footsteps — subtle rhythmic pattern, 4 quiet taps fading out
+    playNavigate() {
+      if (!this._ctx) return;
+      const t = this._ctx.currentTime;
+      for (let i = 0; i < 4; i++) {
+        const o = this._ctx.createOscillator();
+        const g = this._ctx.createGain();
+        o.type = 'triangle';
+        o.frequency.value = 80 + Math.random() * 20;
+        const stepTime = t + i * 0.18;
+        g.gain.setValueAtTime(0.06 * (1 - i * 0.2), stepTime);
+        g.gain.linearRampToValueAtTime(0.001, stepTime + 0.1);
+        o.connect(g);
+        g.connect(this._master);
+        o.start(stepTime);
+        o.stop(stepTime + 0.1);
+      }
+    },
+
+    // Notebook open — soft paper rustle (filtered white noise burst)
+    playNotebook() {
+      if (!this._ctx) return;
+      const t = this._ctx.currentTime;
+      const buf = this._noiseBuffer(0.15);
+      if (!buf) return;
+      const src = this._ctx.createBufferSource();
+      src.buffer = buf;
+      const g = this._ctx.createGain();
+      const f = this._ctx.createBiquadFilter();
+      f.type = 'bandpass';
+      f.frequency.value = 3000;
+      f.Q.value = 0.5;
+      g.gain.setValueAtTime(0.05, t);
+      g.gain.linearRampToValueAtTime(0.001, t + 0.15);
+      src.connect(f);
+      f.connect(g);
+      g.connect(this._master);
+      src.start(t);
+    },
+
+    // Investigation trigger — low drone shift (ominous, something has changed)
     playInvestigation() {
       if (!this._ctx) return;
       const t = this._ctx.currentTime;
-      this._note(440.00, t, 0.35, 0.10, 'sine');
-      this._note(349.23, t + 0.2, 0.35, 0.10, 'sine');
-      this._note(293.66, t + 0.4, 0.6, 0.08, 'triangle');
+      const o = this._ctx.createOscillator();
+      const g = this._ctx.createGain();
+      o.type = 'sine';
+      o.frequency.setValueAtTime(55, t);
+      o.frequency.linearRampToValueAtTime(44, t + 1.2);
+      g.gain.setValueAtTime(0.1, t);
+      g.gain.linearRampToValueAtTime(0.001, t + 1.5);
+      o.connect(g);
+      g.connect(this._master);
+      o.start(t);
+      o.stop(t + 1.5);
     },
 
     // Lore fragment — deeper, more resonant tone
@@ -1757,13 +1851,24 @@ const Engine = (() => {
       });
     },
 
-    // Choice moment — suspended tension
+    // Choice moment — held chord (sustained, expectant)
     playChoice() {
       if (!this._ctx) return;
       const t = this._ctx.currentTime;
-      this._note(329.63, t, 1.5, 0.07, 'sine');
-      this._note(392.00, t, 1.5, 0.07, 'sine');
-      this._note(466.16, t, 1.5, 0.05, 'sine'); // tritone tension
+      const notes = [220, 277, 330]; // Am chord (A3, C#4, E4)
+      const g = this._ctx.createGain();
+      g.gain.setValueAtTime(0.06, t);
+      g.gain.setValueAtTime(0.06, t + 1.5);
+      g.gain.linearRampToValueAtTime(0.001, t + 3);
+      g.connect(this._master);
+      for (const freq of notes) {
+        const o = this._ctx.createOscillator();
+        o.type = 'sine';
+        o.frequency.value = freq;
+        o.connect(g);
+        o.start(t);
+        o.stop(t + 3);
+      }
     },
 
     // Empty tap — faint hollow knock, teaches tapping is valid
@@ -1806,6 +1911,7 @@ const Engine = (() => {
     setDiscoveredDetails(details) { _discoveredDetails = details || []; },
     setHasUndiscovered(v) { _hasUndiscovered = !!v; },
     fadeTransition,
+    setTraitObjects(objects) { _traitObjects = objects; },
     setPlayerTrait(t) { _playerTrait = t || 'musician'; },
     setFirstShimmer(hitbox) { _firstShimmer = { x: hitbox.x, y: hitbox.y, w: hitbox.w, h: hitbox.h, age: 0 }; },
     flashDiscovery(hitbox, text) {

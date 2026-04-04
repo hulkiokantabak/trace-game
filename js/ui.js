@@ -92,11 +92,14 @@ const UI = (() => {
     html += '<button class="settings-action-btn" id="title-ai-btn">Configure AI</button>';
     html += '</div>';
 
-    // About
+    // About — in-world note from previous tenant
     html += '<div class="notebook-entry settings-section">';
-    html += '<p class="notebook-npc-name">About</p>';
-    html += '<p class="journal-stat">Trace — a game about noticing.</p>';
-    html += '<p class="journal-stat" style="color:#3a3530;">East London. Present day. The mythological layer beneath the everyday city.</p>';
+    html += '<p class="notebook-npc-name">A Note From the Previous Tenant</p>';
+    html += '<p class="journal-stat" style="line-height:1.8;color:#8a7a60;">The walls talk if you tap them. Not words — impressions. Details the eye skips. Tap the scene, not the text.</p>';
+    html += '<p class="journal-stat" style="line-height:1.8;color:#8a7a60;">The people here are worth knowing. Visit them. Come back. They remember.</p>';
+    html += '<p class="journal-stat" style="line-height:1.8;color:#8a7a60;">Walk slowly. Notice what others walk past. Write it down in the notebook.</p>';
+    html += '<p class="journal-stat" style="line-height:1.8;color:#8a7a60;">Some things only appear in the rain. Some only at night. Some only after you\'ve seen enough.</p>';
+    html += '<p class="journal-stat" style="line-height:1.8;color:#6a5a48;font-style:italic;margin-top:0.6rem;">Good luck with the flat. The radiator has a rhythm. — M.</p>';
     html += '</div>';
 
     html += '</div>';
@@ -187,6 +190,7 @@ const UI = (() => {
 
   function showCharacterCreation() {
     Engine.setState('character_creation');
+    Engine.setTimePeriod('evening');
 
     // Phase 1: Arrival text
     panel.innerHTML =
@@ -199,7 +203,7 @@ const UI = (() => {
       '</div>';
 
     panel.querySelector('.creation-continue-btn').addEventListener('click', () => {
-      showTraitSelection();
+      showTraitObjects();
     });
   }
 
@@ -214,32 +218,25 @@ const UI = (() => {
     return lines[trait] || 'London waits.';
   }
 
-  function showTraitSelection() {
+  // Trait objects on the flat table — player taps canvas to choose
+  function showTraitObjects() {
+    // Table in sceneFlat is drawn at x:120, y:100, w:55, h:32
+    // Objects spread across the table surface
+    const traitObjects = [
+      { trait: 'musician',     x: 122, y: 104, w: 8,  h: 6,  color: '#c8a050', label: 'A guitar pick',     index: 0 },
+      { trait: 'photographer', x: 133, y: 102, w: 8,  h: 10, color: '#5090c0', label: 'A camera lens cap', index: 1 },
+      { trait: 'wanderer',     x: 144, y: 106, w: 10, h: 5,  color: '#8a7050', label: 'A worn lace',       index: 2 },
+      { trait: 'barista',      x: 156, y: 103, w: 7,  h: 7,  color: '#c07878', label: 'A coffee cup',      index: 3 },
+      { trait: 'shopkeeper',   x: 165, y: 105, w: 6,  h: 8,  color: '#60886a', label: 'A brass key',       index: 4 }
+    ];
+
+    Engine.setTraitObjects(traitObjects);
+
+    // Show flat scene prompt — no buttons, player must tap the canvas
     panel.innerHTML =
-      '<div class="creation-trait-select">' +
-        '<p class="section-label">Who are you becoming?</p>' +
-        '<div class="trait-list">' +
-          '<button class="trait-btn trait-suggested" data-trait="musician">' +
-            '<span class="trait-name">The Musician</span>' +
-            '<span class="trait-desc">You hear what others don\'t. The city is an instrument.</span>' +
-          '</button>' +
-          '<button class="trait-btn" data-trait="photographer">' +
-            '<span class="trait-name">The Photographer</span>' +
-            '<span class="trait-desc">You see what others miss. Light tells you everything.</span>' +
-          '</button>' +
-          '<button class="trait-btn" data-trait="wanderer">' +
-            '<span class="trait-name">The Wanderer</span>' +
-            '<span class="trait-desc">You feel what others ignore. Every street has a temperature.</span>' +
-          '</button>' +
-          '<button class="trait-btn" data-trait="barista">' +
-            '<span class="trait-name">The Barista</span>' +
-            '<span class="trait-desc">You connect what others separate. People are your instrument.</span>' +
-          '</button>' +
-          '<button class="trait-btn" data-trait="shopkeeper">' +
-            '<span class="trait-name">The Shopkeeper</span>' +
-            '<span class="trait-desc">You remember what others forget. Objects hold their history.</span>' +
-          '</button>' +
-        '</div>' +
+      '<div class="creation-arrival">' +
+        '<p class="creation-text">Your new flat. Evening light.</p>' +
+        '<p class="creation-text creation-delay-1">Five things on the table.</p>' +
       '</div>';
 
     // Curated preview thoughts — the strongest from each trait
@@ -251,37 +248,61 @@ const UI = (() => {
       shopkeeper: 'Paint over paint over paint over wood.'
     };
 
-    panel.querySelectorAll('[data-trait]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const trait = btn.dataset.trait;
-        const traitName = trait.charAt(0).toUpperCase() + trait.slice(1);
+    // Trait descriptions for the confirmation screen
+    const traitDescs = {
+      musician: 'You hear what others don\'t. The city is an instrument.',
+      photographer: 'You see what others miss. Light tells you everything.',
+      wanderer: 'You feel what others ignore. Every street has a temperature.',
+      barista: 'You connect what others separate. People are your instrument.',
+      shopkeeper: 'You remember what others forget. Objects hold their history.'
+    };
 
-        // Preview step — show a sample thought so the player knows how this trait feels
-        panel.innerHTML =
-          '<div class="creation-preview">' +
-            '<p class="creation-text">The ' + traitName + '</p>' +
-            '<p class="walking-thought" style="margin:1.2rem 0;">' + esc(previewThoughts[trait]) + '</p>' +
-            '<p class="creation-text creation-delay-1">' + esc(traitConfirmation(trait)) + '</p>' +
-            '<div style="display:flex;gap:1rem;margin-top:1.5rem;">' +
-              '<button class="trait-confirm-btn creation-delay-2">Begin</button>' +
-              '<button class="trait-back-btn creation-delay-2">Back</button>' +
-            '</div>' +
-          '</div>';
-
-        panel.querySelector('.trait-confirm-btn').addEventListener('click', () => {
+    // Listen for canvas taps to detect trait object selection
+    Engine.onCanvasTap(function traitTapHandler(cx, cy) {
+      if (Engine.getState() !== 'character_creation') return;
+      for (const obj of traitObjects) {
+        // Generous hitbox — 4px padding around each object
+        if (cx >= obj.x - 4 && cx <= obj.x + obj.w + 4 &&
+            cy >= obj.y - 4 && cy <= obj.y + obj.h + 4) {
           Engine.audio.playDiscovery();
-          State.set('trait', trait);
-          Engine.setPlayerTrait(trait);
-          State.set('createdAt', Date.now());
-          State.set('firstPlay', false);
-          State.visitLocation('flat');
-          startGame();
-        });
+          showTraitConfirm(obj.trait, previewThoughts, traitDescs, obj.label);
+          return;
+        }
+      }
+    });
+  }
 
-        panel.querySelector('.trait-back-btn').addEventListener('click', () => {
-          showTraitSelection();
-        });
-      });
+  // Show trait confirmation after tapping an object on the table
+  function showTraitConfirm(trait, previewThoughts, traitDescs, objectLabel) {
+    const traitName = trait.charAt(0).toUpperCase() + trait.slice(1);
+
+    panel.innerHTML =
+      '<div class="creation-preview">' +
+        '<p class="creation-text" style="opacity:0.6;margin-bottom:0.4rem;">' + esc(objectLabel) + '</p>' +
+        '<p class="creation-text">The ' + esc(traitName) + '</p>' +
+        '<p class="journal-stat" style="margin:0.3rem 0 0.8rem;">' + esc(traitDescs[trait]) + '</p>' +
+        '<p class="walking-thought" style="margin:1.2rem 0;">' + esc(previewThoughts[trait]) + '</p>' +
+        '<p class="creation-text creation-delay-1">' + esc(traitConfirmation(trait)) + '</p>' +
+        '<div style="display:flex;gap:1rem;margin-top:1.5rem;">' +
+          '<button class="trait-confirm-btn creation-delay-2">Begin</button>' +
+          '<button class="trait-back-btn creation-delay-2">Back</button>' +
+        '</div>' +
+      '</div>';
+
+    panel.querySelector('.trait-confirm-btn').addEventListener('click', () => {
+      Engine.audio.playDiscovery();
+      Engine.setTraitObjects(null);
+      Engine.onCanvasTap(null);
+      State.set('trait', trait);
+      Engine.setPlayerTrait(trait);
+      State.set('createdAt', Date.now());
+      State.set('firstPlay', false);
+      State.visitLocation('flat');
+      startGame();
+    });
+
+    panel.querySelector('.trait-back-btn').addEventListener('click', () => {
+      showTraitObjects();
     });
   }
 
@@ -396,6 +417,18 @@ const UI = (() => {
     }
     if (locId === 'L04' && investigations['LI-01'] && investigations['LI-01'].complete) {
       html += '<p class="loc-known">The printouts are still pinned. The canal route map faces the wall now.</p>';
+    }
+    // LI-04: St Anne's After Dark — the shadow anomaly is now permanent
+    if (locId === 'L03' && investigations['LI-04'] && investigations['LI-04'].complete) {
+      html += '<p class="loc-known">The church shadow falls wrong even now. You stopped counting the sides.</p>';
+    }
+    // LI-08: The DLR Anomaly — the departure board remembers
+    if (locId === 'L08' && investigations['LI-08'] && investigations['LI-08'].complete) {
+      html += '<p class="loc-known">The departure board flickers. For a moment — MERIDIAN. Then it\'s gone.</p>';
+    }
+    // LI-12: The Watcher Noticed — every exterior carries the weight
+    if (investigations['LI-12'] && investigations['LI-12'].complete && loc.type === 'exterior') {
+      html += '<p class="loc-known" style="color:#5a5048;">The feeling of being watched has not gone away. It has become familiar.</p>';
     }
 
     // Tell engine about discovered detail hitboxes for visual markers
@@ -596,6 +629,7 @@ const UI = (() => {
         }
 
         if (result) {
+          Engine.audio.playNavigate();
           // Canvas fade transition — the darkness between places
           Engine.fadeTransition(() => {
             Engine.setLocation(targetId);
@@ -623,7 +657,10 @@ const UI = (() => {
     // Notebook
     const nbBtn = panel.querySelector('.notebook-btn');
     if (nbBtn) {
-      nbBtn.addEventListener('click', () => showNotebook('people'));
+      nbBtn.addEventListener('click', () => {
+        Engine.audio.playNotebook();
+        showNotebook('people');
+      });
     }
 
     // Settings
@@ -811,9 +848,7 @@ const UI = (() => {
     html += '<div class="notebook-tabs">';
     html += '<button class="notebook-tab' + (tab === 'people' ? ' tab-active' : '') + '" data-tab="people">People</button>';
     html += '<button class="notebook-tab' + (tab === 'mysteries' ? ' tab-active' : '') + '" data-tab="mysteries">Mysteries</button>';
-    html += '<button class="notebook-tab' + (tab === 'places' ? ' tab-active' : '') + '" data-tab="places">Places</button>';
-    html += '<button class="notebook-tab' + (tab === 'lore' ? ' tab-active' : '') + '" data-tab="lore">Lore</button>';
-    html += '<button class="notebook-tab' + (tab === 'me' ? ' tab-active' : '') + '" data-tab="me">Me</button>';
+    html += '<button class="notebook-tab' + (tab === 'journal' ? ' tab-active' : '') + '" data-tab="journal">Journal</button>';
     html += '</div>';
 
     if (tab === 'people') {
@@ -875,131 +910,52 @@ const UI = (() => {
       html += '</div>';
     }
 
-    if (tab === 'places') {
+    if (tab === 'journal') {
       html += '<div class="notebook-content">';
-      const visited = State.get('visitedLocations') || [];
-      if (visited.length === 0) {
-        html += '<p class="notebook-empty">Nowhere yet.</p>';
+      const trait = State.get('trait') || 'unknown';
+      const discoveries = State.get('discoveries') || [];
+      const createdAt = State.get('createdAt');
+
+      // Identity — quiet, not a stat block
+      html += '<div class="notebook-entry">';
+      html += '<p class="notebook-npc-name">The ' + esc(trait.charAt(0).toUpperCase() + trait.slice(1)) + '</p>';
+      if (createdAt) {
+        const days = Math.max(1, Math.floor((Date.now() - createdAt) / 86400000));
+        html += '<p class="journal-stat">' + days + ' day' + (days !== 1 ? 's' : '') + ' in Limehouse.</p>';
       }
+      html += '</div>';
+
+      // Places visited — with their discoveries inline
+      const visited = State.get('visitedLocations') || [];
       for (const locId of visited) {
         const loc = Game.getLocation(locId);
         if (!loc) continue;
+        const locDisc = (loc.interactableDetails || []).filter(d => State.isDiscovered(d.id));
         html += '<div class="notebook-entry">';
         html += '<p class="notebook-npc-name">' + esc(loc.name) + '</p>';
-        const discoveries = (loc.interactableDetails || []).filter(d => State.isDiscovered(d.id));
-        if (discoveries.length > 0) {
-          for (const d of discoveries) {
+        if (locDisc.length > 0) {
+          for (const d of locDisc) {
             html += '<p class="notebook-inv-step">' + esc(d.discovery_text || d.description || '') + '</p>';
           }
+        } else {
+          html += '<p class="notebook-inv-step" style="color:#3a3530;">Nothing noticed yet.</p>';
         }
         html += '</div>';
       }
-      html += '</div>';
-    }
 
-    if (tab === 'lore') {
-      html += '<div class="notebook-content">';
+      // Lore fragments found — woven in
       const frags = Game.content.fragments || {};
       let hasFrags = false;
       for (const [id, frag] of Object.entries(frags)) {
-        if (!(State.get('discoveries') || []).includes('frag_' + id)) continue;
-        hasFrags = true;
-        html += '<div class="notebook-entry">';
-        html += '<p class="notebook-npc-name">' + esc(frag.title) + '</p>';
-        html += '<p class="notebook-inv-step">' + esc(frag.text) + '</p>';
-        html += '</div>';
-      }
-      if (!hasFrags) {
-        html += '<p class="notebook-empty">No fragments found.</p>';
-      }
-      html += '</div>';
-    }
-
-    if (tab === 'me') {
-      html += '<div class="notebook-content">';
-      const stats = State.get('stats') || {};
-      const trait = State.get('trait') || 'unknown';
-      const discoveries = State.get('discoveries') || [];
-      const visitedLocs = State.get('visitedLocations') || [];
-      const npcMem = State.get('npcMemory') || {};
-      const createdAt = State.get('createdAt');
-
-      // Identity
-      html += '<div class="notebook-entry journal-identity">';
-      html += '<p class="notebook-npc-name">The ' + esc(trait.charAt(0).toUpperCase() + trait.slice(1)) + '</p>';
-
-      // Days in Limehouse
-      if (createdAt) {
-        const days = Math.max(1, Math.floor((Date.now() - createdAt) / 86400000));
-        html += '<p class="journal-stat">You have been in Limehouse for ' + days + ' day' + (days !== 1 ? 's' : '') + '.</p>';
-      }
-
-      // Discovery count as narrative
-      const discCount = discoveries.length;
-      if (discCount === 0) {
-        html += '<p class="journal-stat">You haven\'t noticed anything yet.</p>';
-      } else if (discCount <= 3) {
-        html += '<p class="journal-stat">You have noticed ' + discCount + ' thing' + (discCount !== 1 ? 's' : '') + ' others walked past.</p>';
-      } else if (discCount <= 8) {
-        html += '<p class="journal-stat">You have noticed ' + discCount + ' things. The city is opening.</p>';
-      } else {
-        html += '<p class="journal-stat">' + discCount + ' things noticed. Limehouse sees you differently now.</p>';
-      }
-
-      // NPCs met as narrative
-      const npcsMet = Object.keys(npcMem).filter(id => npcMem[id] && npcMem[id].visitCount > 0);
-      if (npcsMet.length === 0) {
-        html += '<p class="journal-stat">No one knows your face yet.</p>';
-      } else if (npcsMet.length <= 2) {
-        html += '<p class="journal-stat">' + npcsMet.length + ' people recognise you.</p>';
-      } else {
-        html += '<p class="journal-stat">' + npcsMet.length + ' people know your face. You belong here now.</p>';
-      }
-
-      // Places explored
-      if (visitedLocs.length > 0) {
-        html += '<p class="journal-stat">' + visitedLocs.length + ' place' + (visitedLocs.length !== 1 ? 's' : '') + ' explored.</p>';
-      }
-      html += '</div>';
-
-      // Stats as descriptive text
-      html += '<div class="notebook-entry">';
-      html += '<p class="notebook-npc-name">Your Senses</p>';
-      const statDescs = {
-        awareness: ['Dormant', 'Stirring', 'Sharpening', 'Attuned', 'Piercing'],
-        connection: ['Isolated', 'Reaching', 'Entwined', 'Rooted', 'Woven'],
-        insight: ['Surface', 'Scratching', 'Deepening', 'Penetrating', 'Illuminated'],
-        resonance: ['Silent', 'Humming', 'Vibrating', 'Resonant', 'Harmonic']
-      };
-      for (const [stat, levels] of Object.entries(statDescs)) {
-        const val = stats[stat] || 0;
-        const tier = Math.min(levels.length - 1, Math.floor(val / 4));
-        if (val > 0) {
-          html += '<p class="journal-sense"><span class="journal-sense-name">' + esc(stat) + '</span> <span class="journal-sense-level">' + esc(levels[tier]) + '</span></p>';
+        if (!(discoveries || []).includes('frag_' + id)) continue;
+        if (!hasFrags) {
+          html += '<div class="notebook-entry">';
+          html += '<p class="notebook-npc-name">Fragments</p>';
+          hasFrags = true;
         }
+        html += '<p class="notebook-inv-step" style="color:#8a7a60;">' + esc(frag.title) + ' — ' + esc(frag.text) + '</p>';
       }
-      html += '</div>';
-
-      // Milestones
-      const milestones = [];
-      if (discoveries.length >= 1) milestones.push('First detail noticed');
-      if (npcsMet.length >= 1) milestones.push('First conversation');
-      if (discoveries.filter(d => d.startsWith('frag_')).length >= 1) milestones.push('First lore fragment found');
-      if (visitedLocs.length >= 5) milestones.push('Five places walked');
-      if (visitedLocs.length >= 10) milestones.push('All of Limehouse explored');
-      if (npcsMet.length >= 5) milestones.push('Five faces known');
-      if (discoveries.length >= 10) milestones.push('Ten things noticed');
-      if (discoveries.length >= 20) milestones.push('The city speaks to you now');
-      if ((stats.awareness || 0) >= 10) milestones.push('Awareness: Piercing');
-
-      if (milestones.length > 0) {
-        html += '<div class="notebook-entry">';
-        html += '<p class="notebook-npc-name">Milestones</p>';
-        for (const m of milestones) {
-          html += '<p class="journal-milestone">' + esc(m) + '</p>';
-        }
-        html += '</div>';
-      }
+      if (hasFrags) html += '</div>';
 
       // Flat objects
       const objects = State.get('flatObjects') || [];
@@ -1012,7 +968,7 @@ const UI = (() => {
         html += '</div>';
       }
 
-      // AI settings link
+      // AI settings link — still accessible
       if (typeof AI !== 'undefined') {
         html += '<div class="notebook-entry">';
         html += '<button class="ai-settings-btn">Living Conversations' + (AI.isEnabled() ? ' · On' : '') + '</button>';
@@ -1140,7 +1096,7 @@ const UI = (() => {
     if (disableBtn) {
       disableBtn.addEventListener('click', () => {
         AI.disable();
-        showNotebook('me');
+        showNotebook('journal');
       });
     }
 
@@ -1151,7 +1107,7 @@ const UI = (() => {
       if (returnTo && returnTo.source === 'title') {
         showTitleSettings(returnTo.hasSave);
       } else if (returnTo && returnTo.source === 'notebook') {
-        showNotebook('me');
+        showNotebook('journal');
       } else {
         showSettings();
       }
@@ -1197,9 +1153,12 @@ const UI = (() => {
 
     // === About ===
     html += '<div class="notebook-entry settings-section">';
-    html += '<p class="notebook-npc-name">About</p>';
-    html += '<p class="journal-stat">Trace — a game about noticing.</p>';
-    html += '<p class="journal-stat" style="color:#3a3530;">East London. Present day. The mythological layer beneath the everyday city.</p>';
+    html += '<p class="notebook-npc-name">A Note From the Previous Tenant</p>';
+    html += '<p class="journal-stat" style="line-height:1.8;color:#8a7a60;">The walls talk if you tap them. Not words — impressions. Details the eye skips. Tap the scene, not the text.</p>';
+    html += '<p class="journal-stat" style="line-height:1.8;color:#8a7a60;">The people here are worth knowing. Visit them. Come back. They remember.</p>';
+    html += '<p class="journal-stat" style="line-height:1.8;color:#8a7a60;">Walk slowly. Notice what others walk past. Write it down in the notebook.</p>';
+    html += '<p class="journal-stat" style="line-height:1.8;color:#8a7a60;">Some things only appear in the rain. Some only at night. Some only after you\'ve seen enough.</p>';
+    html += '<p class="journal-stat" style="line-height:1.8;color:#6a5a48;font-style:italic;margin-top:0.6rem;">Good luck with the flat. The radiator has a rhythm. — M.</p>';
     html += '</div>';
 
     html += '</div>';
