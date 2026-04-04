@@ -322,42 +322,23 @@ html, body {
   line-height: 1.5;
 }
 
-.trait-active {
+.trait-btn:focus {
   border-color: rgba(90, 128, 184, 0.4);
+  outline: none;
 }
 
-.trait-active .trait-name {
+.trait-btn:focus .trait-name {
   color: #8ab0e0;
 }
 
 @media (hover: hover) {
-  .trait-active:hover {
+  .trait-btn:hover {
     border-color: rgba(90, 128, 184, 0.7);
   }
 
-  .trait-active:hover .trait-name {
+  .trait-btn:hover .trait-name {
     color: #a8d0f0;
   }
-}
-
-.trait-locked {
-  color: #3a3530;
-  border-color: rgba(200, 180, 140, 0.04);
-  cursor: default;
-}
-
-.trait-locked .trait-desc {
-  color: #2a2520;
-}
-
-.trait-soon {
-  position: absolute;
-  right: 0.8rem;
-  top: 0.8rem;
-  font-size: 0.65rem;
-  opacity: 0.3;
-  letter-spacing: 0.08em;
-  font-style: normal;
 }
 
 /* --- Walking Thought --- */

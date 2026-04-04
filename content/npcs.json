@@ -33,7 +33,11 @@
           "morning": { "text": "First one in. The machine's still warming.", "tag": "neutral" }
         },
         "traitLines": {
-          "musician": { "text": "Funny. I don't know where I learned that...", "tag": "musician" }
+          "musician": { "text": "Funny. I don't know where I learned that...", "tag": "musician" },
+          "photographer": { "text": "You keep looking at the light on the counter.", "tag": "photographer" },
+          "wanderer": { "text": "You walked far to get here. I can tell.", "tag": "wanderer" },
+          "barista": { "text": "You watch people. I watch coffee. Same thing.", "tag": "barista" },
+          "shopkeeper": { "text": "That mug you like. It's the oldest one I have.", "tag": "shopkeeper" }
         }
       },
       "familiar": {
@@ -43,7 +47,11 @@
           { "text": "I almost said something just now. Never mind.", "tag": "neutral" }
         ],
         "traitLines": {
-          "musician": { "text": "The song. I hum it every morning. I don't know why.", "tag": "musician" }
+          "musician": { "text": "The song. I hum it every morning. I don't know why.", "tag": "musician" },
+          "photographer": { "text": "You framed me just now. With your eyes.", "tag": "photographer" },
+          "wanderer": { "text": "You sit like someone who's been standing all day.", "tag": "wanderer" },
+          "barista": { "text": "The regulars ask about you. I don't say much.", "tag": "barista" },
+          "shopkeeper": { "text": "The sugar jar. You always touch it first.", "tag": "shopkeeper" }
         },
         "crossReference": { "text": "The painter asked about you. Be careful.", "minNpcsMet": 3 }
       },
@@ -55,7 +63,11 @@
           { "text": "I keep reaching for the next bit. It's gone.", "tag": "neutral" }
         ],
         "traitLines": {
-          "musician": { "text": "Tell me about the songwriter. The one upstairs.", "tag": "musician" }
+          "musician": { "text": "Tell me about the songwriter. The one upstairs.", "tag": "musician" },
+          "photographer": { "text": "The way you look at the wall. What do you see?", "tag": "photographer" },
+          "wanderer": { "text": "You stopped coming for three days. I felt it.", "tag": "wanderer" },
+          "barista": { "text": "Karl mentioned you. He never mentions anyone.", "tag": "barista" },
+          "shopkeeper": { "text": "The counter's worn where you lean. See the mark?", "tag": "shopkeeper" }
         }
       },
       "familiar_unknowing": {
@@ -66,7 +78,11 @@
           { "text": "My mum never taught me this one. Where did I...", "tag": "neutral" }
         ],
         "traitLines": {
-          "musician": { "text": "You hear it too. You always listen a bit funny.", "tag": "musician" }
+          "musician": { "text": "You hear it too. You always listen a bit funny.", "tag": "musician" },
+          "photographer": { "text": "You're doing it again. Squinting at the steam.", "tag": "photographer" },
+          "wanderer": { "text": "You came in cold. Sit closer to the machine.", "tag": "wanderer" },
+          "barista": { "text": "The old woman on Tuesdays. She asks after you.", "tag": "barista" },
+          "shopkeeper": { "text": "That spoon. Victorian, I think. You always pick it.", "tag": "shopkeeper" }
         }
       }
     }
@@ -104,7 +120,11 @@
           "night": { "text": "The frequencies shift after midnight. Quieter. Truer.", "tag": "neutral" }
         },
         "traitLines": {
-          "musician": { "text": "You hear it too. The sustained note. 47 hertz.", "tag": "musician" }
+          "musician": { "text": "You hear it too. The sustained note. 47 hertz.", "tag": "musician" },
+          "photographer": { "text": "The waveform. It looks like the canal. You'd see it.", "tag": "photographer" },
+          "wanderer": { "text": "You move through rooms differently. I hear it.", "tag": "wanderer" },
+          "barista": { "text": "Mei sent you, didn't she. She knows about the hum.", "tag": "barista" },
+          "shopkeeper": { "text": "This reel-to-reel. 1962. Still captures what digital misses.", "tag": "shopkeeper" }
         }
       },
       "familiar": {
@@ -114,7 +134,11 @@
           { "text": "The pre-1770 route. Before they straightened it.", "tag": "neutral" }
         ],
         "traitLines": {
-          "musician": { "text": "It's not echo. It's origin. The canal remembers.", "tag": "musician" }
+          "musician": { "text": "It's not echo. It's origin. The canal remembers.", "tag": "musician" },
+          "photographer": { "text": "The spectrogram. Look. It's shaped like the basin.", "tag": "photographer" },
+          "wanderer": { "text": "You've walked the old route. The sound follows it.", "tag": "wanderer" },
+          "barista": { "text": "Danny heard it too. In the cellar. He won't say.", "tag": "barista" },
+          "shopkeeper": { "text": "These tapes. Label says 1770. The year they moved the canal.", "tag": "shopkeeper" }
         },
         "crossReference": { "text": "The pub landlord hears it too. He won't say.", "minNpcsMet": 3 }
       }
@@ -153,7 +177,11 @@
           "night": { "text": "Late one tonight. Careful walking home.", "tag": "neutral" }
         },
         "traitLines": {
-          "musician": { "text": "The cellar hums. Always has. Don't ask me why.", "tag": "musician" }
+          "musician": { "text": "The cellar hums. Always has. Don't ask me why.", "tag": "musician" },
+          "photographer": { "text": "The light through that window. Only pub in Limehouse gets it.", "tag": "photographer" },
+          "wanderer": { "text": "You've been walking. Sit. The floor's warm here.", "tag": "wanderer" },
+          "barista": { "text": "Mei mentioned you. Says you notice things.", "tag": "barista" },
+          "shopkeeper": { "text": "This bar. Original oak. 1583. Touch it.", "tag": "shopkeeper" }
         }
       },
       "familiar": {
@@ -163,7 +191,11 @@
           { "text": "This pub has been here longer than the street.", "tag": "neutral" }
         ],
         "traitLines": {
-          "musician": { "text": "The cellar. The tapes. 1967. I wasn't going to say.", "tag": "musician" }
+          "musician": { "text": "The cellar. The tapes. 1967. I wasn't going to say.", "tag": "musician" },
+          "photographer": { "text": "The photo behind the bar. The figure in the doorway.", "tag": "photographer" },
+          "wanderer": { "text": "The building shifts at night. Walls remember footsteps.", "tag": "wanderer" },
+          "barista": { "text": "Everyone who matters comes through this pub. Everyone.", "tag": "barista" },
+          "shopkeeper": { "text": "The cellar key. Victorian. No one's copied it since.", "tag": "shopkeeper" }
         },
         "crossReference": { "text": "The artist in the warehouse. She knows more than me.", "minNpcsMet": 3 }
       }
@@ -199,7 +231,11 @@
           "rain": { "text": "Rain makes people braver. About what they want.", "tag": "neutral" }
         },
         "traitLines": {
-          "musician": { "text": "I drew this one hearing that melody. Your melody.", "tag": "musician" }
+          "musician": { "text": "I drew this one hearing that melody. Your melody.", "tag": "musician" },
+          "photographer": { "text": "You see composition. I see it too. In skin.", "tag": "photographer" },
+          "wanderer": { "text": "Your hands. You've been gripping handlebars. Or railings.", "tag": "wanderer" },
+          "barista": { "text": "Jem told me about you. Said you pay attention.", "tag": "barista" },
+          "shopkeeper": { "text": "This needle. Handmade. Older than the parlour.", "tag": "shopkeeper" }
         }
       },
       "familiar": {
@@ -209,7 +245,11 @@
           { "text": "The door I drew. It opened. In the drawing.", "tag": "neutral" }
         ],
         "traitLines": {
-          "musician": { "text": "The door leads somewhere real. I can feel it.", "tag": "musician" }
+          "musician": { "text": "The door leads somewhere real. I can feel it.", "tag": "musician" },
+          "photographer": { "text": "The drawing changes in different light. Photograph it. See.", "tag": "photographer" },
+          "wanderer": { "text": "The door. I think you've already walked through it.", "tag": "wanderer" },
+          "barista": { "text": "Arthur painted the same door. He doesn't know I know.", "tag": "barista" },
+          "shopkeeper": { "text": "The ink's wrong age. Dates itself older than the bottle.", "tag": "shopkeeper" }
         },
         "crossReference": { "text": "The courier sees it too. The figure. At the edge.", "minNpcsMet": 3 }
       }
@@ -248,7 +288,11 @@
           "morning": { "text": "Morning light. Cerulean. My favourite hour.", "tag": "neutral" }
         },
         "traitLines": {
-          "musician": { "text": "The water changes colour when you hum. Notice that?", "tag": "musician" }
+          "musician": { "text": "The water changes colour when you hum. Notice that?", "tag": "musician" },
+          "photographer": { "text": "You're framing the basin. I can see your eyes cropping.", "tag": "photographer" },
+          "wanderer": { "text": "You stand like someone who knows the towpath well.", "tag": "wanderer" },
+          "barista": { "text": "Mei's coffee. She puts something extra in yours.", "tag": "barista" },
+          "shopkeeper": { "text": "This brush. Kolinsky sable. Forty years. Irreplaceable.", "tag": "shopkeeper" }
         }
       },
       "familiar": {
@@ -258,7 +302,11 @@
           { "text": "Every building has a colour it wants to be.", "tag": "neutral" }
         ],
         "traitLines": {
-          "musician": { "text": "I hear it in the paint. The frequency. Your note.", "tag": "musician" }
+          "musician": { "text": "I hear it in the paint. The frequency. Your note.", "tag": "musician" },
+          "photographer": { "text": "This painting. The shadow in it. It wasn't there yesterday.", "tag": "photographer" },
+          "wanderer": { "text": "The canal moves. I paint it moving. You walk it moving.", "tag": "wanderer" },
+          "barista": { "text": "Mei's song and my painting. Same shape. Ask her.", "tag": "barista" },
+          "shopkeeper": { "text": "This pigment. Ground from the basin wall. Centuries old.", "tag": "shopkeeper" }
         },
         "crossReference": { "text": "The barista's song. I painted it once. The same shape.", "minNpcsMet": 3 }
       }
@@ -290,7 +338,11 @@
           { "text": "The Meridian. I've seen it twice now.", "tag": "neutral" }
         ],
         "traitLines": {
-          "musician": { "text": "The wind here plays a note. You hear it?", "tag": "musician" }
+          "musician": { "text": "The wind here plays a note. You hear it?", "tag": "musician" },
+          "photographer": { "text": "The board flickers. Catch it right, you'll see something.", "tag": "photographer" },
+          "wanderer": { "text": "You walk these routes too. I've seen you.", "tag": "wanderer" },
+          "barista": { "text": "Suki says you ask questions. Good. Ask more.", "tag": "barista" },
+          "shopkeeper": { "text": "This bike. Third frame, same wheels. Wheels outlast everything.", "tag": "shopkeeper" }
         }
       },
       "familiar": {
@@ -300,7 +352,11 @@
           { "text": "That person. Three neighbourhoods. Same day.", "tag": "neutral" }
         ],
         "traitLines": {
-          "musician": { "text": "The platform hums your note. I timed it.", "tag": "musician" }
+          "musician": { "text": "The platform hums your note. I timed it.", "tag": "musician" },
+          "photographer": { "text": "The figure. I saw it. Platform edge. Photograph that spot.", "tag": "photographer" },
+          "wanderer": { "text": "Three boroughs in one day. The figure followed.", "tag": "wanderer" },
+          "barista": { "text": "Ade knows the name. The one who watches. Ask him.", "tag": "barista" },
+          "shopkeeper": { "text": "The departure board. Original fittings. Numbers don't match.", "tag": "shopkeeper" }
         },
         "crossReference": { "text": "The tattoo artist drew something. I've seen it moving.", "minNpcsMet": 3 }
       }
@@ -335,7 +391,11 @@
           { "text": "The lights do that thing after midnight.", "tag": "neutral" }
         ],
         "traitLines": {
-          "musician": { "text": "The bass tonight. Not from the speakers.", "tag": "musician" }
+          "musician": { "text": "The bass tonight. Not from the speakers.", "tag": "musician" },
+          "photographer": { "text": "The lights shift for you. I watch who they follow.", "tag": "photographer" },
+          "wanderer": { "text": "You circled the block twice. I count everyone.", "tag": "wanderer" },
+          "barista": { "text": "People talk to you. That's either rare or dangerous.", "tag": "barista" },
+          "shopkeeper": { "text": "The stamp. Same design since the sixties. Nobody changes it.", "tag": "shopkeeper" }
         }
       },
       "familiar": {
@@ -345,7 +405,11 @@
           { "text": "The name. The one who watches. I know it.", "tag": "neutral" }
         ],
         "traitLines": {
-          "musician": { "text": "The bass follows you. I've watched it move.", "tag": "musician" }
+          "musician": { "text": "The bass follows you. I've watched it move.", "tag": "musician" },
+          "photographer": { "text": "The shadow at the door. It's in every photo. Check.", "tag": "photographer" },
+          "wanderer": { "text": "The market moves. Whole thing shifts. You'd feel it walking.", "tag": "wanderer" },
+          "barista": { "text": "Everyone here knows everyone. Except the one who watches.", "tag": "barista" },
+          "shopkeeper": { "text": "The door. Victorian ironwork. Older than the building. How.", "tag": "shopkeeper" }
         },
         "crossReference": { "text": "Someone watches all of you. I know the name.", "minNpcsMet": 4 }
       }
@@ -377,7 +441,11 @@
           { "text": "Don't stop looking. It's looking back.", "tag": "neutral" }
         ],
         "traitLines": {
-          "musician": { "text": "The note is getting louder. Somebody's listening.", "tag": "musician" }
+          "musician": { "text": "The note is getting louder. Somebody's listening.", "tag": "musician" },
+          "photographer": { "text": "You see the shape of it. The shadow. Don't look away.", "tag": "photographer" },
+          "wanderer": { "text": "Your feet know the path. The old path. Under the new.", "tag": "wanderer" },
+          "barista": { "text": "They all know you now. That's how it starts.", "tag": "barista" },
+          "shopkeeper": { "text": "The stones here. Older than the church. Touch them.", "tag": "shopkeeper" }
         }
       }
     }

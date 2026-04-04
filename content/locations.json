@@ -70,6 +70,82 @@
         "requires_all_discovered": true,
         "discovery_text": "Your hand on the wall. The building hums. 47 hertz. The same as the canal, the lock gates, the studio. Your flat was part of it all along.",
         "xp": { "awareness": 3, "resonance": 2 }
+      },
+      {
+        "id": "flat_light_angle",
+        "hitbox": { "x": 200, "y": 132, "w": 25, "h": 15 },
+        "description": "Light angle on the table. Shifting.",
+        "trait_required": "photographer",
+        "awareness_required": 0,
+        "discovery_text": "The light moves across the table in a slow arc. It maps the building opposite through your window. A projection of someone else's home.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "flat_wall_shadow",
+        "hitbox": { "x": 270, "y": 70, "w": 30, "h": 25 },
+        "description": "A shadow on the wall. Too detailed.",
+        "trait_required": "photographer",
+        "awareness_required": 3,
+        "requires_all_discovered": true,
+        "discovery_text": "The shadow on the wall is a perfect blueprint of the building opposite. Windows, drainpipes, aerials. A camera obscura you didn't build.",
+        "xp": { "awareness": 3, "resonance": 2 }
+      },
+      {
+        "id": "flat_floorboard_warmth",
+        "hitbox": { "x": 50, "y": 150, "w": 28, "h": 16 },
+        "description": "A warm spot on the floor.",
+        "trait_required": "wanderer",
+        "awareness_required": 0,
+        "discovery_text": "One spot near the radiator holds heat long after it clicks off. Your bare feet find it every time. The building remembers where to be warm.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "flat_air_current",
+        "hitbox": { "x": 280, "y": 80, "w": 20, "h": 20 },
+        "description": "A draft from a gap you can't see.",
+        "trait_required": "wanderer",
+        "awareness_required": 3,
+        "requires_all_discovered": true,
+        "discovery_text": "The draft is warm. Not from outside. From inside the wall. As if the building breathes and you've found its mouth. The air tastes of plaster and something older.",
+        "xp": { "awareness": 3, "resonance": 2 }
+      },
+      {
+        "id": "flat_mug_ring_trace",
+        "hitbox": { "x": 170, "y": 115, "w": 18, "h": 12 },
+        "description": "A mug ring on the table. Not yours.",
+        "trait_required": "barista",
+        "awareness_required": 0,
+        "discovery_text": "The ring is double-layered. Someone set a cup down, picked it up, set it down again. A habit. A person who hesitated before leaving.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "flat_neighbour_noise",
+        "hitbox": { "x": 80, "y": 50, "w": 25, "h": 20 },
+        "description": "Voices through the wall.",
+        "trait_required": "barista",
+        "awareness_required": 3,
+        "requires_all_discovered": true,
+        "discovery_text": "You press your ear to the wall. Not words. Rhythms. Greeting, argument, reconciliation. The same conversation the building has heard for decades.",
+        "xp": { "awareness": 3, "resonance": 2 }
+      },
+      {
+        "id": "flat_door_handle_wear",
+        "hitbox": { "x": 300, "y": 100, "w": 14, "h": 18 },
+        "description": "The door handle. Worn smooth.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 0,
+        "discovery_text": "The brass is worn to a mirror. Decades of hands, thousands of turns. The metal has been shaped by everyone who lived here. A handle made by use.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "flat_window_latch_age",
+        "hitbox": { "x": 240, "y": 30, "w": 16, "h": 14 },
+        "description": "The window latch. Older than it should be.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 3,
+        "requires_all_discovered": true,
+        "discovery_text": "Victorian ironwork on a 1960s window frame. The latch was salvaged. Someone kept this one piece when everything else was torn down. It's the oldest thing in the flat, by a century.",
+        "xp": { "awareness": 3, "resonance": 2 }
       }
     ],
     "npcs_present": {},
@@ -162,6 +238,82 @@
         "requires_all_discovered": true,
         "discovery_text": "You listen past the surface. Past the diesel. Past the lapping. There — a sustained note. Rising from the silt. The canal has been singing since before the city was named.",
         "xp": { "awareness": 3, "resonance": 3 }
+      },
+      {
+        "id": "canal_light_surface",
+        "hitbox": { "x": 220, "y": 150, "w": 35, "h": 14 },
+        "description": "Light on the canal surface.",
+        "trait_required": "photographer",
+        "awareness_required": 0,
+        "discovery_text": "The light breaks on the water into shapes that hold for a second. Long enough to frame. Too fast to capture.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "canal_bridge_reflection",
+        "hitbox": { "x": 250, "y": 80, "w": 30, "h": 20 },
+        "description": "The bridge reflected in the basin.",
+        "trait_required": "photographer",
+        "awareness_required": 4,
+        "requires_all_discovered": true,
+        "discovery_text": "The reflection shows two arches. You look up. One bridge. You look down. Two. The water remembers a bridge that was demolished.",
+        "xp": { "awareness": 3, "resonance": 3 }
+      },
+      {
+        "id": "canal_stone_cold",
+        "hitbox": { "x": 40, "y": 140, "w": 28, "h": 16 },
+        "description": "The towpath stone. Cold underfoot.",
+        "trait_required": "wanderer",
+        "awareness_required": 0,
+        "discovery_text": "The stone is colder than the air. It pulls heat from your soles. Centuries of feet have polished it smooth. Your body fits into grooves worn by dockers.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "canal_mist_skin",
+        "hitbox": { "x": 140, "y": 60, "w": 35, "h": 20 },
+        "description": "Mist off the water. On your skin.",
+        "trait_required": "wanderer",
+        "awareness_required": 4,
+        "requires_all_discovered": true,
+        "discovery_text": "The mist touches your face and you feel the canal's full depth. Every layer of silt, every sunken thing. Your skin reads the water like braille. The basin is deeper than any map says.",
+        "xp": { "awareness": 3, "resonance": 3 }
+      },
+      {
+        "id": "canal_bench_wear",
+        "hitbox": { "x": 20, "y": 110, "w": 24, "h": 14 },
+        "description": "A bench by the towpath. Worn smooth.",
+        "trait_required": "barista",
+        "awareness_required": 0,
+        "discovery_text": "The bench is worn into two hollows. Side by side. The same two people, the same time, for years. You can see the shape of their friendship in the wood.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "canal_dogwalker_route",
+        "hitbox": { "x": 260, "y": 130, "w": 30, "h": 18 },
+        "description": "A path worn into the grass beside the towpath.",
+        "trait_required": "barista",
+        "awareness_required": 4,
+        "requires_all_discovered": true,
+        "discovery_text": "The worn path tells a story. Morning dog-walkers go clockwise. Evening ones counter. They never meet. Two communities sharing a basin, perfectly out of phase. A city of near-misses.",
+        "xp": { "awareness": 3, "resonance": 3 }
+      },
+      {
+        "id": "canal_bollard_dates",
+        "hitbox": { "x": 230, "y": 110, "w": 18, "h": 16 },
+        "description": "A mooring bollard. Dates stamped in iron.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 0,
+        "discovery_text": "1820. Stamped into the bollard. The iron was cast when this basin held cargo ships. The bollard has outlasted every boat it ever held.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "canal_brick_salvage",
+        "hitbox": { "x": 170, "y": 40, "w": 25, "h": 18 },
+        "description": "Bricks in the basin wall. Mismatched.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 4,
+        "requires_all_discovered": true,
+        "discovery_text": "Three different bricks. Three different centuries. London stock, Staffordshire blue, modern engineering. The wall was repaired with whatever was at hand. Each brick a receipt for a different era's trouble.",
+        "xp": { "awareness": 3, "resonance": 3 }
       }
     ],
     "npcs_present": {
@@ -216,6 +368,78 @@
         "awareness_required": 0,
         "discovery_text": "The cat watches a spot on the floor where nothing is. Or nothing you can see.",
         "xp": { "awareness": 1 }
+      },
+      {
+        "id": "coffee_steam_light",
+        "hitbox": { "x": 140, "y": 30, "w": 25, "h": 20 },
+        "description": "Steam from the machine. Caught in light.",
+        "trait_required": "photographer",
+        "awareness_required": 0,
+        "discovery_text": "The steam catches the window light and becomes solid for an instant. A column of gold. The machine makes sculpture every thirty seconds and nobody frames it.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "coffee_window_rectangle",
+        "hitbox": { "x": 200, "y": 100, "w": 30, "h": 22 },
+        "description": "The rectangle of light on the floor.",
+        "trait_required": "photographer",
+        "awareness_required": 1,
+        "discovery_text": "The window projects a perfect rectangle on the floorboards. Inside it, the dust is visible. Outside, nothing. A frame the sun built. It moves an inch every ten minutes.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "coffee_cup_warmth",
+        "hitbox": { "x": 100, "y": 95, "w": 20, "h": 16 },
+        "description": "Your cup. The warmth through ceramic.",
+        "trait_required": "wanderer",
+        "awareness_required": 0,
+        "discovery_text": "The heat moves through the ceramic in waves. Your palms map the cup's temperature like terrain. Hotter at the top. The handle stays cool. Your body reads it all.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "coffee_floorboard_give",
+        "hitbox": { "x": 160, "y": 155, "w": 28, "h": 14 },
+        "description": "A soft spot in the floor by the counter.",
+        "trait_required": "wanderer",
+        "awareness_required": 1,
+        "discovery_text": "The floor dips where hundreds of people have stood to order. Your feet find the groove without looking. The building has shaped itself around a daily ritual.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "coffee_regulars_table",
+        "hitbox": { "x": 240, "y": 70, "w": 30, "h": 22 },
+        "description": "A table in the corner. Always the same cups.",
+        "trait_required": "barista",
+        "awareness_required": 0,
+        "discovery_text": "Two flat whites, one black. Same table, same time. They don't speak much. They don't need to. The order says everything — who's fragile today, who slept badly.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "coffee_tip_jar_notes",
+        "hitbox": { "x": 90, "y": 72, "w": 16, "h": 14 },
+        "description": "The tip jar. Notes folded inside.",
+        "trait_required": "barista",
+        "awareness_required": 1,
+        "discovery_text": "Someone folds their notes into cranes before dropping them in. Every morning. A tiny gift inside the gift.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "coffee_counter_wood_grain",
+        "hitbox": { "x": 40, "y": 100, "w": 22, "h": 16 },
+        "description": "The counter wood. Reclaimed from somewhere.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 0,
+        "discovery_text": "Ship's timber. You can see the bolt holes, filled but visible. This counter was a deck once. It's been sold, salvaged, and sold again. The wood has had more owners than the building.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "coffee_machine_age",
+        "hitbox": { "x": 130, "y": 55, "w": 24, "h": 20 },
+        "description": "The espresso machine. Not what it seems.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 1,
+        "discovery_text": "A 1970s Faema. Rebuilt twice, new gaskets, original boiler. Worth more than the lease. Someone brought this from Naples. The serial number is filed off — it has a history it's hiding.",
+        "xp": { "awareness": 2 }
       }
     ],
     "npcs_present": {
@@ -299,6 +523,82 @@
         "requires_all_discovered": true,
         "discovery_text": "You stand still. The tower is not silent. It resonates. A low B-flat, sustained, as if the stone itself is remembering a congregation that sang here centuries ago.",
         "xp": { "awareness": 3, "insight": 2 }
+      },
+      {
+        "id": "church_light_geometry",
+        "hitbox": { "x": 210, "y": 50, "w": 30, "h": 25 },
+        "description": "Light through the church windows. A geometry on the ground.",
+        "trait_required": "photographer",
+        "awareness_required": 0,
+        "discovery_text": "The window casts a shape on the gravel that doesn't match the glass. Extra lines. A pattern the architect hid in the glazing, visible only at this angle, this hour.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "church_shadow_length",
+        "hitbox": { "x": 200, "y": 130, "w": 35, "h": 18 },
+        "description": "The spire's shadow. Longer than it should be.",
+        "trait_required": "photographer",
+        "awareness_required": 4,
+        "requires_all_discovered": true,
+        "discovery_text": "You measure the shadow against the church. It's twelve feet too long. You check your own shadow — correct. Only the church casts more darkness than its height allows. Hawksmoor knew.",
+        "xp": { "awareness": 3, "insight": 2 }
+      },
+      {
+        "id": "church_stone_damp",
+        "hitbox": { "x": 80, "y": 100, "w": 25, "h": 18 },
+        "description": "The stone wall. Damp to the touch.",
+        "trait_required": "wanderer",
+        "awareness_required": 0,
+        "discovery_text": "Your hand on the church wall. The stone is wet, but not from rain. It sweats. Cold and steady, like a body with a fever breaking. The building is alive in some way stone shouldn't be.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "church_ground_pull",
+        "hitbox": { "x": 50, "y": 160, "w": 30, "h": 14 },
+        "description": "The grass underfoot. Pulling.",
+        "trait_required": "wanderer",
+        "awareness_required": 4,
+        "requires_all_discovered": true,
+        "discovery_text": "Your feet sink slightly with each step. Not mud. The ground here is soft in a way that has nothing to do with water. It yields. It wants you closer. The churchyard remembers how to receive.",
+        "xp": { "awareness": 3, "insight": 2 }
+      },
+      {
+        "id": "church_flowers_fresh",
+        "hitbox": { "x": 10, "y": 120, "w": 20, "h": 16 },
+        "description": "Fresh flowers on a grave. No name visible.",
+        "trait_required": "barista",
+        "awareness_required": 0,
+        "discovery_text": "Roses. Fresh this morning. The grave has no legible name. Someone still visits. Every week, the same flowers. A relationship outlasting the stone that was meant to preserve it.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "church_bench_initials",
+        "hitbox": { "x": 250, "y": 110, "w": 25, "h": 16 },
+        "description": "A bench near the path. Carved initials.",
+        "trait_required": "barista",
+        "awareness_required": 4,
+        "requires_all_discovered": true,
+        "discovery_text": "Initials carved over decades. Some deep, some shallow. Some crossed out. You trace the oldest: 1923. Two letters intertwined. Someone sat here and declared something. The churchyard heard.",
+        "xp": { "awareness": 3, "insight": 2 }
+      },
+      {
+        "id": "church_iron_gate_hinge",
+        "hitbox": { "x": 270, "y": 80, "w": 20, "h": 22 },
+        "description": "The churchyard gate. Hand-forged hinges.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 0,
+        "discovery_text": "Hand-forged hinges. No two the same. The smith's hammer marks are still visible. These were made for this gate, this church, this exact weight of iron. Bespoke. Three hundred years old.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "church_foundation_stone",
+        "hitbox": { "x": 180, "y": 90, "w": 22, "h": 16 },
+        "description": "A stone near the base. Different from the others.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 4,
+        "requires_all_discovered": true,
+        "discovery_text": "Portland stone at the base, but this one block is older. Roman. Reused. You can see the chisel marks — two styles, two millennia apart. Someone built Hawksmoor's church on top of something that was already here.",
+        "xp": { "awareness": 3, "insight": 2 }
       }
     ],
     "npcs_present": {
@@ -343,6 +643,78 @@
         "awareness_required": 0,
         "discovery_text": "The room resonates at a frequency that matches your chest. You can feel it in your sternum. This building remembers sound.",
         "xp": { "awareness": 1 }
+      },
+      {
+        "id": "studio_dust_shaft",
+        "hitbox": { "x": 240, "y": 20, "w": 25, "h": 50 },
+        "description": "A shaft of light from the high window. Dust suspended.",
+        "trait_required": "photographer",
+        "awareness_required": 0,
+        "discovery_text": "The dust doesn't settle. It hangs in the light like a developing photograph. Each particle a tiny mirror.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "studio_monitor_reflection",
+        "hitbox": { "x": 200, "y": 60, "w": 28, "h": 20 },
+        "description": "The dark monitor. Your reflection, distorted.",
+        "trait_required": "photographer",
+        "awareness_required": 1,
+        "discovery_text": "The monitor is off but its surface holds your reflection. Curved, stretched. Behind you, the room looks different in the black glass. Deeper. Older. A warehouse before it was a studio.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "studio_concrete_cold",
+        "hitbox": { "x": 80, "y": 150, "w": 35, "h": 18 },
+        "description": "The concrete floor. A different kind of cold.",
+        "trait_required": "wanderer",
+        "awareness_required": 0,
+        "discovery_text": "The concrete holds the cold of last night. Your feet feel the building's thermal memory — warm where equipment sat, cold where nothing has been for months. A heat map of use.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "studio_air_pressure",
+        "hitbox": { "x": 190, "y": 40, "w": 25, "h": 20 },
+        "description": "The air. Heavier in here.",
+        "trait_required": "wanderer",
+        "awareness_required": 1,
+        "discovery_text": "The air is denser inside the studio. Your ears adjust. The building is sealed tighter than it looks. Designed to hold sound in. Or keep something out.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "studio_coffee_cups",
+        "hitbox": { "x": 70, "y": 70, "w": 20, "h": 16 },
+        "description": "Coffee cups on a shelf. A collection.",
+        "trait_required": "barista",
+        "awareness_required": 0,
+        "discovery_text": "Seven cups. Different shops, different hands. Each one a late-night session, a visitor, a collaboration. The cups are a guest book nobody meant to keep.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "studio_visitor_log",
+        "hitbox": { "x": 100, "y": 30, "w": 22, "h": 18 },
+        "description": "Names written on tape on the mixing desk.",
+        "trait_required": "barista",
+        "awareness_required": 1,
+        "discovery_text": "Masking tape labels, layered. Names of everyone who recorded here. Some crossed out. Some written over. A history of creative partnerships made and broken on a strip of tape.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "studio_cable_vintage",
+        "hitbox": { "x": 250, "y": 100, "w": 22, "h": 20 },
+        "description": "A cable coil. The connector is old.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 0,
+        "discovery_text": "DIN connector. 1960s. The cable is worth more than the equipment it's plugged into. Someone has been hoarding studio gear since before this building was converted. Collector's instinct.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "studio_wall_printout_date",
+        "hitbox": { "x": 10, "y": 80, "w": 24, "h": 20 },
+        "description": "A printout under the others. Older paper.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 1,
+        "discovery_text": "The paper is yellowed. Dot-matrix print. 1987. A frequency analysis of this exact room, done decades before the studio existed. Someone knew what this space was before anyone recorded here.",
+        "xp": { "awareness": 2 }
       }
     ],
     "npcs_present": {
@@ -408,6 +780,82 @@
         "requires_all_discovered": true,
         "discovery_text": "You press your ear to the cellar door. Music. Faint, layered, decades old. A woman's voice singing in a dialect you almost understand. The tapes. They're still playing.",
         "xp": { "awareness": 2, "resonance": 3 }
+      },
+      {
+        "id": "pub_thames_light",
+        "hitbox": { "x": 240, "y": 10, "w": 30, "h": 25 },
+        "description": "Light off the Thames, flickering on the ceiling.",
+        "trait_required": "photographer",
+        "awareness_required": 0,
+        "discovery_text": "River light dances on the ceiling. The pub becomes a camera obscura. The Thames projects itself inside, upside down, shimmering. Four hundred years of this. The oldest moving picture in London.",
+        "xp": { "awareness": 3 }
+      },
+      {
+        "id": "pub_glass_refraction",
+        "hitbox": { "x": 160, "y": 55, "w": 22, "h": 18 },
+        "description": "Your glass. The room bends inside it.",
+        "trait_required": "photographer",
+        "awareness_required": 3,
+        "requires_all_discovered": true,
+        "discovery_text": "Through the curved glass, the pub warps. The timber bends. The window stretches. And for a moment you see the room as it was — lower ceiling, rushlight, faces you don't recognise. The glass remembers an older pub.",
+        "xp": { "awareness": 2, "resonance": 3 }
+      },
+      {
+        "id": "pub_wood_warmth",
+        "hitbox": { "x": 140, "y": 130, "w": 30, "h": 18 },
+        "description": "The bar top. Warm to the touch.",
+        "trait_required": "wanderer",
+        "awareness_required": 0,
+        "discovery_text": "The wood is warm. Not from the room. From inside. Centuries of hands have given this bar their heat. It radiates back. You lean on it and feel held.",
+        "xp": { "awareness": 3 }
+      },
+      {
+        "id": "pub_floor_tilt",
+        "hitbox": { "x": 50, "y": 155, "w": 30, "h": 16 },
+        "description": "The floor. Tilted toward the river.",
+        "trait_required": "wanderer",
+        "awareness_required": 3,
+        "requires_all_discovered": true,
+        "discovery_text": "The floor tilts. Two degrees, toward the Thames. Your body adjusts without thinking. The building has been leaning riverward for centuries.",
+        "xp": { "awareness": 2, "resonance": 3 }
+      },
+      {
+        "id": "pub_corner_couple",
+        "hitbox": { "x": 180, "y": 90, "w": 25, "h": 20 },
+        "description": "A couple in the corner. Not speaking.",
+        "trait_required": "barista",
+        "awareness_required": 0,
+        "discovery_text": "They sit in silence. Comfortable silence. She turns her glass. He watches the river. Twenty years of marriage in the way they occupy space without needing to fill it.",
+        "xp": { "awareness": 3 }
+      },
+      {
+        "id": "pub_regulars_marks",
+        "hitbox": { "x": 100, "y": 80, "w": 22, "h": 16 },
+        "description": "Scratches on a table. Tally marks.",
+        "trait_required": "barista",
+        "awareness_required": 3,
+        "requires_all_discovered": true,
+        "discovery_text": "Tally marks scratched into the table. Hundreds. Not drinks. Visits. Someone counted every time they came here. The marks stop at 1,247. You wonder what made them stop counting.",
+        "xp": { "awareness": 2, "resonance": 3 }
+      },
+      {
+        "id": "pub_beam_shipwood",
+        "hitbox": { "x": 120, "y": 20, "w": 40, "h": 14 },
+        "description": "The ceiling beam. Darker than the rest.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 0,
+        "discovery_text": "The sea is in the ceiling. Salt-cured oak. The beam was a keel once \u2014 you can see where the ribs joined.",
+        "xp": { "awareness": 3 }
+      },
+      {
+        "id": "pub_brass_tap_patina",
+        "hitbox": { "x": 40, "y": 90, "w": 18, "h": 20 },
+        "description": "The brass tap. Green around the base.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 3,
+        "requires_all_discovered": true,
+        "discovery_text": "The patina tells a story. Green at the base where beer splashed for decades. Bright where hands gripped. The tap has been here since 1880. It's poured every ale London has brewed since.",
+        "xp": { "awareness": 2, "resonance": 3 }
       }
     ],
     "npcs_present": {
@@ -451,6 +899,78 @@
         "trait_required": "musician",
         "awareness_required": 1,
         "discovery_text": "The needle buzzes in C-sharp. Always C-sharp. The artist doesn't notice. But the note carries through the wall like a signal.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "parlour_neon_cast",
+        "hitbox": { "x": 130, "y": 20, "w": 28, "h": 22 },
+        "description": "Neon light on the far wall. A red wash.",
+        "trait_required": "photographer",
+        "awareness_required": 0,
+        "discovery_text": "The neon turns the back wall into a darkroom. Everything red, shadow-heavy. The flash art looks different in this light. The doors on the wall look open.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "parlour_mirror_angle",
+        "hitbox": { "x": 250, "y": 30, "w": 25, "h": 30 },
+        "description": "A mirror on the wall. Angled wrong.",
+        "trait_required": "photographer",
+        "awareness_required": 1,
+        "discovery_text": "The mirror doesn't show the room. It shows the street through the window. Angled to catch the railway arch. A surveillance frame. Or a portrait of the view the artist prefers.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "parlour_chair_vinyl",
+        "hitbox": { "x": 160, "y": 110, "w": 30, "h": 22 },
+        "description": "The tattoo chair. Vinyl warm from the last client.",
+        "trait_required": "wanderer",
+        "awareness_required": 0,
+        "discovery_text": "The vinyl is warm. Someone was here ten minutes ago. The chair holds their shape, their heat. You sit in the ghost of a stranger's decision to be marked.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "parlour_ink_smell",
+        "hitbox": { "x": 100, "y": 80, "w": 24, "h": 20 },
+        "description": "The ink smell. Sharper near the curtain.",
+        "trait_required": "wanderer",
+        "awareness_required": 1,
+        "discovery_text": "Antiseptic and iron. The ink smells like blood's cousin. Your body recognises something old in the scent. Marking skin is ancient. The parlour knows it.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "parlour_waiting_chairs",
+        "hitbox": { "x": 60, "y": 130, "w": 30, "h": 20 },
+        "description": "Three chairs in the waiting area. Positioned.",
+        "trait_required": "barista",
+        "awareness_required": 0,
+        "discovery_text": "The chairs face each other, not the door. People who wait here end up talking. Strangers bonding over nerves. The artist arranged this on purpose.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "parlour_photo_wall",
+        "hitbox": { "x": 240, "y": 130, "w": 28, "h": 22 },
+        "description": "Polaroids on the wall. Finished work.",
+        "trait_required": "barista",
+        "awareness_required": 1,
+        "discovery_text": "Hundreds of polaroids. Every piece of finished work. Some clients are in three, four, five photos. Coming back. The wall is a map of loyalty. Of trust built one needle-session at a time.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "parlour_flash_age",
+        "hitbox": { "x": 30, "y": 80, "w": 25, "h": 25 },
+        "description": "Flash art in the corner. The paper is yellowed.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 0,
+        "discovery_text": "This sheet is hand-drawn. 1950s, at least. Sailor flash from Limehouse's maritime years. Worth something to a collector. The artist keeps it on the wall like a family photograph.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "parlour_needle_machine",
+        "hitbox": { "x": 180, "y": 80, "w": 20, "h": 18 },
+        "description": "The tattoo machine on the tray. Not modern.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 1,
+        "discovery_text": "A coil machine. Hand-wound. The frame is stamped with a name you can't read and a date: 1971. In an age of rotaries, the artist still uses this. Some tools earn the right to stay.",
         "xp": { "awareness": 2 }
       }
     ],
@@ -515,6 +1035,78 @@
         "weather": ["rain"],
         "discovery_text": "Rain on iron. The lock gates vibrate at a frequency you almost recognise. 47 hertz. The same as the canal recording. The gates remember.",
         "xp": { "awareness": 1, "resonance": 1 }
+      },
+      {
+        "id": "lock_water_mirror",
+        "hitbox": { "x": 180, "y": 140, "w": 35, "h": 16 },
+        "description": "The water between the gates. A perfect mirror.",
+        "trait_required": "photographer",
+        "awareness_required": 0,
+        "discovery_text": "Between the gates, the water is completely still. A perfect mirror. The sky below is sharper than the sky above. As if the real world is the reflection.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "lock_rust_pattern",
+        "hitbox": { "x": 60, "y": 50, "w": 28, "h": 22 },
+        "description": "Rust patterns on the gate. Like a map.",
+        "trait_required": "photographer",
+        "awareness_required": 1,
+        "discovery_text": "The rust has made a map. Rivers of orange and brown tracing the iron's grain. A topography of decay that looks like the waterways on an old Ordnance Survey. The gate is drawing its own surroundings.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "lock_iron_vibration",
+        "hitbox": { "x": 200, "y": 80, "w": 30, "h": 22 },
+        "description": "The gate. Your hand on the iron.",
+        "trait_required": "wanderer",
+        "awareness_required": 0,
+        "discovery_text": "Your palm on the gate. The iron vibrates — not from the mechanism. From the water pressing against the other side. You can feel the canal's weight through your hand. The river wants through.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "lock_spray_face",
+        "hitbox": { "x": 160, "y": 140, "w": 30, "h": 20 },
+        "description": "Spray from the lock. On your face.",
+        "trait_required": "wanderer",
+        "awareness_required": 1,
+        "discovery_text": "The spray is not cold. It should be. Canal water in winter. But it touches your face warm. As if the water passed through something heated on its way up. The lock gates are sweating.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "lock_fisherman_spot",
+        "hitbox": { "x": 40, "y": 100, "w": 25, "h": 18 },
+        "description": "A smooth patch on the stone. Someone sits here.",
+        "trait_required": "barista",
+        "awareness_required": 0,
+        "discovery_text": "The stone is worn smooth in a seated shape. The same fisherman, same spot, every Sunday. Nobody catches anything here. He comes for the company of the water.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "lock_lovers_padlock",
+        "hitbox": { "x": 230, "y": 60, "w": 16, "h": 14 },
+        "description": "A padlock on the railing. Initials scratched.",
+        "trait_required": "barista",
+        "awareness_required": 1,
+        "discovery_text": "One padlock among none. Not a bridge tradition — someone started one here, alone. The initials are scratched deep. J+M. No other locks joined it. A declaration that stayed singular.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "lock_bolt_replacement",
+        "hitbox": { "x": 100, "y": 50, "w": 18, "h": 16 },
+        "description": "A bolt in the mechanism. Newer than the rest.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 0,
+        "discovery_text": "Stainless steel among cast iron. One bolt replaced, recently. Everything else is original. Victorian engineers built this to last. Only one piece failed in two hundred years.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "lock_counterweight_mark",
+        "hitbox": { "x": 250, "y": 100, "w": 22, "h": 20 },
+        "description": "A mark stamped into the counterweight.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 1,
+        "discovery_text": "A foundry mark. Coalbrookdale. The same ironworks that built the first iron bridge. This counterweight was cast in 1812 and shipped down the canal it would spend its life operating. It arrived at its own workplace.",
+        "xp": { "awareness": 2 }
       }
     ],
     "npcs_present": {},
@@ -556,6 +1148,78 @@
         "trait_required": "musician",
         "awareness_required": 1,
         "discovery_text": "The wind plays the platform like an instrument. The pitch changes when a train approaches. But this time there's no train.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "platform_crane_skyline",
+        "hitbox": { "x": 200, "y": 10, "w": 60, "h": 24 },
+        "description": "Cranes on the skyline. A composition.",
+        "trait_required": "photographer",
+        "awareness_required": 0,
+        "discovery_text": "The cranes frame Canary Wharf like a photograph someone arranged. Steel and glass and sky. From up here, London looks like it's still being assembled. An unfinished exposure.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "platform_rain_streak",
+        "hitbox": { "x": 180, "y": 50, "w": 30, "h": 22 },
+        "description": "Rain streaks on the shelter glass.",
+        "trait_required": "photographer",
+        "awareness_required": 1,
+        "discovery_text": "The rain traces paths down the glass that the next drop follows. The same routes, reinforced. The shelter has developed its own drainage pattern. A long-exposure written in water.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "platform_wind_chill",
+        "hitbox": { "x": 50, "y": 110, "w": 30, "h": 20 },
+        "description": "The wind. Sharper up here.",
+        "trait_required": "wanderer",
+        "awareness_required": 0,
+        "discovery_text": "The wind funnels through the platform and finds every gap in your clothing. Your body tightens. Up here, you feel exposed. The city can see you and you can see it. An exchange of vulnerability.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "platform_vibration",
+        "hitbox": { "x": 120, "y": 150, "w": 35, "h": 16 },
+        "description": "The platform underfoot. Vibrating.",
+        "trait_required": "wanderer",
+        "awareness_required": 1,
+        "discovery_text": "A train three stations away. You feel it in your feet before the board updates. The platform transmits the whole network through its concrete. Your body is a receiver.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "platform_commuter_paths",
+        "hitbox": { "x": 80, "y": 130, "w": 30, "h": 16 },
+        "description": "Worn patches on the platform surface.",
+        "trait_required": "barista",
+        "awareness_required": 0,
+        "discovery_text": "The concrete is lighter in three spots. Where the doors stop. Every commuter walks to the same position. Thousands of people, the same three marks. A city of habits pretending to be choices.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "platform_bench_distances",
+        "hitbox": { "x": 240, "y": 110, "w": 28, "h": 18 },
+        "description": "People on the bench. Spaced exactly.",
+        "trait_required": "barista",
+        "awareness_required": 1,
+        "discovery_text": "Three strangers, equidistant. No one agreed. No one measured. But the gap between each is identical. London's unspoken rules of proximity, enforced by instinct.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "platform_tile_salvage",
+        "hitbox": { "x": 280, "y": 60, "w": 22, "h": 20 },
+        "description": "A tile on the wall. Different from the others.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 0,
+        "discovery_text": "One tile is older. Deeper glaze, hand-cut edge. Salvaged from the station this one replaced. The builders kept one piece of the original. A receipt hidden in the renovation.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "platform_sign_layers",
+        "hitbox": { "x": 60, "y": 20, "w": 30, "h": 18 },
+        "description": "The station sign. Paint layers visible at the edge.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 1,
+        "discovery_text": "Five colours at the edge of the sign. Five rebrands. Docklands, DLR, TfL. Each layer a different era's idea of what this place was for. The station has been sold to itself five times.",
         "xp": { "awareness": 2 }
       }
     ],
@@ -601,6 +1265,78 @@
         "awareness_required": 0,
         "discovery_text": "The lights sway in a pattern. Not wind. Not passing trucks. A rhythm. As if someone is conducting them from somewhere you can't see.",
         "xp": { "awareness": 1 }
+      },
+      {
+        "id": "market_smoke_light",
+        "hitbox": { "x": 220, "y": 40, "w": 30, "h": 25 },
+        "description": "Charcoal smoke in LED light.",
+        "trait_required": "photographer",
+        "awareness_required": 0,
+        "discovery_text": "The smoke from the grills catches the LED strings and becomes solid for an instant. Columns of light where there was nothing.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "market_puddle_neon",
+        "hitbox": { "x": 150, "y": 155, "w": 28, "h": 14 },
+        "description": "A puddle. Neon reflected.",
+        "trait_required": "photographer",
+        "awareness_required": 1,
+        "discovery_text": "The puddle holds every light source at once. LEDs, phone screens, the glow from a food stall. A composite portrait of the market, compressed into three inches of rainwater.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "market_heat_wave",
+        "hitbox": { "x": 100, "y": 90, "w": 30, "h": 22 },
+        "description": "Heat from the food stalls. Waves of it.",
+        "trait_required": "wanderer",
+        "awareness_required": 0,
+        "discovery_text": "You walk through pockets of heat. Each stall has its own climate. Charcoal, gas, wood fire. Your skin reads the market's geography in temperature. A map of flame.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "market_bass_chest",
+        "hitbox": { "x": 260, "y": 100, "w": 28, "h": 24 },
+        "description": "The bass. You feel it in your chest.",
+        "trait_required": "wanderer",
+        "awareness_required": 1,
+        "discovery_text": "The bass speaker is somewhere to your left. You don't hear it. You feel it. Your ribcage becomes a resonating chamber. The market uses your body as an instrument.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "market_queue_dynamics",
+        "hitbox": { "x": 50, "y": 60, "w": 30, "h": 22 },
+        "description": "The queue at the most popular stall.",
+        "trait_required": "barista",
+        "awareness_required": 0,
+        "discovery_text": "The queue moves in pulses. Three orders, pause, three more. The cook works in sets. The queue has learned the rhythm without knowing it. They step forward in unison.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "market_vendor_nods",
+        "hitbox": { "x": 180, "y": 70, "w": 25, "h": 20 },
+        "description": "Vendors across the aisle. A glance between them.",
+        "trait_required": "barista",
+        "awareness_required": 1,
+        "discovery_text": "Two vendors nod across the crowd. A micro-conversation. Price check? Warning? Friendship? The market has its own language, spoken in glances. You're learning to read it.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "market_stall_frame_reuse",
+        "hitbox": { "x": 30, "y": 110, "w": 24, "h": 18 },
+        "description": "The stall frame. Welded and rewelded.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 0,
+        "discovery_text": "The frame has been welded four times. Each joint a different style. Four different stalls, four different businesses. The frame outlasts what it holds. Someone keeps buying the same bones.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "market_spice_jars_provenance",
+        "hitbox": { "x": 280, "y": 50, "w": 20, "h": 22 },
+        "description": "Spice jars on a stall. Labels handwritten.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 1,
+        "discovery_text": "The jars are old. Kilner, pre-war. The spices inside are fresh but the glass has been in continuous use since someone's grandmother. Each jar a family supply chain, disguised as a market stall.",
+        "xp": { "awareness": 2 }
       }
     ],
     "npcs_present": {
@@ -663,6 +1399,78 @@
         "awareness_required": 0,
         "discovery_text": "A survey stake, driven into a crack in the concrete. Orange paint faded to pink. A number stamped on the cap: OS TQ 36820 80312. Someone measured this exact spot.",
         "xp": { "awareness": 1 }
+      },
+      {
+        "id": "lot_sky_frame",
+        "hitbox": { "x": 100, "y": 10, "w": 50, "h": 30 },
+        "description": "The sky through the gap. Framed by walls.",
+        "trait_required": "photographer",
+        "awareness_required": 0,
+        "discovery_text": "The adjacent walls frame the sky like a viewfinder. A rectangle of cloud, perfectly composed. The demolished building left a camera behind.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "lot_wall_shadow_room",
+        "hitbox": { "x": 240, "y": 100, "w": 30, "h": 30 },
+        "description": "Shadows on the exposed wall. Room-shaped.",
+        "trait_required": "photographer",
+        "awareness_required": 1,
+        "discovery_text": "At this hour, the shadows cast by the remaining walls create rooms on the ground. Ghost architecture. You can see where the kitchen was, the bedroom, the hallway. A floor plan drawn in darkness.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "lot_concrete_heat",
+        "hitbox": { "x": 160, "y": 145, "w": 30, "h": 16 },
+        "description": "The concrete. Warmer than it should be.",
+        "trait_required": "wanderer",
+        "awareness_required": 0,
+        "discovery_text": "The cracked concrete radiates heat even in the evening. It holds the day's sun like a memory. Your feet find the warm patches. The lot's floor is a thermal diary of the hours you missed.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "lot_wind_body",
+        "hitbox": { "x": 30, "y": 60, "w": 30, "h": 30 },
+        "description": "The wind in the open space. It finds you.",
+        "trait_required": "wanderer",
+        "awareness_required": 1,
+        "discovery_text": "The wind moves differently here. Without a building to break it, it arrives unfiltered. Your whole body feels the direction it came from. East. Always east. Off the river, through the gap. The lot is a wind tunnel built by absence.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "lot_foxes_territory",
+        "hitbox": { "x": 140, "y": 120, "w": 25, "h": 18 },
+        "description": "Scuff marks in the dirt. Not human.",
+        "trait_required": "barista",
+        "awareness_required": 0,
+        "discovery_text": "Fox tracks. A family. They've divided the lot into territories — you can see the paths they take, the corners they avoid. A community in a space humans abandoned. The foxes hold meetings here.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "lot_kids_den",
+        "hitbox": { "x": 250, "y": 140, "w": 28, "h": 20 },
+        "description": "A makeshift shelter against the wall. Small.",
+        "trait_required": "barista",
+        "awareness_required": 1,
+        "discovery_text": "Cardboard, a milk crate, a blanket. A kids' den. Built with care. Sweet wrappers inside, arranged like furniture. Someone small made a home in a place adults see as empty. The lot has tenants.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "lot_doorstep_wear",
+        "hitbox": { "x": 200, "y": 150, "w": 22, "h": 14 },
+        "description": "A doorstep. Still here. The door is not.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 0,
+        "discovery_text": "A granite doorstep, worn into a dip by decades of shoes. The building is gone but the threshold remains. Someone crossed this stone every morning for forty years. The step is still waiting.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "lot_tile_fragment",
+        "hitbox": { "x": 10, "y": 150, "w": 18, "h": 12 },
+        "description": "A fragment of tile in the rubble.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 1,
+        "discovery_text": "Encaustic tile. Victorian. A geometric pattern in red and cream. One piece of a hallway floor. Worth something to a reclamation yard. Worth more here, where it still belongs to the house that died.",
+        "xp": { "awareness": 2 }
       }
     ],
     "npcs_present": {},

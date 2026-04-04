@@ -40,6 +40,54 @@
       "The city hums between its words.",
       "Every door is a different key.",
       "Silence here isn't empty. It's tuned."
+    ],
+    "photographer": [
+      "Light through the gap. Perfect exposure.",
+      "That shadow has been there for centuries.",
+      "The canal reflects a version without people.",
+      "That gap between buildings. A perfect frame.",
+      "Morning fog softens every hard edge.",
+      "A window catches the last light.",
+      "The alley narrows into pure contrast.",
+      "Reflections in puddles. A second Limehouse.",
+      "Brick turns gold at this hour.",
+      "The basin holds the entire sky."
+    ],
+    "wanderer": [
+      "Cobblestones remember different feet.",
+      "The air changes between these walls.",
+      "Warmer here. The bricks hold heat.",
+      "My feet know this route already.",
+      "The wind funnels down Narrow Street.",
+      "Damp rises through the soles. Old damp.",
+      "The ground slopes toward the water. Always.",
+      "A cold pocket near the lock gate.",
+      "The city presses close then opens.",
+      "Stone underfoot. Then gravel. Then stone."
+    ],
+    "barista": [
+      "Two strangers. Same bench. Almost talking.",
+      "He carries her coat. She doesn't notice.",
+      "She nodded at him. He missed it.",
+      "The regulars orbit the same places.",
+      "A couple arguing. Quietly. About nothing.",
+      "Someone is always waiting for someone.",
+      "That man walks here every morning.",
+      "Laughter from the boat. Three voices.",
+      "The woman at the lock. Always alone.",
+      "Same table. Same warmth. They've left a mark."
+    ],
+    "shopkeeper": [
+      "That doorframe is older than the building.",
+      "Someone polished this railing. Every day.",
+      "The sign is new. The shop is not.",
+      "Iron fittings. Georgian. Worth knowing.",
+      "This wall has been three different things.",
+      "A brass hinge. Still working. Still here.",
+      "The warehouse remembers what it stored.",
+      "Paint over paint over paint over wood.",
+      "That lock mechanism. Victorian at least.",
+      "Every surface here has been sold twice."
     ]
   },
   "flat": {

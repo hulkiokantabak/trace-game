@@ -99,58 +99,70 @@ const UI = (() => {
     });
   }
 
+  function traitConfirmation(trait) {
+    const lines = {
+      musician: 'You listen. London answers.',
+      photographer: 'You look. London reveals.',
+      wanderer: 'You walk. London opens.',
+      barista: 'You connect. London speaks.',
+      shopkeeper: 'You remember. London endures.'
+    };
+    return lines[trait] || 'London waits.';
+  }
+
   function showTraitSelection() {
     panel.innerHTML =
       '<div class="creation-trait-select">' +
         '<p class="section-label">Who are you becoming?</p>' +
         '<div class="trait-list">' +
-          '<button class="trait-btn trait-active" data-trait="musician">' +
+          '<button class="trait-btn" data-trait="musician">' +
             '<span class="trait-name">The Musician</span>' +
             '<span class="trait-desc">You hear what others don\'t. The city is an instrument.</span>' +
           '</button>' +
-          '<button class="trait-btn trait-locked" disabled>' +
+          '<button class="trait-btn" data-trait="photographer">' +
             '<span class="trait-name">The Photographer</span>' +
             '<span class="trait-desc">You see what others miss. Light tells you everything.</span>' +
-            '<span class="trait-soon">Greenwich awaits</span>' +
           '</button>' +
-          '<button class="trait-btn trait-locked" disabled>' +
+          '<button class="trait-btn" data-trait="wanderer">' +
             '<span class="trait-name">The Wanderer</span>' +
             '<span class="trait-desc">You feel what others ignore. Every street has a temperature.</span>' +
-            '<span class="trait-soon">Bermondsey remembers</span>' +
           '</button>' +
-          '<button class="trait-btn trait-locked" disabled>' +
+          '<button class="trait-btn" data-trait="barista">' +
             '<span class="trait-name">The Barista</span>' +
             '<span class="trait-desc">You connect what others separate. People are your instrument.</span>' +
-            '<span class="trait-soon">Greenwich stirs</span>' +
           '</button>' +
-          '<button class="trait-btn trait-locked" disabled>' +
+          '<button class="trait-btn" data-trait="shopkeeper">' +
             '<span class="trait-name">The Shopkeeper</span>' +
             '<span class="trait-desc">You remember what others forget. Objects hold their history.</span>' +
-            '<span class="trait-soon">Bermondsey waits</span>' +
           '</button>' +
         '</div>' +
       '</div>';
 
-    panel.querySelector('[data-trait="musician"]').addEventListener('click', () => {
-      // Brief confirmation before starting
-      panel.innerHTML =
-        '<p class="creation-text">The Musician.</p>' +
-        '<p class="creation-text creation-delay-1">You listen. London answers.</p>';
-      Engine.audio.playDiscovery();
+    panel.querySelectorAll('[data-trait]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const trait = btn.dataset.trait;
+        const traitName = trait.charAt(0).toUpperCase() + trait.slice(1);
 
-      // Miyamoto: tap to skip confirmation wait
-      let started = false;
-      const go = () => {
-        if (started) return;
-        started = true;
-        State.set('trait', 'musician');
-        State.set('createdAt', Date.now());
-        State.set('firstPlay', false);
-        State.visitLocation('flat');
-        startGame();
-      };
-      setTimeout(go, 2200);
-      panel.addEventListener('click', go, { once: true });
+        // Brief confirmation before starting
+        panel.innerHTML =
+          '<p class="creation-text">The ' + traitName + '.</p>' +
+          '<p class="creation-text creation-delay-1">' + traitConfirmation(trait) + '</p>';
+        Engine.audio.playDiscovery();
+
+        // Miyamoto: tap to skip confirmation wait
+        let started = false;
+        const go = () => {
+          if (started) return;
+          started = true;
+          State.set('trait', trait);
+          State.set('createdAt', Date.now());
+          State.set('firstPlay', false);
+          State.visitLocation('flat');
+          startGame();
+        };
+        setTimeout(go, 2200);
+        panel.addEventListener('click', go, { once: true });
+      });
     });
   }
 

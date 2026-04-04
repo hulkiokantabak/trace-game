@@ -22,5 +22,105 @@
     "location": "L03",
     "awareness_required": 3,
     "text": "Hawksmoor's churches were built to specific acoustic specifications. St Anne's resonates at B-flat. The same note as the canal. The same note the barista hums. The question nobody asks: does the church amplify the city's sound, or does the city tune itself to the church?"
+  },
+
+  "P-F1": {
+    "id": "P-F1",
+    "title": "The Water's Exposure",
+    "trait": "photographer",
+    "location": "L01",
+    "awareness_required": 2,
+    "text": "At certain angles the basin surface holds light in patterns that don't match the sky. Reflections of masts, rigging, lanterns — none of which are there. You look away. Look back. Still there. Older than anything on this canal."
+  },
+  "P-F2": {
+    "id": "P-F2",
+    "title": "The Impossible Angles",
+    "trait": "photographer",
+    "location": "L03",
+    "awareness_required": 3,
+    "text": "Inside St Anne's the shadows fall wrong. They lean toward the altar at angles the windows cannot produce. Hawksmoor built the geometry to bend light — or the light here bends itself, following instructions older than the architecture."
+  },
+  "P-F3": {
+    "id": "P-F3",
+    "title": "The Returning Gaze",
+    "trait": "photographer",
+    "location": "L05",
+    "awareness_required": 4,
+    "text": "Behind the bar, above the gin shelf, a framed photograph — the building as it was, timber frame, no glass in the windows. A figure in the doorway staring directly at the lens. The publican says it's from 1890. The building is older than photography."
+  },
+
+  "W-F1": {
+    "id": "W-F1",
+    "title": "The Cold Seam",
+    "trait": "wanderer",
+    "location": "L07",
+    "awareness_required": 2,
+    "text": "Three steps past the lock gate your ankles go cold. Not the air — the ground. Dog walkers cross to the other side without deciding to. Something is held here. Not buried, not hidden. Just cold."
+  },
+  "W-F2": {
+    "id": "W-F2",
+    "title": "The Earth's Floor Plan",
+    "trait": "wanderer",
+    "location": "L10",
+    "awareness_required": 3,
+    "text": "The grass on the empty lot grows in straight lines — walls, corridors, a threshold you can feel underfoot where the door was. The building was demolished fifty years ago but the earth still keeps the floor plan. It outlines rooms for tenants who won't return."
+  },
+  "W-F3": {
+    "id": "W-F3",
+    "title": "The Drowned Path",
+    "trait": "wanderer",
+    "location": "L01",
+    "awareness_required": 4,
+    "text": "Walking the basin edge your legs feel heavy, resisted, as if wading. The canal was cut through marshland. Your body remembers the water the engineers removed. The ankles know what was here before the path."
+  },
+
+  "B-F1": {
+    "id": "B-F1",
+    "title": "The Table's Choreography",
+    "trait": "barista",
+    "location": "L02",
+    "awareness_required": 2,
+    "text": "The corner table seats two strangers every morning who never know each other. They always end up confessing — about leaving somewhere, arriving somewhere else. The same words, different mouths. Every morning."
+  },
+  "B-F2": {
+    "id": "B-F2",
+    "title": "The Market's Sentence",
+    "trait": "barista",
+    "location": "L09",
+    "awareness_required": 3,
+    "text": "The fish seller says \"not long now\" and three stalls down the flower woman finishes: \"before it all changes.\" They've never spoken. They don't know they're connected."
+  },
+  "B-F3": {
+    "id": "B-F3",
+    "title": "The Regulars' Impression",
+    "trait": "barista",
+    "location": "L05",
+    "awareness_required": 4,
+    "text": "The same four seats worn smooth at the bar, decades of the same bodies in the same positions. The wood has shaped itself to them — or they've shaped themselves to the wood. The publican says regulars don't choose their seats; the seats choose them back."
+  },
+
+  "S-F1": {
+    "id": "S-F1",
+    "title": "The Fading Doors",
+    "trait": "shopkeeper",
+    "location": "L06",
+    "awareness_required": 2,
+    "text": "The oldest flash art on the parlour wall has faded to outlines — doorways, arches, a narrow passage. The tattooist says they're stock designs, but the doors they depict are real: three addresses in Limehouse, all demolished. The drawings outlasted the buildings."
+  },
+  "S-F2": {
+    "id": "S-F2",
+    "title": "The Orphaned Coin",
+    "trait": "shopkeeper",
+    "location": "L08",
+    "awareness_required": 3,
+    "text": "A coin wedged in the platform edge, green with age, its denomination from a currency discontinued before the DLR existed. Someone asks the attendant about it yearly; no one removes it. Objects outlast the systems that gave them meaning."
+  },
+  "S-F3": {
+    "id": "S-F3",
+    "title": "The Rewritten Stone",
+    "trait": "shopkeeper",
+    "location": "L03",
+    "awareness_required": 4,
+    "text": "A gravestone near the east wall has been recarved three times. Each inscription older than the last — the newest name from 1780, the deepest from centuries before. The stone keeps choosing whose name to hold."
   }
 }
