@@ -5,7 +5,7 @@
     "trait": "musician",
     "location": "L01",
     "awareness_required": 2,
-    "text": "Under the Limehouse Basin the water carries a note. B-flat, sustained, source unknown. The boat painters hear it in winter when the engines stop. They don't discuss it. They hum along without noticing."
+    "text": "Under the Limehouse Basin the water carries a note — B-flat, sustained, source unknown. The boat painters hear it in winter when the engines stop. They don't discuss it. They hum along without noticing."
   },
   "M-F2": {
     "id": "M-F2",
@@ -21,7 +21,7 @@
     "trait": "musician",
     "location": "L03",
     "awareness_required": 3,
-    "text": "Hawksmoor's churches were built to specific acoustic specifications. St Anne's resonates at B-flat. The same note as the canal. The same note the barista hums. The question nobody asks: does the church amplify the city's sound, or does the city tune itself to the church?"
+    "text": "Hawksmoor's churches were built to specific acoustic specifications — St Anne's resonates at B-flat, the same note as the canal, the same note the barista hums. The question nobody asks: does the church amplify the city's sound, or does the city tune itself to the church?"
   },
 
   "P-F1": {
@@ -30,7 +30,7 @@
     "trait": "photographer",
     "location": "L01",
     "awareness_required": 2,
-    "text": "At certain angles the basin surface holds light in patterns that don't match the sky. Reflections of masts, rigging, lanterns — none of which are there. You look away. Look back. Still there. Older than anything on this canal."
+    "text": "At certain angles the basin surface holds light in patterns that don't match the sky — reflections of masts, rigging, lanterns, none of which are there. You look away, look back. Still there, older than anything on this canal."
   },
   "P-F2": {
     "id": "P-F2",
@@ -55,7 +55,7 @@
     "trait": "wanderer",
     "location": "L07",
     "awareness_required": 2,
-    "text": "Three steps past the lock gate your ankles go cold. Not the air — the ground. Dog walkers cross to the other side without deciding to. Something is held here. Not buried, not hidden. Just cold."
+    "text": "Three steps past the lock gate your ankles go cold — not the air, the ground. Dog walkers cross to the other side without deciding to. Something is held here, not buried, not hidden. Just cold."
   },
   "W-F2": {
     "id": "W-F2",

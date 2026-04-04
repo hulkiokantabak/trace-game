@@ -1,6 +1,28 @@
 /**
  * ai.js — Model-agnostic AI adapter for Living Conversations
  * Inactive by default. Player provides their own API key to enable.
+ *
+ * SECURITY NOTE — API key storage:
+ * The player's API key is stored in localStorage as plaintext (trace_ai_config).
+ * This is a deliberate trade-off: the game runs as a static site with no server,
+ * so there is no server-side vault or session token available. The key never leaves
+ * the browser except when sent to the chosen AI provider's API endpoint.
+ *
+ * Risks the player should understand:
+ *   - Any JavaScript running on the same origin can read localStorage.
+ *   - Browser extensions with host permissions can read it.
+ *   - Physical access to the machine exposes it via DevTools.
+ *   - XSS on this page would expose the key (mitigated by CSP + escaping).
+ *
+ * The UI tells the player "it stays in your browser" — this is accurate but not
+ * the same as "it is encrypted." A future improvement could use the Web Crypto API
+ * to encrypt the key with a player-chosen passphrase.
+ *
+ * SECURITY NOTE — Gemini provider:
+ * The Gemini API requires the API key in the URL query string, which means it may
+ * appear in browser history, server logs (if proxied), and network inspector. A
+ * console.warn is emitted when Gemini is configured. All other providers send the
+ * key in request headers only.
  */
 const AI = (() => {
   const PROVIDERS = {
@@ -139,11 +161,15 @@ const AI = (() => {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         const cfg = JSON.parse(saved);
-        if (cfg.provider && cfg.apiKey) {
+        // Security: validate provider key against known providers to prevent
+        // crafted localStorage data from reaching unexpected code paths.
+        if (cfg.provider && cfg.apiKey && PROVIDERS[cfg.provider]) {
           _provider = cfg.provider;
-          _model = cfg.model || PROVIDERS[cfg.provider].models[0];
-          _apiKey = cfg.apiKey;
-          _enabled = true;
+          // Security: validate model is in the provider's allowed list
+          const validModels = PROVIDERS[cfg.provider].models;
+          _model = (cfg.model && validModels.includes(cfg.model)) ? cfg.model : validModels[0];
+          _apiKey = typeof cfg.apiKey === 'string' ? cfg.apiKey : '';
+          _enabled = !!_apiKey;
         }
       }
     } catch (e) {
@@ -155,6 +181,17 @@ const AI = (() => {
   function configure(provider, model, apiKey) {
     if (!PROVIDERS[provider]) return false;
     if (!apiKey || typeof apiKey !== 'string' || !apiKey.trim()) return false;
+    // Security: Gemini sends the API key in the URL query string, which means it
+    // appears in browser history, network logs, and any proxy/CDN between the
+    // player and Google's API. All other providers use Authorization headers.
+    if (provider === 'gemini') {
+      console.warn(
+        '[Trace AI] Gemini sends the API key in the URL query string. ' +
+        'This means it may appear in your browser history, network inspector, ' +
+        'and any intermediary proxy logs. Consider using Claude, OpenAI, or ' +
+        'OpenRouter if this concerns you.'
+      );
+    }
     _provider = provider;
     _model = model || PROVIDERS[provider].models[0];
     _apiKey = apiKey;

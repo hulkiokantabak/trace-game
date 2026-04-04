@@ -1064,56 +1064,6 @@ const Engine = (() => {
     ctx.fillRect(0, 0, W, H);
   }
 
-  // --- Character creation silhouettes ---
-
-  function drawSilhouettes(t) {
-    const figures = [
-      { x: 48, active: true, color: '#5a80b8' },
-      { x: 112, active: false, color: '#606060' },
-      { x: 160, active: false, color: '#606060' },
-      { x: 208, active: false, color: '#606060' },
-      { x: 272, active: false, color: '#606060' }
-    ];
-    const by = 140;
-    for (let i = 0; i < figures.length; i++) {
-      const f = figures[i];
-      const a = f.active ? (0.75 + 0.25 * Math.sin(t * 1.5)) : 0.18;
-      ctx.save();
-      ctx.globalAlpha = a;
-      ctx.fillStyle = f.color;
-      // Body
-      ctx.fillRect(f.x - 3, by, 6, 6);       // head
-      ctx.fillRect(f.x - 1, by + 6, 2, 2);   // neck
-      ctx.fillRect(f.x - 4, by + 8, 8, 10);  // body
-      ctx.fillRect(f.x - 7, by + 9, 3, 7);   // left arm
-      ctx.fillRect(f.x + 4, by + 9, 3, 7);   // right arm
-      ctx.fillRect(f.x - 3, by + 18, 2, 8);  // left leg
-      ctx.fillRect(f.x + 1, by + 18, 2, 8);  // right leg
-      // Trait icon
-      switch (i) {
-        case 0: // Musician — guitar on back
-          ctx.fillRect(f.x + 7, by + 4, 2, 12);
-          ctx.fillRect(f.x + 6, by + 14, 4, 3);
-          break;
-        case 1: // Photographer — camera at chest
-          ctx.fillRect(f.x - 2, by + 10, 5, 3);
-          ctx.fillRect(f.x - 1, by + 9, 3, 1);
-          break;
-        case 2: // Wanderer — walking stick
-          ctx.fillRect(f.x - 9, by + 6, 1, 16);
-          break;
-        case 3: // Barista — cup in hand
-          ctx.fillRect(f.x + 7, by + 12, 3, 3);
-          ctx.fillRect(f.x + 8, by + 10, 1, 2);
-          break;
-        case 4: // Shopkeeper — package
-          ctx.fillRect(f.x - 10, by + 10, 4, 4);
-          break;
-      }
-      ctx.restore();
-    }
-  }
-
   // --- Title overlay ---
 
   function drawTitle(alpha) {
@@ -1432,6 +1382,7 @@ const Engine = (() => {
         this._master.gain.value = 0;
         this._muted = true;
       }
+      try { localStorage.setItem('trace_muted', this._muted ? 'true' : 'false'); } catch (_) {}
     },
 
     init() {
@@ -1440,6 +1391,10 @@ const Engine = (() => {
         this._master = this._ctx.createGain();
         this._master.gain.value = 0.5;
         this._master.connect(this._ctx.destination);
+
+        // Restore mute preference from previous session
+        this._muted = localStorage.getItem('trace_muted') === 'true';
+        if (this._muted && this._master) this._master.gain.value = 0;
 
         // Resume AudioContext on first user interaction (required by browsers)
         const resumeAudio = () => {

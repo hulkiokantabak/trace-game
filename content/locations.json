@@ -72,6 +72,13 @@
         "xp": { "awareness": 3, "resonance": 2 }
       },
       {
+        "id": "flat_tenant_note",
+        "description": "A folded note tucked under the radiator.",
+        "discovery_text": "The walls talk if you tap them. Not words \u2014 impressions. The people here are worth knowing. Visit them. Come back. Walk slowly. Some things only appear in the rain. Some only at night. Good luck with the flat. The radiator has a rhythm. \u2014 M.",
+        "hitbox": { "x": 30, "y": 145, "w": 15, "h": 10 },
+        "xp": { "awareness": 1 }
+      },
+      {
         "id": "flat_light_angle",
         "hitbox": { "x": 200, "y": 132, "w": 25, "h": 15 },
         "description": "Light angle on the table. Shifting.",
@@ -274,7 +281,7 @@
         "trait_required": "wanderer",
         "awareness_required": 4,
         "requires_all_discovered": true,
-        "discovery_text": "The mist touches your face and you feel the canal's full depth. Every layer of silt, every sunken thing. Your skin reads the water like braille. The basin is deeper than any map says.",
+        "discovery_text": "The mist touches your face and the canal's full depth arrives through your skin. Every layer of silt, every sunken thing. Your skin reads the water like braille. The basin is deeper than any map says.",
         "xp": { "awareness": 3, "resonance": 3 }
       },
       {
@@ -1174,7 +1181,7 @@
         "description": "The wind. Sharper up here.",
         "trait_required": "wanderer",
         "awareness_required": 0,
-        "discovery_text": "The wind funnels through the platform and finds every gap in your clothing. Your body tightens. Up here, you feel exposed. The city can see you and you can see it. An exchange of vulnerability.",
+        "discovery_text": "The wind funnels through the platform and finds every gap in your clothing. Your body tightens. Up here, nothing between you and the skyline. The city can see you and you can see it. An exchange.",
         "xp": { "awareness": 1 }
       },
       {

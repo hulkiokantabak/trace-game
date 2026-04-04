@@ -60,28 +60,32 @@ const UI = (() => {
     let done = false;
     element.textContent = '';
 
+    function finish() {
+      if (done) return;
+      done = true;
+      clearTimeout(_typewriterTimer);
+      panel.removeEventListener('click', skipHandler);
+      element.textContent = text;
+      if (onComplete) onComplete();
+    }
+
     function addWord() {
-      if (done || idx >= words.length) {
-        element.textContent = text;
-        if (onComplete && !done) onComplete();
-        done = true;
-        return;
-      }
+      if (done) return;
+      if (idx >= words.length) { finish(); return; }
       element.textContent = words.slice(0, ++idx).join(' ');
       _typewriterTimer = setTimeout(addWord, msPerWord);
     }
 
-    // Tap to skip
-    const skipHandler = () => {
-      done = true;
-      clearTimeout(_typewriterTimer);
-      element.textContent = text;
-      if (onComplete) onComplete();
+    // Tap to skip — only respond to clicks on the panel background or location text,
+    // not on buttons (NPC, nav, etc.) to prevent click handler conflicts
+    const skipHandler = (e) => {
+      if (e.target !== panel && !e.target.classList.contains('location-text')) return;
+      finish();
     };
-    panel.addEventListener('click', skipHandler, { once: true });
+    panel.addEventListener('click', skipHandler);
 
     addWord();
-    return () => { done = true; clearTimeout(_typewriterTimer); panel.removeEventListener('click', skipHandler); };
+    return () => { finish(); };
   }
 
   function init(el) {
@@ -306,13 +310,15 @@ const UI = (() => {
   // Show trait confirmation after tapping an object on the table
   function showTraitConfirm(trait, previewThoughts, traitDescs, objectLabel) {
     const traitName = trait.charAt(0).toUpperCase() + trait.slice(1);
+    const desc = previewThoughts[trait] || 'London waits.';
+    const traitDesc = traitDescs[trait] || 'You notice what others miss.';
 
     panel.innerHTML =
       '<div class="creation-preview">' +
         '<p class="creation-text" style="opacity:0.6;margin-bottom:0.4rem;">' + esc(objectLabel) + '</p>' +
         '<p class="creation-text">The ' + esc(traitName) + '</p>' +
-        '<p class="journal-stat" style="margin:0.3rem 0 0.8rem;">' + esc(traitDescs[trait]) + '</p>' +
-        '<p class="walking-thought" style="margin:1.2rem 0;">' + esc(previewThoughts[trait]) + '</p>' +
+        '<p class="journal-stat" style="margin:0.3rem 0 0.8rem;">' + esc(traitDesc) + '</p>' +
+        '<p class="walking-thought" style="margin:1.2rem 0;">' + esc(desc) + '</p>' +
         '<p class="creation-text creation-delay-1">' + esc(traitConfirmation(trait)) + '</p>' +
         '<div style="display:flex;gap:1rem;margin-top:1.5rem;">' +
           '<button class="trait-confirm-btn creation-delay-2">Begin</button>' +
@@ -477,7 +483,13 @@ const UI = (() => {
     // Miyamoto: interactive elements first — NPCs before atmosphere
     // Time-closed locations show a note
     if (!Game.isLocationAvailable(locId)) {
-      html += '<p class="location-closed">This place is quiet now.</p>';
+      const closedHints = {
+        morning: 'This place stirs later in the day.',
+        afternoon: 'Come back when the light changes.',
+        evening: 'This place sleeps before midnight.',
+        night: 'This place wakes with the morning.'
+      };
+      html += '<p class="location-closed">' + esc(closedHints[period] || 'This place is quiet now.') + '</p>';
     }
     // NPC ghost lines — ambient memory of NPCs visited 3+ times who aren't present
     const NPC_GHOSTS = {
@@ -503,6 +515,18 @@ const UI = (() => {
           html += '<p class="npc-absent">' + esc(entry.npc.schedule.unavailable_reason || 'They\'re not here right now.') + '</p>';
         }
       }
+    }
+
+    // Guaranteed first NPC encounter — if the player has met zero NPCs and none are here
+    const allNpcMem = State.get('npcMemory') || {};
+    const anyNpcMet = Object.keys(allNpcMem).some(id => allNpcMem[id] && allNpcMem[id].visitCount > 0);
+    if (!anyNpcMet && !npcs.some(e => e.available)) {
+      const passingVoices = [
+        'A figure passes on the towpath. They nod. You nod back.',
+        'Someone ahead, walking slowly. They glance at you, then look away.',
+        'A woman with a dog. She looks like she belongs here. You don\'t. Yet.'
+      ];
+      html += '<p class="ambient-encounter">' + esc(passingVoices[Math.floor(Math.random() * passingVoices.length)]) + '</p>';
     }
 
     // Weather-specific description (from location JSON)
@@ -534,7 +558,7 @@ const UI = (() => {
       const preacherLines = locId === 'L03'
         ? 'A man stands by the churchyard gate. He speaks to no one. "The stones remember. The water remembers. Only we choose to forget."'
         : 'A voice from the corner, unhurried. "This pub was here before the street. The street was here before the city. The city was here before the name."';
-      html += '<p class="ambient-encounter">' + preacherLines + '</p>';
+      html += '<p class="ambient-encounter">' + esc(preacherLines) + '</p>';
     }
 
     if (adjacent.length) {
@@ -573,6 +597,7 @@ const UI = (() => {
       }
 
       if (Game.canLeaveLondon()) {
+        html += '<p class="flat-evolution" style="color:#6a5a48;font-style:italic;margin-top:1.2rem;">The suitcase is by the door. You could leave.</p>';
         html += '<button class="leave-london-btn" id="leave-london">Pack your things.</button>';
       }
     }
@@ -624,11 +649,13 @@ const UI = (() => {
     }
 
     // Check for lore fragment at this location
+    // Delay longer on first visit so the typewriter finishes before fragment appears
     const fragment = Game.checkFragmentAtLocation(locId);
+    const fragmentDelay = isFirstVisit ? 5000 : 3000;
     if (fragment) {
       setTimeout(() => {
         if (_viewId === currentView && State.get('location') === locId) showFragment(fragment);
-      }, 3000);
+      }, fragmentDelay);
     }
 
     // First discovery shimmer — teach the player to tap (flat, first time, zero discoveries)
@@ -774,9 +801,19 @@ const UI = (() => {
     Engine.onCanvasTap(null); // disable tap during discovery
     const stats = State.get('stats');
 
-    let html = '<p class="discovery-text">' + esc(detail.discovery_text) + '</p>';
-    // Ueda: XP notification removed — the discovery is the reward
-    html += '<button class="discovery-back-btn">...' + (_seenEllipsis ? '' : '<span class="ellipsis-hint">continue</span>') + '</button>';
+    let html;
+    const totalDisc = (State.get('discoveries') || []).length;
+    if (totalDisc === 1) {
+      // This is the very first discovery
+      html = '<p class="discovery-text" style="color:#c8b8a0;">' + esc(detail.discovery_text) + '</p>';
+      html += '<p class="npc-physical" style="color:#8a8a6a;font-style:italic;margin-top:0.8rem;">You notice what others walk past. This is what you do.</p>';
+      html += '<button class="discovery-back-btn">...' + (_seenEllipsis ? '' : '<span class="ellipsis-hint">continue</span>') + '</button>';
+    } else {
+      // Normal discovery
+      html = '<p class="discovery-text">' + esc(detail.discovery_text) + '</p>';
+      // Ueda: XP notification removed — the discovery is the reward
+      html += '<button class="discovery-back-btn">...' + (_seenEllipsis ? '' : '<span class="ellipsis-hint">continue</span>') + '</button>';
+    }
 
     if (typeof Engine.flashDiscovery === 'function') {
       Engine.flashDiscovery(detail.hitbox, detail.discovery_text);
@@ -823,6 +860,9 @@ const UI = (() => {
       if (details.length > 0) {
         html += '<p class="npc-physical">' + esc(details[Math.floor(Math.random() * details.length)]) + '.</p>';
       }
+    }
+    if (result.nearStageShift) {
+      html += '<p class="npc-physical" style="color:#6a6a58;font-style:italic;">Something shifts in the way they look at you.</p>';
     }
     html += '<button class="dialogue-back-btn">...' + (_seenEllipsis ? '' : '<span class="ellipsis-hint">continue</span>') + '</button>';
 

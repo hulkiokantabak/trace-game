@@ -7,6 +7,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="theme-color" content="#0a0a0f">
+  <!-- CSP: no external scripts, styles, or connections except AI provider APIs (connect-src). -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://api.anthropic.com https://api.openai.com https://generativelanguage.googleapis.com https://openrouter.ai http://localhost:11434; media-src 'self'; font-src 'self'; manifest-src 'self';">
   <link rel="manifest" href="manifest.json">
   <title>Trace</title>
   <link rel="stylesheet" href="css/game.css">
@@ -30,10 +32,13 @@
         await Game.init();
       } catch (e) {
         console.error('Game init failed:', e);
+        // Security: escape e.message to prevent XSS — error text could contain
+        // attacker-controlled content (e.g. from a malicious JSON URL or file path).
+        const _esc = s => (typeof s !== 'string' ? '' : s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'));
         document.getElementById('text-panel').innerHTML =
           '<p style="color:#c8b8a0;font-family:monospace;text-align:center;padding:2rem;">' +
           'Could not load game data.<br><br>' +
-          '<span style="color:#8a7a60;font-size:0.8rem;">' + (e.message || 'Unknown error') + '</span><br><br>' +
+          '<span style="color:#8a7a60;font-size:0.8rem;">' + _esc(e.message || 'Unknown error') + '</span><br><br>' +
           '<button onclick="location.reload()" style="background:none;border:1px solid rgba(200,180,140,0.2);color:#c8b8a0;padding:0.5rem 1.5rem;font-family:monospace;cursor:pointer;min-height:44px;">Retry</button>' +
           '</p>';
         return;

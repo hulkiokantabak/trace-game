@@ -44,14 +44,47 @@ const State = (() => {
     }, 500);
   }
 
+  // Security: valid location IDs and trait names to prevent injection via crafted save data.
+  // If a location/trait from localStorage doesn't match this allowlist, the save is rejected.
+  const VALID_LOCATIONS = ['flat','L01','L02','L03','L04','L05','L06','L07','L08','L09','L10'];
+  const VALID_TRAITS = ['musician','photographer','wanderer','barista','shopkeeper'];
+
+  // Security: strip __proto__, constructor, and prototype keys from parsed JSON to prevent
+  // prototype pollution via crafted localStorage data. Object.assign would otherwise copy
+  // these poisoned keys onto the state object (or Object.prototype).
+  function _sanitizeObject(obj) {
+    if (obj === null || typeof obj !== 'object') return obj;
+    if (Array.isArray(obj)) return obj.map(_sanitizeObject);
+    const clean = {};
+    for (const key of Object.keys(obj)) {
+      if (key === '__proto__' || key === 'constructor' || key === 'prototype') continue;
+      clean[key] = _sanitizeObject(obj[key]);
+    }
+    return clean;
+  }
+
   function load() {
     try {
       const data = localStorage.getItem(SAVE_KEY);
       if (data) {
-        const parsed = JSON.parse(data);
+        const raw = JSON.parse(data);
         // Validate critical fields
-        if (typeof parsed !== 'object' || !parsed.location) {
+        if (typeof raw !== 'object' || !raw.location) {
           console.warn('Corrupted save — resetting.');
+          reset();
+          return false;
+        }
+        // Security: sanitize parsed data to prevent prototype pollution
+        const parsed = _sanitizeObject(raw);
+        // Security: validate location is a known location ID
+        if (typeof parsed.location !== 'string' || !VALID_LOCATIONS.includes(parsed.location)) {
+          console.warn('Invalid location in save — resetting.');
+          reset();
+          return false;
+        }
+        // Security: validate trait is a known trait (or null for pre-creation saves)
+        if (parsed.trait !== null && (typeof parsed.trait !== 'string' || !VALID_TRAITS.includes(parsed.trait))) {
+          console.warn('Invalid trait in save — resetting.');
           reset();
           return false;
         }
@@ -69,6 +102,17 @@ const State = (() => {
         if (typeof state.npcMemory !== 'object') state.npcMemory = {};
         if (typeof state.investigations !== 'object') state.investigations = {};
         if (typeof state.locationVisitCounts !== 'object') state.locationVisitCounts = {};
+        // Security: cap array sizes to prevent memory exhaustion from crafted saves
+        const MAX_ARRAY = 10000;
+        if (state.visitedLocations.length > MAX_ARRAY) state.visitedLocations = state.visitedLocations.slice(0, MAX_ARRAY);
+        if (state.discoveries.length > MAX_ARRAY) state.discoveries = state.discoveries.slice(0, MAX_ARRAY);
+        if (state.flatObjects.length > MAX_ARRAY) state.flatObjects = state.flatObjects.slice(0, MAX_ARRAY);
+        if (state.homeReflections.length > MAX_ARRAY) state.homeReflections = state.homeReflections.slice(0, MAX_ARRAY);
+        // Security: cap stat values to prevent numeric overflow from crafted saves
+        for (const stat of Object.keys(state.stats)) {
+          if (typeof state.stats[stat] !== 'number' || !isFinite(state.stats[stat])) state.stats[stat] = 0;
+          state.stats[stat] = Math.max(0, Math.min(state.stats[stat], 9999));
+        }
         return true;
       }
     } catch (e) {
@@ -87,11 +131,26 @@ const State = (() => {
   function get(key) { return state[key]; }
 
   function set(key, value) {
+    // Security: validate trait and location values at write time to prevent
+    // injection of arbitrary strings into class names or object lookups.
+    if (key === 'trait' && value !== null && !VALID_TRAITS.includes(value)) {
+      console.warn('State.set: invalid trait rejected:', value);
+      return;
+    }
+    if (key === 'location' && !VALID_LOCATIONS.includes(value)) {
+      console.warn('State.set: invalid location rejected:', value);
+      return;
+    }
     state[key] = value;
     _debouncedSave();
   }
 
   function visitLocation(id) {
+    // Security: validate location ID before writing to state
+    if (!VALID_LOCATIONS.includes(id)) {
+      console.warn('visitLocation: invalid location rejected:', id);
+      return;
+    }
     if (!state.visitedLocations.includes(id)) {
       state.visitedLocations.push(id);
     }

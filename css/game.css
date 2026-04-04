@@ -915,6 +915,13 @@ html, body {
   text-transform: none;
   font-weight: normal;
   opacity: 0.7;
+  animation: timePulse 2s ease-in-out 1;
+}
+
+@keyframes timePulse {
+  0% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+  100% { opacity: 0.5; }
 }
 
 /* --- Post-discovery location enrichment --- */
@@ -1237,6 +1244,7 @@ html, body {
   width: 100%;
   text-align: center;
   font-style: italic;
+  animation: breathe 4s ease-in-out infinite;
 }
 
 @media (hover: hover) {

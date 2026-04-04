@@ -114,7 +114,7 @@
           { "text": "The frequencies don't match anything in the archive.", "tag": "neutral" }
         ],
         "weatherLines": {
-          "rain": { "text": "Rain on the canal. 800 hertz. Beautiful noise floor.", "tag": "neutral" }
+          "rain": { "text": "Rain on the canal. 800 hertz. Clean noise floor.", "tag": "neutral" }
         },
         "timeLines": {
           "night": { "text": "The frequencies shift after midnight. Quieter. Truer.", "tag": "neutral" }
