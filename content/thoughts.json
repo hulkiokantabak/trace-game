@@ -24,8 +24,10 @@
       "night": "Limehouse at night is a different proposition."
     },
     "weather": {
-      "rain": "Rain on the canal. A million tiny impacts.",
-      "fog": "The basin vanishes. Only sound confirms it's there."
+      "rain": [
+        "Rain on the canal. A million tiny impacts.",
+        "The basin vanishes in the downpour. Only sound confirms it's there."
+      ]
     },
     "musician": [
       "A hum under the bridge. Low. Constant.",

@@ -50,13 +50,25 @@ const UI = (() => {
         const period = Game.getTimePeriod();
         Engine.setTimePeriod(period);
         Engine.setLocation(State.get('location'));
-        const greetings = [
-          'You return to Limehouse.',
-          'The neighbourhood remembers you.',
-          'Back. The canal is still there.',
-          'London, again. Yours, still.'
-        ];
-        const greeting = greetings[Math.floor(Math.random() * greetings.length)];
+        // Meier: contextual greeting based on player progress
+        const npcMem = State.get('npcMemory') || {};
+        const discoveries = State.get('discoveries') || [];
+        const npcsMet = Object.keys(npcMem).filter(id => npcMem[id] && npcMem[id].visitCount > 0);
+        let greeting;
+        if (npcsMet.length >= 5) {
+          greeting = 'Limehouse knows your name now.';
+        } else if (discoveries.length >= 10) {
+          greeting = 'You see things here others walk past.';
+        } else if (npcsMet.length >= 2) {
+          const npcId = npcsMet[npcsMet.length - 1];
+          const npc = Game.content.npcs[npcId];
+          greeting = npc ? npc.name.replace('The ', 'The ') + ' remembers you.' : 'The neighbourhood remembers you.';
+        } else if (discoveries.length >= 3) {
+          greeting = 'Back. The canal holds what you found.';
+        } else {
+          const generic = ['You return to Limehouse.', 'Back. The canal is still there.', 'London, again. Yours, still.'];
+          greeting = generic[Math.floor(Math.random() * generic.length)];
+        }
         showWalkingThought(greeting, () => showLocation());
       }, 2000);
     } else {
@@ -210,6 +222,10 @@ const UI = (() => {
     if (typeof Engine.setDiscoveredDetails === 'function') {
       Engine.setDiscoveredDetails(locDiscoveries.map(d => d.hitbox));
     }
+    // Meier: tell engine if there are undiscovered details (for tap ring colour)
+    if (typeof Engine.setHasUndiscovered === 'function') {
+      Engine.setHasUndiscovered(discoveryCount < totalDetails);
+    }
 
     // Weather-specific description (from location JSON)
     const weather = Game.getWeather();
@@ -344,10 +360,18 @@ const UI = (() => {
 
     // NPC interaction (one conversation per location visit)
     panel.querySelectorAll('.npc-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', async () => {
         const result = Game.interactWithNpc(btn.dataset.npc);
         if (result) {
           Engine.audio.playNpcGreet();
+          // Living Conversations: if AI enabled, try to get AI-generated dialogue
+          if (typeof AI !== 'undefined' && AI.isEnabled()) {
+            const aiLine = await AI.chat(
+              result.npc, result.stage, State.get('trait'),
+              null, result.line.text
+            );
+            if (aiLine) result.line = { text: aiLine, tag: result.line.tag };
+          }
           showDialogue(result);
         }
       }, { once: true }); // only fires once — no spam-clicking
@@ -446,6 +470,10 @@ const UI = (() => {
       html += '<p class="stage-shift">Something has shifted.</p>';
     }
     html += '<p class="npc-dialogue">' + esc(line.text) + '</p>';
+    // Meier: soft hint when one visit away from next stage
+    if (result.nearStageShift) {
+      html += '<p class="npc-physical" style="color:#6a7a5a;">They seem to recognise you now.</p>';
+    }
     const details = npc.physicalSignature.split('. ').map(s => s.replace(/\.$/, ''));
     html += '<p class="npc-physical">' + esc(details[Math.floor(Math.random() * details.length)]) + '.</p>';
     html += '<button class="dialogue-back-btn">...' + (_seenEllipsis ? '' : '<span class="ellipsis-hint">continue</span>') + '</button>';
@@ -465,7 +493,12 @@ const UI = (() => {
     Engine.audio.playInvestigation();
     const step = triggered.step;
 
-    let html = '<p class="inv-name">' + esc(triggered.investigation.name) + '</p>';
+    let html = '';
+    // Meier: distinguish new investigation from continuation
+    if (step.id === 1) {
+      html += '<p class="stage-shift">A thread appears.</p>';
+    }
+    html += '<p class="inv-name">' + esc(triggered.investigation.name) + '</p>';
     html += '<p class="inv-step-text">' + esc(step.text) + '</p>';
     html += '<button class="inv-continue-btn">...</button>';
 
@@ -570,6 +603,16 @@ const UI = (() => {
             html += '<p class="notebook-inv-step notebook-inv-past">' + esc(steps[i].text) + '</p>';
           } else if (stepNum === currentStep) {
             html += '<p class="notebook-inv-step notebook-inv-current">' + esc(steps[i].text) + '</p>';
+          } else if (stepNum === currentStep + 1 && steps[i].advanceTrigger && steps[i].advanceTrigger.type === 'detail') {
+            // Meier: cryptic breadcrumb for the next step
+            const detailId = steps[i].advanceTrigger.detail;
+            const allLocs = Object.values(Game.content.locations);
+            let hint = '';
+            for (const loc of allLocs) {
+              const d = (loc.interactableDetails || []).find(dd => dd.id === detailId);
+              if (d) { hint = d.description; break; }
+            }
+            html += '<p class="notebook-inv-step notebook-inv-locked">' + (hint ? esc(hint) : '···') + '</p>';
           } else {
             html += '<p class="notebook-inv-step notebook-inv-locked">···</p>';
           }

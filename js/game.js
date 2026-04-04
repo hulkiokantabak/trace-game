@@ -98,7 +98,7 @@ const Game = (() => {
 
     // Weather-specific thought
     if (_weather === 'rain' && content.thoughts.limehouse.weather && content.thoughts.limehouse.weather.rain) {
-      if (Math.random() < 0.4) return content.thoughts.limehouse.weather.rain;
+      if (Math.random() < 0.4) return pick(content.thoughts.limehouse.weather.rain);
     }
 
     // Time-specific thought
@@ -205,6 +205,15 @@ const Game = (() => {
       return { line: stageData.entry, stage: newStage, stageChanged, npc };
     }
 
+    // Meier: soft progression hint — when close to next stage, show warmth
+    const nextStages = ['acquaintance', 'familiar'];
+    for (const ns of nextStages) {
+      const nsTrigger = npc.dialogue[ns] && npc.dialogue[ns].trigger;
+      if (nsTrigger && newStage !== ns && mem.visitCount === nsTrigger.visitCount - 1) {
+        return { line: stageData.entry, stage: newStage, stageChanged: false, npc, nearStageShift: true };
+      }
+    }
+
     // Trait-specific line (25% chance)
     const trait = State.get('trait');
     if (trait && stageData.traitLines && stageData.traitLines[trait] && Math.random() < 0.25) {
@@ -302,6 +311,11 @@ const Game = (() => {
         case 'visit_count': {
           const visits = State.getLocationVisitCount(cond.location);
           if (visits < cond.count) return false;
+          break;
+        }
+        case 'stat_min': {
+          const stats = State.get('stats') || {};
+          if ((stats[cond.stat] || 0) < cond.value) return false;
           break;
         }
       }

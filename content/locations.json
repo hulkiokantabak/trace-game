@@ -251,7 +251,9 @@
         "xp": { "awareness": 1 }
       }
     ],
-    "npcs_present": {},
+    "npcs_present": {
+      "street_preacher": { "timeOfDay": ["morning", "afternoon", "evening"], "days": ["mon", "tue", "wed", "thu", "fri", "sat", "sun"] }
+    },
     "ambientLife": ["wind_through_graves", "distant_traffic", "bird_unseen"],
     "musicLayer": "exterior_church",
     "weatherEffects": {

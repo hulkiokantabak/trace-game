@@ -260,6 +260,16 @@
         "traitLines": {
           "musician": { "text": "The wind here plays a note. You hear it?", "tag": "musician" }
         }
+      },
+      "familiar": {
+        "trigger": { "visitCount": 8, "acrossDays": true },
+        "entry": { "text": "Wait. Listen. The board again.", "tag": "neutral" },
+        "ambient": [
+          { "text": "That person. Three neighbourhoods. Same day.", "tag": "neutral" }
+        ],
+        "traitLines": {
+          "musician": { "text": "The platform hums your note. I timed it.", "tag": "musician" }
+        }
       }
     }
   },
@@ -290,6 +300,47 @@
         ],
         "traitLines": {
           "musician": { "text": "The bass tonight. Not from the speakers.", "tag": "musician" }
+        }
+      },
+      "familiar": {
+        "trigger": { "visitCount": 8, "acrossDays": true },
+        "entry": { "text": "Stay. Something happens at two.", "tag": "neutral" },
+        "ambient": [
+          { "text": "The name. The one who watches. I know it.", "tag": "neutral" }
+        ],
+        "traitLines": {
+          "musician": { "text": "The bass follows you. I've watched it move.", "tag": "musician" }
+        }
+      }
+    }
+  },
+  "street_preacher": {
+    "id": "street_preacher",
+    "name": "The Street Preacher",
+    "primaryLocation": "L03",
+    "physicalSignature": "Voice projects from the chest. Clothes clean but old. Leaves no trace.",
+    "voiceRule": "Three-sentence sermons then gone. Prophecy or symptom. Cosmological dread.",
+    "maxDialogueWords": 12,
+    "schedule": {
+      "available": { "timeOfDay": ["morning", "afternoon", "evening"], "days": ["mon", "tue", "wed", "thu", "fri", "sat", "sun"] },
+      "unavailable_reason": "The churchyard is empty. Wind through the grass."
+    },
+    "dialogue": {
+      "stranger": {
+        "entry": { "text": "It's been sleeping under the river. The river knows.", "tag": "neutral" },
+        "ambient": [
+          { "text": "The ground is warm where it breathes. Stand still.", "tag": "neutral" },
+          { "text": "Everyone leaves marks. Some marks leave everyone.", "tag": "neutral" }
+        ]
+      },
+      "acquaintance": {
+        "trigger": { "visitCount": 2, "acrossDays": false },
+        "entry": { "text": "You came back. Most don't come back.", "tag": "neutral" },
+        "ambient": [
+          { "text": "Don't stop looking. It's looking back.", "tag": "neutral" }
+        ],
+        "traitLines": {
+          "musician": { "text": "The note is getting louder. Somebody's listening.", "tag": "musician" }
         }
       }
     }

@@ -160,5 +160,38 @@
     "rewards": {
       "completion": { "awareness": 2 }
     }
+  },
+  "LI-12": {
+    "id": "LI-12",
+    "name": "The Watcher Noticed",
+    "type": "deep",
+    "primaryLocation": null,
+    "trait": "all",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        { "type": "stat_min", "stat": "awareness", "value": 5 },
+        { "type": "visit_count", "location": "L01", "count": 3 }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "The same figure. Different locations. Always still while everyone else moves. You've seen them at the basin. The churchyard. The lot. Watching.",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 2,
+        "text": "You look directly at the figure. They don't leave. For the first time, they hold your gaze. A stillness that has nothing to do with patience. Then they turn and walk — not away. Through.",
+        "type": "revelation",
+        "advanceTrigger": { "type": "detail", "detail": "lot_silence" },
+        "pacing": { "minHoursAfterPrevious": 0 }
+      }
+    ],
+    "choice": null,
+    "rewards": {
+      "completion": { "awareness": 3, "resonance": 2 }
+    }
   }
 }

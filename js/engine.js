@@ -18,6 +18,7 @@ const Engine = (() => {
   let _lastTapTime = 0;
   let _hintPulse = 0; // animation counter
   let _discoveredDetails = []; // [{x,y,w,h}] hitboxes of found details
+  let _hasUndiscovered = false; // Meier: whether location has undiscovered details
 
   // Pre-computed rain drop positions
   const RAIN_DROPS = Array.from({ length: 40 }, () => ({
@@ -1137,13 +1138,14 @@ const Engine = (() => {
           }
         }
 
-        // Tap feedback ring
+        // Tap feedback ring — warm hue when undiscovered details exist at location
         if (_tapRing) {
           _tapRing.age += 0.05;
           const r = _tapRing.age * 20;
           const a = Math.max(0, 0.3 - _tapRing.age * 0.5);
           if (a > 0) {
-            ctx.strokeStyle = `rgba(200,180,140,${a.toFixed(2)})`;
+            const col = _hasUndiscovered ? '210,180,120' : '200,180,140';
+            ctx.strokeStyle = `rgba(${col},${a.toFixed(2)})`;
             ctx.lineWidth = 1;
             ctx.beginPath();
             ctx.arc(_tapRing.x, _tapRing.y, r, 0, Math.PI * 2);
@@ -1574,6 +1576,7 @@ const Engine = (() => {
     setWatcherVisible(v) { _watcherVisible = !!v; },
     setForgetting(v) { _forgetting = !!v; },
     setDiscoveredDetails(details) { _discoveredDetails = details || []; },
+    setHasUndiscovered(v) { _hasUndiscovered = !!v; },
     audio
   };
 })();
