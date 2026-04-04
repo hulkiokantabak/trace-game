@@ -26,6 +26,7 @@ const Engine = (() => {
   let _transitionCallback = null;
   let _firstShimmer = null; // { x, y, w, h, age }
   let _playerTrait = 'musician';
+  let _lastTimestamp = 0;
 
   // Pre-computed rain drop positions
   const RAIN_DROPS = Array.from({ length: 40 }, () => ({
@@ -107,6 +108,7 @@ const Engine = (() => {
       handleTap(e.clientX, e.clientY);
     });
     canvas.addEventListener('touchend', e => {
+      e.preventDefault();
       if (e.changedTouches.length) {
         _lastTapMs = Date.now();
         const t = e.changedTouches[0];
@@ -120,6 +122,7 @@ const Engine = (() => {
 
   function resize() {
     const container = canvas.parentElement;
+    if (!container || container.clientWidth === 0 || container.clientHeight === 0) return;
     const cw = container.clientWidth;
     const ch = container.clientHeight;
     const scale = Math.min(cw / W, ch / H);
@@ -591,9 +594,11 @@ const Engine = (() => {
     ctx.fillRect(248, 88, 34, 24);
 
     // Cables on floor
+    ctx.save();
     ctx.strokeStyle = '#0e0c16';
     ctx.lineWidth = 1;
     ctx.beginPath(); ctx.moveTo(50, 135); ctx.quadraticCurveTo(120, 160, 200, 135); ctx.stroke();
+    ctx.restore();
     ctx.fillStyle = '#0e0c16';
     for (let x = 80; x < 200; x += 8) {
       ctx.fillRect(x, 132 + Math.sin(x * 0.1) * 3, 4, 2);
@@ -1125,7 +1130,7 @@ const Engine = (() => {
 
   // --- Render & Loop ---
 
-  function render(t) {
+  function render(t, dt) {
     switch (state) {
       case 'title':
         sceneCanalBasin(t);
@@ -1183,7 +1188,7 @@ const Engine = (() => {
 
         // First discovery shimmer — teaches the player to tap (one-time, first location only)
         if (_firstShimmer) {
-          _firstShimmer.age += 0.02;
+          _firstShimmer.age += dt * 1.2;
           if (_firstShimmer.age < 5) { // 5 seconds then gone
             const shimmer = Math.sin(_firstShimmer.age * 3) * 0.5 + 0.5;
             const sa = 0.08 + shimmer * 0.12;
@@ -1202,7 +1207,7 @@ const Engine = (() => {
 
         // Discovery flash — brief glow at detail location
         if (_discoveryFlash) {
-          _discoveryFlash.age += 0.03;
+          _discoveryFlash.age += dt * 1.8;
           const fa = Math.max(0, 0.4 - _discoveryFlash.age);
           if (fa > 0) {
             ctx.fillStyle = `rgba(220,200,140,${fa.toFixed(3)})`;
@@ -1214,7 +1219,7 @@ const Engine = (() => {
 
         // Discovery preview — floating text near detail
         if (_discoveryPreview) {
-          _discoveryPreview.age += 0.015;
+          _discoveryPreview.age += dt * 0.9;
           const pa = Math.max(0, 0.9 - _discoveryPreview.age);
           if (pa > 0) {
             ctx.save();
@@ -1229,7 +1234,7 @@ const Engine = (() => {
         }
 
         // Hint pulse — ambient scene breathing when undiscovered details exist
-        _hintPulse = (t * 0.0008) % (Math.PI * 2);
+        _hintPulse = (t * 0.8) % (Math.PI * 2);
         if (_discoveredDetails.length === 0) {
           // No details found yet at this location — gentle scene glow
           const breath = Math.sin(_hintPulse) * 0.5 + 0.5;
@@ -1241,7 +1246,7 @@ const Engine = (() => {
 
         // Tap feedback ring — warm hue when undiscovered details exist at location
         if (_tapRing) {
-          _tapRing.age += 0.05;
+          _tapRing.age += dt * 3.0;
           const r = _tapRing.age * 20;
           const a = Math.max(0, 0.3 - _tapRing.age * 0.5);
           if (a > 0) {
@@ -1280,7 +1285,7 @@ const Engine = (() => {
         }
         // Navigation transition overlay
         if (_transitionDir !== 0) {
-          _transitionAlpha += _transitionDir * (_transitionDir === 1 ? 0.06 : 0.04);
+          _transitionAlpha += _transitionDir * dt * 3.0;
           if (_transitionDir === 1 && _transitionAlpha >= 1) {
             _transitionAlpha = 1;
             _transitionDir = -1;
@@ -1299,7 +1304,10 @@ const Engine = (() => {
   }
 
   function loop(timestamp) {
-    render((timestamp || performance.now()) / 1000);
+    const ts = timestamp || performance.now();
+    const dt = _lastTimestamp ? Math.min((ts - _lastTimestamp) / 1000, 0.1) : 0.016;
+    _lastTimestamp = ts;
+    render(ts / 1000, dt);
     requestAnimationFrame(loop);
   }
 
@@ -1333,6 +1341,15 @@ const Engine = (() => {
         this._master = this._ctx.createGain();
         this._master.gain.value = 0.5;
         this._master.connect(this._ctx.destination);
+
+        // Resume AudioContext on first user interaction (required by browsers)
+        const resumeAudio = () => {
+          if (this._ctx && this._ctx.state === 'suspended') {
+            this._ctx.resume();
+          }
+        };
+        document.addEventListener('click', resumeAudio, { once: true });
+        document.addEventListener('touchend', resumeAudio, { once: true });
 
         // Suspend audio when tab is hidden, resume when visible
         document.addEventListener('visibilitychange', () => {
@@ -1378,6 +1395,7 @@ const Engine = (() => {
     // --- Theme melody ---
     playTheme() {
       if (!this._ctx) return;
+      if (this._timer) clearTimeout(this._timer);
       this._playing = true;
       const now = this._ctx.currentTime + 0.1;
       this._note(130.81, now, 11, 0.035, 'sine');
@@ -1400,6 +1418,7 @@ const Engine = (() => {
       if (this._timer) clearTimeout(this._timer);
       if (this._master && this._ctx) {
         const t = this._ctx.currentTime;
+        this._master.gain.setValueAtTime(this._master.gain.value, t);
         this._master.gain.linearRampToValueAtTime(0.001, t + seconds);
         // Restore master gain after fade completes so ambient can be heard
         this._master.gain.setValueAtTime(0.5, t + seconds + 0.05);
@@ -1552,10 +1571,11 @@ const Engine = (() => {
     _killAmbient(amb) {
       if (!amb) return;
       const t = this._ctx.currentTime;
+      amb.gain.gain.setValueAtTime(amb.gain.gain.value, t);
       amb.gain.gain.linearRampToValueAtTime(0.001, t + this._crossfadeSec);
       setTimeout(() => {
         for (const n of amb.nodes) {
-          try { n.stop(); } catch (_) {}
+          try { if (n.stop) n.stop(); } catch (_) {}
           try { n.disconnect(); } catch (_) {}
         }
         try { amb.gain.disconnect(); } catch (_) {}
@@ -1637,6 +1657,7 @@ const Engine = (() => {
     stopRain() {
       if (!this._rain) return;
       const t = this._ctx.currentTime;
+      this._rain.gain.gain.setValueAtTime(this._rain.gain.gain.value, t);
       this._rain.gain.gain.linearRampToValueAtTime(0.001, t + 3);
       const rain = this._rain;
       this._rain = null;
@@ -1773,7 +1794,8 @@ const Engine = (() => {
     setFirstShimmer(hitbox) { _firstShimmer = { x: hitbox.x, y: hitbox.y, w: hitbox.w, h: hitbox.h, age: 0 }; },
     flashDiscovery(hitbox, text) {
       _discoveryFlash = { x: hitbox.x, y: hitbox.y, w: hitbox.w, h: hitbox.h, age: 0 };
-      _discoveryPreview = { text: text.split(' ').slice(0, 4).join(' '), x: hitbox.x + hitbox.w/2, y: hitbox.y - 6, age: 0 };
+      const preview = (text || '').split(' ').slice(0, 4).join(' ');
+      _discoveryPreview = { text: preview, x: hitbox.x + hitbox.w/2, y: hitbox.y - 6, age: 0 };
     },
     audio
   };

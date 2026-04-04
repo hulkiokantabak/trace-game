@@ -154,6 +154,7 @@ const AI = (() => {
   // --- Config ---
   function configure(provider, model, apiKey) {
     if (!PROVIDERS[provider]) return false;
+    if (!apiKey || typeof apiKey !== 'string' || !apiKey.trim()) return false;
     _provider = provider;
     _model = model || PROVIDERS[provider].models[0];
     _apiKey = apiKey;
@@ -228,7 +229,13 @@ Respond with ONLY the dialogue line. No quotes, no attribution, no stage directi
         return null;
       }
 
-      const data = await response.json();
+      let data;
+      try {
+        data = await response.json();
+      } catch (parseErr) {
+        console.warn('AI response parse error:', parseErr);
+        return null;
+      }
       const text = provider.parseResponse(data);
 
       // Enforce word limit
@@ -272,7 +279,13 @@ Respond with ONLY the dialogue line. No quotes, no attribution, no stage directi
       });
       clearTimeout(timeout);
       if (!response.ok) return { ok: false, error: 'HTTP ' + response.status };
-      const data = await response.json();
+      let data;
+      try {
+        data = await response.json();
+      } catch (parseErr) {
+        console.warn('AI response parse error:', parseErr);
+        return { ok: false, error: 'Response parse error' };
+      }
       const text = provider.parseResponse(data);
       return { ok: !!text, response: text };
     } catch (e) {

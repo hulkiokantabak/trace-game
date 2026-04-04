@@ -5,6 +5,7 @@
 const UI = (() => {
   let panel;
   let _seenEllipsis = false;
+  let _viewId = 0;
 
   const AMBIENT_TEXTS = {
     chain_clink: 'A chain clinks against a mooring ring. Rhythmic.',
@@ -117,7 +118,7 @@ const UI = (() => {
         } else if (npcsMet.length >= 2) {
           const npcId = npcsMet[npcsMet.length - 1];
           const npc = Game.content.npcs[npcId];
-          greeting = npc ? npc.name.replace('The ', 'The ') + ' remembers you.' : 'The neighbourhood remembers you.';
+          greeting = npc ? npc.name + ' remembers you.' : 'The neighbourhood remembers you.';
         } else if (discoveries.length >= 3) {
           greeting = 'Back. The canal holds what you found.';
         } else {
@@ -256,15 +257,22 @@ const UI = (() => {
     const words = text.split(' ').length;
     const duration = Math.max(1800, Math.min(3500, words * 350));
     let done = false;
-    const finish = () => { if (!done) { done = true; onDone(); } };
-    setTimeout(finish, duration);
-    // Miyamoto: tap to dismiss — player's hand moves at the speed of their mind
-    panel.addEventListener('click', finish, { once: true });
+    const tapHandler = () => finish();
+    panel.addEventListener('click', tapHandler, { once: true });
+    const tid = setTimeout(() => finish(), duration);
+    function finish() {
+      if (done) return;
+      done = true;
+      clearTimeout(tid);
+      panel.removeEventListener('click', tapHandler);
+      if (onDone) onDone();
+    }
   }
 
   // --- Location View ---
 
   function showLocation() {
+    const currentView = ++_viewId;
     const locId = State.get('location');
     const loc = Game.getLocation(locId);
     if (!loc) return;
@@ -439,10 +447,11 @@ const UI = (() => {
     html += '<button class="notebook-btn" data-tab="people">Notebook</button>';
 
     panel.innerHTML = html;
-    panel.classList.add(locId === 'flat' ? 'scene-fade-warm' : 'scene-fade');
-    panel.addEventListener('animationend', () => {
-      panel.classList.remove('scene-fade', 'scene-fade-warm');
-    }, { once: true });
+    const fadeCls = locId === 'flat' ? 'scene-fade-warm' : 'scene-fade';
+    panel.classList.add(fadeCls);
+    const fadeCleanup = () => panel.classList.remove('scene-fade', 'scene-fade-warm');
+    panel.addEventListener('animationend', fadeCleanup, { once: true });
+    setTimeout(fadeCleanup, 1500);
 
     // Check investigation triggers
     const triggered = Game.checkInvestigationTriggers();
@@ -465,7 +474,7 @@ const UI = (() => {
     const fragment = Game.checkFragmentAtLocation(locId);
     if (fragment) {
       setTimeout(() => {
-        if (State.get('location') === locId) showFragment(fragment);
+        if (_viewId === currentView && State.get('location') === locId) showFragment(fragment);
       }, 3000);
     }
 
@@ -623,6 +632,7 @@ const UI = (() => {
   // --- NPC Dialogue ---
 
   function showDialogue(result) {
+    ++_viewId;
     Engine.onCanvasTap(null); // disable tap during dialogue
     const { line, stage, stageChanged, npc, forgetting } = result;
 
@@ -634,9 +644,10 @@ const UI = (() => {
       html += '<p class="npc-physical">Something familiar about them. You can\'t place it.</p>';
     } else {
       const sig = npc.physicalSignature || '';
-      const details = sig.split('. ').filter(s => s).map(s => s.replace(/\.$/, ''));
-      if (details.length === 0) details.push('');
-      html += '<p class="npc-physical">' + esc(details[Math.floor(Math.random() * details.length)]) + '.</p>';
+      const details = sig.split('. ').filter(s => s.trim()).map(s => s.replace(/\.$/, ''));
+      if (details.length > 0) {
+        html += '<p class="npc-physical">' + esc(details[Math.floor(Math.random() * details.length)]) + '.</p>';
+      }
     }
     html += '<button class="dialogue-back-btn">...' + (_seenEllipsis ? '' : '<span class="ellipsis-hint">continue</span>') + '</button>';
 
@@ -651,6 +662,7 @@ const UI = (() => {
   // --- Investigation ---
 
   function showInvestigationStep(triggered) {
+    ++_viewId;
     Engine.onCanvasTap(null);
     Engine.audio.playInvestigationReveal ? Engine.audio.playInvestigationReveal() : Engine.audio.playInvestigation();
     const step = triggered.step;
@@ -672,6 +684,7 @@ const UI = (() => {
   }
 
   function showInvestigationChoice(invId, investigation, choice) {
+    ++_viewId;
     Engine.onCanvasTap(null);
     Engine.audio.playChoice();
 
@@ -734,6 +747,7 @@ const UI = (() => {
   // --- Notebook ---
 
   function showNotebook(tab) {
+    ++_viewId;
     Engine.onCanvasTap(null);
     let html = '<div class="notebook">';
     html += '<p class="notebook-title">Notebook</p>';
@@ -831,7 +845,7 @@ const UI = (() => {
       const frags = Game.content.fragments || {};
       let hasFrags = false;
       for (const [id, frag] of Object.entries(frags)) {
-        if (!State.get('discoveries').includes('frag_' + id)) continue;
+        if (!(State.get('discoveries') || []).includes('frag_' + id)) continue;
         hasFrags = true;
         html += '<div class="notebook-entry">';
         html += '<p class="notebook-npc-name">' + esc(frag.title) + '</p>';
@@ -969,6 +983,7 @@ const UI = (() => {
   // --- AI Settings ---
 
   function showAiSettings() {
+    if (typeof AI === 'undefined') return;
     const providers = AI.getProviders();
     const currentProvider = AI.getProvider();
     const enabled = AI.isEnabled();

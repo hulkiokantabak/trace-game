@@ -7,6 +7,11 @@
   -webkit-touch-callout: none;
 }
 
+input, select, textarea {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
 html {
   color-scheme: dark;
 }
@@ -76,6 +81,7 @@ html, body {
   #text-panel {
     flex: 0 0 40%;
     padding: 2rem;
+    padding-bottom: max(2rem, env(safe-area-inset-bottom));
   }
 }
 
@@ -1018,6 +1024,7 @@ html, body {
   border: 1px solid rgba(200, 180, 140, 0.06);
   color: #4a4038;
   padding: 0.4rem 0.8rem;
+  min-height: 44px;
   font-family: 'Courier New', Courier, monospace;
   font-size: 0.72rem;
   cursor: pointer;

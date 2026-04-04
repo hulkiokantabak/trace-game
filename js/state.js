@@ -23,6 +23,7 @@ const State = (() => {
   };
 
   let state = JSON.parse(JSON.stringify(defaults));
+  let _saveTimer = null;
 
   function save() {
     state.lastPlayed = Date.now();
@@ -31,7 +32,16 @@ const State = (() => {
       localStorage.setItem(SAVE_KEY, JSON.stringify(state));
     } catch (e) {
       console.warn('Save failed:', e);
+      try { window.dispatchEvent(new CustomEvent('save-error', { detail: e.message })); } catch (_) {}
     }
+  }
+
+  function _debouncedSave() {
+    if (_saveTimer) return;
+    _saveTimer = setTimeout(() => {
+      _saveTimer = null;
+      save();
+    }, 500);
   }
 
   function load() {
@@ -73,11 +83,12 @@ const State = (() => {
     state = JSON.parse(JSON.stringify(defaults));
   }
 
+  /** Returns direct reference — callers must call save() after mutation */
   function get(key) { return state[key]; }
 
   function set(key, value) {
     state[key] = value;
-    save();
+    _debouncedSave();
   }
 
   function visitLocation(id) {

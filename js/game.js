@@ -69,6 +69,12 @@ const Game = (() => {
     const target = content.locations[targetId];
     if (!target) return null;
 
+    const currentLoc = content.locations[State.get('location')];
+    if (currentLoc && currentLoc.adjacentLocations && !currentLoc.adjacentLocations.includes(targetId)) {
+      console.warn('Invalid navigation: ' + targetId + ' not adjacent to ' + State.get('location'));
+      return null;
+    }
+
     // Pick a walking thought for this route
     const thought = pickThought(fromId, targetId);
 
@@ -163,7 +169,8 @@ const Game = (() => {
     const npc = content.npcs[npcId];
     if (!npc) return 'stranger';
     const mem = State.getNpcMemory(npcId);
-    const stages = ['familiar', 'acquaintance'];
+    const stages = ['acquaintance', 'familiar'];
+    let highestStage = null;
     for (const stage of stages) {
       const trigger = npc.dialogue[stage] && npc.dialogue[stage].trigger;
       if (!trigger) continue;
@@ -177,11 +184,12 @@ const Game = (() => {
       // If an investigation choice forced a variant of this stage (e.g. familiar_aware),
       // honour that variant rather than returning the base stage.
       if (mem.stage && mem.stage.startsWith(stage + '_') && npc.dialogue[mem.stage]) {
-        return mem.stage;
+        highestStage = mem.stage;
+      } else {
+        highestStage = stage;
       }
-      return stage;
     }
-    return 'stranger';
+    return highestStage || 'stranger';
   }
 
   function interactWithNpc(npcId) {
@@ -245,7 +253,7 @@ const Game = (() => {
       const metCount = Object.keys(npcMemAll).filter(id => npcMemAll[id] && npcMemAll[id].visitCount > 0).length;
       if (metCount >= stageData.crossReference.minNpcsMet) {
         State.set('crossRef_' + npcId, true);
-        return { line: stageData.crossReference, stage: newStage, stageChanged: false, npc, forgetting };
+        return { line: { text: stageData.crossReference.text, tag: 'neutral' }, stage: newStage, stageChanged: false, npc, forgetting };
       }
     }
 
@@ -370,6 +378,10 @@ const Game = (() => {
       if (nextStep.advanceTrigger === 'automatic') continue;
       if (nextStep.advanceTrigger.type === 'detail' && nextStep.advanceTrigger.detail === detailId) {
         State.advanceInvestigation(id, nextStep.id);
+        // Auto-complete choiceless investigations that reach their final step
+        if (nextStepIdx >= inv.steps.length - 1 && !inv.choice) {
+          State.completeInvestigation(id, null, inv.rewards && inv.rewards.completion);
+        }
       }
     }
   }
@@ -398,6 +410,9 @@ const Game = (() => {
   function makeInvestigationChoice(invId, optionId) {
     const inv = content.investigations[invId];
     if (!inv) return null;
+    if (!inv.choice) return null;
+    const stateInv = State.getInvestigation(invId);
+    if (stateInv.complete) return null;
     const option = inv.choice.options.find(o => o.id === optionId);
     if (!option) return null;
     const consequence = option.consequence;
