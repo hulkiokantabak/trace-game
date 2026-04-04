@@ -25,6 +25,7 @@ const Engine = (() => {
   let _transitionDir = 0;    // 0 = none, 1 = fading out, -1 = fading in
   let _transitionCallback = null;
   let _firstShimmer = null; // { x, y, w, h, age }
+  let _playerTrait = 'musician';
 
   // Pre-computed rain drop positions
   const RAIN_DROPS = Array.from({ length: 40 }, () => ({
@@ -1243,7 +1244,14 @@ const Engine = (() => {
           const r = _tapRing.age * 20;
           const a = Math.max(0, 0.3 - _tapRing.age * 0.5);
           if (a > 0) {
-            const col = _hasUndiscovered ? '210,180,120' : '200,180,140';
+            const TRAIT_RING = {
+              musician: '216,176,96',     // warm amber
+              photographer: '96,144,192', // cool blue
+              wanderer: '138,112,80',     // earth brown
+              barista: '192,144,112',     // rose gold
+              shopkeeper: '112,160,128'   // patina green
+            };
+            const col = _hasUndiscovered ? (TRAIT_RING[_playerTrait] || '210,180,120') : '200,180,140';
             ctx.strokeStyle = `rgba(${col},${a.toFixed(2)})`;
             ctx.lineWidth = 1;
             ctx.beginPath();
@@ -1647,10 +1655,15 @@ const Engine = (() => {
     // Discovery chime — bright ascending pair
     playDiscovery() {
       if (!this._ctx) return;
+      const TRAIT_PITCH = {
+        musician: 1.0, photographer: 1.12, wanderer: 0.85,
+        barista: 1.05, shopkeeper: 0.9
+      };
+      const p = TRAIT_PITCH[_playerTrait] || 1.0;
       const t = this._ctx.currentTime;
-      this._note(523.25, t, 0.3, 0.15, 'triangle');
-      this._note(659.25, t + 0.15, 0.4, 0.12, 'triangle');
-      this._note(783.99, t + 0.1, 0.6, 0.04, 'sine'); // harmonic shimmer
+      this._note(523.25 * p, t, 0.3, 0.15, 'triangle');
+      this._note(659.25 * p, t + 0.15, 0.4, 0.12, 'triangle');
+      this._note(783.99 * p, t + 0.1, 0.6, 0.04, 'sine');
     },
 
     // NPC greeting — warm low tone
@@ -1755,6 +1768,7 @@ const Engine = (() => {
     setDiscoveredDetails(details) { _discoveredDetails = details || []; },
     setHasUndiscovered(v) { _hasUndiscovered = !!v; },
     fadeTransition,
+    setPlayerTrait(t) { _playerTrait = t || 'musician'; },
     setFirstShimmer(hitbox) { _firstShimmer = { x: hitbox.x, y: hitbox.y, w: hitbox.w, h: hitbox.h, age: 0 }; },
     flashDiscovery(hitbox, text) {
       _discoveryFlash = { x: hitbox.x, y: hitbox.y, w: hitbox.w, h: hitbox.h, age: 0 };

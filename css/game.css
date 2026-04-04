@@ -341,6 +341,37 @@ html, body {
   }
 }
 
+.trait-suggested {
+  border-color: rgba(200, 180, 140, 0.25);
+}
+
+.trait-confirm-btn, .trait-back-btn {
+  background: none;
+  border: 1px solid rgba(200, 180, 140, 0.15);
+  color: #c8b8a0;
+  padding: 0.5rem 1.5rem;
+  min-height: 44px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.85rem;
+  cursor: pointer;
+  letter-spacing: 0.08em;
+  transition: all 0.3s ease;
+}
+
+.trait-back-btn {
+  color: #6a5a40;
+  border-color: rgba(200, 180, 140, 0.08);
+}
+
+@media (hover: hover) {
+  .trait-confirm-btn:hover {
+    border-color: rgba(200, 180, 140, 0.4);
+  }
+  .trait-back-btn:hover {
+    color: #c8b8a0;
+  }
+}
+
 /* --- Walking Thought --- */
 
 .walking-thought {

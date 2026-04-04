@@ -50,15 +50,31 @@ const UI = (() => {
         const period = Game.getTimePeriod();
         Engine.setTimePeriod(period);
         Engine.setLocation(State.get('location'));
+        Engine.setPlayerTrait(State.get('trait'));
         // Meier: contextual greeting based on player progress
         const npcMem = State.get('npcMemory') || {};
         const discoveries = State.get('discoveries') || [];
         const npcsMet = Object.keys(npcMem).filter(id => npcMem[id] && npcMem[id].visitCount > 0);
         let greeting;
+        const trait = State.get('trait') || 'musician';
+        const traitGreetings5 = {
+          musician: 'Limehouse hums when you return.',
+          photographer: 'The light shifts. It remembers you.',
+          wanderer: 'The ground is familiar underfoot.',
+          barista: 'Five people. They kept your seat warm.',
+          shopkeeper: 'Everything is where you left it.'
+        };
+        const traitGreetings10 = {
+          musician: 'The city has learned your key.',
+          photographer: 'You see things here others walk past.',
+          wanderer: 'Your feet know every surface now.',
+          barista: 'The neighbourhood holds its breath for you.',
+          shopkeeper: 'Ten things noticed. Nothing lost.'
+        };
         if (npcsMet.length >= 5) {
-          greeting = 'Limehouse knows your name now.';
+          greeting = traitGreetings5[trait] || 'Limehouse knows your name now.';
         } else if (discoveries.length >= 10) {
-          greeting = 'You see things here others walk past.';
+          greeting = traitGreetings10[trait] || 'You see things here others walk past.';
         } else if (npcsMet.length >= 2) {
           const npcId = npcsMet[npcsMet.length - 1];
           const npc = Game.content.npcs[npcId];
@@ -115,7 +131,7 @@ const UI = (() => {
       '<div class="creation-trait-select">' +
         '<p class="section-label">Who are you becoming?</p>' +
         '<div class="trait-list">' +
-          '<button class="trait-btn" data-trait="musician">' +
+          '<button class="trait-btn trait-suggested" data-trait="musician">' +
             '<span class="trait-name">The Musician</span>' +
             '<span class="trait-desc">You hear what others don\'t. The city is an instrument.</span>' +
           '</button>' +
@@ -138,30 +154,45 @@ const UI = (() => {
         '</div>' +
       '</div>';
 
+    // Curated preview thoughts — the strongest from each trait
+    const previewThoughts = {
+      musician: 'The city plays itself. Nobody conducts.',
+      photographer: 'Brick turns gold at this hour.',
+      wanderer: 'Damp rises through the soles. Old damp.',
+      barista: 'Two strangers. Same bench. Almost talking.',
+      shopkeeper: 'Paint over paint over paint over wood.'
+    };
+
     panel.querySelectorAll('[data-trait]').forEach(btn => {
       btn.addEventListener('click', () => {
         const trait = btn.dataset.trait;
         const traitName = trait.charAt(0).toUpperCase() + trait.slice(1);
 
-        // Brief confirmation before starting
+        // Preview step — show a sample thought so the player knows how this trait feels
         panel.innerHTML =
-          '<p class="creation-text">The ' + traitName + '.</p>' +
-          '<p class="creation-text creation-delay-1">' + traitConfirmation(trait) + '</p>';
-        Engine.audio.playDiscovery();
+          '<div class="creation-preview">' +
+            '<p class="creation-text">The ' + traitName + '</p>' +
+            '<p class="walking-thought" style="margin:1.2rem 0;">' + esc(previewThoughts[trait]) + '</p>' +
+            '<p class="creation-text creation-delay-1">' + esc(traitConfirmation(trait)) + '</p>' +
+            '<div style="display:flex;gap:1rem;margin-top:1.5rem;">' +
+              '<button class="trait-confirm-btn creation-delay-2">Begin</button>' +
+              '<button class="trait-back-btn creation-delay-2">Back</button>' +
+            '</div>' +
+          '</div>';
 
-        // Miyamoto: tap to skip confirmation wait
-        let started = false;
-        const go = () => {
-          if (started) return;
-          started = true;
+        panel.querySelector('.trait-confirm-btn').addEventListener('click', () => {
+          Engine.audio.playDiscovery();
           State.set('trait', trait);
+          Engine.setPlayerTrait(trait);
           State.set('createdAt', Date.now());
           State.set('firstPlay', false);
           State.visitLocation('flat');
           startGame();
-        };
-        setTimeout(go, 2200);
-        panel.addEventListener('click', go, { once: true });
+        });
+
+        panel.querySelector('.trait-back-btn').addEventListener('click', () => {
+          showTraitSelection();
+        });
       });
     });
   }
@@ -1061,8 +1092,20 @@ const UI = (() => {
       check('all_locs', visitedLocs >= 10, 'You\'ve walked every street. Every corner. The map is yours now.') ||
       check('three_npcs', npcsMet >= 3, 'Three people who know your name. More than you had before.') ||
       check('five_disc', discoveries >= 5, 'Five things. The flat feels different now. Warmer.') ||
-      check('first_npc', npcsMet >= 1, 'Someone knows your face now. That changes things.') ||
+      check('first_npc', npcsMet >= 1, _traitFirstNpc()) ||
       null;
+
+    function _traitFirstNpc() {
+      const trait = State.get('trait') || 'musician';
+      const lines = {
+        musician: 'Someone heard you today. That changes things.',
+        photographer: 'Someone saw you looking. That changes things.',
+        wanderer: 'Someone felt you pass. That changes things.',
+        barista: 'Someone held your gaze. That changes things.',
+        shopkeeper: 'Someone showed you something old. That changes things.'
+      };
+      return lines[trait] || 'Someone knows your face now. That changes things.';
+    }
   }
 
   return { init, showLocation };
