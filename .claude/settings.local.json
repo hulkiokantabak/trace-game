@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Claude_Preview__preview_start",
+      "Bash(cp \"/c/Users/LegionDesktop/Downloads/game-design-masters.skill\" .)",
+      "Bash(unzip -o game-design-masters.skill -d game-design-masters)",
+      "Bash(mv game-design-masters/game-design-masters/* game-design-masters/)",
+      "Bash(rmdir game-design-masters/game-design-masters)",
+      "Bash(rm game-design-masters.skill)",
+      "Bash(grep -r \"adjacentLocations\\\\|npcs_present\\\\|primaryLocation\" /c/Users/LegionDesktop/Downloads/Trace Game/*.md)",
+      "Bash(node -c \"C:/Users/LegionDesktop/Downloads/Trace Game/js/ui.js\")",
+      "Bash(node -c \"C:/Users/LegionDesktop/Downloads/Trace Game/js/engine.js\")",
+      "Bash(node -c \"C:/Users/LegionDesktop/Downloads/Trace Game/js/state.js\")",
+      "Bash(node -c \"C:/Users/LegionDesktop/Downloads/Trace Game/js/game.js\")",
+      "Bash(node -c js/ui.js)",
+      "Bash(node -c css/game.css)",
+      "Bash(node -c js/engine.js)",
+      "Bash(node -c js/state.js)",
+      "Bash(node -c js/game.js)",
+      "Bash(node -e \"JSON.parse\\(require\\(''fs''\\).readFileSync\\(''content/thoughts.json'',''utf8''\\)\\); console.log\\(''thoughts.json OK''\\)\")",
+      "Bash(node -c js/ai.js)",
+      "Bash(for f:*)",
+      "Bash(do node:*)",
+      "Bash(echo \"$f OK\")",
+      "Bash(done)",
+      "Bash(node -e \"const fs = require\\(''fs''\\); const data = JSON.parse\\(fs.readFileSync\\(''content/locations.json'', ''utf8''\\)\\); console.log\\(''Location keys:'', Object.keys\\(data\\).sort\\(\\).join\\('', ''\\)\\); console.log\\(''Total locations:'', Object.keys\\(data\\).length\\);\")",
+      "Bash(node -e \"const fs = require\\(''fs''\\); const npcs = JSON.parse\\(fs.readFileSync\\(''content/npcs.json'', ''utf8''\\)\\); console.log\\(''NPCs:'', Object.keys\\(npcs\\).join\\('', ''\\)\\); console.log\\(''Total NPCs:'', Object.keys\\(npcs\\).length\\);\")",
+      "Bash(node -e \"const fs = require\\(''fs''\\); const inv = JSON.parse\\(fs.readFileSync\\(''content/investigations.json'', ''utf8''\\)\\); console.log\\(''Investigations:'', Object.keys\\(inv\\).join\\('', ''\\)\\); console.log\\(''Total investigations:'', Object.keys\\(inv\\).length\\); for\\(const [id, i] of Object.entries\\(inv\\)\\) { console.log\\(id, ''- steps:'', i.steps.length, ''- has choice:'', !!i.choice\\); }\")",
+      "Bash(node -e \"const fs = require\\(''fs''\\); const inv = JSON.parse\\(fs.readFileSync\\(''content/investigations.json'', ''utf8''\\)\\); console.log\\(''Investigations:'', Object.keys\\(inv\\).join\\('', ''\\)\\); console.log\\(''Total investigations:'', Object.keys\\(inv\\).length\\); for\\(const [id, i] of Object.entries\\(inv\\)\\) { console.log\\(id, ''- steps:'', i.steps.length, ''- has choice:'', \\(i.choice ? ''yes'' : ''no''\\)\\); }\")",
+      "Bash(node -e \"const fs = require\\(''fs''\\); const frags = JSON.parse\\(fs.readFileSync\\(''content/fragments.json'', ''utf8''\\)\\); console.log\\(''Fragments:'', Object.keys\\(frags\\).join\\('', ''\\)\\); console.log\\(''Total fragments:'', Object.keys\\(frags\\).length\\);\")"
+    ]
+  }
+}

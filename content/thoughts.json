@@ -1,0 +1,60 @@
+{
+  "first": "New flat. New city. The canal is outside.",
+  "limehouse": {
+    "neutral": [
+      "Diesel and water. Limehouse's perfume.",
+      "Basin still. Boats still. I'm still.",
+      "Narrow Street is narrow. The name is honest.",
+      "A heron on the lock gate. Absolutely still.",
+      "The church is too big for this street.",
+      "Iron and water. Limehouse's two materials.",
+      "Every building here has outlived its purpose.",
+      "The canal connects everything. Quietly.",
+      "Cobblestones underfoot. Older than anything.",
+      "Someone was here before. Someone will be after.",
+      "The air tastes different near the water.",
+      "A window lit. A life in progress.",
+      "Limehouse holds its breath at corners.",
+      "The walls know more than the maps."
+    ],
+    "time": {
+      "morning": "Coffee steam from the shop. A signal.",
+      "afternoon": "The afternoon light makes Limehouse look gentle.",
+      "evening": "The canal at dusk. Everything gold and grey.",
+      "night": "Limehouse at night is a different proposition."
+    },
+    "weather": {
+      "rain": "Rain on the canal. A million tiny impacts.",
+      "fog": "The basin vanishes. Only sound confirms it's there."
+    },
+    "musician": [
+      "A hum under the bridge. Low. Constant.",
+      "The chain clinks in rhythm. Almost musical.",
+      "Something in the water. A frequency. Low.",
+      "The whole neighbourhood vibrates. One note.",
+      "Every surface here is an instrument.",
+      "The city plays itself. Nobody conducts.",
+      "Footsteps on stone. A rhythm you didn't choose.",
+      "The city hums between its words.",
+      "Every door is a different key.",
+      "Silence here isn't empty. It's tuned."
+    ]
+  },
+  "flat": {
+    "leaving": [
+      "Door. Street. London. Here we go.",
+      "The notebook has more pages filled now.",
+      "Something to do today. Someone to see.",
+      "Lock the door. The city is waiting.",
+      "One more walk. One more look."
+    ],
+    "returning": [
+      "Home. Or what I'm calling home.",
+      "The flat looks different every time.",
+      "Window. Rooftops. Basin. My London.",
+      "The radiator. The window. Yours now.",
+      "Back. The notebook is where you left it.",
+      "The room remembers your shape."
+    ]
+  }
+}

@@ -1,0 +1,297 @@
+{
+  "barista": {
+    "id": "barista",
+    "name": "The Barista",
+    "primaryLocation": "L02",
+    "physicalSignature": "Blows on coffee even when it's not hot. Tucks hair behind left ear when uncertain. Fingertips rough from espresso heat.",
+    "voiceRule": "Half-sentences that trail off. Silence after is where meaning lives.",
+    "maxDialogueWords": 12,
+    "schedule": {
+      "available": { "timeOfDay": ["morning", "afternoon"], "days": ["mon", "tue", "wed", "thu", "fri", "sat"] },
+      "unavailable_reason": "The shop is closed. A note on the door: 'Back tomorrow.'"
+    },
+    "dialogue": {
+      "stranger": {
+        "entry": { "text": "What can I get you?", "tag": "neutral" },
+        "ambient": [
+          { "text": "Quiet morning.", "tag": "neutral" },
+          { "text": "The milk does this thing in winter where it...", "tag": "neutral" },
+          { "text": "That table gets the light. If you want it.", "tag": "neutral" }
+        ]
+      },
+      "acquaintance": {
+        "trigger": { "visitCount": 3, "acrossDays": true },
+        "entry": { "text": "The usual? Or... no. The usual.", "tag": "neutral" },
+        "ambient": [
+          { "text": "You look like you need the window seat.", "tag": "neutral" },
+          { "text": "The machine's been making this sound all...", "tag": "neutral" }
+        ],
+        "traitLines": {
+          "musician": { "text": "Funny. I don't know where I learned that...", "tag": "musician" }
+        }
+      },
+      "familiar": {
+        "trigger": { "visitCount": 8, "acrossDays": true, "requiresInvestigation": "LI-02.step1" },
+        "entry": { "text": "Sit. I saved your seat.", "tag": "neutral" },
+        "ambient": [
+          { "text": "I almost said something just now. Never mind.", "tag": "neutral" }
+        ],
+        "traitLines": {
+          "musician": { "text": "The song. I hum it every morning. I don't know why.", "tag": "musician" }
+        }
+      },
+      "familiar_aware": {
+        "entry": { "text": "I looked it up. The recording. After you told me.", "tag": "neutral" },
+        "ambient": [
+          { "text": "Every time I try to hum it. Nothing comes.", "tag": "neutral" },
+          { "text": "You knew that first time. Why didn't you say sooner.", "tag": "neutral" },
+          { "text": "I keep reaching for the next bit. It's gone.", "tag": "neutral" }
+        ],
+        "traitLines": {
+          "musician": { "text": "Tell me about the songwriter. The one upstairs.", "tag": "musician" }
+        }
+      },
+      "familiar_unknowing": {
+        "entry": { "text": "Sit. I'll get yours in a moment.", "tag": "neutral" },
+        "ambient": [
+          { "text": "There it is again. That melody. Can't shake it.", "tag": "neutral" },
+          { "text": "Been humming this all morning. Don't know where from.", "tag": "neutral" },
+          { "text": "My mum never taught me this one. Where did I...", "tag": "neutral" }
+        ],
+        "traitLines": {
+          "musician": { "text": "You hear it too. You always listen a bit funny.", "tag": "musician" }
+        }
+      }
+    }
+  },
+  "sound_artist": {
+    "id": "sound_artist",
+    "name": "The Sound Artist",
+    "primaryLocation": "L04",
+    "physicalSignature": "One earbud always in. Tilts head when listening. Fingers stained with soldering flux.",
+    "voiceRule": "Technical words used poetically. Frequencies are feelings. Waveforms are weather.",
+    "maxDialogueWords": 12,
+    "schedule": {
+      "available": { "timeOfDay": ["afternoon", "evening"], "days": ["mon", "tue", "wed", "thu", "fri", "sat"] },
+      "unavailable_reason": "The studio is dark. Equipment humming to itself."
+    },
+    "dialogue": {
+      "stranger": {
+        "entry": { "text": "Mind the cables. They're... organized.", "tag": "neutral" },
+        "ambient": [
+          { "text": "The canal sounds different at 4am.", "tag": "neutral" },
+          { "text": "This room has a resonant frequency of...", "tag": "neutral" }
+        ]
+      },
+      "acquaintance": {
+        "trigger": { "visitCount": 3, "acrossDays": true },
+        "entry": { "text": "Listen to this. Tell me what you hear.", "tag": "neutral" },
+        "ambient": [
+          { "text": "I recorded something at the basin. Impossible.", "tag": "neutral" },
+          { "text": "The frequencies don't match anything in the archive.", "tag": "neutral" }
+        ],
+        "traitLines": {
+          "musician": { "text": "You hear it too. The sustained note. 47 hertz.", "tag": "musician" }
+        }
+      },
+      "familiar": {
+        "trigger": { "visitCount": 8, "acrossDays": true },
+        "entry": { "text": "I mapped it. The sound follows the old canal.", "tag": "neutral" },
+        "ambient": [
+          { "text": "The pre-1770 route. Before they straightened it.", "tag": "neutral" }
+        ],
+        "traitLines": {
+          "musician": { "text": "It's not echo. It's origin. The canal remembers.", "tag": "musician" }
+        }
+      }
+    }
+  },
+  "pub_landlord": {
+    "id": "pub_landlord",
+    "name": "The Pub Landlord",
+    "primaryLocation": "L05",
+    "physicalSignature": "Wipes the bar even when it's clean. Watches the door. Hands that have pulled ten thousand pints.",
+    "voiceRule": "Warnings disguised as advice. Knows everyone. Says less than he knows.",
+    "maxDialogueWords": 12,
+    "schedule": {
+      "available": { "timeOfDay": ["afternoon", "evening", "night"], "days": ["mon", "tue", "wed", "thu", "fri", "sat", "sun"] },
+      "unavailable_reason": "The Grapes is closed. Back at opening."
+    },
+    "dialogue": {
+      "stranger": {
+        "entry": { "text": "What'll it be.", "tag": "neutral" },
+        "ambient": [
+          { "text": "New to the area, then.", "tag": "neutral" },
+          { "text": "The Thames is through the back window.", "tag": "neutral" }
+        ]
+      },
+      "acquaintance": {
+        "trigger": { "visitCount": 3, "acrossDays": true },
+        "entry": { "text": "Your usual spot's free.", "tag": "neutral" },
+        "ambient": [
+          { "text": "Careful walking the basin at night.", "tag": "neutral" },
+          { "text": "The building settles after midnight. Sounds like...", "tag": "neutral" }
+        ],
+        "traitLines": {
+          "musician": { "text": "The cellar hums. Always has. Don't ask me why.", "tag": "musician" }
+        }
+      },
+      "familiar": {
+        "trigger": { "visitCount": 8, "acrossDays": true },
+        "entry": { "text": "Sit. I need to tell you something.", "tag": "neutral" },
+        "ambient": [
+          { "text": "This pub has been here longer than the street.", "tag": "neutral" }
+        ],
+        "traitLines": {
+          "musician": { "text": "The cellar. The tapes. 1967. I wasn't going to say.", "tag": "musician" }
+        }
+      }
+    }
+  },
+  "tattoo_artist": {
+    "id": "tattoo_artist",
+    "name": "The Tattoo Artist",
+    "primaryLocation": "L06",
+    "physicalSignature": "Hands unnervingly steady. Ink under fingernails always. Draws on napkins without looking down.",
+    "voiceRule": "Intimate observations about strangers. Sees skin as a map. Quiet authority.",
+    "maxDialogueWords": 12,
+    "schedule": {
+      "available": { "timeOfDay": ["afternoon", "evening"], "days": ["tue", "wed", "thu", "fri", "sat"] },
+      "unavailable_reason": "The parlour is dark. Closed today."
+    },
+    "dialogue": {
+      "stranger": {
+        "entry": { "text": "Looking, or getting?", "tag": "neutral" },
+        "ambient": [
+          { "text": "The flash on the left wall. Those are mine.", "tag": "neutral" },
+          { "text": "Skin remembers everything. Even what you forget.", "tag": "neutral" }
+        ]
+      },
+      "acquaintance": {
+        "trigger": { "visitCount": 3, "acrossDays": true },
+        "entry": { "text": "You keep coming back to the doors.", "tag": "neutral" },
+        "ambient": [
+          { "text": "I drew a door last night. Woke up drawing it.", "tag": "neutral" },
+          { "text": "The designs come from somewhere. Not me.", "tag": "neutral" }
+        ],
+        "traitLines": {
+          "musician": { "text": "I drew this one hearing that melody. Your melody.", "tag": "musician" }
+        }
+      },
+      "familiar": {
+        "trigger": { "visitCount": 8, "acrossDays": true },
+        "entry": { "text": "Sit. I have something to show you.", "tag": "neutral" },
+        "ambient": [
+          { "text": "The door I drew. It opened. In the drawing.", "tag": "neutral" }
+        ],
+        "traitLines": {
+          "musician": { "text": "The door leads somewhere real. I can feel it.", "tag": "musician" }
+        }
+      }
+    }
+  },
+  "canal_painter": {
+    "id": "canal_painter",
+    "name": "The Canal Boat Painter",
+    "primaryLocation": "L01",
+    "physicalSignature": "Paint under fingernails. Different colour every day. Squints even indoors. Smells of turpentine.",
+    "voiceRule": "Speaks in colours. Sees the world as palette. Short, vivid observations.",
+    "maxDialogueWords": 12,
+    "schedule": {
+      "available": { "timeOfDay": ["morning", "afternoon"], "days": ["mon", "tue", "wed", "thu", "fri", "sat", "sun"] },
+      "unavailable_reason": "The painter isn't here. Brushes drying on the boat."
+    },
+    "dialogue": {
+      "stranger": {
+        "entry": { "text": "Careful. Wet paint. Everywhere, always.", "tag": "neutral" },
+        "ambient": [
+          { "text": "The basin is cerulean today. Yesterday, slate.", "tag": "neutral" },
+          { "text": "That boat's been the same green for thirty years.", "tag": "neutral" }
+        ]
+      },
+      "acquaintance": {
+        "trigger": { "visitCount": 3, "acrossDays": true },
+        "entry": { "text": "You see the water differently now.", "tag": "neutral" },
+        "ambient": [
+          { "text": "The light here is honest. Not like Greenwich.", "tag": "neutral" },
+          { "text": "I paint what the canal shows me. It varies.", "tag": "neutral" }
+        ],
+        "traitLines": {
+          "musician": { "text": "The water changes colour when you hum. Notice that?", "tag": "musician" }
+        }
+      },
+      "familiar": {
+        "trigger": { "visitCount": 8, "acrossDays": true },
+        "entry": { "text": "Look. I painted your flat. From the water.", "tag": "neutral" },
+        "ambient": [
+          { "text": "Every building has a colour it wants to be.", "tag": "neutral" }
+        ],
+        "traitLines": {
+          "musician": { "text": "I hear it in the paint. The frequency. Your note.", "tag": "musician" }
+        }
+      }
+    }
+  },
+  "bike_courier": {
+    "id": "bike_courier",
+    "name": "The Bike Courier",
+    "primaryLocation": "L08",
+    "physicalSignature": "Never fully stops moving. Helmet on, visor up. Chain grease on left calf.",
+    "voiceRule": "Fragments. Fast. Already leaving. Words thrown over shoulder.",
+    "maxDialogueWords": 10,
+    "schedule": {
+      "available": { "timeOfDay": ["morning", "afternoon"], "days": ["mon", "tue", "wed", "thu", "fri"] },
+      "unavailable_reason": "No courier today. The platform is empty."
+    },
+    "dialogue": {
+      "stranger": {
+        "entry": { "text": "Can't stop. Late. Always late.", "tag": "neutral" },
+        "ambient": [
+          { "text": "The board said something weird just now.", "tag": "neutral" },
+          { "text": "This platform. Something about this platform.", "tag": "neutral" }
+        ]
+      },
+      "acquaintance": {
+        "trigger": { "visitCount": 4, "acrossDays": true },
+        "entry": { "text": "You again. You notice things here too?", "tag": "neutral" },
+        "ambient": [
+          { "text": "The Meridian. I've seen it twice now.", "tag": "neutral" }
+        ],
+        "traitLines": {
+          "musician": { "text": "The wind here plays a note. You hear it?", "tag": "musician" }
+        }
+      }
+    }
+  },
+  "nightclub_promoter": {
+    "id": "nightclub_promoter",
+    "name": "The Nightclub Promoter",
+    "primaryLocation": "L09",
+    "physicalSignature": "Always cold. Arms crossed. Stamp ink on both wrists. Eyes read crowds, not faces.",
+    "voiceRule": "Invitations that test. Speaks like a doorway you might not be allowed through.",
+    "maxDialogueWords": 10,
+    "schedule": {
+      "available": { "timeOfDay": ["evening", "night"], "days": ["thu", "fri", "sat"] },
+      "unavailable_reason": "The market is quiet tonight. No one on the door."
+    },
+    "dialogue": {
+      "stranger": {
+        "entry": { "text": "You looking for something specific?", "tag": "neutral" },
+        "ambient": [
+          { "text": "The market closes at two. Or it doesn't.", "tag": "neutral" },
+          { "text": "Everyone's looking for something here.", "tag": "neutral" }
+        ]
+      },
+      "acquaintance": {
+        "trigger": { "visitCount": 3, "acrossDays": true },
+        "entry": { "text": "You keep coming back. Good. Or not.", "tag": "neutral" },
+        "ambient": [
+          { "text": "The lights do that thing after midnight.", "tag": "neutral" }
+        ],
+        "traitLines": {
+          "musician": { "text": "The bass tonight. Not from the speakers.", "tag": "musician" }
+        }
+      }
+    }
+  }
+}

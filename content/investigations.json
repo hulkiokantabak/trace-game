@@ -1,0 +1,164 @@
+{
+  "LI-01": {
+    "id": "LI-01",
+    "name": "The Unrecorded Sound",
+    "type": "deep",
+    "primaryLocation": "L04",
+    "trait": "all",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        { "type": "npc_stage", "npc": "sound_artist", "minStage": "acquaintance" },
+        { "type": "discovery", "detail": "frequency_printouts" }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "A printout, buried under three others. 47Hz sustained tone. Duration 4:12. Timestamp reads 04:00. In handwriting beneath: 'canal. Third night running.'",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 2,
+        "text": "A hand-drawn map pinned beneath the printouts. A canal route, annotated with Xs at intervals. One circled twice, in heavier ink. The route drawn doesn't match the canal outside the window.",
+        "type": "research",
+        "advanceTrigger": { "type": "detail", "detail": "mooring_chain" },
+        "pacing": { "minHoursAfterPrevious": 0 }
+      },
+      {
+        "id": 3,
+        "text": "A photograph pinned below the map. Brick wall, no windows, ivy up the left side. An address written on the back — the street name stops mid-word. The building name is crossed out.",
+        "type": "revelation",
+        "advanceTrigger": { "type": "detail", "detail": "lock_mechanism" },
+        "pacing": { "minHoursAfterPrevious": 0 }
+      }
+    ],
+    "choice": null,
+    "rewards": {
+      "completion": { "awareness": 2 }
+    }
+  },
+  "LI-02": {
+    "id": "LI-02",
+    "name": "The Barista's Song",
+    "type": "deep",
+    "primaryLocation": "L02",
+    "trait": "all",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        { "type": "npc_stage", "npc": "barista", "minStage": "acquaintance" },
+        { "type": "discovery", "detail": "counter_burn_mark" }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "She hums it without pausing her work. Three bars, a held breath, three bars again. The same breath each time. The same place in the melody.",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 2,
+        "text": "Your notebook, open on the table. The margins are full of notation you don't remember writing. The same melody, in fragments — each transcription slightly different. The most recent one is from today.",
+        "type": "research",
+        "advanceTrigger": { "type": "detail", "detail": "flat_notebook_song" },
+        "pacing": { "minHoursAfterPrevious": 0 }
+      },
+      {
+        "id": 3,
+        "text": "A groove worn into the floorboard. Foot-shaped, oriented toward the window. Beside it, a circular burn in the wood — the kind a mic stand makes when it stays in one place for years.",
+        "type": "revelation",
+        "advanceTrigger": { "type": "detail", "detail": "flat_floorboard_groove" },
+        "pacing": { "minHoursAfterPrevious": 0 }
+      }
+    ],
+    "choice": {
+      "triggeredAfterStep": 3,
+      "prompt": "You know the song's origin. The barista is humming a song written in your flat by a person who died before she was born.",
+      "options": [
+        {
+          "id": "tell",
+          "text": "That song. I know where it comes from.",
+          "consequence": {
+            "narrativeText": "She stops. 'What do you mean?' You tell her. She tries to hum it again. She can't. The melody is gone. 'I don't... I can't remember how it goes.' She looks at her hands.",
+            "npcEffect": { "barista": { "stageUnlock": "familiar_aware" } },
+            "xp": { "insight": 5, "connection": 3 },
+            "flatObject": null
+          }
+        },
+        {
+          "id": "silence",
+          "text": "Let her hum.",
+          "consequence": {
+            "narrativeText": "She hums. You listen. The melody fills the cafe the way it has every morning. Some knowledge is better as a secret. The mystery deepens. The music stays.",
+            "npcEffect": { "barista": { "stageUnlock": "familiar_unknowing" } },
+            "xp": { "insight": 3, "connection": 5 },
+            "flatObject": { "id": "silent_knowledge", "description": "Nothing on the shelf. But you know." }
+          }
+        }
+      ]
+    },
+    "rewards": {
+      "completion": { "awareness": 3 }
+    }
+  },
+  "LI-04": {
+    "id": "LI-04",
+    "name": "St Anne's After Dark",
+    "type": "deep",
+    "primaryLocation": "L03",
+    "trait": "all",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        { "type": "discovery", "detail": "church_shadow" }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "You count the sides of the shadow. Five. You count the sides of the church. Four. You count again. The same.",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 2,
+        "text": "You come back at night. The shadow stretches north-west. The moon is in the east. You stand still for a long time. Neither moves.",
+        "type": "revelation",
+        "advanceTrigger": { "type": "detail", "detail": "stone_pattern" },
+        "pacing": { "minHoursAfterPrevious": 0 }
+      }
+    ],
+    "choice": null,
+    "rewards": {
+      "completion": { "awareness": 2 }
+    }
+  },
+  "LI-08": {
+    "id": "LI-08",
+    "name": "The DLR Anomaly",
+    "type": "quick",
+    "primaryLocation": "L08",
+    "trait": "all",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        { "type": "discovery", "detail": "departure_board" }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "The board reads: MERIDIAN — 3 MIN. The platform gets cold. The man beside you checks his phone. The board flips: Canary Wharf — 3 min. He looks up. No train came.",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      }
+    ],
+    "choice": null,
+    "rewards": {
+      "completion": { "awareness": 2 }
+    }
+  }
+}

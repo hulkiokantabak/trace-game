@@ -1,0 +1,51 @@
+{
+  "time": {
+    "periods": {
+      "morning":   { "startHour": 6,  "endHour": 12 },
+      "afternoon": { "startHour": 12, "endHour": 17 },
+      "evening":   { "startHour": 17, "endHour": 22 },
+      "night":     { "startHour": 22, "endHour": 6 }
+    },
+    "palette": {
+      "morning":   { "skyTop": "#2a4070", "skyMid": "#5a8ab5", "skyLow": "#ffe4b5", "skyHorizon": "#ffd090", "ambientLight": 0.9 },
+      "afternoon": { "skyTop": "#2a5a90", "skyMid": "#5a9ece", "skyLow": "#87ceeb", "skyHorizon": "#a8d8ea", "ambientLight": 1.0 },
+      "evening":   { "skyTop": "#0b0b1a", "skyMid": "#4a1a30", "skyLow": "#b85020", "skyHorizon": "#f0b050", "ambientLight": 0.7 },
+      "night":     { "skyTop": "#050510", "skyMid": "#0a0a1a", "skyLow": "#101028", "skyHorizon": "#181838", "ambientLight": 0.3 }
+    }
+  },
+  "weather": {
+    "states": ["clear", "rain"],
+    "cycleDurationHours": 8,
+    "rainProbability": 0.35
+  },
+  "forgetting": {
+    "minDaysBetween": 5,
+    "maxDaysBetween": 9,
+    "durationHours": 24,
+    "paletteDesaturation": 0.3
+  },
+  "progression": {
+    "tierThresholds": { "tier1": 0, "tier2": 31, "tier3": 66 },
+    "xpValues": {
+      "newLocation": 5,
+      "hiddenDetail": 3,
+      "loreFragment": 8,
+      "npcFirstMeeting": 3,
+      "npcAcquaintance": 5,
+      "npcFamiliar": 10,
+      "quickNodeResolved": 5,
+      "deepNodeStep": 3,
+      "deepNodeResolved": 15,
+      "forgettingExperienced": 5
+    }
+  },
+  "npc": {
+    "acquaintanceVisits": 3,
+    "familiarVisits": 8,
+    "requireAcrossDays": true
+  },
+  "canvas": {
+    "nativeWidth": 320,
+    "nativeHeight": 180
+  }
+}

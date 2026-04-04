@@ -1,0 +1,969 @@
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #0a0a0f;
+  overscroll-behavior: none;
+}
+
+/* --- Layout --- */
+
+#game-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+#canvas-container {
+  flex: 0 0 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  overflow: hidden;
+}
+
+#game-canvas {
+  display: block;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+#text-panel {
+  flex: 1;
+  padding: 1.5rem 1rem;
+  overflow-y: auto;
+  background: #0f0f14;
+  border-top: 1px solid rgba(200, 180, 140, 0.06);
+  font-family: 'Courier New', Courier, monospace;
+  color: #c8b8a0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
+}
+
+/* --- Desktop: 60/40 split --- */
+
+@media (min-width: 768px) {
+  #canvas-container {
+    flex: 0 0 60%;
+  }
+  #text-panel {
+    flex: 0 0 40%;
+    padding: 2rem;
+  }
+}
+
+/* --- Scrollbar --- */
+
+#text-panel::-webkit-scrollbar {
+  width: 4px;
+}
+#text-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+#text-panel::-webkit-scrollbar-thumb {
+  background: rgba(200, 180, 140, 0.12);
+  border-radius: 2px;
+}
+
+/* --- Title Screen --- */
+
+#begin-btn {
+  background: none;
+  border: 1px solid rgba(200, 180, 140, 0.18);
+  color: #c8b8a0;
+  padding: 0.7rem 2.5rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1rem;
+  cursor: pointer;
+  letter-spacing: 0.2em;
+  transition: all 0.4s ease;
+  animation: breathe 3s ease-in-out infinite;
+}
+
+#begin-btn:hover {
+  border-color: rgba(200, 180, 140, 0.5);
+  color: #e8d8c0;
+}
+
+@keyframes breathe {
+  0%, 100% { border-color: rgba(200, 180, 140, 0.15); }
+  50% { border-color: rgba(200, 180, 140, 0.35); }
+}
+
+/* --- Game Text --- */
+
+.location-text {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  text-align: center;
+  max-width: 380px;
+  letter-spacing: 0.02em;
+}
+
+.look-btn {
+  background: none;
+  border: 1px solid rgba(200, 180, 140, 0.12);
+  color: #8a7a60;
+  padding: 0.5rem 1.5rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.85rem;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  letter-spacing: 0.1em;
+  transition: all 0.3s ease;
+}
+
+.look-btn:hover {
+  border-color: rgba(200, 180, 140, 0.3);
+  color: #c8b8a0;
+}
+
+/* --- Lore Fragment --- */
+
+.fragment-title {
+  font-size: 0.78rem;
+  color: #8a7050;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  text-align: center;
+  animation: fadeIn 0.8s ease;
+}
+
+.fragment-text {
+  font-size: 0.88rem;
+  line-height: 1.9;
+  color: #b8a880;
+  text-align: center;
+  max-width: 360px;
+  font-style: italic;
+  animation: fadeIn 1.2s ease;
+}
+
+/* --- Discovery Text --- */
+
+.discovery-text {
+  font-size: 0.85rem;
+  line-height: 1.8;
+  color: #9a8a6a;
+  margin-top: 1.2rem;
+  font-style: italic;
+  max-width: 380px;
+  text-align: center;
+  animation: fadeIn 0.8s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.discovery-xp {
+  font-size: 0.72rem;
+  color: #6a8a6a;
+  letter-spacing: 0.1em;
+  margin-top: 0.8rem;
+  text-align: center;
+  animation: fadeIn 1s ease;
+}
+
+.discovery-back-btn {
+  background: none;
+  border: none;
+  color: #4a4038;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  letter-spacing: 0.3em;
+  transition: color 0.3s ease;
+}
+
+.discovery-back-btn:hover {
+  color: #8a7a60;
+}
+
+/* --- Character Creation --- */
+
+.section-label {
+  font-size: 0.9rem;
+  color: #8a7a60;
+  letter-spacing: 0.1em;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.creation-arrival {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  max-width: 320px;
+}
+
+.creation-text {
+  font-size: 0.9rem;
+  color: #8a8070;
+  text-align: center;
+  line-height: 1.7;
+  animation: fadeIn 1s ease;
+}
+
+.creation-delay-1 { animation: fadeIn 1.2s ease; animation-delay: 1s; opacity: 0; animation-fill-mode: forwards; }
+.creation-delay-2 { animation: fadeIn 1.2s ease; animation-delay: 2.2s; opacity: 0; animation-fill-mode: forwards; }
+.creation-delay-3 { animation: fadeIn 1.2s ease; animation-delay: 3.5s; opacity: 0; animation-fill-mode: forwards; }
+.creation-delay-4 { animation: fadeIn 1.2s ease; animation-delay: 5s; opacity: 0; animation-fill-mode: forwards; }
+
+.creation-continue-btn {
+  background: none;
+  border: none;
+  color: #4a4038;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  letter-spacing: 0.3em;
+  transition: color 0.3s ease;
+}
+
+.creation-continue-btn:hover {
+  color: #8a7a60;
+}
+
+.creation-trait-select {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  animation: fadeIn 0.8s ease;
+}
+
+.trait-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  width: 100%;
+  max-width: 300px;
+}
+
+.trait-btn {
+  background: none;
+  border: 1px solid rgba(200, 180, 140, 0.1);
+  color: #c8b8a0;
+  padding: 0.8rem 1rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.trait-name {
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 0.3rem;
+}
+
+.trait-desc {
+  display: block;
+  font-size: 0.72rem;
+  color: #6a5a48;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.trait-active {
+  border-color: rgba(90, 128, 184, 0.4);
+}
+
+.trait-active .trait-name {
+  color: #8ab0e0;
+}
+
+.trait-active:hover {
+  border-color: rgba(90, 128, 184, 0.7);
+}
+
+.trait-active:hover .trait-name {
+  color: #a8d0f0;
+}
+
+.trait-locked {
+  color: #3a3530;
+  border-color: rgba(200, 180, 140, 0.04);
+  cursor: default;
+}
+
+.trait-locked .trait-desc {
+  color: #2a2520;
+}
+
+.trait-soon {
+  position: absolute;
+  right: 0.8rem;
+  top: 0.8rem;
+  font-size: 0.65rem;
+  opacity: 0.3;
+  letter-spacing: 0.08em;
+  font-style: normal;
+}
+
+/* --- Walking Thought --- */
+
+.walking-thought {
+  font-size: 0.9rem;
+  font-style: italic;
+  color: #8a8070;
+  text-align: center;
+  max-width: 320px;
+  line-height: 1.7;
+  animation: fadeIn 0.8s ease;
+}
+
+/* --- Location View --- */
+
+.location-name {
+  font-size: 0.8rem;
+  color: #6a5a48;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+  text-align: center;
+}
+
+.location-closed {
+  font-size: 0.8rem;
+  color: #4a4038;
+  font-style: italic;
+  margin-top: 0.8rem;
+  text-align: center;
+}
+
+.nav-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.2rem;
+  justify-content: center;
+}
+
+.nav-btn {
+  background: none;
+  border: 1px solid rgba(200, 180, 140, 0.1);
+  color: #8a7a60;
+  padding: 0.6rem 1.1rem;
+  min-height: 44px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+  border-color: rgba(200, 180, 140, 0.3);
+  color: #c8b8a0;
+}
+
+.nav-closed {
+  color: #3a3530;
+  border-color: rgba(200, 180, 140, 0.04);
+}
+
+/* --- NPC Interaction --- */
+
+.npc-btn {
+  background: none;
+  border: 1px solid rgba(90, 128, 184, 0.15);
+  color: #8ab0e0;
+  padding: 0.6rem 1.5rem;
+  min-height: 44px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.85rem;
+  cursor: pointer;
+  margin-top: 1.2rem;
+  letter-spacing: 0.08em;
+  transition: all 0.3s ease;
+}
+
+.npc-btn:hover {
+  border-color: rgba(90, 128, 184, 0.4);
+  color: #a8d0f0;
+}
+
+.npc-absent {
+  font-size: 0.8rem;
+  color: #4a4038;
+  font-style: italic;
+  margin-top: 1rem;
+  text-align: center;
+  max-width: 320px;
+}
+
+/* --- NPC Dialogue --- */
+
+.npc-name {
+  font-size: 0.8rem;
+  color: #6a7a90;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.npc-dialogue {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #c8b8a0;
+  text-align: center;
+  max-width: 340px;
+  animation: fadeIn 0.8s ease;
+}
+
+.npc-physical {
+  font-size: 0.78rem;
+  color: #5a5040;
+  font-style: italic;
+  margin-top: 1.2rem;
+  text-align: center;
+  max-width: 300px;
+  animation: fadeIn 1.2s ease;
+}
+
+.stage-shift {
+  font-size: 0.78rem;
+  color: #7a90b0;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.8rem;
+  text-align: center;
+  animation: fadeIn 0.6s ease;
+}
+
+.dialogue-back-btn {
+  background: none;
+  border: none;
+  color: #4a4038;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  letter-spacing: 0.3em;
+  transition: color 0.3s ease;
+}
+
+.dialogue-back-btn:hover {
+  color: #8a7a60;
+}
+
+/* --- Notebook --- */
+
+.notebook {
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.notebook-title {
+  font-size: 0.8rem;
+  color: #6a5a48;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.notebook-tabs {
+  display: flex;
+  gap: 0.8rem;
+  margin-bottom: 1.2rem;
+}
+
+.notebook-tab {
+  background: none;
+  border: none;
+  color: #4a4038;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.78rem;
+  cursor: pointer;
+  letter-spacing: 0.1em;
+  padding: 0.3rem 0.6rem;
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.tab-active {
+  color: #8a7a60;
+  border-bottom-color: rgba(200, 180, 140, 0.2);
+}
+
+.notebook-content {
+  width: 100%;
+}
+
+.notebook-entry {
+  border: 1px solid rgba(200, 180, 140, 0.06);
+  padding: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.notebook-npc-name {
+  font-size: 0.85rem;
+  color: #c8b8a0;
+  margin-bottom: 0.3rem;
+}
+
+.notebook-npc-stage {
+  font-size: 0.75rem;
+  color: #6a7a90;
+  letter-spacing: 0.08em;
+  text-transform: capitalize;
+}
+
+.notebook-npc-visits {
+  font-size: 0.72rem;
+  color: #4a4038;
+  margin-top: 0.2rem;
+}
+
+.notebook-empty {
+  font-size: 0.85rem;
+  color: #3a3530;
+  font-style: italic;
+  text-align: center;
+}
+
+.notebook-close-btn {
+  background: none;
+  border: 1px solid rgba(200, 180, 140, 0.1);
+  color: #6a5a48;
+  padding: 0.4rem 1.2rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.78rem;
+  cursor: pointer;
+  margin-top: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.notebook-close-btn:hover {
+  border-color: rgba(200, 180, 140, 0.25);
+  color: #8a7a60;
+}
+
+.notebook-btn {
+  background: none;
+  border: 1px solid rgba(200, 180, 140, 0.08);
+  color: #5a5040;
+  padding: 0.4rem 1rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.78rem;
+  cursor: pointer;
+  margin-top: 1.2rem;
+  letter-spacing: 0.08em;
+  transition: all 0.3s ease;
+}
+
+.notebook-btn:hover {
+  border-color: rgba(200, 180, 140, 0.2);
+  color: #8a7a60;
+}
+
+.notebook-inv-step {
+  font-size: 0.75rem;
+  color: #7a6a50;
+  font-style: italic;
+  margin-top: 0.2rem;
+  line-height: 1.5;
+}
+
+.notebook-inv-past {
+  color: #4a3a28;
+  padding-left: 0.6rem;
+  border-left: 1px solid rgba(200, 180, 140, 0.08);
+}
+
+.notebook-inv-current {
+  color: #c8b8a0;
+  font-style: normal;
+  padding-left: 0.6rem;
+  border-left: 2px solid rgba(200, 180, 140, 0.35);
+}
+
+.notebook-inv-locked {
+  color: #2e2820;
+  letter-spacing: 0.2em;
+  font-style: normal;
+}
+
+/* --- Investigation --- */
+
+.inv-name {
+  font-size: 0.78rem;
+  color: #7a6a50;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+  text-align: center;
+}
+
+.inv-step-text {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: #c8b8a0;
+  text-align: center;
+  max-width: 340px;
+  font-style: italic;
+  animation: fadeIn 0.8s ease;
+}
+
+.inv-choice-prompt {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: #9a8a6a;
+  text-align: center;
+  max-width: 340px;
+  margin-bottom: 1.5rem;
+  animation: fadeIn 0.8s ease;
+}
+
+.inv-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  width: 100%;
+  max-width: 300px;
+}
+
+.inv-choice-btn {
+  background: none;
+  border: 1px solid rgba(200, 180, 140, 0.12);
+  color: #c8b8a0;
+  padding: 0.7rem 1rem;
+  min-height: 44px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.3s ease;
+  line-height: 1.5;
+}
+
+.inv-choice-btn:hover {
+  border-color: rgba(200, 180, 140, 0.35);
+  color: #e8d8c0;
+}
+
+.inv-consequence {
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: #c8b8a0;
+  text-align: center;
+  max-width: 340px;
+  animation: fadeIn 0.8s ease;
+}
+
+.inv-xp {
+  font-size: 0.72rem;
+  color: #6a8a6a;
+  letter-spacing: 0.08em;
+  margin-top: 1rem;
+  text-align: center;
+  animation: fadeIn 1s ease;
+}
+
+.inv-continue-btn {
+  background: none;
+  border: none;
+  color: #4a4038;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  letter-spacing: 0.3em;
+  transition: color 0.3s ease;
+}
+
+.inv-continue-btn:hover {
+  color: #8a7a60;
+}
+
+/* --- Ambient Encounters --- */
+
+.ambient-encounter {
+  font-size: 0.82rem;
+  color: #6a6050;
+  font-style: italic;
+  text-align: center;
+  max-width: 340px;
+  margin-top: 0.8rem;
+  line-height: 1.7;
+  animation: fadeIn 1.5s ease;
+}
+
+/* --- The Forgetting --- */
+
+.forgetting-text {
+  font-size: 0.78rem;
+  color: #3a3838;
+  font-style: italic;
+  text-align: center;
+  margin-top: 0.4rem;
+  animation: fadeIn 2s ease;
+}
+
+/* --- Flat Objects --- */
+
+.flat-objects {
+  margin-top: 1rem;
+  max-width: 300px;
+}
+
+.flat-object {
+  font-size: 0.78rem;
+  color: #5a5040;
+  font-style: italic;
+  margin-bottom: 0.4rem;
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* --- Mobile active states --- */
+
+.nav-btn:active {
+  border-color: rgba(200, 180, 140, 0.4);
+  color: #c8b8a0;
+}
+
+.npc-btn:active {
+  border-color: rgba(90, 128, 184, 0.5);
+  color: #a8d0f0;
+}
+
+.inv-choice-btn:active {
+  border-color: rgba(200, 180, 140, 0.4);
+  color: #e8d8c0;
+}
+
+/* --- Location transition --- */
+
+.scene-fade {
+  animation: sceneFade 0.6s ease;
+}
+
+@keyframes sceneFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* --- Boundary teaser --- */
+
+.boundary-text {
+  font-size: 0.78rem;
+  color: #3a3530;
+  font-style: italic;
+  text-align: center;
+  margin-top: 0.5rem;
+  animation: fadeIn 1s ease;
+}
+
+/* --- Time indicator --- */
+
+.time-indicator {
+  display: inline-block;
+  margin-left: 0.6rem;
+  font-size: 0.65rem;
+  color: #3a3530;
+  letter-spacing: 0.08em;
+  text-transform: none;
+  font-weight: normal;
+  opacity: 0.7;
+}
+
+/* --- Post-discovery location enrichment --- */
+
+.loc-known {
+  font-size: 0.75rem;
+  color: #5a6a5a;
+  font-style: italic;
+  text-align: center;
+  margin-top: 0.2rem;
+  animation: fadeIn 1.5s ease;
+}
+
+/* --- Flat evolution --- */
+
+.flat-evolution {
+  font-size: 0.8rem;
+  color: #7a6a50;
+  font-style: italic;
+  text-align: center;
+  max-width: 340px;
+  margin-top: 0.6rem;
+  line-height: 1.7;
+  animation: fadeIn 1.2s ease;
+}
+
+/* --- Remembered detail (re-tap) --- */
+
+.remembered-text {
+  font-size: 0.82rem;
+  line-height: 1.7;
+  color: #6a5a48;
+  font-style: italic;
+  max-width: 340px;
+  text-align: center;
+  animation: fadeIn 0.6s ease;
+}
+
+/* --- Weather & time text --- */
+
+.weather-text {
+  font-size: 0.82rem;
+  color: #6a6858;
+  font-style: italic;
+  text-align: center;
+  max-width: 340px;
+  margin-top: 0.3rem;
+  line-height: 1.6;
+  animation: fadeIn 1.5s ease;
+}
+
+.time-text {
+  font-size: 0.75rem;
+  color: #4a4840;
+  font-style: italic;
+  text-align: center;
+  margin-top: 0.2rem;
+  animation: fadeIn 2s ease;
+}
+
+/* --- Ellipsis hint for first-time players --- */
+
+.ellipsis-hint {
+  display: block;
+  font-size: 0.6rem;
+  color: #3a3530;
+  letter-spacing: 0.1em;
+  margin-top: 0.2rem;
+  animation: fadeIn 2s ease;
+}
+
+/* --- Warm fade for returning to flat --- */
+
+.scene-fade-warm {
+  animation: sceneFadeWarm 0.8s ease;
+}
+
+@keyframes sceneFadeWarm {
+  from { opacity: 0; filter: sepia(0.3) brightness(0.9); }
+  50% { opacity: 0.8; filter: sepia(0.15) brightness(0.95); }
+  to { opacity: 1; filter: none; }
+}
+
+/* --- Journal (Me tab) --- */
+
+.journal-identity {
+  text-align: center;
+}
+
+.journal-stat {
+  font-size: 0.78rem;
+  color: #7a6a50;
+  line-height: 1.6;
+  margin-top: 0.3rem;
+}
+
+.journal-sense {
+  font-size: 0.78rem;
+  color: #6a6050;
+  margin-top: 0.25rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.journal-sense-name {
+  text-transform: capitalize;
+  color: #5a5040;
+}
+
+.journal-sense-level {
+  color: #8a7a60;
+  font-style: italic;
+}
+
+.journal-milestone {
+  font-size: 0.72rem;
+  color: #5a6a5a;
+  margin-top: 0.2rem;
+  padding-left: 0.8rem;
+  position: relative;
+}
+
+.journal-milestone::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.45em;
+  width: 4px;
+  height: 4px;
+  background: #5a6a5a;
+  border-radius: 50%;
+}
+
+.ai-settings-btn {
+  background: none;
+  border: 1px solid rgba(200, 180, 140, 0.06);
+  color: #4a4038;
+  padding: 0.4rem 0.8rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.72rem;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  transition: all 0.3s ease;
+  letter-spacing: 0.08em;
+}
+
+.ai-settings-btn:hover {
+  border-color: rgba(200, 180, 140, 0.15);
+  color: #6a5a48;
+}
+
+/* --- Small screen adjustments --- */
+
+@media (max-height: 600px) {
+  #text-panel {
+    padding: 0.8rem 0.8rem;
+    font-size: 0.9rem;
+  }
+  .location-text {
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  .nav-buttons {
+    margin-top: 0.8rem;
+    gap: 0.35rem;
+  }
+  .nav-btn {
+    padding: 0.45rem 0.8rem;
+    font-size: 0.75rem;
+  }
+}

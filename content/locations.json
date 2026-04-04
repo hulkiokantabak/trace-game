@@ -1,0 +1,604 @@
+{
+  "flat": {
+    "name": "The Flat",
+    "neighborhood": "limehouse",
+    "type": "interior",
+    "body": "One room. Your table by the window. Rooftops, aerials, a sliver of basin water. The radiator clicks.",
+    "available": {
+      "timeOfDay": ["morning", "afternoon", "evening", "night"],
+      "weather": ["clear", "rain"]
+    },
+    "adjacentLocations": ["L01", "L02"],
+    "walkingThoughts": {
+      "from_L01": ["Home. Or what I'm calling home.", "Window. Rooftops. Basin. My London.", "The flat looks different every time."],
+      "from_L02": ["Home. Or what I'm calling home.", "The notebook has more pages filled now.", "Something to do today. Someone to see."]
+    },
+    "interactableDetails": [
+      {
+        "id": "mug_ring",
+        "hitbox": { "x": 154, "y": 109, "w": 12, "h": 12 },
+        "description": "A mug ring on the table. From before you.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "A perfect circle stained into the wood. Someone else sat here. Drank something. Left this behind without meaning to.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "window_aerials",
+        "hitbox": { "x": 214, "y": 44, "w": 48, "h": 18 },
+        "description": "Aerials on the rooftops. Thin lines against the sky.",
+        "trait_required": null,
+        "awareness_required": 1,
+        "discovery_text": "The aerials catch nothing now. But they're still reaching. Still pointed at a sky that stopped answering.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "floorboard_paint",
+        "hitbox": { "x": 6, "y": 134, "w": 30, "h": 20 },
+        "description": "White paint on the floorboards, wearing through.",
+        "trait_required": "musician",
+        "awareness_required": 0,
+        "discovery_text": "Someone painted these boards white. Underneath, the original wood is dark and warm. Two versions of this room, layered.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "flat_notebook_song",
+        "hitbox": { "x": 130, "y": 100, "w": 22, "h": 26 },
+        "description": "Your notebook. Something written in the margins.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "requires_investigation": { "id": "LI-02", "minStep": 1 },
+        "discovery_text": "You wrote it without thinking. The melody, in notation. You've been hearing it longer than you realised. Since before the coffee shop.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "flat_floorboard_groove",
+        "hitbox": { "x": 90, "y": 138, "w": 28, "h": 16 },
+        "description": "A groove worn into the floorboard. Foot-shaped.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "requires_investigation": { "id": "LI-02", "minStep": 2 },
+        "discovery_text": "A groove in the wood, where someone stood for hours. At a microphone, maybe. Or a music stand. This room was a studio once.",
+        "xp": { "awareness": 2 }
+      }
+    ],
+    "npcs_present": {},
+    "ambientLife": ["radiator_click", "window_light"],
+    "musicLayer": "interior_flat",
+    "weatherEffects": {
+      "rain": "Rain against the window. The basin blurs.",
+      "clear": "Light through the window shifts during your visit."
+    }
+  },
+  "L01": {
+    "name": "The Canal Basin",
+    "neighborhood": "limehouse",
+    "type": "exterior",
+    "body": "Diesel and wet stone. The water is flat. A chain clinks against a mooring ring. A heron, sometimes, perfectly still.",
+    "available": {
+      "timeOfDay": ["morning", "afternoon", "evening", "night"],
+      "weather": ["clear", "rain"]
+    },
+    "adjacentLocations": ["flat", "L02", "L05", "L10"],
+    "walkingThoughts": {
+      "from_flat": ["Door. Street. London. Here we go.", "The canal is outside. Always outside.", "Basin still. Boats still. I'm still."],
+      "from_L02": ["The street narrows toward the basin.", "Diesel and water. Limehouse's perfume.", "A heron on the lock gate. Absolutely still."],
+      "from_L05": ["The pub smell fades. Diesel takes over.", "Basin water. Always waiting.", "From warm wood to cold stone."],
+      "from_L10": ["The lot behind me. The basin ahead.", "Streetlight to water. Darker this way.", "The canal doesn't judge."]
+    },
+    "interactableDetails": [
+      {
+        "id": "mooring_chain",
+        "hitbox": { "x": 196, "y": 116, "w": 14, "h": 10 },
+        "description": "A chain against a mooring ring.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "The chain clinks in a rhythm. Not wind. Not water. Something underneath, keeping time.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "narrowboat_name",
+        "hitbox": { "x": 177, "y": 73, "w": 32, "h": 8 },
+        "description": "A name painted on the narrowboat hull.",
+        "trait_required": null,
+        "awareness_required": 1,
+        "discovery_text": "The name has been painted over. Three times, at least. Each layer a different hand. The boat outlasts its owners.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "lamp_flicker",
+        "hitbox": { "x": 78, "y": 100, "w": 16, "h": 14 },
+        "description": "The lamp by the canal path.",
+        "trait_required": "musician",
+        "awareness_required": 0,
+        "discovery_text": "The lamp hums. A low B-flat. The same note as the one in your head when you can't sleep.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "lens_cap",
+        "hitbox": { "x": 160, "y": 148, "w": 8, "h": 8 },
+        "description": "Something small on the towpath.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "A lens cap. 52mm. Scuffed on one side. No camera anywhere near it.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "painter_setup",
+        "hitbox": { "x": 50, "y": 118, "w": 28, "h": 22 },
+        "description": "A palette and cloth on the stone wall.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "timeOfDay": ["morning"],
+        "discovery_text": "A palette, paint still wet. A cloth folded on the stone beside it. Someone was here before you. Will be, again.",
+        "xp": { "awareness": 1 }
+      }
+    ],
+    "npcs_present": {
+      "canal_painter": { "timeOfDay": ["morning", "afternoon"], "days": ["mon","tue","wed","thu","fri","sat","sun"] }
+    },
+    "ambientLife": ["chain_clink", "heron", "narrowboat_smoke", "jogger"],
+    "musicLayer": "exterior_canal",
+    "weatherEffects": {
+      "rain": "Rain on the canal. A million tiny impacts. The heron doesn't move.",
+      "clear": "The water holds the sky. Every colour the sky gives away."
+    }
+  },
+  "L02": {
+    "name": "The Coffee Shop",
+    "neighborhood": "limehouse",
+    "type": "interior",
+    "body": "Espresso and steam. The counter is reclaimed wood with a burn mark. One table by the window gets all the morning light.",
+    "available": {
+      "timeOfDay": ["morning", "afternoon", "evening"],
+      "weather": ["clear", "rain"]
+    },
+    "adjacentLocations": ["L01", "flat", "L03"],
+    "walkingThoughts": {
+      "from_flat": ["Coffee steam from the shop. A signal.", "Espresso smell before the door opens.", "Narrow Street is narrow. The name is honest."],
+      "from_L01": ["Espresso smell before the door opens.", "The barista's window. Morning light.", "The street narrows toward the shop."],
+      "from_L03": ["Stone to warmth. Incense to espresso.", "The churchyard behind me. Coffee ahead.", "From the dead to the living."]
+    },
+    "interactableDetails": [
+      {
+        "id": "counter_burn_mark",
+        "hitbox": { "x": 64, "y": 82, "w": 14, "h": 14 },
+        "description": "A burn mark in the wood. Shaped like a quarter note.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "The burn mark is deep. Someone set something hot down and left it. Years ago.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "chalkboard_menu",
+        "hitbox": { "x": 55, "y": 20, "w": 65, "h": 42 },
+        "description": "The chalkboard menu. The handwriting changes character mid-word.",
+        "trait_required": "musician",
+        "awareness_required": 1,
+        "discovery_text": "The handwriting shifts halfway through 'cappuccino.' Two people? Or one person who isn't always the same person.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "cat_doorstep",
+        "hitbox": { "x": 0, "y": 160, "w": 18, "h": 14 },
+        "description": "A cat on the doorstep. Watching nothing.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "The cat watches a spot on the floor where nothing is. Or nothing you can see.",
+        "xp": { "awareness": 1 }
+      }
+    ],
+    "npcs_present": {
+      "barista": { "timeOfDay": ["morning", "afternoon"], "days": ["mon","tue","wed","thu","fri","sat"] }
+    },
+    "ambientLife": ["steam_from_machine", "cat_on_doorstep", "window_light_shift"],
+    "musicLayer": "interior_cafe",
+    "weatherEffects": {
+      "rain": "Rain streaks on the window. The interior feels warmer by contrast.",
+      "clear": "Sunlight through the window makes a rectangle on the floor that moves during your visit."
+    }
+  },
+  "L03": {
+    "name": "St Anne's Churchyard",
+    "neighborhood": "limehouse",
+    "type": "exterior",
+    "body": "The church is too large for this street. Stone stained in deliberate-looking patterns. Grass between graves always damp.",
+    "available": {
+      "timeOfDay": ["morning", "afternoon", "evening", "night"],
+      "weather": ["clear", "rain"]
+    },
+    "adjacentLocations": ["L02", "L04", "L05"],
+    "walkingThoughts": {
+      "from_L02": ["The church rises. Too tall for here.", "Hawksmoor. Even the name is heavy.", "Graves and coffee. Limehouse neighbours."],
+      "from_L04": ["Concrete to stone. Older here.", "The studio noise fades. The quiet isn't.", "The churchyard absorbs sound."],
+      "from_L05": ["Pub warmth gone. Stone cold here.", "The churchyard at this hour. Brave.", "Hawksmoor's shadow. Always longer than expected."]
+    },
+    "interactableDetails": [
+      {
+        "id": "church_shadow",
+        "hitbox": { "x": 100, "y": 130, "w": 60, "h": 20 },
+        "description": "The church's shadow on the ground.",
+        "trait_required": null,
+        "awareness_required": 1,
+        "discovery_text": "Count the sides of the shadow. Count the sides of the church. The numbers don't match.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "grave_damp",
+        "hitbox": { "x": 20, "y": 140, "w": 24, "h": 16 },
+        "description": "Grass between the graves. Always damp.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "The grass hasn't dried in weeks. It hasn't rained in five days. The ground here holds onto things.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "stone_pattern",
+        "hitbox": { "x": 140, "y": 30, "w": 40, "h": 50 },
+        "description": "Stains on the church stone. Too deliberate for weather.",
+        "trait_required": "musician",
+        "awareness_required": 0,
+        "discovery_text": "The stains run in intervals. Like notation on a staff. Someone wrote music on a church in a language no one remembers.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "archive_sticker",
+        "hitbox": { "x": 36, "y": 156, "w": 10, "h": 6 },
+        "description": "A sticker on the back of a gravestone.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "A library archive sticker. Catalogue number: LMA/4521/B/03/012. Someone was counting these.",
+        "xp": { "awareness": 1 }
+      }
+    ],
+    "npcs_present": {},
+    "ambientLife": ["wind_through_graves", "distant_traffic", "bird_unseen"],
+    "musicLayer": "exterior_church",
+    "weatherEffects": {
+      "rain": "Rain on stone. The church darkens. The graves darken more.",
+      "clear": "The shadow of the spire reaches further than the building is tall."
+    }
+  },
+  "L04": {
+    "name": "The Warehouse Studio",
+    "neighborhood": "limehouse",
+    "type": "interior",
+    "body": "Concrete and cable. Frequency printouts pinned over each other like geological strata on one wall. The space hums.",
+    "available": {
+      "timeOfDay": ["morning", "afternoon", "evening"],
+      "weather": ["clear", "rain"]
+    },
+    "adjacentLocations": ["L03", "L05"],
+    "walkingThoughts": {
+      "from_L03": ["Stone to concrete. Older to newer.", "The studio door. Always slightly open.", "Sound leaks from inside. Always."],
+      "from_L05": ["Up the street. The hum gets louder.", "From old wood to new concrete.", "The studio pulls you in."]
+    },
+    "interactableDetails": [
+      {
+        "id": "frequency_printouts",
+        "hitbox": { "x": 10, "y": 15, "w": 50, "h": 60 },
+        "description": "Frequency printouts layered on the wall.",
+        "trait_required": null,
+        "awareness_required": 1,
+        "discovery_text": "One printout underneath the others. A sustained note at 47Hz. Recorded at the canal. Nothing in the canal makes that sound.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "studio_hum",
+        "hitbox": { "x": 140, "y": 80, "w": 40, "h": 30 },
+        "description": "The space itself. It hums.",
+        "trait_required": "musician",
+        "awareness_required": 0,
+        "discovery_text": "The room resonates at a frequency that matches your chest. You can feel it in your sternum. This building remembers sound.",
+        "xp": { "awareness": 1 }
+      }
+    ],
+    "npcs_present": {
+      "sound_artist": { "timeOfDay": ["afternoon", "evening"], "days": ["mon","tue","wed","thu","fri","sat"] }
+    },
+    "ambientLife": ["equipment_hum", "cable_coils", "monitor_glow"],
+    "musicLayer": "interior_studio",
+    "weatherEffects": {
+      "rain": "Rain on the warehouse roof. Amplified. The concrete holds every drop.",
+      "clear": "Dust in a shaft of light from the high window. The particles don't settle."
+    }
+  },
+  "L05": {
+    "name": "The Grapes",
+    "neighborhood": "limehouse",
+    "type": "interior",
+    "body": "Low ceiling, wood almost black. The Thames visible through a back window, moving. Floorboards give. Everything touched ten thousand times.",
+    "available": {
+      "timeOfDay": ["afternoon", "evening", "night"],
+      "weather": ["clear", "rain"]
+    },
+    "adjacentLocations": ["L01", "L03", "L04", "L06"],
+    "walkingThoughts": {
+      "from_L01": ["The pub. Oldest thing in Limehouse.", "Wood and river. The Grapes endures.", "Low door. Duck your head. Enter."],
+      "from_L03": ["From the churchyard to the pub. Logical.", "Hawksmoor to whisky. A pilgrimage.", "The pub is warmer. Always warmer."],
+      "from_L04": ["Concrete to wood. The old world.", "The Grapes has outlasted everything around it.", "From studio to pub. The usual route."],
+      "from_L06": ["Ink to beer. A good evening.", "The pub after the parlour. Tradition.", "The Grapes doesn't change."]
+    },
+    "interactableDetails": [
+      {
+        "id": "pub_floorboards",
+        "hitbox": { "x": 80, "y": 140, "w": 50, "h": 20 },
+        "description": "The floorboards. They give under your weight.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "The wood gives like a living thing. Four hundred years of feet have taught these boards to yield.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "thames_window",
+        "hitbox": { "x": 230, "y": 40, "w": 60, "h": 50 },
+        "description": "The back window. The Thames, moving.",
+        "trait_required": null,
+        "awareness_required": 1,
+        "discovery_text": "The river through glass. It never stops. The pub was built to watch this. Someone has been watching for centuries.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "pub_cellar_door",
+        "hitbox": { "x": 5, "y": 120, "w": 16, "h": 20 },
+        "description": "A door behind the bar. The cellar.",
+        "trait_required": "musician",
+        "awareness_required": 2,
+        "discovery_text": "Sound rises from the cellar. Not barrels settling. A resonance. As if the foundation stones are singing to each other.",
+        "xp": { "awareness": 3 }
+      }
+    ],
+    "npcs_present": {
+      "pub_landlord": { "timeOfDay": ["afternoon", "evening", "night"], "days": ["mon","tue","wed","thu","fri","sat","sun"] }
+    },
+    "ambientLife": ["glass_clink", "thames_through_window", "floorboard_creak"],
+    "musicLayer": "interior_pub",
+    "weatherEffects": {
+      "rain": "Rain on the old windows. The Thames rises. The pub feels like a ship.",
+      "clear": "Light off the Thames flickers through the back window."
+    }
+  },
+  "L06": {
+    "name": "The Tattoo Parlour",
+    "neighborhood": "limehouse",
+    "type": "interior",
+    "body": "Antiseptic and ink. Buzzing from behind the curtain. Flash art on walls: not anchors or skulls. Doors. Maps. Things that go somewhere.",
+    "available": {
+      "timeOfDay": ["afternoon", "evening"],
+      "weather": ["clear", "rain"]
+    },
+    "adjacentLocations": ["L05", "L07"],
+    "walkingThoughts": {
+      "from_L05": ["The arch under the railway. Buzzing inside.", "Ink and antiseptic. The parlour.", "Doors on the walls. Maps of nowhere."],
+      "from_L07": ["Iron to ink. Both permanent.", "The parlour light. Red neon.", "Someone's getting marked in there."]
+    },
+    "interactableDetails": [
+      {
+        "id": "flash_art_doors",
+        "hitbox": { "x": 30, "y": 20, "w": 60, "h": 50 },
+        "description": "Flash art on the wall. Doors. All of them.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "Every piece of flash art is a door. Not decorative. Specific. Doors you could walk through if they existed. Some look familiar.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "curtain_buzz",
+        "hitbox": { "x": 200, "y": 50, "w": 30, "h": 60 },
+        "description": "The buzzing from behind the curtain.",
+        "trait_required": "musician",
+        "awareness_required": 1,
+        "discovery_text": "The needle buzzes in C-sharp. Always C-sharp. The artist doesn't notice. But the note carries through the wall like a signal.",
+        "xp": { "awareness": 2 }
+      }
+    ],
+    "npcs_present": {
+      "tattoo_artist": { "timeOfDay": ["afternoon", "evening"], "days": ["tue","wed","thu","fri","sat"] }
+    },
+    "ambientLife": ["needle_buzz", "neon_flicker", "radio_low"],
+    "musicLayer": "interior_parlour",
+    "weatherEffects": {
+      "rain": "Rain on the railway arch above. The buzz inside competes.",
+      "clear": "Neon reflects on the wet pavement outside. Even when it hasn't rained."
+    }
+  },
+  "L07": {
+    "name": "The Lock Gates",
+    "neighborhood": "limehouse",
+    "type": "exterior",
+    "body": "Iron, massive, dripping. The mechanism is Victorian and works. Water pushes against the gates like breathing.",
+    "available": {
+      "timeOfDay": ["morning", "afternoon", "evening", "night"],
+      "weather": ["clear", "rain"]
+    },
+    "adjacentLocations": ["L06", "L08"],
+    "walkingThoughts": {
+      "from_L06": ["From ink to iron. Both hold.", "The lock gates. Heavy even to look at.", "Water on both sides. Waiting."],
+      "from_L08": ["Down from the platform. River level.", "The gates hold the canal. Just.", "Iron against water. An old argument."]
+    },
+    "interactableDetails": [
+      {
+        "id": "lock_mechanism",
+        "hitbox": { "x": 120, "y": 60, "w": 40, "h": 30 },
+        "description": "The lock gate mechanism. Victorian ironwork.",
+        "trait_required": null,
+        "awareness_required": 1,
+        "discovery_text": "The mechanism turns. Slowly. But there's no one operating it. No water pressure to explain the movement. It just turns.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "gate_cold",
+        "hitbox": { "x": 140, "y": 100, "w": 40, "h": 30 },
+        "description": "The iron gate. Cold even in summer.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "You touch the iron. It's cold. Not metal-cold. Actively cold. As if something on the other side is drawing heat through.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "gate_waymarks",
+        "hitbox": { "x": 106, "y": 88, "w": 12, "h": 10 },
+        "description": "Scratches in the iron.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "Small marks scratched into the iron. Not graffiti — too deliberate. Arrows, distances, a symbol you don't recognise. Someone was routing something through here.",
+        "xp": { "awareness": 1 }
+      }
+    ],
+    "npcs_present": {},
+    "ambientLife": ["water_drip", "mechanism_creak", "distant_boat"],
+    "musicLayer": "exterior_lock",
+    "weatherEffects": {
+      "rain": "Rain on iron. Every surface drips. The canal rises.",
+      "clear": "Mist off the water. The gates stand in it like monuments."
+    }
+  },
+  "L08": {
+    "name": "The DLR Platform",
+    "neighborhood": "limehouse",
+    "type": "exterior",
+    "body": "Automated announcement repeating. Wind through the platform, channelled and sharp. Pigeons own the rafters. Rooftops and cranes from here.",
+    "available": {
+      "timeOfDay": ["morning", "afternoon", "evening", "night"],
+      "weather": ["clear", "rain"]
+    },
+    "adjacentLocations": ["L07", "L09"],
+    "walkingThoughts": {
+      "from_L07": ["Steps up. The platform. Higher ground.", "The DLR sees everything. Rooftops. Cranes.", "Automated voice. No one driving."],
+      "from_L09": ["The market noise fades. Platform quiet.", "Up the steps. London spreads out.", "The train comes when it comes."]
+    },
+    "interactableDetails": [
+      {
+        "id": "departure_board",
+        "hitbox": { "x": 100, "y": 20, "w": 70, "h": 24 },
+        "description": "The departure board. Something wrong with the display.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "Next train: The Meridian. 3 min. That station doesn't exist. You blink. The board reads Canary Wharf again.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "platform_wind",
+        "hitbox": { "x": 0, "y": 60, "w": 40, "h": 40 },
+        "description": "Wind through the platform. Channelled.",
+        "trait_required": "musician",
+        "awareness_required": 1,
+        "discovery_text": "The wind plays the platform like an instrument. The pitch changes when a train approaches. But this time there's no train.",
+        "xp": { "awareness": 2 }
+      }
+    ],
+    "npcs_present": {
+      "bike_courier": { "timeOfDay": ["morning", "afternoon"], "days": ["mon","tue","wed","thu","fri"] }
+    },
+    "ambientLife": ["announcement_loop", "pigeon_flutter", "wind_channel"],
+    "musicLayer": "exterior_platform",
+    "weatherEffects": {
+      "rain": "Rain on the platform canopy. Sheets of it past the edge.",
+      "clear": "Cranes on the skyline. The city builds itself in every direction."
+    }
+  },
+  "L09": {
+    "name": "The Night Market",
+    "neighborhood": "limehouse",
+    "type": "exterior",
+    "body": "Generators and LED strings. Charcoal and chili smoke. Voices competing. The pavement vibrates from bass. Everything temporary, gone by morning.",
+    "available": {
+      "timeOfDay": ["evening", "night"],
+      "weather": ["clear", "rain"]
+    },
+    "adjacentLocations": ["L08", "L10"],
+    "walkingThoughts": {
+      "from_L08": ["Down from the platform. Into noise.", "Charcoal smoke. The market's on.", "Generators and bass. Limehouse at night."],
+      "from_L10": ["From silence to everything. The market.", "The lot was empty. This is full.", "Smoke and light. Temporary London."]
+    },
+    "interactableDetails": [
+      {
+        "id": "generator_hum",
+        "hitbox": { "x": 10, "y": 130, "w": 30, "h": 20 },
+        "description": "A generator. Humming under everything.",
+        "trait_required": "musician",
+        "awareness_required": 0,
+        "discovery_text": "The generator hums at the same frequency as the studio. And the cellar. And the canal chain. The whole neighbourhood is tuned.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "led_strings",
+        "hitbox": { "x": 60, "y": 10, "w": 140, "h": 16 },
+        "description": "LED strings overhead. Swaying.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "The lights sway in a pattern. Not wind. Not passing trucks. A rhythm. As if someone is conducting them from somewhere you can't see.",
+        "xp": { "awareness": 1 }
+      }
+    ],
+    "npcs_present": {
+      "nightclub_promoter": { "timeOfDay": ["evening", "night"], "days": ["thu","fri","sat"] }
+    },
+    "ambientLife": ["bass_thump", "smoke_drift", "vendor_call"],
+    "musicLayer": "exterior_market",
+    "weatherEffects": {
+      "rain": "Rain and LED light. Everything reflects. The market shines.",
+      "clear": "Smoke rises into nothing. The market is its own weather."
+    }
+  },
+  "L10": {
+    "name": "The Empty Lot",
+    "neighborhood": "limehouse",
+    "type": "exterior",
+    "body": "Silence. Weeds through cracked concrete. Adjacent walls show where a building used to be. A scar in the brick. The sky bigger here.",
+    "available": {
+      "timeOfDay": ["morning", "afternoon", "evening", "night"],
+      "weather": ["clear", "rain"]
+    },
+    "adjacentLocations": ["L09", "L01"],
+    "walkingThoughts": {
+      "from_L09": ["The market noise stops. Suddenly.", "Empty space. London forgot this place.", "Weeds and silence. A gap in the city."],
+      "from_L01": ["Past the basin. Into the gap.", "The lot. Nothing here. Everything here.", "Concrete and sky. Nothing between."]
+    },
+    "interactableDetails": [
+      {
+        "id": "building_scar",
+        "hitbox": { "x": 200, "y": 30, "w": 40, "h": 80 },
+        "description": "The scar in the brick where a building was.",
+        "trait_required": null,
+        "awareness_required": 1,
+        "discovery_text": "The outline of rooms. A fireplace. A staircase. All gone. But the wall remembers the shape of someone else's life.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "lot_weeds",
+        "hitbox": { "x": 80, "y": 140, "w": 50, "h": 20 },
+        "description": "Weeds through cracked concrete.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "The weeds grow in a line. Following something underground. A pipe, maybe. Or a foundation. Or a path that used to be here.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "lot_silence",
+        "hitbox": { "x": 130, "y": 70, "w": 50, "h": 40 },
+        "description": "The silence itself. The sky bigger here.",
+        "trait_required": "musician",
+        "awareness_required": 0,
+        "discovery_text": "Stand still. Listen. There's a note here. Not sound — the absence of it. A silence that has shape. Like a room that was never built.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "survey_stake",
+        "hitbox": { "x": 58, "y": 152, "w": 8, "h": 12 },
+        "description": "A stake in the concrete. Orange paint, faded.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "A survey stake, driven into a crack in the concrete. Orange paint faded to pink. A number stamped on the cap: OS TQ 36820 80312. Someone measured this exact spot.",
+        "xp": { "awareness": 1 }
+      }
+    ],
+    "npcs_present": {},
+    "ambientLife": ["wind_through_gap", "fox_distant", "sky_open"],
+    "musicLayer": "exterior_lot",
+    "weatherEffects": {
+      "rain": "Rain falls where a roof used to be. The outline is visible in the dry patches.",
+      "clear": "The sky is bigger here. Where the building was, nothing blocks it."
+    }
+  }
+}

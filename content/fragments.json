@@ -1,0 +1,26 @@
+{
+  "M-F1": {
+    "id": "M-F1",
+    "title": "The First Anomaly",
+    "trait": "musician",
+    "location": "L01",
+    "awareness_required": 2,
+    "text": "Under the Limehouse Basin the water carries a note. B-flat, sustained, source unknown. The boat painters hear it in winter when the engines stop. They don't discuss it. They hum along without noticing."
+  },
+  "M-F2": {
+    "id": "M-F2",
+    "title": "The Session Tape",
+    "trait": "musician",
+    "location": "L05",
+    "awareness_required": 3,
+    "text": "In 1967 a recording engineer set up equipment in a Narrow Street basement. The session tapes contain voices he didn't record — a woman singing in a dialect forty years out of date. He labelled the tape \"background\" and never listened again. The tape is in the pub's walls now."
+  },
+  "M-F5": {
+    "id": "M-F5",
+    "title": "Hawksmoor's Frequency",
+    "trait": "musician",
+    "location": "L03",
+    "awareness_required": 3,
+    "text": "Hawksmoor's churches were built to specific acoustic specifications. St Anne's resonates at B-flat. The same note as the canal. The same note the barista hums. The question nobody asks: does the church amplify the city's sound, or does the city tune itself to the church?"
+  }
+}
