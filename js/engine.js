@@ -80,6 +80,8 @@ const Engine = (() => {
     resize();
     window.addEventListener('resize', resize);
     canvas.addEventListener('touchstart', e => e.preventDefault(), { passive: false });
+    canvas.addEventListener('contextmenu', e => e.preventDefault());
+    canvas.style.touchAction = 'none';
 
     // Tap/click detection for interactable details
     const handleTap = (screenX, screenY) => {
@@ -92,12 +94,22 @@ const Engine = (() => {
       _lastTapTime = performance.now();
       if (_onCanvasTap) _onCanvasTap(cx, cy);
     };
-    canvas.addEventListener('click', e => handleTap(e.clientX, e.clientY));
+    let _lastTapMs = 0;
+    const DEBOUNCE_MS = 300;
+    canvas.addEventListener('click', e => {
+      if (Date.now() - _lastTapMs < DEBOUNCE_MS) return;
+      _lastTapMs = Date.now();
+      handleTap(e.clientX, e.clientY);
+    });
     canvas.addEventListener('touchend', e => {
       if (e.changedTouches.length) {
+        _lastTapMs = Date.now();
         const t = e.changedTouches[0];
         handleTap(t.clientX, t.clientY);
       }
+    });
+    window.addEventListener('orientationchange', () => {
+      setTimeout(resize, 100); // Delay to let the browser finish rotating
     });
   }
 

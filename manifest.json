@@ -1,0 +1,11 @@
+{
+  "name": "Trace",
+  "short_name": "Trace",
+  "description": "A solo narrative exploration game set in present-day East London",
+  "start_url": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a0a0f",
+  "theme_color": "#0a0a0f",
+  "icons": []
+}
