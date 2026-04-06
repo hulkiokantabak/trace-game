@@ -1,27 +1,35 @@
 # Trace
 
-A solo narrative exploration game set in present-day East London.
+A solo narrative exploration game set in present-day East London. You moved to Limehouse. You notice things others can't.
 
 ## [>>> PLAY NOW <<<](https://hulkiokantabak.github.io/trace-game/)
 
-No download needed — runs in your browser.
+No download needed — runs in your browser on desktop and mobile.
 
-## About
+## How to Play
 
-Trace is a text-based exploration game where you walk through East London, uncover mysteries, interact with NPCs, and piece together a larger story. Every choice shapes your path.
+- Walk through pixel-art London
+- Tap unmarked details to discover them
+- Follow investigation threads
+- Make choices — they have consequences
+- Build relationships with NPCs who remember you
+- Return to your flat. Reflect.
+
+Sessions run 5–60 minutes. The game rewards attention and curiosity.
 
 ## Features
 
-- Deep narrative with branching storylines
-- NPC system with distinct voices and mythological identities
-- Investigation mechanics — collect lore fragments, follow leads
-- Multiple endings based on your choices
-- Walking thoughts and ambient storytelling
-- AI-powered game master system
-- Settings and configuration options
+- Pixel-art canvas world (320×180 native, pixel-scaled)
+- 30 locations across London neighbourhoods
+- 5 playable character traits that shape the story and available paths
+- Day / night cycle and weather system
+- NPC memory system — characters track your behaviour across visits
+- Investigation threads with branching outcomes
+- Save system via localStorage
+- Mobile-first responsive layout (split-screen: canvas top, text UI bottom)
 
 ## Play It
 
 **https://hulkiokantabak.github.io/trace-game/**
 
-A browser game — no install required.
+Built with vanilla JavaScript and HTML5 Canvas. No frameworks, no build step.
