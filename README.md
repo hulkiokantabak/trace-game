@@ -33,3 +33,10 @@ Sessions run 5–60 minutes. The game rewards attention and curiosity.
 **https://hulkiokantabak.github.io/trace-game/**
 
 Built with vanilla JavaScript and HTML5 Canvas. No frameworks, no build step.
+
+## For Claude Code — New Session Handoff
+
+Starting a new development session? Download these two files and load them before writing any code:
+
+- **[trace-resume skill](.claude/skills/trace-resume/SKILL.md)** — current build state, recent changes, undocumented decisions, schema extensions, known gaps, and the genesis prompt
+- **[HANDOFF.md](HANDOFF.md)** — full design context, architecture, locked decisions, build milestones
