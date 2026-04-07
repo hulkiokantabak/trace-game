@@ -415,6 +415,9 @@ const UI = (() => {
     if (watcherVisible && !State.get('watcherFirstSeen')) {
       State.set('watcherFirstSeen', true);
       State.recordDiscovery('watcher_sighting', { awareness: 1, resonance: 1 });
+      State.recordFlashbackMoment({ type: 'watcher', locationId: locId, timePeriod: Game.getTimePeriod(),
+        text: 'The same figure. Different locations. Watching.',
+        caption: 'They knew. They knew everything I knew.' });
     }
 
     // Metzen: ambient life — the world breathes on return visits, not first encounters
@@ -722,6 +725,12 @@ const UI = (() => {
         const result = Game.interactWithNpc(btn.dataset.npc);
         if (result) {
           Engine.audio.playNpcGreet();
+          // Record first NPC connection for flashback montage
+          if (result.stageChanged && result.stage === 'acquaintance') {
+            State.recordFlashbackMoment({ type: 'first_npc', locationId: State.get('location'), timePeriod: Game.getTimePeriod(),
+              text: result.npc.name + '. ' + (result.line.text || ''),
+              caption: 'She remembered my name. First time.' });
+          }
           // Living Conversations: if AI enabled, try to get AI-generated dialogue
           if (typeof AI !== 'undefined' && AI.isEnabled()) {
             const aiLine = await AI.chat(
@@ -802,6 +811,12 @@ const UI = (() => {
     Engine.onCanvasTap(null);
     Engine.audio.playFragmentSound ? Engine.audio.playFragmentSound() : Engine.audio.playInvestigation();
     Game.discoverFragment(fragment.id);
+    const allFragsFound = (State.get('discoveries') || []).filter(d => d.startsWith('frag_')).length;
+    if (allFragsFound === 0) {
+      State.recordFlashbackMoment({ type: 'first_fragment', locationId: State.get('location'), timePeriod: Game.getTimePeriod(),
+        text: fragment.text.length > 80 ? fragment.text.substring(0, 77) + '...' : fragment.text,
+        caption: 'I read it three times. Then believed.' });
+    }
 
     let html = '<p class="fragment-title">' + esc(fragment.title) + '</p>';
     html += '<p class="fragment-text">' + esc(fragment.text) + '</p>';
@@ -961,7 +976,12 @@ const UI = (() => {
       panel.querySelectorAll('.inv-choice-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           const consequence = Game.makeInvestigationChoice(invId, btn.dataset.choice);
-          if (consequence) showConsequence(investigation, consequence);
+          if (consequence) {
+            State.recordFlashbackMoment({ type: 'investigation_choice', locationId: State.get('location'), timePeriod: Game.getTimePeriod(),
+              text: consequence.narrativeText.length > 80 ? consequence.narrativeText.substring(0, 77) + '...' : consequence.narrativeText,
+              caption: 'I chose. The other option still haunts.' });
+            showConsequence(investigation, consequence);
+          }
         });
       });
     }
@@ -1361,112 +1381,214 @@ const UI = (() => {
   function showLeaveSequence() {
     ++_viewId;
     Engine.onCanvasTap(null);
-    Engine.audio.fadeOut(8);
 
-    // Gather the player's 3 most-visited locations (excluding flat)
-    const visited = State.get('visitedLocations') || [];
-    const locVisits = {};
-    for (const locId of visited) {
-      if (locId === 'flat') continue;
-      locVisits[locId] = State.getLocationVisitCount(locId);
-    }
-    const topLocs = Object.entries(locVisits)
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 3)
-      .map(e => e[0]);
-
-    if (topLocs.length === 0) topLocs.push('L01');
-
-    const memories = {
-      L01: 'The canal. Still water. The painter\'s colours on the towpath wall.',
-      L02: 'The coffee shop. Steam rising. A melody you almost remember.',
-      L03: 'The churchyard. Shadows falling wrong. The preacher\'s voice, fading.',
-      L04: 'The warehouse. That frequency. 47Hz. Still humming in your chest.',
-      L05: 'The pub. Thames through the back window. Always moving.',
-      L06: 'The parlour. Needle buzz. Doors drawn in skin.',
-      L07: 'The lock gates. Iron remembering its shape. Cold seam at your ankles.',
-      L08: 'The platform. MERIDIAN — 3 MIN. A train that never came.',
-      L09: 'The market. Bass in your feet. Smoke between the stalls.',
-      L10: 'The empty lot. Weeds through concrete. The fox that watched you.'
+    // NPC farewell lines (B8-ending-text.md)
+    const NPC_FAREWELLS = {
+      barista:           'I saved your seat. In case you...',
+      canal_painter:     'The canal will be this colour tomorrow. Burnt umber.',
+      sound_artist:      'I\'ll keep recording. You\'ll be in the background now.',
+      tattoo_artist:     'The door I drew. It was for you. It always was.',
+      nightclub_promoter:'You were worth letting in.',
+      bike_courier:      'Gotta go. But yeah. You were alright.',
+      pub_landlord:      'Door\'s always open. Thursdays especially. You know why.'
     };
 
-    let step = 0;
+    // Location memory texts + B8 flashback captions
+    const LOC_MEMORIES = {
+      L01: { text: 'The canal. Still water. The painter\'s colours on the towpath wall.', caption: 'Autumn canal. Gold and grey and mine.' },
+      L02: { text: 'The coffee shop. Steam rising. A melody you almost remember.', caption: 'She remembered my name. First time.' },
+      L03: { text: 'The churchyard. Shadows falling wrong. The preacher\'s voice, fading.', caption: 'Nobody told me about this place.' },
+      L04: { text: 'The warehouse. That frequency. 47Hz. Still humming in your chest.', caption: 'I wasn\'t supposed to find this.' },
+      L05: { text: 'The pub. Thames through the back window. Always moving.', caption: 'He poured tea without being asked.' },
+      L06: { text: 'The parlour. Needle buzz. Doors drawn in skin.', caption: 'Trust looks different than I expected. Quieter.' },
+      L07: { text: 'The lock gates. Iron remembering its shape. Cold seam at my ankles.', caption: 'The door was there. Then it wasn\'t.' },
+      L08: { text: 'The platform. MERIDIAN — 3 MIN. A train that never came.', caption: 'The impossible, stated as fact. Ordinary.' },
+      L09: { text: 'The market. Bass in my feet. Smoke between the stalls.', caption: 'I read it three times. Then believed.' },
+      L10: { text: 'The empty lot. Weeds through concrete. The fox that watched me.', caption: 'Same eyes. They\'d seen the same things.' },
+      flat: { text: 'Empty room. Empty notebook. Everything ahead.', caption: 'The window. The rooftops. The beginning.' }
+    };
 
-    function showFlashback() {
-      if (step >= topLocs.length) {
-        showFarewell();
-        return;
+    function getBestFarewell() {
+      const npcMem = State.get('npcMemory') || {};
+      const stageOrder = ['familiar_aware', 'familiar_unknowing', 'familiar', 'acquaintance'];
+      for (const targetStage of stageOrder) {
+        for (const [npcId, mem] of Object.entries(npcMem)) {
+          if (mem && mem.visitCount > 0 && mem.stage === targetStage && NPC_FAREWELLS[npcId]) {
+            return { npcId, text: NPC_FAREWELLS[npcId] };
+          }
+        }
       }
-
-      const locId = topLocs[step];
-      const loc = Game.getLocation(locId);
-      const memory = memories[locId] || 'A place you remember.';
-
-      Engine.setLocation(locId);
-      Engine.setTimePeriod('evening');
-
-      let html = '<p class="fragment-title" style="color:#5a5040;">You remember.</p>';
-      html += '<p class="location-text" style="margin-top:1rem;">' + esc(memory) + '</p>';
-
-      panel.innerHTML = html;
-      panel.classList.add('scene-fade');
-      const fadeCleanup = () => panel.classList.remove('scene-fade', 'scene-fade-warm');
-      panel.addEventListener('animationend', fadeCleanup, { once: true });
-      setTimeout(fadeCleanup, 1500);
-
-      let advanced = false;
-      const advance = () => {
-        if (advanced) return;
-        advanced = true;
-        step++;
-        Engine.fadeTransition(() => {
-          showFlashback();
-        });
-      };
-
-      setTimeout(advance, 4000);
-      panel.addEventListener('click', advance, { once: true });
+      for (const [npcId, mem] of Object.entries(npcMem)) {
+        if (mem && mem.visitCount > 0 && NPC_FAREWELLS[npcId]) {
+          return { npcId, text: NPC_FAREWELLS[npcId] };
+        }
+      }
+      return null;
     }
 
-    function showFarewell() {
+    // Step 1: Decision
+    function showDecision() {
+      let html = '<p class="fragment-title" style="color:#5a5040;">Leave London?</p>';
+      html += '<p class="location-text" style="margin-top:1rem;">The suitcase is packed. The notebook is full. Limehouse has given you what it has to give — for now.</p>';
+      html += '<div style="margin-top:2rem;display:flex;flex-direction:column;gap:0.8rem;">';
+      html += '<button class="inv-choice-btn" id="leave-yes">It\'s time.</button>';
+      html += '<button class="inv-choice-btn" id="leave-no" style="opacity:0.65;">Not yet.</button>';
+      html += '</div>';
+      panel.innerHTML = html;
+      document.getElementById('leave-yes').addEventListener('click', () => {
+        Engine.audio.fadeOut(8);
+        Engine.fadeTransition(() => { showFlashbacks(); });
+      });
+      document.getElementById('leave-no').addEventListener('click', () => { showLocation(); });
+    }
+
+    // Step 2: Flashback montage
+    function showFlashbacks() {
+      const trackedMoments = State.get('flashbackMoments') || [];
+      const locVisits = {};
+      for (const locId of (State.get('visitedLocations') || [])) {
+        if (locId === 'flat') continue;
+        locVisits[locId] = State.getLocationVisitCount(locId);
+      }
+
+      let flashItems = [];
+      const coveredLocs = new Set();
+
+      // Tracked moments first (up to 4)
+      for (const m of trackedMoments) {
+        if (flashItems.length >= 4) break;
+        const locMem = LOC_MEMORIES[m.locationId] || LOC_MEMORIES.flat;
+        flashItems.push({
+          locationId: m.locationId || 'flat',
+          timePeriod: m.timePeriod || 'evening',
+          text: m.text || locMem.text,
+          caption: m.caption || locMem.caption
+        });
+        coveredLocs.add(m.locationId);
+      }
+
+      // Fill to 5 from most-visited locations
+      const topLocs = Object.entries(locVisits).sort((a, b) => b[1] - a[1]).map(e => e[0]);
+      for (const locId of topLocs) {
+        if (flashItems.length >= 5) break;
+        if (coveredLocs.has(locId) || !LOC_MEMORIES[locId]) continue;
+        flashItems.push({ locationId: locId, timePeriod: 'evening', text: LOC_MEMORIES[locId].text, caption: LOC_MEMORIES[locId].caption });
+        coveredLocs.add(locId);
+      }
+
+      // Always end with flat day-one
+      flashItems.push({ locationId: 'flat', timePeriod: 'evening', text: LOC_MEMORIES.flat.text, caption: LOC_MEMORIES.flat.caption });
+      flashItems = flashItems.slice(0, 7);
+
+      if (flashItems.length === 0) { showNpcFarewell(); return; }
+
+      let step = 0;
+      function showNext() {
+        if (step >= flashItems.length) { Engine.fadeTransition(() => { showNpcFarewell(); }); return; }
+        const item = flashItems[step];
+        Engine.setLocation(item.locationId);
+        Engine.setTimePeriod(item.timePeriod || 'evening');
+
+        let html = '<p class="fragment-title" style="color:#5a5040;">You remember.</p>';
+        html += '<p class="location-text" style="margin-top:1rem;">' + esc(item.text) + '</p>';
+        html += '<p class="npc-physical" style="color:#8a8a6a;font-style:italic;margin-top:1.2rem;">' + esc(item.caption) + '</p>';
+        panel.innerHTML = html;
+        panel.classList.add('scene-fade');
+        const cl = () => panel.classList.remove('scene-fade', 'scene-fade-warm');
+        panel.addEventListener('animationend', cl, { once: true }); setTimeout(cl, 1500);
+
+        let adv = false;
+        const advance = () => { if (adv) return; adv = true; step++; Engine.fadeTransition(() => { showNext(); }); };
+        setTimeout(advance, 4000);
+        panel.addEventListener('click', advance, { once: true });
+      }
+      showNext();
+    }
+
+    // Step 3: NPC farewell
+    function showNpcFarewell() {
+      const farewell = getBestFarewell();
+      if (!farewell) { Engine.fadeTransition(() => { showLastFlat(); }); return; }
+      Engine.setLocation('flat');
+      Engine.setTimePeriod('evening');
+
+      let html = '<p class="fragment-title" style="color:#5a5040;">A last goodbye.</p>';
+      html += '<p class="npc-physical" style="margin-top:1rem;font-size:1.1em;">' + esc(farewell.text) + '</p>';
+      html += '<button class="discovery-back-btn" style="margin-top:2rem;">...</button>';
+      panel.innerHTML = html;
+      panel.classList.add('scene-fade-warm');
+      const cl = () => panel.classList.remove('scene-fade', 'scene-fade-warm');
+      panel.addEventListener('animationend', cl, { once: true }); setTimeout(cl, 1500);
+      panel.querySelector('.discovery-back-btn').addEventListener('click', () => { Engine.fadeTransition(() => { showLastFlat(); }); });
+    }
+
+    // Step 4: Last flat
+    function showLastFlat() {
       Engine.setLocation('flat');
       Engine.setTimePeriod('night');
-
       const trait = State.get('trait') || 'musician';
       const traitFarewells = {
-        musician: 'The flat is quiet now. No hum beneath the floorboards. Just the radiator\'s rhythm, one last time.',
-        photographer: 'The light through the window finds the empty table. One last exposure.',
-        wanderer: 'Your feet remember every cobblestone. The ground remembers you.',
-        barista: 'The cup on the table is cold. The last one you\'ll make here.',
-        shopkeeper: 'The brass key on the table. You leave it for the next tenant.'
+        musician:    'The flat is quiet now. No hum beneath the floorboards. Just the radiator\'s rhythm, one last time.',
+        photographer:'The light through the window finds the empty table. One last exposure.',
+        wanderer:    'Your feet remember every cobblestone. The ground remembers you.',
+        barista:     'The cup on the table is cold. The last one you\'ll make here.',
+        shopkeeper:  'The brass key on the table. You leave it for the next tenant.'
       };
 
-      let html = '<p class="fragment-title">Leaving Limehouse</p>';
+      let html = '<p class="fragment-title">The flat.</p>';
       html += '<p class="location-text" style="margin-top:1rem;">' + esc(traitFarewells[trait] || traitFarewells.musician) + '</p>';
-      html += '<p class="location-text" style="margin-top:1.5rem;color:#8a7a60;">You leave Limehouse. But Limehouse does not leave you.</p>';
+      html += '<p class="location-text" style="margin-top:1.2rem;color:#8a7a60;">The objects stay. The notebook goes with you.</p>';
+      html += '<button class="discovery-back-btn" style="margin-top:2rem;">...</button>';
+      panel.innerHTML = html;
+      panel.classList.add('scene-fade-warm');
+      const cl = () => panel.classList.remove('scene-fade', 'scene-fade-warm');
+      panel.addEventListener('animationend', cl, { once: true }); setTimeout(cl, 1500);
+      panel.querySelector('.discovery-back-btn').addEventListener('click', () => { Engine.fadeTransition(() => { showDeparture(); }); });
+    }
 
+    // Step 5: Departure — title card
+    function showDeparture() {
+      Engine.setLocation('flat');
+      Engine.setTimePeriod('night');
+      const trait = State.get('trait') || 'musician';
+      const traitThoughts = {
+        musician:    'The city hums. I can still hear it.',
+        photographer:'The light on the river. I see it.',
+        wanderer:    'Something is pulling. It always will be.',
+        barista:     'I know their names. All of them.',
+        shopkeeper:  'The ground remembers. Even if I forget.'
+      };
+
+      const createdAt = State.get('createdAt');
+      const days = createdAt ? Math.max(1, Math.floor((Date.now() - createdAt) / 86400000)) : 1;
       const discoveries = (State.get('discoveries') || []).length;
       const npcMem = State.get('npcMemory') || {};
       const npcsMet = Object.keys(npcMem).filter(id => npcMem[id] && npcMem[id].visitCount > 0).length;
-      html += '<p class="journal-stat" style="margin-top:2rem;color:#4a4038;">' + discoveries + ' things noticed. ' + npcsMet + ' people known.</p>';
+      const traitLabel = trait.charAt(0).toUpperCase() + trait.slice(1);
 
+      let html = '<div style="text-align:center;padding:2rem 1rem;">';
+      html += '<p style="font-size:1.6rem;letter-spacing:0.15em;color:#c8b8a0;margin-bottom:1.5rem;font-family:inherit;">Trace</p>';
+      html += '<p class="location-text" style="color:#8a7a60;font-style:italic;margin-bottom:2rem;">' + esc(traitThoughts[trait]) + '</p>';
+      html += '<div style="border-top:1px solid #3a3020;padding-top:1.5rem;margin-bottom:1.5rem;">';
+      html += '<p class="journal-stat" style="color:#6a5a48;">The ' + esc(traitLabel) + '</p>';
+      html += '<p class="journal-stat" style="color:#4a4038;margin-top:0.4rem;">' + days + ' day' + (days !== 1 ? 's' : '') + ' in London</p>';
+      html += '<p class="journal-stat" style="color:#4a4038;">' + discoveries + ' things noticed · ' + npcsMet + ' people known</p>';
+      html += '</div>';
+      html += '<p class="journal-stat" style="color:#5a5040;font-style:italic;">You leave Limehouse. But Limehouse does not leave you.</p>';
       html += '<button class="notebook-close-btn" style="margin-top:2rem;" id="farewell-end">...</button>';
+      html += '</div>';
 
       panel.innerHTML = html;
-      panel.classList.add('scene-fade-warm');
-      const fadeCleanup = () => panel.classList.remove('scene-fade', 'scene-fade-warm');
-      panel.addEventListener('animationend', fadeCleanup, { once: true });
-      setTimeout(fadeCleanup, 1500);
-
+      panel.classList.add('scene-fade');
+      const cl = () => panel.classList.remove('scene-fade', 'scene-fade-warm');
+      panel.addEventListener('animationend', cl, { once: true }); setTimeout(cl, 1500);
       document.getElementById('farewell-end').addEventListener('click', () => {
         State.set('completed', true);
         showTitle(true);
       });
     }
 
-    Engine.fadeTransition(() => {
-      showFlashback();
-    });
+    showDecision();
   }
 
   function getHomeReflection() {

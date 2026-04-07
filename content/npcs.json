@@ -188,8 +188,12 @@
         "trigger": { "visitCount": 8, "acrossDays": true },
         "entry": { "text": "Sit. I need to tell you something.", "tag": "neutral" },
         "ambient": [
-          { "text": "This pub has been here longer than the street.", "tag": "neutral" }
+          { "text": "This pub has been here longer than the street.", "tag": "neutral" },
+          { "text": "Careful with Thursdays. Things get strange on Thursdays.", "tag": "neutral" }
         ],
+        "timeLines": {
+          "night": { "text": "The building settles after closing. Old wood.", "tag": "neutral" }
+        },
         "traitLines": {
           "musician": { "text": "The cellar. The tapes. 1967. I wasn't going to say.", "tag": "musician" },
           "photographer": { "text": "The photo behind the bar. The figure in the doorway.", "tag": "photographer" },
@@ -242,8 +246,12 @@
         "trigger": { "visitCount": 8, "acrossDays": true },
         "entry": { "text": "Sit. I have something to show you.", "tag": "neutral" },
         "ambient": [
-          { "text": "The door I drew. It opened. In the drawing.", "tag": "neutral" }
+          { "text": "The door I drew. It opened. In the drawing.", "tag": "neutral" },
+          { "text": "I drew it without looking. My hands knew the shape.", "tag": "neutral" }
         ],
+        "weatherLines": {
+          "rain": { "text": "The designs change in rain. I let them.", "tag": "neutral" }
+        },
         "traitLines": {
           "musician": { "text": "The door leads somewhere real. I can feel it.", "tag": "musician" },
           "photographer": { "text": "The drawing changes in different light. Photograph it. See.", "tag": "photographer" },
@@ -335,8 +343,15 @@
         "trigger": { "visitCount": 4, "acrossDays": true },
         "entry": { "text": "You again. You notice things here too?", "tag": "neutral" },
         "ambient": [
-          { "text": "The Meridian. I've seen it twice now.", "tag": "neutral" }
+          { "text": "The Meridian. I've seen it twice now.", "tag": "neutral" },
+          { "text": "Three packages, Narrow Street. All different senders.", "tag": "neutral" }
         ],
+        "weatherLines": {
+          "rain": { "text": "Rain day. Boards smear. Numbers wrong all morning.", "tag": "neutral" }
+        },
+        "timeLines": {
+          "morning": { "text": "Early. Platform empty. Something's already off.", "tag": "neutral" }
+        },
         "traitLines": {
           "musician": { "text": "The wind here plays a note. You hear it?", "tag": "musician" },
           "photographer": { "text": "The board flickers. Catch it right, you'll see something.", "tag": "photographer" },
@@ -349,8 +364,12 @@
         "trigger": { "visitCount": 8, "acrossDays": true },
         "entry": { "text": "Wait. Listen. The board again.", "tag": "neutral" },
         "ambient": [
-          { "text": "That person. Three neighbourhoods. Same day.", "tag": "neutral" }
+          { "text": "That person. Three neighbourhoods. Same day.", "tag": "neutral" },
+          { "text": "Routes my body takes. I didn't choose them.", "tag": "neutral" }
         ],
+        "timeLines": {
+          "morning": { "text": "Early shift. Something wrong with the board already.", "tag": "neutral" }
+        },
         "traitLines": {
           "musician": { "text": "The platform hums your note. I timed it.", "tag": "musician" },
           "photographer": { "text": "The figure. I saw it. Platform edge. Photograph that spot.", "tag": "photographer" },

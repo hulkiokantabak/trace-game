@@ -17,6 +17,7 @@ const State = (() => {
     discoveries: [],
     flatObjects: [],
     homeReflections: [],
+    flashbackMoments: [],
     firstPlay: true,
     createdAt: null,
     lastPlayed: null
@@ -98,6 +99,7 @@ const State = (() => {
         if (!Array.isArray(state.discoveries)) state.discoveries = [];
         if (!Array.isArray(state.flatObjects)) state.flatObjects = [];
         if (!Array.isArray(state.homeReflections)) state.homeReflections = [];
+        if (!Array.isArray(state.flashbackMoments)) state.flashbackMoments = [];
         if (typeof state.stats !== 'object') state.stats = { awareness: 0, connection: 0, insight: 0, resonance: 0 };
         if (typeof state.npcMemory !== 'object') state.npcMemory = {};
         if (typeof state.investigations !== 'object') state.investigations = {};
@@ -253,5 +255,17 @@ const State = (() => {
     }
   }
 
-  return { save, load, reset, get, set, visitLocation, getLocationVisitCount, hasSave, recordNpcVisit, getNpcMemory, setNpcStage, isDiscovered, recordDiscovery, getInvestigation, advanceInvestigation, completeInvestigation, addFlatObject };
+  // --- Flashback Moment Tracking ---
+  // Records significant moments for the Leave London flashback montage.
+  // One entry per type (deduplication). Shape: {type, locationId, timePeriod, text, caption}.
+  function recordFlashbackMoment(moment) {
+    if (!moment || !moment.type) return;
+    const moments = state.flashbackMoments || [];
+    if (moments.some(m => m.type === moment.type)) return;
+    moments.push(moment);
+    state.flashbackMoments = moments;
+    _debouncedSave();
+  }
+
+  return { save, load, reset, get, set, visitLocation, getLocationVisitCount, hasSave, recordNpcVisit, getNpcMemory, setNpcStage, isDiscovered, recordDiscovery, getInvestigation, advanceInvestigation, completeInvestigation, addFlatObject, recordFlashbackMoment };
 })();

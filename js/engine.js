@@ -1205,7 +1205,9 @@ const Engine = (() => {
           const wp = WATCHER_POS[currentLocation] || [290, 116];
           const wx = wp[0], wy = wp[1];
           ctx.save();
-          ctx.globalAlpha = 0.35;
+          // Opacity graduates with awareness — more noticed, more present
+          const watcherAlpha = _awarenessLevel >= 10 ? 0.65 : _awarenessLevel >= 8 ? 0.5 : 0.4;
+          ctx.globalAlpha = watcherAlpha;
           ctx.fillStyle = '#0a0a10';
           if (_awarenessLevel >= 10) {
             // Large Watcher — 8x10 head, proportional body
