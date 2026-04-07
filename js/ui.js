@@ -257,12 +257,13 @@ const UI = (() => {
   function showTraitObjects() {
     // Table in sceneFlat is drawn at x:120, y:100, w:55, h:32
     // Objects spread across the table surface
+    // Objects are drawn by _drawTraitObject() in engine.js — hitboxes match those shapes
     const traitObjects = [
-      { trait: 'musician',     x: 122, y: 104, w: 8,  h: 6,  color: '#c8a050', label: 'A guitar pick',     index: 0 },
-      { trait: 'photographer', x: 133, y: 102, w: 8,  h: 10, color: '#5090c0', label: 'A camera lens cap', index: 1 },
-      { trait: 'wanderer',     x: 144, y: 106, w: 10, h: 5,  color: '#8a7050', label: 'A worn lace',       index: 2 },
-      { trait: 'barista',      x: 156, y: 103, w: 7,  h: 7,  color: '#c07878', label: 'A coffee cup',      index: 3 },
-      { trait: 'shopkeeper',   x: 165, y: 105, w: 6,  h: 8,  color: '#60886a', label: 'A brass key',       index: 4 }
+      { trait: 'musician',     x: 122, y: 102, w: 12, h: 14, label: 'A guitar pick',     index: 0 },
+      { trait: 'photographer', x: 135, y: 101, w: 13, h: 14, label: 'A camera lens cap', index: 1 },
+      { trait: 'wanderer',     x: 149, y: 103, w: 14, h: 9,  label: 'A worn shoelace',   index: 2 },
+      { trait: 'barista',      x: 163, y: 102, w: 13, h: 14, label: 'A coffee cup',       index: 3 },
+      { trait: 'shopkeeper',   x: 152, y: 113, w: 15, h: 12, label: 'A brass key',        index: 4 }
     ];
 
     Engine.setTraitObjects(traitObjects);
@@ -271,7 +272,7 @@ const UI = (() => {
     panel.innerHTML =
       '<div class="creation-arrival">' +
         '<p class="creation-text">Your new flat. Evening light.</p>' +
-        '<p class="creation-text creation-delay-1">Five things on the table.</p>' +
+        '<p class="creation-text creation-delay-1">Something on the table catches it.</p>' +
       '</div>';
 
     // Curated preview thoughts — the strongest from each trait
@@ -445,6 +446,21 @@ const UI = (() => {
       html += '<p class="' + locTextClass + '">' + esc(loc.body) + '</p>';
     }
 
+    // Saramago: body sensation — one physical line, always shown, grounds the player in place
+    if (loc.bodySensation && !forgetting) {
+      html += '<p class="ambient-encounter">' + esc(loc.bodySensation) + '</p>';
+    }
+
+    // Metzen: mythological impression — shown only on first visit, a door left ajar
+    if (isFirstVisit && loc.mythologicalImpression && !forgetting) {
+      html += '<p class="ambient-encounter" style="font-style:italic;opacity:0.7;">' + esc(loc.mythologicalImpression) + '</p>';
+    }
+
+    // Metzen: permanent presence — always shown on return visits, accumulates meaning
+    if (!isFirstVisit && loc.permanentPresence && !forgetting) {
+      html += '<p class="ambient-encounter">' + esc(loc.permanentPresence) + '</p>';
+    }
+
     // Metzen: post-investigation world scars — the world carries consequences
     const investigations = State.get('investigations') || {};
     if (locId === 'L02' && investigations['LI-02'] && investigations['LI-02'].complete) {
@@ -517,16 +533,26 @@ const UI = (() => {
       }
     }
 
-    // Guaranteed first NPC encounter — if the player has met zero NPCs and none are here
+    // Ueda: silence when no NPC is present is correct — absence is information.
+    // Location-specific passing-voice lines used only outdoors on first sessions.
     const allNpcMem = State.get('npcMemory') || {};
     const anyNpcMet = Object.keys(allNpcMem).some(id => allNpcMem[id] && allNpcMem[id].visitCount > 0);
     if (!anyNpcMet && !npcs.some(e => e.available)) {
-      const passingVoices = [
-        'A figure passes on the towpath. They nod. You nod back.',
-        'Someone ahead, walking slowly. They glance at you, then look away.',
-        'A woman with a dog. She looks like she belongs here. You don\'t. Yet.'
-      ];
-      html += '<p class="ambient-encounter">' + esc(passingVoices[Math.floor(Math.random() * passingVoices.length)]) + '</p>';
+      const PASSING_VOICES = {
+        L01: 'Someone passes on the towpath. They nod.',
+        L02: null,
+        L03: 'Wind moves through the grass between the graves.',
+        L04: null,
+        L05: 'Voices inside. The door is closed.',
+        L06: null,
+        L07: 'A boat moves through the lock, slow and certain.',
+        L08: 'The platform empties. A train departs.',
+        L09: 'The market is setting up. Nobody ready yet.',
+        L10: 'The lot is empty. It has been for a while.',
+        flat: null
+      };
+      const voice = PASSING_VOICES[locId];
+      if (voice) html += '<p class="ambient-encounter">' + esc(voice) + '</p>';
     }
 
     // Weather-specific description (from location JSON)
@@ -741,8 +767,8 @@ const UI = (() => {
 
           if (thought) {
             Engine.setWalkingThought(thought);
-            // Wait for fade transition + thought duration, then show location
-            setTimeout(() => showLocation(), 1800);
+            // Wait for fade + thought (1.2s) + small buffer, then show location
+            setTimeout(() => showLocation(), 1400);
           } else {
             showLocation();
           }
@@ -848,9 +874,8 @@ const UI = (() => {
     Engine.onCanvasTap(null); // disable tap during dialogue
     const { line, stage, stageChanged, npc, forgetting } = result;
 
-    // Ueda: no stage-shift text, no proximity hint — the dialogue IS the shift
+    // Saramago: body before words — you see the person before you hear them
     let html = '<p class="npc-name">' + esc(npc.name) + '</p>';
-    html += '<p class="npc-dialogue">' + esc(line.text) + '</p>';
     // During Forgetting, physical signatures blur — you can't hold onto the details
     if (forgetting) {
       html += '<p class="npc-physical">Something familiar about them. You can\'t place it.</p>';
@@ -861,6 +886,7 @@ const UI = (() => {
         html += '<p class="npc-physical">' + esc(details[Math.floor(Math.random() * details.length)]) + '.</p>';
       }
     }
+    html += '<p class="npc-dialogue">' + esc(line.text) + '</p>';
     if (result.nearStageShift) {
       html += '<p class="npc-physical" style="color:#6a6a58;font-style:italic;">Something shifts in the way they look at you.</p>';
     }

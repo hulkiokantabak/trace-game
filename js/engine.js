@@ -358,6 +358,13 @@ const Engine = (() => {
     ctx.fillRect(0, 44, 7, 88);
     ctx.fillStyle = '#b09060';
     ctx.fillRect(4, 86, 2, 2);
+    // Previous tenant's note tucked in door frame — always visible, distinct cream colour
+    if (typeof State === 'undefined' || !State.isDiscovered('flat_tenant_note')) {
+      ctx.fillStyle = '#e8d8b0';
+      ctx.fillRect(4, 100, 6, 8);
+      ctx.fillStyle = '#c8b890';
+      ctx.fillRect(5, 101, 4, 1); // fold line
+    }
 
     // Flat evolution — visual milestones
     const discoveries = typeof State !== 'undefined' ? (State.get('discoveries') || []).length : 0;
@@ -1082,6 +1089,75 @@ const Engine = (() => {
     ctx.restore();
   }
 
+  // --- Trait Object Pixel Art ---
+  // Each object is drawn as a recognisable pixel-art shape on the flat table.
+  // Objects are visible and distinct so the player knows there are things to tap.
+  function _drawTraitObject(ctx, obj, t) {
+    const { trait, x, y } = obj;
+    switch (trait) {
+      case 'musician': {
+        // Guitar pick: teardrop shape — amber yellow
+        ctx.fillStyle = '#d4a840';
+        ctx.fillRect(x, y + 2, 10, 8);     // body
+        ctx.fillRect(x + 2, y, 6, 3);       // top curve
+        ctx.fillRect(x + 4, y + 10, 2, 2);  // tip
+        ctx.fillStyle = '#b88820';
+        ctx.fillRect(x + 1, y + 4, 2, 4);   // shading
+        break;
+      }
+      case 'photographer': {
+        // Lens cap: circle with logo — dusty blue
+        ctx.fillStyle = '#4880b0';
+        ctx.fillRect(x + 1, y, 9, 12);      // body
+        ctx.fillRect(x, y + 2, 11, 8);      // wider middle
+        ctx.fillStyle = '#2a5a88';
+        ctx.fillRect(x + 1, y + 1, 9, 1);   // top rim
+        ctx.fillRect(x + 1, y + 10, 9, 1);  // bottom rim
+        ctx.fillStyle = '#6aa0c8';
+        ctx.fillRect(x + 3, y + 4, 5, 4);   // logo highlight
+        break;
+      }
+      case 'wanderer': {
+        // Worn shoelace: looping line — tan brown
+        ctx.fillStyle = '#9a7848';
+        ctx.fillRect(x, y + 3, 12, 2);      // lace top run
+        ctx.fillRect(x + 2, y, 2, 4);       // left eyelet
+        ctx.fillRect(x + 8, y, 2, 4);       // right eyelet
+        ctx.fillRect(x + 1, y + 5, 10, 2);  // lace bottom run
+        ctx.fillStyle = '#7a5830';
+        ctx.fillRect(x, y + 4, 12, 1);      // shadow line
+        break;
+      }
+      case 'barista': {
+        // Coffee cup: small white cup with brown coffee — warm red-cream
+        ctx.fillStyle = '#d8c0a0';
+        ctx.fillRect(x + 1, y + 2, 9, 9);   // cup body
+        ctx.fillRect(x, y + 3, 1, 7);        // handle left
+        ctx.fillRect(x + 10, y + 3, 1, 7);   // handle right (wrong, remove)
+        ctx.fillStyle = '#c09870';
+        ctx.fillRect(x + 10, y + 4, 1, 5);   // handle right
+        ctx.fillStyle = '#5a2e0a';
+        ctx.fillRect(x + 2, y + 3, 7, 4);   // coffee surface
+        ctx.fillStyle = '#f0e0c8';
+        ctx.fillRect(x + 1, y + 11, 9, 1);  // saucer
+        ctx.fillRect(x, y + 12, 11, 1);     // saucer wider
+        break;
+      }
+      case 'shopkeeper': {
+        // Brass key: long key shape — warm gold
+        ctx.fillStyle = '#c8a030';
+        ctx.fillRect(x, y + 3, 6, 6);       // bow (ring end)
+        ctx.fillRect(x + 2, y + 4, 2, 2);   // bow hole
+        ctx.fillRect(x + 5, y + 5, 8, 2);   // shaft
+        ctx.fillRect(x + 11, y + 4, 2, 4);  // first bit
+        ctx.fillRect(x + 9, y + 7, 2, 2);   // second bit
+        ctx.fillStyle = '#a07820';
+        ctx.fillRect(x + 1, y + 8, 5, 1);   // shadow
+        break;
+      }
+    }
+  }
+
   // --- Render & Loop ---
 
   function render(t, dt) {
@@ -1095,10 +1171,10 @@ const Engine = (() => {
         // Draw trait objects as subtle glowing items on the table
         if (_traitObjects) {
           for (const obj of _traitObjects) {
-            const pulse = 0.3 + 0.15 * Math.sin(t * 2 + obj.index * 1.2);
+            // Gentle pulse — highlight, not strobe
+            const pulse = 0.75 + 0.25 * Math.sin(t * 1.6 + obj.index * 1.2);
             ctx.globalAlpha = pulse;
-            ctx.fillStyle = obj.color;
-            ctx.fillRect(obj.x, obj.y, obj.w, obj.h);
+            _drawTraitObject(ctx, obj, t);
             ctx.globalAlpha = 1;
           }
         }
@@ -1312,23 +1388,23 @@ const Engine = (() => {
             ctx.fillRect(0, 0, W, H);
           }
         }
-        // Walking thought — floating pixel text on darkened canvas during fade
+        // Walking thought — brief peripheral text, bottom of canvas, gone in 1.2s
         if (_walkingThought) {
           _walkingThought.age += dt;
-          // Fade in over 0.5s, hold, fade out after 3s
-          const fadeIn = Math.min(1, _walkingThought.age / 0.5);
-          const fadeOut = _walkingThought.age > 3 ? Math.max(0, 1 - (_walkingThought.age - 3) / 1) : 1;
+          // Fade in over 0.2s, hold to 0.9s, fade out by 1.2s
+          const fadeIn = Math.min(1, _walkingThought.age / 0.2);
+          const fadeOut = _walkingThought.age > 0.9 ? Math.max(0, 1 - (_walkingThought.age - 0.9) / 0.3) : 1;
           const alpha = fadeIn * fadeOut;
           if (alpha > 0.01) {
-            ctx.globalAlpha = alpha * 0.7;
+            ctx.globalAlpha = alpha * 0.65;
             ctx.fillStyle = '#c8b8a0';
             ctx.font = '5px monospace';
             ctx.textAlign = 'center';
-            ctx.fillText(_walkingThought.text, W / 2, H / 2 + 5);
+            ctx.fillText(_walkingThought.text, W / 2, H - 10);
             ctx.textAlign = 'left';
             ctx.globalAlpha = 1;
           }
-          if (_walkingThought.age > 4) {
+          if (_walkingThought.age > 1.2) {
             _walkingThought = null;
           }
         }

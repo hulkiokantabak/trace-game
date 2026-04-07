@@ -73,9 +73,9 @@
       },
       {
         "id": "flat_tenant_note",
-        "description": "A folded note tucked under the radiator.",
+        "description": "A folded note in the door frame.",
         "discovery_text": "The walls talk if you tap them. Not words \u2014 impressions. The people here are worth knowing. Visit them. Come back. Walk slowly. Some things only appear in the rain. Some only at night. Good luck with the flat. The radiator has a rhythm. \u2014 M.",
-        "hitbox": { "x": 30, "y": 145, "w": 15, "h": 10 },
+        "hitbox": { "x": 3, "y": 98, "w": 8, "h": 12 },
         "xp": { "awareness": 1 }
       },
       {
@@ -161,7 +161,10 @@
     "weatherEffects": {
       "rain": "Rain against the window. The basin blurs.",
       "clear": "Light through the window shifts during your visit."
-    }
+    },
+    "bodySensation": "The radiator clicks twice before heat arrives. The building takes its time.",
+    "permanentPresence": "The lamp on the table. Always on when you return.",
+    "mythologicalImpression": "Someone was here before you. The room holds the shape of their absence."
   },
   "L01": {
     "name": "The Canal Basin",
@@ -331,7 +334,10 @@
     "weatherEffects": {
       "rain": "Rain on the canal. A million tiny impacts. The heron doesn't move.",
       "clear": "The water holds the sky. Every colour the sky gives away."
-    }
+    },
+    "bodySensation": "The cold comes off the water within seconds of arriving.",
+    "permanentPresence": "The narrowboat is always moored here. It never moves.",
+    "mythologicalImpression": "The water has been the same temperature for one hundred years."
   },
   "L02": {
     "name": "The Coffee Shop",
@@ -457,7 +463,10 @@
     "weatherEffects": {
       "rain": "Rain streaks on the window. The interior feels warmer by contrast.",
       "clear": "Sunlight through the window makes a rectangle on the floor that moves during your visit."
-    }
+    },
+    "bodySensation": "The coffee shop is warm in a way that marks how cold it was outside.",
+    "permanentPresence": "The table by the window. Empty. It waits.",
+    "mythologicalImpression": "Everything here has a history it is not showing. The counter. The cups. The light."
   },
   "L03": {
     "name": "St Anne's Churchyard",
@@ -616,7 +625,10 @@
     "weatherEffects": {
       "rain": "Rain on stone. The church darkens. The graves darken more.",
       "clear": "The shadow of the spire reaches further than the building is tall."
-    }
+    },
+    "bodySensation": "The grass is damp underfoot even when it has not rained in days.",
+    "permanentPresence": "Fresh flowers on the nearest grave. Every time.",
+    "mythologicalImpression": "Hawksmoor built this church taller than it needed to be. He had reasons."
   },
   "L04": {
     "name": "The Warehouse Studio",
@@ -633,6 +645,15 @@
       "from_L05": ["Up the street. The hum gets louder.", "From old wood to new concrete.", "The studio pulls you in."]
     },
     "interactableDetails": [
+      {
+        "id": "studio_door_tape",
+        "hitbox": { "x": 145, "y": 35, "w": 28, "h": 8 },
+        "description": "Tape on the studio door. A handwritten rule.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "Masking tape on the door frame. Four words in marker: NO PHONES NO CLOCKS. Not a request. A principle. Someone decided time works differently in here.",
+        "xp": { "awareness": 1 }
+      },
       {
         "id": "frequency_printouts",
         "hitbox": { "x": 10, "y": 15, "w": 50, "h": 60 },
@@ -732,7 +753,10 @@
     "weatherEffects": {
       "rain": "Rain on the warehouse roof. Amplified. The concrete holds every drop.",
       "clear": "Dust in a shaft of light from the high window. The particles don't settle."
-    }
+    },
+    "bodySensation": "The concrete holds last night's cold. Your feet find the warm patches near equipment.",
+    "permanentPresence": "The printouts on the wall. More of them each time.",
+    "mythologicalImpression": "The room was already recording before anyone brought equipment in."
   },
   "L05": {
     "name": "The Grapes",
@@ -873,7 +897,10 @@
     "weatherEffects": {
       "rain": "Rain on the old windows. The Thames rises. The pub feels like a ship.",
       "clear": "Light off the Thames flickers through the back window."
-    }
+    },
+    "bodySensation": "The floorboards give under your weight. Four centuries of feet have taught them to yield.",
+    "permanentPresence": "The back window. The Thames through it, moving. Always.",
+    "mythologicalImpression": "The pub was here before the street. The street before the city. The city before the name."
   },
   "L06": {
     "name": "The Tattoo Parlour",
@@ -989,7 +1016,10 @@
     "weatherEffects": {
       "rain": "Rain on the railway arch above. The buzz inside competes.",
       "clear": "Neon reflects on the wet pavement outside. Even when it hasn't rained."
-    }
+    },
+    "bodySensation": "Antiseptic reaches the back of your throat before the door is fully open.",
+    "permanentPresence": "The flash art doors on the wall. Still there. Still open.",
+    "mythologicalImpression": "The doors on the walls look like they go somewhere. They might."
   },
   "L07": {
     "name": "The Lock Gates",
@@ -1122,7 +1152,10 @@
     "weatherEffects": {
       "rain": "Rain on iron. Every surface drips. The canal rises.",
       "clear": "Mist off the water. The gates stand in it like monuments."
-    }
+    },
+    "bodySensation": "The spray from the lock reaches you before you expect it. Canal water, warm.",
+    "permanentPresence": "The gates hold. The water presses against them. The argument continues.",
+    "mythologicalImpression": "The gates have been holding back the same water since before London had a name."
   },
   "L08": {
     "name": "The DLR Platform",
@@ -1238,7 +1271,10 @@
     "weatherEffects": {
       "rain": "Rain on the platform canopy. Sheets of it past the edge.",
       "clear": "Cranes on the skyline. The city builds itself in every direction."
-    }
+    },
+    "bodySensation": "The wind at platform level finds every gap in your clothing. The city can see you.",
+    "permanentPresence": "The departure board cycles. The train comes and goes without a driver.",
+    "mythologicalImpression": "From up here, London looks unfinished. It has always looked unfinished."
   },
   "L09": {
     "name": "The Night Market",
@@ -1354,7 +1390,10 @@
     "weatherEffects": {
       "rain": "Rain and LED light. Everything reflects. The market shines.",
       "clear": "Smoke rises into nothing. The market is its own weather."
-    }
+    },
+    "bodySensation": "Heat comes in waves off the food stalls. Your face reads the geography in temperature.",
+    "permanentPresence": "The LED strings sway in a rhythm. Not wind.",
+    "mythologicalImpression": "Everything here will be gone by morning. The night market knows this. It doesn't mind."
   },
   "L10": {
     "name": "The Empty Lot",
@@ -1486,6 +1525,9 @@
     "weatherEffects": {
       "rain": "Rain falls where a roof used to be. The outline is visible in the dry patches.",
       "clear": "The sky is bigger here. Where the building was, nothing blocks it."
-    }
+    },
+    "bodySensation": "The sky is larger here. Your body feels the absence of a roof.",
+    "permanentPresence": "The survey stake is still in the crack. The lot is still waiting.",
+    "mythologicalImpression": "A building stood here. You can still feel where the walls were."
   }
 }

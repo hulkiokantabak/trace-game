@@ -155,11 +155,23 @@ const Game = (() => {
     const dayNames = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
     const today = dayNames[new Date().getDay()];
 
+    // First-session grace: if the player has never met any NPC, override schedule
+    // for the first NPC at this location so the world is never entirely empty on
+    // the player's very first exploration.
+    const allNpcMem = State.get('npcMemory') || {};
+    const anyNpcEverMet = Object.values(allNpcMem).some(m => m && m.visitCount > 0);
+    const graceActive = !anyNpcEverMet;
+
     const result = [];
+    let graceUsed = false;
     for (const [npcId, schedule] of Object.entries(loc.npcs_present)) {
       const npc = content.npcs[npcId];
       if (!npc) continue;
-      const available = schedule.timeOfDay.includes(period) && schedule.days.includes(today);
+      const normallyAvailable = schedule.timeOfDay.includes(period) && schedule.days.includes(today);
+      // Grace: make the first (and only the first) NPC at this location available,
+      // but only if no NPC here is normally available and grace hasn't been used yet.
+      const available = normallyAvailable || (graceActive && !graceUsed && !result.some(e => e.available));
+      if (available && !normallyAvailable) graceUsed = true;
       result.push({ id: npcId, npc, available });
     }
     return result;
