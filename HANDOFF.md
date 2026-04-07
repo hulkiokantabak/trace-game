@@ -1,5 +1,12 @@
 # PROJECT HANDOFF — Trace (A Solo Narrative Exploration Game)
 
+> **Current state (April 2026):** The game is built and deployed. MVP is feature-complete.
+> For continuing development, read `.claude/skills/trace-resume/SKILL.md` first.
+> The genesis prompt for a new session is in that file.
+> This document is the original build-from-scratch handoff — still useful for deep design context.
+
+---
+
 ## For Claude Code — Autonomous Implementation
 
 ### How to Read This Document
