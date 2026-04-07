@@ -1445,7 +1445,7 @@ const Engine = (() => {
     _ambient: null,      // { nodes[], gain, type, layer }
     _rain: null,         // { nodes[], gain }
     _crossfadeSec: 2,
-    _muted: false,
+    _muted: true,
     _preMuteVolume: 0.5,
 
     isMuted() { return this._muted; },
@@ -1465,6 +1465,9 @@ const Engine = (() => {
 
     init() {
       try {
+        // Audio disabled — _ctx stays null, all play* guards skip silently
+        return;
+
         this._ctx = new (window.AudioContext || window.webkitAudioContext)();
         this._master = this._ctx.createGain();
         this._master.gain.value = 0.5;
