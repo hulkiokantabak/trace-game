@@ -161,6 +161,135 @@
       "completion": { "awareness": 2 }
     }
   },
+  "GI-01": {
+    "id": "GI-01",
+    "name": "The Stopped Clock",
+    "type": "deep",
+    "primaryLocation": "G01",
+    "trait": "all",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        { "type": "discovery", "detail": "stopped_clock" }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "One clock on the back wall isn't moving. Every other one is.",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 2,
+        "text": "The stopped clock's hands have moved. Not correctly. Tracking something else.",
+        "type": "research",
+        "advanceTrigger": { "type": "detail", "detail": "clockmaker_key" },
+        "pacing": { "minHoursAfterPrevious": 0 }
+      },
+      {
+        "id": 3,
+        "text": "The clockmaker holds a small brass key. Worn. He looks at the stopped clock and says nothing.",
+        "type": "revelation",
+        "advanceTrigger": { "type": "npc_stage", "npc": "clockmaker", "minStage": "familiar" },
+        "pacing": { "minHoursAfterPrevious": 0 }
+      }
+    ],
+    "choice": {
+      "triggeredAfterStep": 3,
+      "prompt": "The clockmaker sets the key on the counter in front of you. The stopped clock is behind him.",
+      "options": [
+        {
+          "id": "wind",
+          "text": "Let's see what it does.",
+          "consequence": {
+            "narrativeText": "The clock resumes. A different sound fills the shop — not ticking. Ringing. The clockmaker closes his eyes. 'There it is,' he says. Outside, the glass in the case unclouds. The street sounds have changed pitch.",
+            "npcEffect": { "clockmaker": { "stageUnlock": "familiar_aware" } },
+            "xp": { "awareness": 4, "resonance": 3 },
+            "flatObject": { "id": "clockmaker_key", "description": "A brass key. The clockmaker pressed it into your hand after the ringing stopped." }
+          }
+        },
+        {
+          "id": "leave",
+          "text": "Some things are stopped for a reason.",
+          "consequence": {
+            "narrativeText": "'Smart,' the clockmaker says. He puts the key back. His hands are shaking. 'I've never wound it either.' He pours tea. The silence between you is different now. Warmer.",
+            "npcEffect": { "clockmaker": { "stageUnlock": "familiar_unknowing" } },
+            "xp": { "insight": 4, "connection": 3 },
+            "flatObject": null
+          }
+        }
+      ]
+    },
+    "rewards": {
+      "completion": { "awareness": 3 }
+    }
+  },
+  "GI-03": {
+    "id": "GI-03",
+    "name": "The Meridian Deviation",
+    "type": "deep",
+    "primaryLocation": "G02",
+    "trait": "all",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        { "type": "npc_stage", "npc": "observatory_keeper", "minStage": "acquaintance" },
+        { "type": "discovery", "detail": "meridian_shift" }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "The Observatory Keeper: 'Eleven seconds. Since Tuesday.'",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 2,
+        "text": "The bookshop has a record. The meridian shifted in 1894. In 1666. In 1348. Each time: crisis.",
+        "type": "research",
+        "advanceTrigger": { "type": "discovery", "detail": "geoacoustics_paper" },
+        "pacing": { "minHoursAfterPrevious": 0 }
+      },
+      {
+        "id": 3,
+        "text": "The Observatory Keeper: 'I need to re-measure. At night. The instruments are more accurate without foot traffic. Will you help?'",
+        "type": "revelation",
+        "advanceTrigger": { "type": "npc_stage", "npc": "observatory_keeper", "minStage": "familiar" },
+        "pacing": { "minHoursAfterPrevious": 0 }
+      }
+    ],
+    "choice": {
+      "triggeredAfterStep": 3,
+      "prompt": "The Observatory Keeper: 'I need to re-measure at night. The instruments are more accurate. Will you stay?'",
+      "options": [
+        {
+          "id": "stay",
+          "text": "I'll be there.",
+          "consequence": {
+            "narrativeText": "The night at the observatory. The instruments. The quiet. At 3:17 AM, something the instruments record that she has never seen. She prints it. 'Do we report this?' she asks.",
+            "npcEffect": { "observatory_keeper": { "stageUnlock": "familiar_aware" } },
+            "xp": { "insight": 5, "awareness": 3 },
+            "flatObject": { "id": "meridian_printout", "description": "A strip of thermal paper. A line that moves where it shouldn't. Dated 3:17 AM." }
+          }
+        },
+        {
+          "id": "decline",
+          "text": "I'm not sure I should.",
+          "consequence": {
+            "narrativeText": "The printout goes in her desk. 'Thank you,' she says, 'for understanding.' She looks at her measurements. The anomaly is still there. Still unreported. Yours to carry.",
+            "npcEffect": { "observatory_keeper": { "stageUnlock": "familiar_unknowing" } },
+            "xp": { "insight": 3, "resonance": 3 },
+            "flatObject": null
+          }
+        }
+      ]
+    },
+    "rewards": {
+      "completion": { "awareness": 3, "insight": 2 }
+    }
+  },
   "LI-12": {
     "id": "LI-12",
     "name": "The Watcher Noticed",

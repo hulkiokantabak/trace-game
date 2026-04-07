@@ -434,6 +434,332 @@
       }
     }
   },
+  "clockmaker": {
+    "id": "clockmaker",
+    "name": "The Clockmaker",
+    "primaryLocation": "G01",
+    "physicalSignature": "Hands never still — adjusting a cuff, testing a spring, rubbing thumb against forefinger. His hands are his clock.",
+    "voiceRule": "Speaks in statements. Never asks questions. He tells you things.",
+    "maxDialogueWords": 12,
+    "schedule": {
+      "available": { "timeOfDay": ["morning", "afternoon"], "days": ["mon", "tue", "wed", "thu", "fri", "sat"] },
+      "unavailable_reason": "The shop is dark. A card in the window: Closed."
+    },
+    "dialogue": {
+      "stranger": {
+        "entry": { "text": "We close at five.", "tag": "neutral" },
+        "ambient": [
+          { "text": "Don't touch the regulators.", "tag": "neutral" },
+          { "text": "Parts are in the back.", "tag": "neutral" }
+        ]
+      },
+      "acquaintance": {
+        "trigger": { "visitCount": 3, "acrossDays": true },
+        "entry": { "text": "You again. The spring you asked about. Still thinking.", "tag": "neutral" },
+        "ambient": [
+          { "text": "Quiet morning. Good for the mainsprings.", "tag": "neutral" },
+          { "text": "Rain makes the wood swell. The clocks speed up.", "tag": "neutral" }
+        ],
+        "weatherLines": {
+          "rain": { "text": "Damp does things to the casings. I compensate.", "tag": "neutral" }
+        },
+        "timeLines": {
+          "morning": { "text": "First customer. The light's right in the morning.", "tag": "neutral" }
+        },
+        "traitLines": {
+          "musician": { "text": "You hear that? The number seven case. It resonates.", "tag": "musician" },
+          "photographer": { "text": "You keep looking at the back wall. The light does something there.", "tag": "photographer" },
+          "wanderer": { "text": "You always pause at the same spot. Interesting.", "tag": "wanderer" },
+          "barista": { "text": "The observatory keeper hasn't been in. Used to come Tuesdays.", "tag": "barista" },
+          "shopkeeper": { "text": "That case is older than the glass. Older than the counter.", "tag": "shopkeeper" }
+        }
+      },
+      "familiar": {
+        "trigger": { "visitCount": 7, "acrossDays": true, "requiresInvestigation": "GI-01" },
+        "entry": { "text": "Sit. I made too much tea.", "tag": "neutral" },
+        "ambient": [
+          { "text": "That one keeps its own time. Always has.", "tag": "neutral" },
+          { "text": "Forty years in this shop. The building knows me now.", "tag": "neutral" }
+        ],
+        "traitLines": {
+          "musician": { "text": "Listen. When it's quiet. The shop has a pitch.", "tag": "musician" },
+          "photographer": { "text": "I found something. Under the face of the number twelve. Another face.", "tag": "photographer" },
+          "wanderer": { "text": "Some mornings the shop feels different. Heavier. I make tea and wait.", "tag": "wanderer" },
+          "barista": { "text": "She sent a letter. I didn't open it. It's in the drawer.", "tag": "barista" },
+          "shopkeeper": { "text": "The floor creaks there because something's underneath. I've never looked.", "tag": "shopkeeper" }
+        },
+        "crossReference": { "text": "The old man asked about you. Specifically.", "minNpcsMet": 3 }
+      },
+      "familiar_aware": {
+        "entry": { "text": "You wound it. The whole street changed pitch.", "tag": "neutral" },
+        "ambient": [
+          { "text": "Still ringing. Underneath everything. I hear it now.", "tag": "neutral" },
+          { "text": "I've been waiting forty years for that sound.", "tag": "neutral" }
+        ],
+        "traitLines": {
+          "musician": { "text": "The oldest clock isn't keeping time. It's keeping pitch.", "tag": "musician" },
+          "shopkeeper": { "text": "Come. I'll show you the floor. What's underneath.", "tag": "shopkeeper" }
+        }
+      },
+      "familiar_unknowing": {
+        "entry": { "text": "You left it. The smart choice.", "tag": "neutral" },
+        "ambient": [
+          { "text": "I've never wound it either. We're agreed on that.", "tag": "neutral" },
+          { "text": "The shop's been here two hundred years. It can wait.", "tag": "neutral" }
+        ],
+        "traitLines": {
+          "musician": { "text": "The pitch holds. The clock holds. Everything holds.", "tag": "musician" },
+          "shopkeeper": { "text": "The shop was here before the street had a name.", "tag": "shopkeeper" }
+        }
+      }
+    }
+  },
+  "old_man": {
+    "id": "old_man",
+    "name": "The Old Man",
+    "primaryLocation": "G03",
+    "physicalSignature": "Right shoe untied, always. Coat buttoned one hole off. Sits as if the bench was built around him.",
+    "voiceRule": "Speaks only the second half of thoughts. The first half happened in his head.",
+    "maxDialogueWords": 12,
+    "schedule": {
+      "available": { "timeOfDay": ["afternoon", "evening"], "days": ["mon", "tue", "wed", "thu", "fri", "sat", "sun"] },
+      "unavailable_reason": "The bench is empty. The wood holds the warmth of where he sat."
+    },
+    "dialogue": {
+      "stranger": {
+        "entry": { "text": "...not today.", "tag": "neutral" },
+        "ambient": [
+          { "text": "...but not when it rains.", "tag": "neutral" },
+          { "text": "...which is why nobody comes back.", "tag": "neutral" }
+        ]
+      },
+      "acquaintance": {
+        "trigger": { "visitCount": 3, "acrossDays": true },
+        "entry": { "text": "...you again. Thought you might come back.", "tag": "neutral" },
+        "ambient": [
+          { "text": "...but the light was different then.", "tag": "neutral" },
+          { "text": "...which is why she left, probably.", "tag": "neutral" }
+        ],
+        "weatherLines": {
+          "rain": { "text": "...not bad, rain. Clears the tourists.", "tag": "neutral" }
+        },
+        "timeLines": {
+          "evening": { "text": "...the good hour. Just before dark.", "tag": "neutral" }
+        },
+        "traitLines": {
+          "musician": { "text": "...the note was louder last Thursday. You heard it too.", "tag": "musician" },
+          "photographer": { "text": "...the church had four windows. Now it has three. Nobody notices.", "tag": "photographer" },
+          "wanderer": { "text": "...she used to feel it. Same as you. The pulling.", "tag": "wanderer" },
+          "barista": { "text": "...everyone here knew someone. Same someone. Different name.", "tag": "barista" },
+          "shopkeeper": { "text": "...the ground shifted. Tuesday. First time in my lifetime.", "tag": "shopkeeper" }
+        }
+      },
+      "familiar": {
+        "trigger": { "visitCount": 10, "acrossDays": true },
+        "entry": { "text": "...sit, if you want. The wood's warm.", "tag": "neutral" },
+        "ambient": [
+          { "text": "...I sat here before the bench.", "tag": "neutral" },
+          { "text": "...it's not the waiting. It's the counting.", "tag": "neutral" }
+        ],
+        "traitLines": {
+          "musician": { "text": "...if you count the chimes. Not the hours. The chimes.", "tag": "musician" },
+          "photographer": { "text": "...the light that doesn't match the sun. You've seen it.", "tag": "photographer" },
+          "wanderer": { "text": "...the pull gets stronger. Closer to the source.", "tag": "wanderer" },
+          "barista": { "text": "...the same people, different faces, every ten years.", "tag": "barista" },
+          "shopkeeper": { "text": "...the stone under the clockmaker's floor. It breathes.", "tag": "shopkeeper" }
+        },
+        "crossReference": { "text": "...the one you're looking for. I used to know them.", "minNpcsMet": 4 }
+      }
+    }
+  },
+  "observatory_keeper": {
+    "id": "observatory_keeper",
+    "name": "The Observatory Keeper",
+    "primaryLocation": "G02",
+    "physicalSignature": "Holds wrist at angle of checking an absent watch. Hair pinned precisely. One strand escaping. She ignores it visibly.",
+    "voiceRule": "Speaks in precise measurements. Emotion expressed through numbers.",
+    "maxDialogueWords": 12,
+    "schedule": {
+      "available": { "timeOfDay": ["morning", "afternoon"], "days": ["mon", "tue", "wed", "thu", "fri", "sat", "sun"] },
+      "unavailable_reason": "The terrace is closed. A sign gives the reopening time to the minute."
+    },
+    "dialogue": {
+      "stranger": {
+        "entry": { "text": "The terrace closes at sunset. Mind the steps.", "tag": "neutral" },
+        "ambient": [
+          { "text": "Seventeen degrees. Low humidity. Good for the lenses.", "tag": "neutral" },
+          { "text": "Don't touch the meridian line. The wear rate is documented.", "tag": "neutral" }
+        ]
+      },
+      "acquaintance": {
+        "trigger": { "visitCount": 3, "acrossDays": true },
+        "entry": { "text": "You're back. Fourteen degrees today. Warm for the month.", "tag": "neutral" },
+        "ambient": [
+          { "text": "You arrive at the same time. 4:47. Interesting.", "tag": "neutral" },
+          { "text": "Cloud cover: 40%. Better than yesterday's 90%.", "tag": "neutral" }
+        ],
+        "weatherLines": {
+          "rain": { "text": "Rain affects the refraction. I account for it.", "tag": "neutral" }
+        },
+        "timeLines": {
+          "morning": { "text": "Morning: best readings. The atmosphere is stable.", "tag": "neutral" }
+        },
+        "traitLines": {
+          "musician": { "text": "There's a resonance in the transit room. 440 hertz. Shouldn't be.", "tag": "musician" },
+          "photographer": { "text": "The daguerreotype collection. Third shelf. Something in the 1842 prints.", "tag": "photographer" },
+          "wanderer": { "text": "You stand in the same spot each visit. 1.3 metres from the line.", "tag": "wanderer" },
+          "barista": { "text": "He sent a letter. I keep it in the desk. Unopened.", "tag": "barista" },
+          "shopkeeper": { "text": "The line was here before the observatory. We built around it.", "tag": "shopkeeper" }
+        }
+      },
+      "familiar": {
+        "trigger": { "visitCount": 7, "acrossDays": true, "requiresInvestigation": "GI-03" },
+        "entry": { "text": "I trust your discretion. Eleven seconds.", "tag": "neutral" },
+        "ambient": [
+          { "text": "The Meridian moved. 0.003 degrees. Nobody reported it.", "tag": "neutral" },
+          { "text": "The instruments measure time. Something here measures the instruments.", "tag": "neutral" }
+        ],
+        "traitLines": {
+          "musician": { "text": "The meridian doesn't measure space. It measures resonance.", "tag": "musician" },
+          "photographer": { "text": "The light bends here. Not from the atmosphere. From below.", "tag": "photographer" },
+          "wanderer": { "text": "The pull you feel on the hill. I've measured it. It varies.", "tag": "wanderer" },
+          "barista": { "text": "The clockmaker and I measured the same thing differently. We stopped agreeing.", "tag": "barista" },
+          "shopkeeper": { "text": "The line was here before the observatory. We built around it.", "tag": "shopkeeper" }
+        },
+        "crossReference": { "text": "The clockmaker knows something about the deviation. Ask him.", "minNpcsMet": 3 }
+      },
+      "familiar_aware": {
+        "entry": { "text": "You stayed. The reading changes everything. 3:17 AM.", "tag": "neutral" },
+        "ambient": [
+          { "text": "The data is in the desk. I haven't filed it. Not yet.", "tag": "neutral" },
+          { "text": "Eleven seconds. Now twelve. It's accelerating.", "tag": "neutral" }
+        ]
+      },
+      "familiar_unknowing": {
+        "entry": { "text": "The anomaly is documented. Privately. Thank you.", "tag": "neutral" },
+        "ambient": [
+          { "text": "I check it every morning. Still eleven seconds. Holding.", "tag": "neutral" },
+          { "text": "The instruments don't know what they're measuring.", "tag": "neutral" }
+        ]
+      }
+    }
+  },
+  "data_scientist": {
+    "id": "data_scientist",
+    "name": "The Data Scientist",
+    "primaryLocation": "G05",
+    "physicalSignature": "Types while talking. Eyes between you and screen. Coffee found by hand-memory. Three laptop stickers: wavelength, question mark, fox.",
+    "voiceRule": "Speaks in correlations and data patterns. The world is a dataset.",
+    "maxDialogueWords": 12,
+    "schedule": {
+      "available": { "timeOfDay": ["morning", "afternoon", "evening"], "days": ["mon", "tue", "wed", "thu", "fri"] },
+      "unavailable_reason": "Her corner table is empty. Coffee cup still there."
+    },
+    "dialogue": {
+      "stranger": {
+        "entry": { "text": "Sorry. Working. The café's good though.", "tag": "neutral" },
+        "ambient": [
+          { "text": "Coffee's decent here. 0.8 correlation with productivity.", "tag": "neutral" },
+          { "text": "Don't mind me. I track people. Just patterns.", "tag": "neutral" }
+        ]
+      },
+      "acquaintance": {
+        "trigger": { "visitCount": 3, "acrossDays": true },
+        "entry": { "text": "You keep interesting hours. I notice patterns.", "tag": "neutral" },
+        "ambient": [
+          { "text": "You keep visiting Greenwich. That's an outlier pattern.", "tag": "neutral" },
+          { "text": "The model updated. You changed two variables.", "tag": "neutral" }
+        ],
+        "weatherLines": {
+          "rain": { "text": "Rain increases my sample size. People stay longer.", "tag": "neutral" }
+        },
+        "timeLines": {
+          "morning": { "text": "Morning: clean data. Fewer confounding variables.", "tag": "neutral" }
+        },
+        "traitLines": {
+          "musician": { "text": "That's a 0.7 correlation with last Thursday. Something rhythmic.", "tag": "musician" },
+          "photographer": { "text": "You're framing things. The angle changes the data.", "tag": "photographer" },
+          "wanderer": { "text": "Your route is non-optimal. But the deviation is consistent.", "tag": "wanderer" },
+          "barista": { "text": "My network graph has a gap. A node that should exist.", "tag": "barista" },
+          "shopkeeper": { "text": "Seven fixed points. The rest of London orbits them.", "tag": "shopkeeper" }
+        }
+      },
+      "familiar": {
+        "trigger": { "visitCount": 7, "acrossDays": true },
+        "entry": { "text": "I'm going to show you something. Don't share it.", "tag": "neutral" },
+        "ambient": [
+          { "text": "I found a signal in the city data. Not traffic. Not weather. Not human.", "tag": "neutral" },
+          { "text": "The pattern predicts where you'll go next. It predicted you before you arrived.", "tag": "neutral" }
+        ],
+        "traitLines": {
+          "musician": { "text": "The city is playing something. My models see it. I can almost hear it.", "tag": "musician" },
+          "photographer": { "text": "The city has a geometry. Not architectural. Older.", "tag": "photographer" },
+          "wanderer": { "text": "Your route optimizes for something my model can't measure.", "tag": "wanderer" },
+          "barista": { "text": "My model predicts a person. They don't exist. But everyone orbits them.", "tag": "barista" },
+          "shopkeeper": { "text": "Seven points. Unmoved since the first survey. Everything else shifted.", "tag": "shopkeeper" }
+        },
+        "crossReference": { "text": "The observatory keeper's deviation. It maps to my signal. Exactly.", "minNpcsMet": 3 }
+      }
+    }
+  },
+  "market_vendor": {
+    "id": "market_vendor",
+    "name": "The Market Vendor",
+    "primaryLocation": "G05",
+    "physicalSignature": "Handles objects with excessive care — not fragile care, respectful care. As if the objects are older or more significant than they appear.",
+    "voiceRule": "Speaks in appraisals. Everything and everyone has a value he can see.",
+    "maxDialogueWords": 12,
+    "schedule": {
+      "available": { "timeOfDay": ["morning", "afternoon"], "days": ["wed", "thu", "fri", "sat", "sun"] },
+      "unavailable_reason": "The stall is covered. A padlock. The objects wait."
+    },
+    "dialogue": {
+      "stranger": {
+        "entry": { "text": "Browsing? Everything here has a price.", "tag": "neutral" },
+        "ambient": [
+          { "text": "Don't handle it like that. It knows.", "tag": "neutral" },
+          { "text": "That one's not for sale. I keep it for reference.", "tag": "neutral" }
+        ]
+      },
+      "acquaintance": {
+        "trigger": { "visitCount": 3, "acrossDays": true },
+        "entry": { "text": "That piece you looked at last week. It's changed.", "tag": "neutral" },
+        "ambient": [
+          { "text": "Some things appreciate. Others remember.", "tag": "neutral" },
+          { "text": "You have good hands. Objects respond to that.", "tag": "neutral" }
+        ],
+        "weatherLines": {
+          "rain": { "text": "Rain brings the serious buyers. The objects know it.", "tag": "neutral" }
+        },
+        "timeLines": {
+          "morning": { "text": "Morning: the objects are clearer. Less noise from the day.", "tag": "neutral" }
+        },
+        "traitLines": {
+          "musician": { "text": "This box. Open it slowly. Listen.", "tag": "musician" },
+          "photographer": { "text": "This glass is old enough to have seen the building it came from.", "tag": "photographer" },
+          "wanderer": { "text": "This compass. Still trying to find something.", "tag": "wanderer" },
+          "barista": { "text": "This cup passed through twelve hands before mine.", "tag": "barista" },
+          "shopkeeper": { "text": "That one predates the market. Predates the street.", "tag": "shopkeeper" }
+        }
+      },
+      "familiar": {
+        "trigger": { "visitCount": 7, "acrossDays": true },
+        "entry": { "text": "Some things here haven't been made yet. I don't set those prices.", "tag": "neutral" },
+        "ambient": [
+          { "text": "I don't sell antiques. I sell what the city remembers owning.", "tag": "neutral" },
+          { "text": "This one arrived yesterday. It's been here longer than yesterday.", "tag": "neutral" }
+        ],
+        "traitLines": {
+          "musician": { "text": "The sound objects hold. The ones from the right buildings.", "tag": "musician" },
+          "photographer": { "text": "This lens. It's seen something. You can tell by the scratch pattern.", "tag": "photographer" },
+          "wanderer": { "text": "This belonged to someone who walked the same routes as you.", "tag": "wanderer" },
+          "barista": { "text": "Every object here connects to another. I map them. It's a web.", "tag": "barista" },
+          "shopkeeper": { "text": "The clockmaker's shop is built on something. This key fits it.", "tag": "shopkeeper" }
+        },
+        "crossReference": { "text": "You're different now than when you first came. The objects noticed.", "minNpcsMet": 4 }
+      }
+    }
+  },
   "street_preacher": {
     "id": "street_preacher",
     "name": "The Street Preacher",

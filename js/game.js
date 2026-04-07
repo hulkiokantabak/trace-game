@@ -102,23 +102,27 @@ const Game = (() => {
       return pick(content.thoughts.flat.leaving);
     }
 
+    // Determine neighborhood for thought selection
+    const nbr = (dest && dest.neighborhood) || 'limehouse';
+    const nbrThoughts = content.thoughts[nbr] || content.thoughts.limehouse;
+
     // Weather-specific thought
-    if (_weather === 'rain' && content.thoughts.limehouse.weather && content.thoughts.limehouse.weather.rain) {
-      if (Math.random() < 0.4) return pick(content.thoughts.limehouse.weather.rain);
+    if (_weather === 'rain' && nbrThoughts.weather && nbrThoughts.weather.rain) {
+      if (Math.random() < 0.4) return pick(nbrThoughts.weather.rain);
     }
 
     // Time-specific thought
     const timePeriod = getTimePeriod();
-    const timeThought = content.thoughts.limehouse.time[timePeriod];
+    const timeThought = nbrThoughts.time && nbrThoughts.time[timePeriod];
     if (timeThought && Math.random() < 0.3) return timeThought;
 
     // Trait-specific thought
-    if (trait && content.thoughts.limehouse[trait] && Math.random() < 0.25) {
-      return pick(content.thoughts.limehouse[trait]);
+    if (trait && nbrThoughts[trait] && Math.random() < 0.25) {
+      return pick(nbrThoughts[trait]);
     }
 
-    // General Limehouse thought
-    return pick(content.thoughts.limehouse.neutral);
+    // General neighborhood thought
+    return pick(nbrThoughts.neutral);
   }
 
   function pick(arr) {

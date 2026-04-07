@@ -122,5 +122,95 @@
     "location": "L03",
     "awareness_required": 4,
     "text": "A gravestone near the east wall has been recarved three times. Each inscription older than the last — the newest name from 1780, the deepest from centuries before. The stone keeps choosing whose name to hold."
+  },
+
+  "M-F3": {
+    "id": "M-F3",
+    "title": "The Retracted Paper",
+    "trait": "musician",
+    "location": "G07",
+    "awareness_required": 2,
+    "text": "Limestone absorbs vibration. The clay beneath London is forty metres deep in places. A geoacoustics paper from 1983 proposed that certain geological formations could store and replay sound energy. The paper was retracted. The author moved to Limehouse."
+  },
+
+  "P-F1": {
+    "id": "P-F1",
+    "title": "The Contaminated Brushstroke",
+    "trait": "photographer",
+    "location": "G06",
+    "awareness_required": 2,
+    "text": "The Painted Hall ceiling contains 40,000 square feet of painted surface. A 2015 restoration documented every inch. In the north-east corner, behind Neptune's trident, they found a brushstroke in a pigment not manufactured until 1923. The restoration report lists it as contamination. Nobody contaminated it."
+  },
+
+  "P-F3": {
+    "id": "P-F3",
+    "title": "The Sharper Reflection",
+    "trait": "photographer",
+    "location": "G02",
+    "awareness_required": 2,
+    "text": "A daguerreotype from 1842 of the Greenwich waterfront shows, in the reflection on the Thames, a building that wasn't on the north bank until 1856. Fourteen years early. The reflection is sharper than the subject — as if the river's version was more real than the photographer's."
+  },
+
+  "P-F7": {
+    "id": "P-F7",
+    "title": "The Thames as Mirror",
+    "trait": "photographer",
+    "location": "G09",
+    "awareness_required": 6,
+    "text": "The Thames is London's mirror. Every edition of the city has looked at its reflection in the river and seen itself. But a mirror doesn't just show what's there. A mirror reverses. What if the Thames shows London not as it is, but as its negative — the version that exists on the other side of the reflection? And what if that version is more complete?"
+  },
+
+  "W-F2": {
+    "id": "W-F2",
+    "title": "The Reluctant Clay",
+    "trait": "wanderer",
+    "location": "G04",
+    "awareness_required": 2,
+    "text": "In 1902 when the Greenwich tunnel was dug, workers reported a reluctance — not their own — at a specific depth. The clay resisted. Not physically. Emotionally. Three workers quit on the same day. They described, independently, a feeling of being watched by something that was not above them."
+  },
+
+  "W-F4": {
+    "id": "W-F4",
+    "title": "The Park's Expectation",
+    "trait": "wanderer",
+    "location": "G08",
+    "awareness_required": 4,
+    "text": "Greenwich Park at dawn, before the joggers and the dog walkers, holds a feeling that doesn't belong to the present. It's older. Not sad. Not happy. Anticipatory. As if the park is waiting for someone it expected centuries ago. The feeling dissipates by 7 AM. The park pretends it was never there."
+  },
+
+  "BA-F2": {
+    "id": "BA-F2",
+    "title": "The Web",
+    "trait": "barista",
+    "location": "G09",
+    "awareness_required": 2,
+    "text": "In 1888, a vicar in Bermondsey compiled a list of every person who had lived on his street for the previous century. Every family had a link to at least one other. The vicar called it the web. He stopped compiling when the web began to include people who hadn't been born yet."
+  },
+
+  "BA-F5": {
+    "id": "BA-F5",
+    "title": "The City as Bartender",
+    "trait": "barista",
+    "location": "G10",
+    "awareness_required": 4,
+    "text": "Imagine a city that knows its people the way a bartender knows regulars. Every street a bartender. Every corner a regular. The city takes your order before you know what you want. It seats you next to the person you need to meet. And if someone is removed from the bar, everyone feels the missing stool."
+  },
+
+  "BA-F6": {
+    "id": "BA-F6",
+    "title": "The Broken Web",
+    "trait": "barista",
+    "location": "G03",
+    "awareness_required": 4,
+    "text": "A page torn from a journal, found pressed inside a hymnal at St Alfege. The handwriting is controlled but the content is not: I erased them because the alternative was worse. A single node carrying the weight of every connection in London. I broke the web to save it. I broke the web. I broke it."
+  },
+
+  "S-F2": {
+    "id": "S-F2",
+    "title": "The Seven Stones",
+    "trait": "shopkeeper",
+    "location": "G01",
+    "awareness_required": 2,
+    "text": "Seven stones in London have never moved. Not since they were placed. The London Stone on Cannon Street is the famous one. Six others are unmarked, embedded in walls and foundations across the city. Each predates the building it supports. Each weighs more than it should. The clockmaker's shop is built on one."
   }
 }

@@ -90,6 +90,67 @@
       "Every surface here has been sold twice."
     ]
   },
+  "greenwich": {
+    "neutral": [
+      "The park smells like cut grass and history.",
+      "Tourists at the Cutty Sark. They don't see.",
+      "Clocks everywhere. All disagreeing slightly.",
+      "The bench is empty. Not yet dusk.",
+      "The meridian line. Everyone stands on it. Grins.",
+      "The river is wide here. Older.",
+      "Stone and symmetry. The city planned this part.",
+      "Observatory above. The hill knows what it holds.",
+      "Old wood and river light. The pub waits.",
+      "The tunnel. Cream tiles. The city crossing itself."
+    ],
+    "time": {
+      "morning": "Greenwich wakes slowly. Like it's thinking.",
+      "afternoon": "Afternoon light on the white stone. Sharp.",
+      "evening": "The observatory closes. The sky stays open.",
+      "night": "The park at night. Different country."
+    },
+    "weather": {
+      "rain": [
+        "The cobbles shine. Everything doubled in reflections.",
+        "Rain on the meridian line. The brass runs wet."
+      ]
+    },
+    "musician": [
+      "A hum under the clockmaker's floor. Low.",
+      "The tunnel has a note. E-flat. Sustained.",
+      "Forty clocks. Forty different pitches.",
+      "The park at dawn. Wind in the old chestnuts.",
+      "The river carries sound differently here."
+    ],
+    "photographer": [
+      "The Naval College. Symmetry as composition.",
+      "The foreshore at low tide. Everything exposed.",
+      "River light through the pub's unwashed glass.",
+      "The hill frames the city. A viewfinder.",
+      "The tunnel's perspective. Vanishing point below."
+    ],
+    "wanderer": [
+      "The hill rises and the city drops behind.",
+      "The tunnel's midpoint. Something resists the step.",
+      "The foreshore clay. Older than the path.",
+      "The bench. Worn to the shape of waiting.",
+      "The park before dawn. The oldest feeling."
+    ],
+    "barista": [
+      "Coffee from three directions in the market.",
+      "The pub landlord knows everyone's name.",
+      "She's working there again. Same corner table.",
+      "Market vendors nodding to each other. A language.",
+      "The hymnal page. Someone's handwriting. Urgent."
+    ],
+    "shopkeeper": [
+      "The clockmaker's hands. Always adjusting something.",
+      "That stone in the floor. Older than the building.",
+      "The cobblestones remember ships. Dockyard memory.",
+      "Brass and oak. Nothing here is decorative.",
+      "The market vendor handles objects with too much care."
+    ]
+  },
   "flat": {
     "leaving": [
       "Door. Street. London. Here we go.",

@@ -47,7 +47,7 @@ const State = (() => {
 
   // Security: valid location IDs and trait names to prevent injection via crafted save data.
   // If a location/trait from localStorage doesn't match this allowlist, the save is rejected.
-  const VALID_LOCATIONS = ['flat','L01','L02','L03','L04','L05','L06','L07','L08','L09','L10'];
+  const VALID_LOCATIONS = ['flat','L01','L02','L03','L04','L05','L06','L07','L08','L09','L10','G01','G02','G03','G04','G05','G06','G07','G08','G09','G10'];
   const VALID_TRAITS = ['musician','photographer','wanderer','barista','shopkeeper'];
 
   // Security: strip __proto__, constructor, and prototype keys from parsed JSON to prevent

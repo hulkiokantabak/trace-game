@@ -1166,9 +1166,10 @@
       "timeOfDay": ["morning", "afternoon", "evening", "night"],
       "weather": ["clear", "rain"]
     },
-    "adjacentLocations": ["L07", "L09"],
+    "adjacentLocations": ["L07", "L09", "G09"],
     "walkingThoughts": {
       "from_L07": ["Steps up. The platform. Higher ground.", "The DLR sees everything. Rooftops. Cranes.", "Automated voice. No one driving."],
+      "from_G09": ["Up the ramp. Leaving the river behind.", "The platform. Back to Limehouse.", "The DLR glides in. No driver."],
       "from_L09": ["The market noise fades. Platform quiet.", "Up the steps. London spreads out.", "The train comes when it comes."]
     },
     "interactableDetails": [
@@ -1529,5 +1530,674 @@
     "bodySensation": "The sky is larger here. Your body feels the absence of a roof.",
     "permanentPresence": "The survey stake is still in the crack. The lot is still waiting.",
     "mythologicalImpression": "A building stood here. You can still feel where the walls were."
+  },
+
+  "G01": {
+    "name": "The Clockmaker's Shop",
+    "neighborhood": "greenwich",
+    "type": "interior",
+    "body": "Oil and brass. Forty clocks ticking not quite in time. The floor creaks left of the door. Dust in one high window's light.",
+    "available": {
+      "timeOfDay": ["morning", "afternoon"],
+      "weather": ["clear", "rain"]
+    },
+    "adjacentLocations": ["G03", "G07"],
+    "walkingThoughts": {
+      "from_G03": ["From bench to brass. The ticking begins.", "Oil and old wood. The clocks know I'm here.", "Each clock on its own time."],
+      "from_G07": ["From paper to mechanism. Both keep things.", "The clockmaker's door. Always slightly ajar.", "Forty ticking things. Almost in time."]
+    },
+    "interactableDetails": [
+      {
+        "id": "stopped_clock",
+        "hitbox": { "x": 220, "y": 40, "w": 28, "h": 32 },
+        "description": "One clock on the back wall. Not moving.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "Every clock in the shop is ticking. Every clock except this one. The hands are stopped at 4:17. They have been stopped at 4:17 for longer than the clockmaker will say.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "clockmaker_key",
+        "hitbox": { "x": 140, "y": 110, "w": 14, "h": 10 },
+        "description": "A small brass key on the shelf.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 1,
+        "requires_investigation": { "id": "GI-01", "minStep": 1 },
+        "discovery_text": "The key has no tag. No case number. The metal is worn to a shine in the grip. It has been held often. Carried. Put back. It fits nothing obvious in the shop.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "resonant_case",
+        "hitbox": { "x": 60, "y": 50, "w": 32, "h": 28 },
+        "description": "The number seven case. Something in it.",
+        "trait_required": "musician",
+        "awareness_required": 1,
+        "discovery_text": "The case hums when you stand close. Not the clock inside — the wood itself. A frequency the clock didn't cause. The case is amplifying something the room contains.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "old_face_drawer",
+        "hitbox": { "x": 180, "y": 130, "w": 30, "h": 18 },
+        "description": "A drawer slightly open. Old clock faces inside.",
+        "trait_required": "photographer",
+        "awareness_required": 2,
+        "discovery_text": "Clock faces in the drawer. Dozens. Each one replaced at some point. The oldest have hand-painted numerals, the paint faded to whisper. The clockmaker keeps them. He doesn't throw away what once told time.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "floor_creak_spot",
+        "hitbox": { "x": 22, "y": 140, "w": 24, "h": 20 },
+        "description": "The floor. Creaks left of the door.",
+        "trait_required": "wanderer",
+        "awareness_required": 0,
+        "discovery_text": "You step on the loose board. The creak is lower than it should be — too resonant for a single board. Something below amplifies it. The clockmaker doesn't react. He's heard it ten thousand times.",
+        "xp": { "awareness": 1 }
+      }
+    ],
+    "npcs_present": {
+      "clockmaker": { "timeOfDay": ["morning", "afternoon"], "days": ["mon", "tue", "wed", "thu", "fri", "sat"] }
+    },
+    "ambientLife": ["clocks_ticking", "spring_adjust", "key_clink"],
+    "musicLayer": "interior_shop",
+    "weatherEffects": {
+      "rain": "Rain on the window. The clocks speed up slightly. The clockmaker notices.",
+      "clear": "Morning light through the high window. Dust in columns. The mechanisms flash."
+    },
+    "bodySensation": "The sound of forty clocks fills your chest. Not quite together. Almost.",
+    "permanentPresence": "The stopped clock. Always stopped. Always 4:17.",
+    "mythologicalImpression": "The shop has been measuring time for two hundred years. It keeps better time than any single clock inside it."
+  },
+
+  "G02": {
+    "name": "The Observatory Terrace",
+    "neighborhood": "greenwich",
+    "type": "exterior",
+    "body": "Wind always. The city below like something spilled. Cold stone underfoot. The brass meridian line warm from a day of hands.",
+    "available": {
+      "timeOfDay": ["morning", "afternoon"],
+      "weather": ["clear", "rain"]
+    },
+    "adjacentLocations": ["G08"],
+    "walkingThoughts": {
+      "from_G08": ["The crest. The dome ahead. The instruments.", "Observatory. London behind me now.", "The meridian line. The whole city organised around it."]
+    },
+    "interactableDetails": [
+      {
+        "id": "meridian_line",
+        "hitbox": { "x": 148, "y": 100, "w": 4, "h": 60 },
+        "description": "The brass meridian line in the ground.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "The meridian line bisects the courtyard. Tourists stand on it and grin. You stand on it and feel the city reorganise itself around the line you're standing on. East and west. The line is the reason.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "meridian_shift",
+        "hitbox": { "x": 148, "y": 140, "w": 12, "h": 20 },
+        "description": "The meridian. Something slightly wrong.",
+        "trait_required": null,
+        "awareness_required": 2,
+        "discovery_text": "You crouch over the meridian line. The brass is worn, true. But the wear pattern doesn't center on the line. It's offset by what the Observatory Keeper would call eleven seconds of arc. You stand up. The city looks the same.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "city_panorama",
+        "hitbox": { "x": 40, "y": 20, "w": 220, "h": 50 },
+        "description": "London spread below. Everything at once.",
+        "trait_required": "photographer",
+        "awareness_required": 0,
+        "discovery_text": "The city from up here. Glass towers and church spires and council estates and cranes. All of it together, all at once, none of it dominant. The Observatory was built to see all of this and measure it. The measurement hasn't stopped.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "transit_room_resonance",
+        "hitbox": { "x": 260, "y": 80, "w": 40, "h": 40 },
+        "description": "The transit room door. A sound inside.",
+        "trait_required": "musician",
+        "awareness_required": 2,
+        "discovery_text": "Your ear near the transit room door. 440 hertz. Concert A. A pure sustained tone from inside a room full of instruments that measure angles and time. Nothing in there should produce this. Nothing should sustain it.",
+        "xp": { "awareness": 3 }
+      },
+      {
+        "id": "stone_terrace_cold",
+        "hitbox": { "x": 60, "y": 140, "w": 60, "h": 20 },
+        "description": "The stone underfoot. Cold even in sun.",
+        "trait_required": "wanderer",
+        "awareness_required": 0,
+        "discovery_text": "The terrace stone is cold through your shoes even on a warm afternoon. The hill holds something that the sun can't warm. Not damp — something older than damp. The stone was here before the observatory. It remembers a different purpose.",
+        "xp": { "awareness": 2 }
+      }
+    ],
+    "npcs_present": {
+      "observatory_keeper": { "timeOfDay": ["morning", "afternoon"], "days": ["mon", "tue", "wed", "thu", "fri", "sat", "sun"] }
+    },
+    "ambientLife": ["wind_constant", "city_hum_below", "tourist_murmur"],
+    "musicLayer": "exterior_hill",
+    "weatherEffects": {
+      "rain": "Rain on the dome. The city below disappears into cloud. You're in the cloud.",
+      "clear": "The city spread below in clear light. Every building named by its shadow."
+    },
+    "bodySensation": "Wind at this elevation finds every gap. The city hums below you.",
+    "permanentPresence": "The meridian line. Tourists standing on it. Grinning.",
+    "mythologicalImpression": "Greenwich tells the whole planet what time it is. The planet agreed. Nobody asked why."
+  },
+
+  "G03": {
+    "name": "The Bench by St Alfege",
+    "neighborhood": "greenwich",
+    "type": "exterior",
+    "body": "Worn wood, one armrest smooth from decades of the same elbow. The church wall holds heat after the sun moves.",
+    "available": {
+      "timeOfDay": ["morning", "afternoon", "evening"],
+      "weather": ["clear", "rain"]
+    },
+    "adjacentLocations": ["G01", "G05"],
+    "walkingThoughts": {
+      "from_G01": ["From the ticking to the quiet.", "The bench. The old man.", "Stone and worn wood. Both hold."],
+      "from_G05": ["From the market into the churchyard. The noise drops.", "The bench. Dusk almost.", "The church wall. Warm."]
+    },
+    "interactableDetails": [
+      {
+        "id": "smooth_armrest",
+        "hitbox": { "x": 80, "y": 112, "w": 40, "h": 10 },
+        "description": "The left armrest. Smooth from one elbow.",
+        "trait_required": "barista",
+        "awareness_required": 0,
+        "discovery_text": "The left armrest is worn to a gleam. Decades of the same person. The same arm. The same hours. The wood has taken the shape of someone's waiting. You can feel the indentation.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "church_three_windows",
+        "hitbox": { "x": 190, "y": 30, "w": 80, "h": 70 },
+        "description": "The church wall. Three windows.",
+        "trait_required": "photographer",
+        "awareness_required": 2,
+        "discovery_text": "Three windows. But there's a shadow where a fourth should be — the outline of a blocked arch, older than the current wall. The church had four windows. Now it has three. Nobody thought to ask where the fourth went.",
+        "xp": { "awareness": 3 }
+      },
+      {
+        "id": "warm_wall",
+        "hitbox": { "x": 160, "y": 80, "w": 30, "h": 50 },
+        "description": "The church wall. Warm to the touch.",
+        "trait_required": "wanderer",
+        "awareness_required": 1,
+        "discovery_text": "Your hand on the church wall. The sun moved away from this face an hour ago. The stone is still warm. Not residual heat — something ongoing. The wall generates warmth it didn't receive.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "hymnal_page",
+        "hitbox": { "x": 60, "y": 130, "w": 20, "h": 16 },
+        "description": "Something tucked under the bench slat.",
+        "trait_required": "barista",
+        "awareness_required": 3,
+        "discovery_text": "A page folded tight. Torn from a journal. The handwriting controlled but the content not: 'I erased them because the alternative was worse. A single node carrying every connection in London. I broke the web to save it. I broke it.'",
+        "xp": { "awareness": 3, "insight": 2 }
+      }
+    ],
+    "npcs_present": {
+      "old_man": { "timeOfDay": ["afternoon", "evening"], "days": ["mon", "tue", "wed", "thu", "fri", "sat", "sun"] }
+    },
+    "ambientLife": ["church_bells_distant", "pigeons_coo", "wind_low"],
+    "musicLayer": "exterior_churchyard",
+    "weatherEffects": {
+      "rain": "Rain on the bench. The old man stays.",
+      "clear": "Late sun on the church wall. Gold stone."
+    },
+    "bodySensation": "The bench wood is warm from the afternoon. Smooth where the same hands always rest.",
+    "permanentPresence": "The old man, at dusk. Right shoe untied. Always.",
+    "mythologicalImpression": "Someone has been sitting on this bench for much longer than the bench has existed."
+  },
+
+  "G04": {
+    "name": "Greenwich Foot Tunnel",
+    "neighborhood": "greenwich",
+    "type": "interior",
+    "body": "Tiles, cream and green, curving down. Footsteps echo twice. The air is cooler than the street. Damp. Iron taste.",
+    "available": {
+      "timeOfDay": ["morning", "afternoon", "evening", "night"],
+      "weather": ["clear", "rain"]
+    },
+    "adjacentLocations": ["G09"],
+    "walkingThoughts": {
+      "from_G09": ["The tunnel entrance. Down into the river crossing.", "Cream and green tiles. The echo starts.", "Under the Thames. The river above my head."]
+    },
+    "interactableDetails": [
+      {
+        "id": "tunnel_tiles",
+        "hitbox": { "x": 0, "y": 40, "w": 320, "h": 100 },
+        "description": "The tiles. Cream and green. Curving.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 0,
+        "discovery_text": "Every tile the same — cream body, green border. They've been replaced piecemeal. You can see the joins: newer tiles slightly brighter, the grout a different shade. The tunnel has been maintained continuously for a century. Tile by tile.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "midpoint_resistance",
+        "hitbox": { "x": 130, "y": 80, "w": 60, "h": 40 },
+        "description": "The midpoint. Something slows your step.",
+        "trait_required": "wanderer",
+        "awareness_required": 1,
+        "discovery_text": "You stop walking. Not because you chose to. Your legs simply slow at this exact point — the deepest part, directly under the river's centre. The clay around you presses. Not physically. Emotionally. Something in the ground here doesn't want you to pass.",
+        "xp": { "awareness": 3 }
+      },
+      {
+        "id": "tunnel_echo",
+        "hitbox": { "x": 60, "y": 60, "w": 40, "h": 40 },
+        "description": "Your footsteps. They echo twice.",
+        "trait_required": "musician",
+        "awareness_required": 0,
+        "discovery_text": "Your footstep arrives, then its echo, then a second echo from below. Below, not from the walls. The tunnel is a single tube. There's nothing below to reflect from. You step again. Three footsteps from one foot.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "iron_taste",
+        "hitbox": { "x": 220, "y": 70, "w": 50, "h": 40 },
+        "description": "The air. Iron in it.",
+        "trait_required": "wanderer",
+        "awareness_required": 0,
+        "discovery_text": "The tunnel air has a metallic taste. Not rust — the pipes are maintained. Something older. The Thames above is tidal, salt and silt and time. You're breathing the compressed history of what's above you.",
+        "xp": { "awareness": 1 }
+      }
+    ],
+    "npcs_present": {},
+    "ambientLife": ["footsteps_echo", "tunnel_hum", "drip"],
+    "musicLayer": "interior_tunnel",
+    "weatherEffects": {
+      "rain": "Rain falls above you. Here: still. The tunnel holds its quiet.",
+      "clear": "The tunnel doesn't know about weather. It's always this."
+    },
+    "bodySensation": "Your footsteps return to you from below. The air tastes of iron and old river.",
+    "permanentPresence": "The echo that comes from the wrong direction.",
+    "mythologicalImpression": "The tunnel passes through the place the river was before the city drained it. The clay remembers."
+  },
+
+  "G05": {
+    "name": "The Covered Market",
+    "neighborhood": "greenwich",
+    "type": "mixed",
+    "body": "Canvas and chatter. Coffee from three directions. The stone floor uneven where carts wore it. Someone's radio under the stalls.",
+    "available": {
+      "timeOfDay": ["morning", "afternoon"],
+      "weather": ["clear", "rain"]
+    },
+    "adjacentLocations": ["G06", "G03", "G07"],
+    "walkingThoughts": {
+      "from_G06": ["From symmetry to chaos. The market.", "The courtyard's silence broken.", "Canvas and chatter. The market holds."],
+      "from_G03": ["From the churchyard into the noise.", "The market. Coffee. Voices.", "The stalls crowd in."],
+      "from_G07": ["From quiet paper to loud things.", "The bookshop to the market. Both have things.", "Objects and coffee and the uneven floor."]
+    },
+    "interactableDetails": [
+      {
+        "id": "market_stone_floor",
+        "hitbox": { "x": 60, "y": 140, "w": 80, "h": 20 },
+        "description": "The stone floor. Grooves worn by cart wheels.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 0,
+        "discovery_text": "The grooves in the stone run parallel, cart-width apart. Centuries of market deliveries, the same route, the same wheels, until the stone gave way. The floor records every Tuesday market since it was laid.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "coffee_three_sources",
+        "hitbox": { "x": 120, "y": 30, "w": 80, "h": 30 },
+        "description": "Coffee steam from three different stalls.",
+        "trait_required": "barista",
+        "awareness_required": 0,
+        "discovery_text": "Three coffee stalls within twenty metres. Each makes the same drink differently. You can tell without tasting: one overextracted, one too milky, one right. The one that's right has a queue. People know without knowing.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "data_screen_corner",
+        "hitbox": { "x": 240, "y": 80, "w": 40, "h": 30 },
+        "description": "Someone's laptop screen in the corner.",
+        "trait_required": null,
+        "awareness_required": 1,
+        "discovery_text": "A laptop in the far corner, screen angled away. You catch a glimpse: not work, not a film. A map. London, annotated with hundreds of small marks — a pattern you can't read from this distance. The owner looks up. You look away.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "stall_radio",
+        "hitbox": { "x": 20, "y": 100, "w": 30, "h": 30 },
+        "description": "A radio under the stalls. Out of time.",
+        "trait_required": "musician",
+        "awareness_required": 1,
+        "discovery_text": "The radio plays something that isn't a current station. The frequency is off — you're hearing the ghost of a signal that hasn't been broadcast for decades. The stall holder is singing along. He doesn't notice anything wrong.",
+        "xp": { "awareness": 2 }
+      }
+    ],
+    "npcs_present": {
+      "market_vendor": { "timeOfDay": ["morning", "afternoon"], "days": ["wed", "thu", "fri", "sat", "sun"] },
+      "data_scientist": { "timeOfDay": ["morning", "afternoon", "evening"], "days": ["mon", "tue", "wed", "thu", "fri"] }
+    },
+    "ambientLife": ["market_chatter", "radio_faint", "cart_wheels"],
+    "musicLayer": "exterior_market",
+    "weatherEffects": {
+      "rain": "Rain on the canvas awnings. The market continues. It always continues.",
+      "clear": "Light through the awning gaps. The stone floor in patches of sun."
+    },
+    "bodySensation": "The uneven floor shifts your weight. Coffee steam and voices from all angles.",
+    "permanentPresence": "The data scientist's corner table. The screen angled away.",
+    "mythologicalImpression": "Markets have happened on this ground since before the canvas. The ground expects it."
+  },
+
+  "G06": {
+    "name": "The Naval College Courtyard",
+    "neighborhood": "greenwich",
+    "type": "exterior",
+    "body": "Symmetry so complete it feels like pressure. White stone, scrubbed. Your footsteps sound important here. Gulls above.",
+    "available": {
+      "timeOfDay": ["morning", "afternoon"],
+      "weather": ["clear", "rain"]
+    },
+    "adjacentLocations": ["G10", "G05"],
+    "walkingThoughts": {
+      "from_G10": ["From the warmth to the white stone.", "The courtyard. The symmetry.", "Gulls and architecture. The river behind."],
+      "from_G05": ["From the market's noise. This is engineered quiet.", "The Naval College. The city steps back here.", "White stone and planned sight lines."]
+    },
+    "interactableDetails": [
+      {
+        "id": "painted_hall_entrance",
+        "hitbox": { "x": 120, "y": 60, "w": 80, "h": 60 },
+        "description": "The Painted Hall entrance. The door is open.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "The hall inside is overwhelmingly painted. Every surface occupied. Allegorical figures, naval victories, the heavens arranged to flatter earthly power. The ceiling is 40,000 square feet. Somewhere in the north-east corner, something doesn't add up.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "neptunes_trident",
+        "hitbox": { "x": 60, "y": 40, "w": 30, "h": 40 },
+        "description": "The north-east corner of the painted ceiling.",
+        "trait_required": "photographer",
+        "awareness_required": 2,
+        "discovery_text": "Behind Neptune's trident in the north-east corner: a brushstroke in a colour that doesn't exist in any other part of the painting. A pigment not manufactured until 1923. The 1707 ceiling contains a 1923 correction. The restorers called it contamination. It's too precise to be contamination.",
+        "xp": { "awareness": 3, "insight": 1 }
+      },
+      {
+        "id": "courtyard_symmetry",
+        "hitbox": { "x": 10, "y": 20, "w": 300, "h": 40 },
+        "description": "The symmetry. Columns mirrored exactly.",
+        "trait_required": "photographer",
+        "awareness_required": 0,
+        "discovery_text": "The courtyard is designed to be photographed. Every element has a counterpart. The symmetry is so complete it begins to feel like pressure — like standing inside a mirror that reflects itself. You walk to the centre. Both sides are identical. You are the only asymmetry.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "cobble_geometry",
+        "hitbox": { "x": 100, "y": 150, "w": 80, "h": 20 },
+        "description": "The cobbles. A pattern in the layout.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 1,
+        "discovery_text": "The cobbles are laid in a specific pattern — not random, not just decorative. A geometry that repeats at larger and larger scales. A fractal planned in stone. The pattern is too complex for coincidence and too old for computer assistance. Someone worked this out by hand.",
+        "xp": { "awareness": 2 }
+      }
+    ],
+    "npcs_present": {},
+    "ambientLife": ["gulls_above", "tourist_groups", "wind_through_archway"],
+    "musicLayer": "exterior_courtyard",
+    "weatherEffects": {
+      "rain": "Rain on the white stone. The symmetry sharpens.",
+      "clear": "Sunlight on the courtyard. The shadow lines double the architecture."
+    },
+    "bodySensation": "The symmetry presses on both sides equally. Your footsteps sound formal.",
+    "permanentPresence": "The gulls overhead. The river beyond the arch.",
+    "mythologicalImpression": "This courtyard was built to make visitors feel small and the institution large. It still works."
+  },
+
+  "G07": {
+    "name": "The Bookshop",
+    "neighborhood": "greenwich",
+    "type": "interior",
+    "body": "Paper and glue and the warmth of a space that hasn't been cold in decades. Shelves leaning. The owner's chair permanently dented.",
+    "available": {
+      "timeOfDay": ["morning", "afternoon"],
+      "weather": ["clear", "rain"]
+    },
+    "adjacentLocations": ["G01", "G05", "G08"],
+    "walkingThoughts": {
+      "from_G01": ["From the ticking to the silence of paper.", "The bookshop. Warmer inside.", "Shelves leaning under weight."],
+      "from_G05": ["From the market's chatter into this.", "Paper and quiet. The market recedes.", "The bookshop knows something the market doesn't."],
+      "from_G08": ["Down from the hill. Into the books.", "The park to the shelves. Both full.", "The bookshop. End of the hill walk."]
+    },
+    "interactableDetails": [
+      {
+        "id": "geoacoustics_paper",
+        "hitbox": { "x": 80, "y": 60, "w": 50, "h": 40 },
+        "description": "A journal on the shelf. 1983. Creased spine.",
+        "trait_required": "musician",
+        "awareness_required": 2,
+        "discovery_text": "Journal of Geoacoustics, 1983. One article marked with a pencil asterisk: 'On the Storage and Replay of Vibrational Energy in Geological Strata.' The abstract notes that certain chalk-clay formations may retain and retransmit sound. The article ends with a note: RETRACTED. No reason given.",
+        "xp": { "awareness": 3 }
+      },
+      {
+        "id": "old_bermondsey_map",
+        "hitbox": { "x": 200, "y": 40, "w": 60, "h": 50 },
+        "description": "An old map. Bermondsey, pre-1800.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 2,
+        "discovery_text": "A survey map of Bermondsey, pre-1800. Seven buildings marked with a symbol you've seen somewhere else. The symbol is a small circle with a cross through it — and it appears on the brass key. The seven marked buildings still exist. Most of them.",
+        "xp": { "awareness": 3, "insight": 1 }
+      },
+      {
+        "id": "owner_chair",
+        "hitbox": { "x": 260, "y": 100, "w": 40, "h": 40 },
+        "description": "The owner's chair. The dent of years.",
+        "trait_required": "wanderer",
+        "awareness_required": 0,
+        "discovery_text": "The chair holds the shape of someone who has sat in it every day for decades. Not just a worn cushion — the whole chair has adapted. Armrests angled to one body. The posture of the shop made permanent.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "backroom_light",
+        "hitbox": { "x": 10, "y": 60, "w": 30, "h": 50 },
+        "description": "The back room. Light through the doorway.",
+        "trait_required": "photographer",
+        "awareness_required": 1,
+        "discovery_text": "Light through the back room door at this hour makes a precise rectangle on the floor. The angle shifts fifteen degrees from when you arrived. The room is a sundial. The books on the shelves move in and out of its path as hours pass.",
+        "xp": { "awareness": 2 }
+      }
+    ],
+    "npcs_present": {},
+    "ambientLife": ["page_turn", "shelf_creak", "street_muffled"],
+    "musicLayer": "interior_bookshop",
+    "weatherEffects": {
+      "rain": "Rain outside. In here: paper and silence. The weather becomes irrelevant.",
+      "clear": "Dust in the light from the high window. Every particle moving."
+    },
+    "bodySensation": "The warmth of old paper. Shelves close on both sides. The floor uneven.",
+    "permanentPresence": "The retracted journal. The pencil asterisk.",
+    "mythologicalImpression": "The bookshop keeps things that were meant to be forgotten. That's what bookshops are for."
+  },
+
+  "G08": {
+    "name": "The Park Path — Up the Hill",
+    "neighborhood": "greenwich",
+    "type": "exterior",
+    "body": "Grass and mud depending on the week. The city drops behind you. Wind at the crest. Crows arguing.",
+    "available": {
+      "timeOfDay": ["morning", "afternoon", "evening"],
+      "weather": ["clear", "rain"]
+    },
+    "adjacentLocations": ["G07", "G02"],
+    "walkingThoughts": {
+      "from_G07": ["Up the hill. The bookshop below.", "The park. The city drops behind.", "Grass and crows. The observatory ahead."],
+      "from_G02": ["Down from the observatory. The city returns.", "The hill in reverse. Heavier going down.", "The park path back. Crows watching."]
+    },
+    "interactableDetails": [
+      {
+        "id": "oldest_chestnut",
+        "hitbox": { "x": 40, "y": 60, "w": 50, "h": 80 },
+        "description": "A chestnut tree. Much older than the others.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 1,
+        "discovery_text": "This chestnut has a girth that marks it as two hundred years old at minimum. It was here when the park was redesigned. When the observatory was expanded. When the tunnel was dug. It watched all of it. The bark has the texture of something that has been patient for a very long time.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "park_anticipation",
+        "hitbox": { "x": 130, "y": 100, "w": 60, "h": 40 },
+        "description": "The feeling here. Before the hill crests.",
+        "trait_required": "wanderer",
+        "awareness_required": 2,
+        "discovery_text": "Just before the hill crests, the feeling changes. Not the view — the view hasn't opened yet. But something in the air becomes expectant. As if the park is holding a breath it's been holding for centuries. Waiting for someone to arrive who hasn't arrived yet. Or has been arriving repeatedly.",
+        "xp": { "awareness": 3 }
+      },
+      {
+        "id": "crow_pair",
+        "hitbox": { "x": 240, "y": 80, "w": 40, "h": 30 },
+        "description": "Two crows on the path. Not moving.",
+        "trait_required": "musician",
+        "awareness_required": 0,
+        "discovery_text": "Two crows on the path, facing each other. Not fighting, not eating. Exchanging something in calls you can almost pattern. A structural conversation. Each call answered precisely. You slow. They don't move. The exchange continues.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "city_view_hill",
+        "hitbox": { "x": 180, "y": 20, "w": 120, "h": 40 },
+        "description": "London from the hill. Different from the observatory.",
+        "trait_required": "photographer",
+        "awareness_required": 1,
+        "discovery_text": "From here, London is at eye level, not below. The glass towers of Canary Wharf are companions, not objects. The scale shifts. This is the height at which the city stops being a subject and becomes a context.",
+        "xp": { "awareness": 2 }
+      }
+    ],
+    "npcs_present": {},
+    "ambientLife": ["wind_hill", "crows_distant", "jogger_passing"],
+    "musicLayer": "exterior_park",
+    "weatherEffects": {
+      "rain": "Rain on the hill. The path turns to mud at the edges. The grass smells of it.",
+      "clear": "The hill in clear air. The dome of the observatory visible. London below."
+    },
+    "bodySensation": "The hill works your legs. The city drops. Wind finds you at the crest.",
+    "permanentPresence": "The crows. Arguing. On the path above.",
+    "mythologicalImpression": "People have climbed this hill to see the city for two thousand years. The hill has been watching them do it."
+  },
+
+  "G09": {
+    "name": "The Thames Foreshore",
+    "neighborhood": "greenwich",
+    "type": "exterior",
+    "body": "Wet clay and river silt. Broken pottery older than anything above the waterline. The water smells like iron. Nothing permanent underfoot.",
+    "available": {
+      "timeOfDay": ["morning", "afternoon", "evening"],
+      "weather": ["clear", "rain"]
+    },
+    "adjacentLocations": ["L08", "G10", "G04"],
+    "walkingThoughts": {
+      "from_L08": ["Down to the river. Greenwich below.", "The foreshore. The clay begins.", "The river. The tide was here first."],
+      "from_G10": ["From the pub to the river edge.", "The foreshore. Low tide.", "Clay and iron and old water."],
+      "from_G04": ["The tunnel exit. River air immediately.", "Out of the tunnel. The Thames.", "From under the river to beside it."]
+    },
+    "interactableDetails": [
+      {
+        "id": "pottery_shard",
+        "hitbox": { "x": 80, "y": 130, "w": 30, "h": 20 },
+        "description": "A pottery shard in the clay.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 0,
+        "discovery_text": "You pry the shard from the clay. Slip-glazed earthenware, cream body. Medieval, maybe earlier. The river has held it since before the buildings above the bank existed. You hold something that last had a purpose seven hundred years ago. You put it back where it belongs.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "iron_river_smell",
+        "hitbox": { "x": 160, "y": 90, "w": 60, "h": 30 },
+        "description": "The river smell. Iron and time.",
+        "trait_required": "wanderer",
+        "awareness_required": 0,
+        "discovery_text": "The Thames at the foreshore smells of iron — not rust, not industry. The iron of old water, tidal water, water that has been moving over the same clay for ten thousand years. You inhale. The smell is the oldest thing you've experienced in London.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "reflection_anomaly",
+        "hitbox": { "x": 220, "y": 80, "w": 80, "h": 50 },
+        "description": "The river surface. The reflection is wrong.",
+        "trait_required": "photographer",
+        "awareness_required": 2,
+        "discovery_text": "The north bank in the reflection is sharper than the actual bank. More detail, cleaner edges. As if the river's version is better resolved than the real thing. You photograph it. Later, the print will show a building on the north bank that isn't there.",
+        "xp": { "awareness": 3, "insight": 1 }
+      },
+      {
+        "id": "clay_warmth",
+        "hitbox": { "x": 40, "y": 140, "w": 60, "h": 22 },
+        "description": "The clay underfoot. Warmer than the air.",
+        "trait_required": "wanderer",
+        "awareness_required": 1,
+        "discovery_text": "The foreshore clay is warmer than the air temperature. Not from sun — the sky is overcast. The warmth comes from the clay itself. Two metres down, the layer that hasn't moved in ten thousand years. It's warm. It's always been warm.",
+        "xp": { "awareness": 2 }
+      }
+    ],
+    "npcs_present": {},
+    "ambientLife": ["river_current", "gulls_calling", "tide_on_clay"],
+    "musicLayer": "exterior_foreshore",
+    "weatherEffects": {
+      "rain": "Rain on the river. The surface becomes a field of small explosions. Your footsteps sink deeper.",
+      "clear": "Low tide in clear light. The foreshore extends. Objects emerge."
+    },
+    "bodySensation": "The clay yields underfoot. Nothing here is permanent. The river makes sure of it.",
+    "permanentPresence": "The pottery in the clay. There's always more.",
+    "mythologicalImpression": "The Thames foreshore is London's unconscious. What the city can't hold onto ends up here, in the clay."
+  },
+
+  "G10": {
+    "name": "The Trafalgar Tavern",
+    "neighborhood": "greenwich",
+    "type": "interior",
+    "body": "Dark wood and hops. The bar is scarred. Windows uncleaned in a way that filters river light to gold.",
+    "available": {
+      "timeOfDay": ["afternoon", "evening", "night"],
+      "weather": ["clear", "rain"]
+    },
+    "adjacentLocations": ["G09", "G06"],
+    "walkingThoughts": {
+      "from_G09": ["From the clay to the warmth.", "The pub. Dry ground. A drink.", "River light through the old glass."],
+      "from_G06": ["From white stone to dark wood.", "The Trafalgar. Less formal.", "The river through the windows. Gold."]
+    },
+    "interactableDetails": [
+      {
+        "id": "bar_scars",
+        "hitbox": { "x": 80, "y": 100, "w": 120, "h": 20 },
+        "description": "The bar top. Carved and burned and worn.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 0,
+        "discovery_text": "The bar top is a record. Burns from cigarettes, ring marks from glasses, initials carved deeply over shallower initials over deeper ones. A century of people declaring themselves in wood. The bar will outlast all of them.",
+        "xp": { "awareness": 1 }
+      },
+      {
+        "id": "gold_river_light",
+        "hitbox": { "x": 220, "y": 30, "w": 80, "h": 70 },
+        "description": "The windows. River light through old glass.",
+        "trait_required": "photographer",
+        "awareness_required": 1,
+        "discovery_text": "The windows haven't been cleaned in a way that matters. The accumulated grime filters the river light to amber. The pub has been making this specific light for decades. If you cleaned the windows, you'd ruin it.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "pub_warmth_barista",
+        "hitbox": { "x": 40, "y": 120, "w": 50, "h": 30 },
+        "description": "The corner table. The same faces.",
+        "trait_required": "barista",
+        "awareness_required": 0,
+        "discovery_text": "The corner table has the same configuration of people every evening. Not the same people — different bodies, different decades, the same dynamic. A person who talks too much, one who listens well, one who observes. The pub casts the same three roles every night.",
+        "xp": { "awareness": 2 }
+      },
+      {
+        "id": "cellar_hum_g10",
+        "hitbox": { "x": 130, "y": 150, "w": 40, "h": 16 },
+        "description": "The floor. Something humming below.",
+        "trait_required": "musician",
+        "awareness_required": 1,
+        "discovery_text": "Your foot on the floor: a vibration from below. Too low to be pipes. Too steady to be traffic. The cellar of the Trafalgar goes deeper than cellar plans show. Something in it produces a frequency that the pub floor transmits to your feet every evening.",
+        "xp": { "awareness": 2 }
+      }
+    ],
+    "npcs_present": {},
+    "ambientLife": ["pub_murmur", "glass_set_down", "river_outside"],
+    "musicLayer": "interior_pub",
+    "weatherEffects": {
+      "rain": "Rain on the windows. The gold light dims slightly. The pub compensates with warmth.",
+      "clear": "The river catches sunset and throws it through the windows. The pub turns orange."
+    },
+    "bodySensation": "The warmth hits immediately. Dark wood and river light. Your shoulders drop.",
+    "permanentPresence": "The river light through the uncleaned glass.",
+    "mythologicalImpression": "The Trafalgar has been watching the river longer than the city has been watching the Trafalgar."
   }
 }
