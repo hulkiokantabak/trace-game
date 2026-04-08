@@ -8,8 +8,15 @@
     "trigger": {
       "type": "composite",
       "conditions": [
-        { "type": "npc_stage", "npc": "sound_artist", "minStage": "acquaintance" },
-        { "type": "discovery", "detail": "frequency_printouts" }
+        {
+          "type": "npc_stage",
+          "npc": "sound_artist",
+          "minStage": "acquaintance"
+        },
+        {
+          "type": "discovery",
+          "detail": "frequency_printouts"
+        }
       ]
     },
     "steps": [
@@ -23,20 +30,32 @@
         "id": 2,
         "text": "A hand-drawn map pinned beneath the printouts. A canal route, annotated with Xs at intervals. One circled twice, in heavier ink. The route drawn doesn't match the canal outside the window.",
         "type": "research",
-        "advanceTrigger": { "type": "detail", "detail": "mooring_chain" },
-        "pacing": { "minHoursAfterPrevious": 0 }
+        "advanceTrigger": {
+          "type": "detail",
+          "detail": "mooring_chain"
+        },
+        "pacing": {
+          "minHoursAfterPrevious": 0
+        }
       },
       {
         "id": 3,
         "text": "A photograph pinned below the map. Brick wall, no windows, ivy up the left side. An address written on the back — the street name stops mid-word. The building name is crossed out.",
         "type": "revelation",
-        "advanceTrigger": { "type": "detail", "detail": "lock_mechanism" },
-        "pacing": { "minHoursAfterPrevious": 0 }
+        "advanceTrigger": {
+          "type": "detail",
+          "detail": "lock_mechanism"
+        },
+        "pacing": {
+          "minHoursAfterPrevious": 0
+        }
       }
     ],
     "choice": null,
     "rewards": {
-      "completion": { "awareness": 2 }
+      "completion": {
+        "awareness": 2
+      }
     }
   },
   "LI-02": {
@@ -48,8 +67,15 @@
     "trigger": {
       "type": "composite",
       "conditions": [
-        { "type": "npc_stage", "npc": "barista", "minStage": "acquaintance" },
-        { "type": "discovery", "detail": "counter_burn_mark" }
+        {
+          "type": "npc_stage",
+          "npc": "barista",
+          "minStage": "acquaintance"
+        },
+        {
+          "type": "discovery",
+          "detail": "counter_burn_mark"
+        }
       ]
     },
     "steps": [
@@ -63,15 +89,25 @@
         "id": 2,
         "text": "Your notebook, open on the table. The margins are full of notation you don't remember writing. The same melody, in fragments — each transcription slightly different. The most recent one is from today.",
         "type": "research",
-        "advanceTrigger": { "type": "detail", "detail": "flat_notebook_song" },
-        "pacing": { "minHoursAfterPrevious": 0 }
+        "advanceTrigger": {
+          "type": "detail",
+          "detail": "flat_notebook_song"
+        },
+        "pacing": {
+          "minHoursAfterPrevious": 0
+        }
       },
       {
         "id": 3,
         "text": "A groove worn into the floorboard. Foot-shaped, oriented toward the window. Beside it, a circular burn in the wood — the kind a mic stand makes when it stays in one place for years.",
         "type": "revelation",
-        "advanceTrigger": { "type": "detail", "detail": "flat_floorboard_groove" },
-        "pacing": { "minHoursAfterPrevious": 0 }
+        "advanceTrigger": {
+          "type": "detail",
+          "detail": "flat_floorboard_groove"
+        },
+        "pacing": {
+          "minHoursAfterPrevious": 0
+        }
       }
     ],
     "choice": {
@@ -83,8 +119,15 @@
           "text": "That song. I know where it comes from.",
           "consequence": {
             "narrativeText": "She stops. 'What do you mean?' You tell her. She tries to hum it again. She can't. The melody is gone. 'I don't... I can't remember how it goes.' She looks at her hands.",
-            "npcEffect": { "barista": { "stageUnlock": "familiar_aware" } },
-            "xp": { "insight": 5, "connection": 3 },
+            "npcEffect": {
+              "barista": {
+                "stageUnlock": "familiar_aware"
+              }
+            },
+            "xp": {
+              "insight": 5,
+              "connection": 3
+            },
             "flatObject": null
           }
         },
@@ -93,15 +136,27 @@
           "text": "Let her hum.",
           "consequence": {
             "narrativeText": "She hums. You listen. The melody fills the cafe the way it has every morning. Some knowledge is better as a secret. The mystery deepens. The music stays.",
-            "npcEffect": { "barista": { "stageUnlock": "familiar_unknowing" } },
-            "xp": { "insight": 3, "connection": 5 },
-            "flatObject": { "id": "silent_knowledge", "description": "Nothing on the shelf. But you know." }
+            "npcEffect": {
+              "barista": {
+                "stageUnlock": "familiar_unknowing"
+              }
+            },
+            "xp": {
+              "insight": 3,
+              "connection": 5
+            },
+            "flatObject": {
+              "id": "silent_knowledge",
+              "description": "Nothing on the shelf. But you know."
+            }
           }
         }
       ]
     },
     "rewards": {
-      "completion": { "awareness": 3 }
+      "completion": {
+        "awareness": 3
+      }
     }
   },
   "LI-04": {
@@ -113,7 +168,10 @@
     "trigger": {
       "type": "composite",
       "conditions": [
-        { "type": "discovery", "detail": "church_shadow" }
+        {
+          "type": "discovery",
+          "detail": "church_shadow"
+        }
       ]
     },
     "steps": [
@@ -127,13 +185,20 @@
         "id": 2,
         "text": "You come back at night. The shadow stretches north-west. The moon is in the east. You stand still for a long time. Neither moves.",
         "type": "revelation",
-        "advanceTrigger": { "type": "detail", "detail": "stone_pattern" },
-        "pacing": { "minHoursAfterPrevious": 0 }
+        "advanceTrigger": {
+          "type": "detail",
+          "detail": "stone_pattern"
+        },
+        "pacing": {
+          "minHoursAfterPrevious": 0
+        }
       }
     ],
     "choice": null,
     "rewards": {
-      "completion": { "awareness": 2 }
+      "completion": {
+        "awareness": 2
+      }
     }
   },
   "LI-08": {
@@ -145,7 +210,10 @@
     "trigger": {
       "type": "composite",
       "conditions": [
-        { "type": "discovery", "detail": "departure_board" }
+        {
+          "type": "discovery",
+          "detail": "departure_board"
+        }
       ]
     },
     "steps": [
@@ -158,7 +226,9 @@
     ],
     "choice": null,
     "rewards": {
-      "completion": { "awareness": 2 }
+      "completion": {
+        "awareness": 2
+      }
     }
   },
   "BI-01": {
@@ -170,7 +240,10 @@
     "trigger": {
       "type": "composite",
       "conditions": [
-        { "type": "discovery", "detail": "antique_key" }
+        {
+          "type": "discovery",
+          "detail": "antique_key"
+        }
       ]
     },
     "steps": [
@@ -184,15 +257,25 @@
         "id": 2,
         "text": "Metal analysis (Data Scientist): unknown alloy. Mineral traces found only in Thames Basin chalk deposits. The key has a maker's mark — a symbol. The same symbol appears in the old Bermondsey map.",
         "type": "research",
-        "advanceTrigger": { "type": "discovery", "detail": "old_bermondsey_map" },
-        "pacing": { "minHoursAfterPrevious": 0 }
+        "advanceTrigger": {
+          "type": "discovery",
+          "detail": "old_bermondsey_map"
+        },
+        "pacing": {
+          "minHoursAfterPrevious": 0
+        }
       },
       {
         "id": 3,
         "text": "You find seven marks across the city. Foundation marks. They form a geometry. The center: beneath St Mary Magdalen, Bermondsey. The crypt door.",
         "type": "revelation",
-        "advanceTrigger": { "type": "discovery", "detail": "church_crypt_door" },
-        "pacing": { "minHoursAfterPrevious": 0 }
+        "advanceTrigger": {
+          "type": "discovery",
+          "detail": "church_crypt_door"
+        },
+        "pacing": {
+          "minHoursAfterPrevious": 0
+        }
       }
     ],
     "choice": {
@@ -205,8 +288,15 @@
           "consequence": {
             "narrativeText": "The door opens onto stairs going deeper than the crypt should allow. Past Victorian brick. Past medieval stone. Past Roman concrete. Into something older. At the bottom: a space. Not carved. Grown. The walls are warm. A stone in the center of the floor hums. You touch it.",
             "npcEffect": {},
-            "xp": { "awareness": 5, "insight": 3, "resonance": 2 },
-            "flatObject": { "id": "foundation_stone_fragment", "description": "A fragment of warm stone from the deepest room. It hums at the frequency of the city." }
+            "xp": {
+              "awareness": 5,
+              "insight": 3,
+              "resonance": 2
+            },
+            "flatObject": {
+              "id": "foundation_stone_fragment",
+              "description": "A fragment of warm stone from the deepest room. It hums at the frequency of the city."
+            }
           }
         },
         {
@@ -214,15 +304,25 @@
           "text": "Some doors should stay closed.",
           "consequence": {
             "narrativeText": "The Market Vendor takes the key. Wraps it in cloth. Places it under the counter. 'It'll wait,' he says. 'It's been waiting.' He looks at you. 'You're the first to bring it back.' He tells you everything he knows about the ground beneath Bermondsey.",
-            "npcEffect": { "antiques_vendor": { "stageUnlock": "familiar_aware" } },
-            "xp": { "insight": 5, "connection": 4 },
+            "npcEffect": {
+              "antiques_vendor": {
+                "stageUnlock": "familiar_aware"
+              }
+            },
+            "xp": {
+              "insight": 5,
+              "connection": 4
+            },
             "flatObject": null
           }
         }
       ]
     },
     "rewards": {
-      "completion": { "awareness": 3, "insight": 2 }
+      "completion": {
+        "awareness": 3,
+        "insight": 2
+      }
     }
   },
   "BI-03": {
@@ -234,7 +334,11 @@
     "trigger": {
       "type": "composite",
       "conditions": [
-        { "type": "npc_stage", "npc": "warehouse_guard", "minStage": "familiar" }
+        {
+          "type": "npc_stage",
+          "npc": "warehouse_guard",
+          "minStage": "familiar"
+        }
       ]
     },
     "steps": [
@@ -248,15 +352,26 @@
         "id": 2,
         "text": "Return visit. The shelving has rearranged. The door that was left is now right. The guard's notebook: forty years of configurations. The warehouse shifts. It follows a pattern.",
         "type": "research",
-        "advanceTrigger": { "type": "discovery", "detail": "warehouse_survey_marker" },
-        "pacing": { "minHoursAfterPrevious": 0 }
+        "advanceTrigger": {
+          "type": "discovery",
+          "detail": "warehouse_survey_marker"
+        },
+        "pacing": {
+          "minHoursAfterPrevious": 0
+        }
       },
       {
         "id": 3,
         "text": "The guard's notebook shows the configurations converging on a specific arrangement. The arrangement forms a door. Not a doorway — the space itself becomes a door.",
         "type": "revelation",
-        "advanceTrigger": { "type": "npc_stage", "npc": "warehouse_guard", "minStage": "familiar" },
-        "pacing": { "minHoursAfterPrevious": 0 }
+        "advanceTrigger": {
+          "type": "npc_stage",
+          "npc": "warehouse_guard",
+          "minStage": "familiar"
+        },
+        "pacing": {
+          "minHoursAfterPrevious": 0
+        }
       }
     ],
     "choice": {
@@ -268,9 +383,19 @@
           "text": "I'll stay.",
           "consequence": {
             "narrativeText": "The night. The darkness. The slow impossible rearrangement of space around you. Time dilates. What felt like an hour was six. The guard finds you at dawn. 'You look different,' he says. One word. 'Different.' Your notebook contains an entry you don't remember writing.",
-            "npcEffect": { "warehouse_guard": { "stageUnlock": "familiar_aware" } },
-            "xp": { "insight": 6, "awareness": 3 },
-            "flatObject": { "id": "warehouse_notebook_entry", "description": "A page of your notebook. Your handwriting. You don't remember writing it. The date is tomorrow." }
+            "npcEffect": {
+              "warehouse_guard": {
+                "stageUnlock": "familiar_aware"
+              }
+            },
+            "xp": {
+              "insight": 6,
+              "awareness": 3
+            },
+            "flatObject": {
+              "id": "warehouse_notebook_entry",
+              "description": "A page of your notebook. Your handwriting. You don't remember writing it. The date is tomorrow."
+            }
           }
         },
         {
@@ -278,15 +403,28 @@
           "text": "Show me the notebooks instead.",
           "consequence": {
             "narrativeText": "The guard spreads the notebooks. Forty years of grid configurations. You see it: the pattern is not random. It is a message. Each configuration is a character. The message is long. You've read the first three words. They are not comforting.",
-            "npcEffect": { "warehouse_guard": { "stageUnlock": "familiar_unknowing" } },
-            "xp": { "insight": 4, "awareness": 4 },
-            "flatObject": { "id": "warehouse_pattern_copy", "description": "A copy of the warehouse grid configurations. The first three characters translate to something you wish you didn't understand." }
+            "npcEffect": {
+              "warehouse_guard": {
+                "stageUnlock": "familiar_unknowing"
+              }
+            },
+            "xp": {
+              "insight": 4,
+              "awareness": 4
+            },
+            "flatObject": {
+              "id": "warehouse_pattern_copy",
+              "description": "A copy of the warehouse grid configurations. The first three characters translate to something you wish you didn't understand."
+            }
           }
         }
       ]
     },
     "rewards": {
-      "completion": { "insight": 3, "awareness": 2 }
+      "completion": {
+        "insight": 3,
+        "awareness": 2
+      }
     }
   },
   "GI-01": {
@@ -298,7 +436,10 @@
     "trigger": {
       "type": "composite",
       "conditions": [
-        { "type": "discovery", "detail": "stopped_clock" }
+        {
+          "type": "discovery",
+          "detail": "stopped_clock"
+        }
       ]
     },
     "steps": [
@@ -312,15 +453,26 @@
         "id": 2,
         "text": "The stopped clock's hands have moved. Not correctly. Tracking something else.",
         "type": "research",
-        "advanceTrigger": { "type": "detail", "detail": "clockmaker_key" },
-        "pacing": { "minHoursAfterPrevious": 0 }
+        "advanceTrigger": {
+          "type": "detail",
+          "detail": "clockmaker_key"
+        },
+        "pacing": {
+          "minHoursAfterPrevious": 0
+        }
       },
       {
         "id": 3,
         "text": "The clockmaker holds a small brass key. Worn. He looks at the stopped clock and says nothing.",
         "type": "revelation",
-        "advanceTrigger": { "type": "npc_stage", "npc": "clockmaker", "minStage": "familiar" },
-        "pacing": { "minHoursAfterPrevious": 0 }
+        "advanceTrigger": {
+          "type": "npc_stage",
+          "npc": "clockmaker",
+          "minStage": "familiar"
+        },
+        "pacing": {
+          "minHoursAfterPrevious": 0
+        }
       }
     ],
     "choice": {
@@ -332,9 +484,19 @@
           "text": "Let's see what it does.",
           "consequence": {
             "narrativeText": "The clock resumes. A different sound fills the shop — not ticking. Ringing. The clockmaker closes his eyes. 'There it is,' he says. Outside, the glass in the case unclouds. The street sounds have changed pitch.",
-            "npcEffect": { "clockmaker": { "stageUnlock": "familiar_aware" } },
-            "xp": { "awareness": 4, "resonance": 3 },
-            "flatObject": { "id": "clockmaker_key", "description": "A brass key. The clockmaker pressed it into your hand after the ringing stopped." }
+            "npcEffect": {
+              "clockmaker": {
+                "stageUnlock": "familiar_aware"
+              }
+            },
+            "xp": {
+              "awareness": 4,
+              "resonance": 3
+            },
+            "flatObject": {
+              "id": "clockmaker_key",
+              "description": "A brass key. The clockmaker pressed it into your hand after the ringing stopped."
+            }
           }
         },
         {
@@ -342,15 +504,24 @@
           "text": "Some things are stopped for a reason.",
           "consequence": {
             "narrativeText": "'Smart,' the clockmaker says. He puts the key back. His hands are shaking. 'I've never wound it either.' He pours tea. The silence between you is different now. Warmer.",
-            "npcEffect": { "clockmaker": { "stageUnlock": "familiar_unknowing" } },
-            "xp": { "insight": 4, "connection": 3 },
+            "npcEffect": {
+              "clockmaker": {
+                "stageUnlock": "familiar_unknowing"
+              }
+            },
+            "xp": {
+              "insight": 4,
+              "connection": 3
+            },
             "flatObject": null
           }
         }
       ]
     },
     "rewards": {
-      "completion": { "awareness": 3 }
+      "completion": {
+        "awareness": 3
+      }
     }
   },
   "GI-03": {
@@ -362,8 +533,15 @@
     "trigger": {
       "type": "composite",
       "conditions": [
-        { "type": "npc_stage", "npc": "observatory_keeper", "minStage": "acquaintance" },
-        { "type": "discovery", "detail": "meridian_shift" }
+        {
+          "type": "npc_stage",
+          "npc": "observatory_keeper",
+          "minStage": "acquaintance"
+        },
+        {
+          "type": "discovery",
+          "detail": "meridian_shift"
+        }
       ]
     },
     "steps": [
@@ -377,15 +555,26 @@
         "id": 2,
         "text": "The bookshop has a record. The meridian shifted in 1894. In 1666. In 1348. Each time: crisis.",
         "type": "research",
-        "advanceTrigger": { "type": "discovery", "detail": "geoacoustics_paper" },
-        "pacing": { "minHoursAfterPrevious": 0 }
+        "advanceTrigger": {
+          "type": "discovery",
+          "detail": "geoacoustics_paper"
+        },
+        "pacing": {
+          "minHoursAfterPrevious": 0
+        }
       },
       {
         "id": 3,
         "text": "The Observatory Keeper: 'I need to re-measure. At night. The instruments are more accurate without foot traffic. Will you help?'",
         "type": "revelation",
-        "advanceTrigger": { "type": "npc_stage", "npc": "observatory_keeper", "minStage": "familiar" },
-        "pacing": { "minHoursAfterPrevious": 0 }
+        "advanceTrigger": {
+          "type": "npc_stage",
+          "npc": "observatory_keeper",
+          "minStage": "familiar"
+        },
+        "pacing": {
+          "minHoursAfterPrevious": 0
+        }
       }
     ],
     "choice": {
@@ -397,9 +586,19 @@
           "text": "I'll be there.",
           "consequence": {
             "narrativeText": "The night at the observatory. The instruments. The quiet. At 3:17 AM, something the instruments record that she has never seen. She prints it. 'Do we report this?' she asks.",
-            "npcEffect": { "observatory_keeper": { "stageUnlock": "familiar_aware" } },
-            "xp": { "insight": 5, "awareness": 3 },
-            "flatObject": { "id": "meridian_printout", "description": "A strip of thermal paper. A line that moves where it shouldn't. Dated 3:17 AM." }
+            "npcEffect": {
+              "observatory_keeper": {
+                "stageUnlock": "familiar_aware"
+              }
+            },
+            "xp": {
+              "insight": 5,
+              "awareness": 3
+            },
+            "flatObject": {
+              "id": "meridian_printout",
+              "description": "A strip of thermal paper. A line that moves where it shouldn't. Dated 3:17 AM."
+            }
           }
         },
         {
@@ -407,15 +606,25 @@
           "text": "I'm not sure I should.",
           "consequence": {
             "narrativeText": "The printout goes in her desk. 'Thank you,' she says, 'for understanding.' She looks at her measurements. The anomaly is still there. Still unreported. Yours to carry.",
-            "npcEffect": { "observatory_keeper": { "stageUnlock": "familiar_unknowing" } },
-            "xp": { "insight": 3, "resonance": 3 },
+            "npcEffect": {
+              "observatory_keeper": {
+                "stageUnlock": "familiar_unknowing"
+              }
+            },
+            "xp": {
+              "insight": 3,
+              "resonance": 3
+            },
             "flatObject": null
           }
         }
       ]
     },
     "rewards": {
-      "completion": { "awareness": 3, "insight": 2 }
+      "completion": {
+        "awareness": 3,
+        "insight": 2
+      }
     }
   },
   "LI-12": {
@@ -427,8 +636,16 @@
     "trigger": {
       "type": "composite",
       "conditions": [
-        { "type": "stat_min", "stat": "awareness", "value": 5 },
-        { "type": "visit_count", "location": "L01", "count": 3 }
+        {
+          "type": "stat_min",
+          "stat": "awareness",
+          "value": 5
+        },
+        {
+          "type": "visit_count",
+          "location": "L01",
+          "count": 3
+        }
       ]
     },
     "steps": [
@@ -442,13 +659,1784 @@
         "id": 2,
         "text": "You look directly at the figure. They don't leave. For the first time, they hold your gaze. A stillness that has nothing to do with patience. Then they turn and walk — not away. Through.",
         "type": "revelation",
-        "advanceTrigger": { "type": "detail", "detail": "lot_silence" },
-        "pacing": { "minHoursAfterPrevious": 0 }
+        "advanceTrigger": {
+          "type": "detail",
+          "detail": "lot_silence"
+        },
+        "pacing": {
+          "minHoursAfterPrevious": 0
+        }
       }
     ],
     "choice": null,
     "rewards": {
-      "completion": { "awareness": 3, "resonance": 2 }
+      "completion": {
+        "awareness": 3,
+        "resonance": 2
+      }
+    }
+  },
+  "GI-02": {
+    "id": "GI-02",
+    "name": "The Tunnel That Stretches",
+    "type": "quick",
+    "primaryLocation": "G04",
+    "trait": "all",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        {
+          "type": "visit_count",
+          "location": "G04",
+          "count": 1
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "You count the tiles. 847. You count again. 854.",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 2,
+        "text": "A maintenance note tucked behind a tile: 'Camera 12, 02:47. Tunnel measured 371m. Spec: 370.2m.' Unsigned.",
+        "type": "revelation",
+        "advanceTrigger": "automatic"
+      }
+    ],
+    "choice": null,
+    "rewards": {
+      "completion": {
+        "awareness": 2
+      }
+    }
+  },
+  "GI-04": {
+    "id": "GI-04",
+    "name": "The Foreshore Objects",
+    "type": "quick",
+    "primaryLocation": "G09",
+    "trait": "all",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        {
+          "type": "visit_count",
+          "location": "G09",
+          "count": 1
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "Low tide. The foreshore reveals what the Thames has been holding.",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 2,
+        "text": "An object in the clay. It shouldn't be here. It's too present.",
+        "traitText": {
+          "musician": "A clay pipe. Humming. At a frequency you've heard before.",
+          "photographer": "The bowl reflects a bank that doesn't exist anymore.",
+          "wanderer": "A warm stone in cold mud. Your hand finds it without looking.",
+          "barista": "A button in the clay. The market vendor's coat. Exact match.",
+          "shopkeeper": "A coin from no known mint. No date. Still catching light."
+        },
+        "type": "revelation",
+        "advanceTrigger": "automatic"
+      }
+    ],
+    "choice": null,
+    "flatObject": {
+      "id": "foreshore_object",
+      "description": "Something from the foreshore. The Thames gave it up at low tide."
+    },
+    "rewards": {
+      "completion": {
+        "awareness": 2,
+        "resonance": 1
+      }
+    }
+  },
+  "GI-05": {
+    "id": "GI-05",
+    "name": "The Ghost Pub",
+    "type": "deep",
+    "primaryLocation": "G10",
+    "trait": "all",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        {
+          "type": "npc_stage",
+          "npc": "pub_landlord",
+          "minStage": "familiar"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "Pub Landlord: 'There used to be a pub on Crane Street. Demolished in '87. It's still there. On Thursdays.'",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 2,
+        "text": "Thursday evening. Crane Street. Where the old pub was. A warm light, faint, where no building stands.",
+        "type": "research",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 3,
+        "text": "You step toward the glow. The air changes. Warmer. Closer. A pub that doesn't exist, full of people who don't notice they're impossible.",
+        "type": "revelation",
+        "advanceTrigger": "automatic"
+      }
+    ],
+    "choice": {
+      "triggeredAfterStep": 3,
+      "prompt": "One patron approaches. 'What'll you have?' The drink is already on the bar.",
+      "options": [
+        {
+          "id": "tell",
+          "text": "I found it. I'll tell the Pub Landlord.",
+          "consequence": {
+            "narrativeText": "'Already knew,' he says. 'Just needed to know if you could see it.' His hands stop wiping the bar. He tells you what Thursday really is.",
+            "npcEffect": {
+              "pub_landlord": {
+                "stageUnlock": "familiar_aware"
+              }
+            },
+            "xp": {
+              "insight": 4,
+              "connection": 4
+            },
+            "flatObject": {
+              "id": "ghost_pub_glass",
+              "description": "A glass from a pub that doesn't exist. Still cold."
+            }
+          }
+        },
+        {
+          "id": "keep",
+          "text": "This is mine.",
+          "consequence": {
+            "narrativeText": "You say nothing. The ghost pub becomes a private retreat. A Thursday ritual. A pocket of permanence in the city's drift.",
+            "npcEffect": {},
+            "xp": {
+              "insight": 3,
+              "resonance": 4
+            },
+            "flatObject": {
+              "id": "ghost_pub_matchbook",
+              "description": "A matchbook. The pub's name printed on it. No address."
+            }
+          }
+        }
+      ]
+    },
+    "rewards": {
+      "completion": {
+        "awareness": 2,
+        "insight": 2
+      }
+    }
+  },
+  "GI-06": {
+    "id": "GI-06",
+    "name": "The Park Astronomer",
+    "type": "deep",
+    "primaryLocation": "G08",
+    "trait": "all",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        {
+          "type": "visit_count",
+          "location": "G08",
+          "count": 2
+        },
+        {
+          "type": "stat_min",
+          "stat": "awareness",
+          "value": 4
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "A figure in the park at night with a telescope pointed at the ground.",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 2,
+        "text": "The telescope is mapping, not observing. The park surface — metre by metre.",
+        "type": "research",
+        "advanceTrigger": {
+          "type": "detail",
+          "detail": "park_survey_marker"
+        }
+      },
+      {
+        "id": 3,
+        "text": "The park sits on the oldest continuously settled point in London. What's beneath it is moving. Slowly. Measurably.",
+        "type": "revelation",
+        "advanceTrigger": "automatic"
+      }
+    ],
+    "choice": null,
+    "rewards": {
+      "completion": {
+        "awareness": 2,
+        "insight": 3
+      }
+    }
+  },
+  "GI-07": {
+    "id": "GI-07",
+    "name": "The Painted Hall Whispers",
+    "type": "quick",
+    "primaryLocation": "G06",
+    "trait": "all",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        {
+          "type": "visit_count",
+          "location": "G06",
+          "count": 1
+        },
+        {
+          "type": "stat_min",
+          "stat": "awareness",
+          "value": 3
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "The painted ceiling of the Naval College. Voices from the figures. Not echoes — argument.",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 2,
+        "text": "The painted figures argue about a decision not yet made. The argument concerns something you will face.",
+        "traitText": {
+          "musician": "The figures are debating a frequency. Whether to release it or contain it.",
+          "photographer": "The figures are debating what should be documented. Whether proof helps or harms.",
+          "wanderer": "The figures argue about a path. Whether to follow it to the end.",
+          "barista": "The figures argue about a name. Whether to speak it or bury it.",
+          "shopkeeper": "The figures argue about the ground. Whether to open it or leave it sealed."
+        },
+        "type": "revelation",
+        "advanceTrigger": "automatic"
+      }
+    ],
+    "choice": null,
+    "rewards": {
+      "completion": {
+        "insight": 3,
+        "resonance": 2
+      }
+    }
+  },
+  "GI-08": {
+    "id": "GI-08",
+    "name": "The Market Stall That Doesn't Pack Up",
+    "type": "quick",
+    "primaryLocation": "G05",
+    "trait": "all",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        {
+          "type": "visit_count",
+          "location": "G05",
+          "count": 1
+        },
+        {
+          "type": "stat_min",
+          "stat": "awareness",
+          "value": 2
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "Every stall closes. This one doesn't. The vendor changes each day. The table stays.",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 2,
+        "text": "On the table: an object that changes by visit. Today it is something that belongs to you — or to someone who was here before you.",
+        "traitText": {
+          "musician": "Sheet music. For a song you've been trying to write.",
+          "photographer": "A photograph. The location is somewhere you haven't been yet.",
+          "wanderer": "A compass and a map. The map is of somewhere that doesn't exist.",
+          "barista": "Letters between strangers. The handwriting on one is yours.",
+          "shopkeeper": "A stone that doesn't weather. Warm. Older than the market."
+        },
+        "type": "revelation",
+        "advanceTrigger": {
+          "type": "detail",
+          "detail": "market_stall_object"
+        }
+      }
+    ],
+    "choice": null,
+    "flatObject": {
+      "id": "market_stall_object",
+      "description": "Something from the stall that doesn't pack up. It was meant for you."
+    },
+    "rewards": {
+      "completion": {
+        "awareness": 2,
+        "resonance": 2
+      }
+    }
+  },
+  "GI-09": {
+    "id": "GI-09",
+    "name": "The Church Register",
+    "type": "deep",
+    "primaryLocation": "G07",
+    "trait": "all",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        {
+          "type": "npc_stage",
+          "npc": "old_man",
+          "minStage": "familiar"
+        },
+        {
+          "type": "stat_min",
+          "stat": "awareness",
+          "value": 4
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "The bookshop stocks the church register. One entry appears every century, in different handwriting. The same name.",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 2,
+        "text": "The name connects two mythologies simultaneously.",
+        "traitText": {
+          "barista": "The name is the erased person. Not missing — erased. Written again because the city won't hold the absence.",
+          "shopkeeper": "The name marks a foundation point. The city rebuilds itself around it every hundred years."
+        },
+        "type": "research",
+        "advanceTrigger": {
+          "type": "detail",
+          "detail": "church_register"
+        }
+      },
+      {
+        "id": 3,
+        "text": "The name is a node. A fixed point. Whatever London forgets, it writes this name again.",
+        "type": "revelation",
+        "advanceTrigger": "automatic"
+      }
+    ],
+    "choice": null,
+    "rewards": {
+      "completion": {
+        "awareness": 2,
+        "insight": 4
+      }
+    }
+  },
+  "GI-10": {
+    "id": "GI-10",
+    "name": "The Old Man's Complete Sentence",
+    "type": "deep",
+    "primaryLocation": "G03",
+    "trait": "all",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        {
+          "type": "npc_stage",
+          "npc": "old_man",
+          "minStage": "familiar"
+        },
+        {
+          "type": "stat_min",
+          "stat": "awareness",
+          "value": 6
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "He speaks. Not a half-thought. A complete sentence. The first since you've known him.",
+        "traitText": {
+          "musician": "The river has been singing the same note since before the bridge.",
+          "photographer": "I watched the church rebuild itself one night. Stone by stone.",
+          "wanderer": "The bench knows when I'm coming. It gets warm.",
+          "barista": "Everyone on this street knew her name once. Now nobody does.",
+          "shopkeeper": "The ground here hasn't moved in eight hundred years. Until last week."
+        },
+        "type": "revelation",
+        "advanceTrigger": "automatic"
+      }
+    ],
+    "choice": null,
+    "rewards": {
+      "completion": {
+        "insight": 5,
+        "awareness": 3
+      }
+    }
+  },
+  "LI-03": {
+    "id": "LI-03",
+    "name": "The Tattoo That Leads",
+    "type": "deep",
+    "primaryLocation": "L06",
+    "trait": "all",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        {
+          "type": "npc_stage",
+          "npc": "tattoo_artist",
+          "minStage": "familiar"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "He draws something in your notebook. Not a tattoo. A door. 'This is what I see,' he says.",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 2,
+        "text": "The door has components scattered across London. A doorframe in Bermondsey. A handle in Greenwich. Hinges in Limehouse. A keyhole in a sealed tunnel.",
+        "type": "research",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 3,
+        "text": "You find it. L10. The empty lot. The door drawn by the tattoo artist exists in the physical world.",
+        "type": "revelation",
+        "advanceTrigger": {
+          "type": "detail",
+          "detail": "empty_lot_door"
+        }
+      }
+    ],
+    "choice": {
+      "triggeredAfterStep": 3,
+      "prompt": "The door is there. In the empty lot. Real.",
+      "options": [
+        {
+          "id": "assemble",
+          "text": "I'll find every component.",
+          "consequence": {
+            "narrativeText": "You gather the knowledge. The Tattoo Artist draws the complete door in one session. His hands work faster than usual. He doesn't look at the page.",
+            "npcEffect": {
+              "tattoo_artist": {
+                "stageUnlock": "familiar_aware"
+              }
+            },
+            "xp": {
+              "insight": 4,
+              "awareness": 3
+            },
+            "flatObject": {
+              "id": "complete_door_drawing",
+              "description": "A drawing of a complete door. Every detail precise. The Tattoo Artist says he drew it without looking."
+            }
+          }
+        },
+        {
+          "id": "find_door",
+          "text": "The physical door. Find it.",
+          "consequence": {
+            "narrativeText": "It's in the empty lot. L10. Not a building — just a door standing in the weeds. The frame is worn. The handle is cold. The hinges are new. It opens.",
+            "npcEffect": {
+              "tattoo_artist": {
+                "stageUnlock": "familiar_unknowing"
+              }
+            },
+            "xp": {
+              "awareness": 5,
+              "resonance": 3
+            },
+            "flatObject": {
+              "id": "found_door_handle",
+              "description": "The handle from the door in the empty lot. Cold. Still cold."
+            }
+          }
+        }
+      ]
+    },
+    "rewards": {
+      "completion": {
+        "awareness": 3,
+        "insight": 2
+      }
+    }
+  },
+  "LI-05": {
+    "id": "LI-05",
+    "name": "The Lock Gate Mechanism",
+    "type": "quick",
+    "primaryLocation": "L07",
+    "trait": "all",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        {
+          "type": "visit_count",
+          "location": "L07",
+          "count": 2
+        },
+        {
+          "type": "stat_min",
+          "stat": "awareness",
+          "value": 3
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "The lock gate gears are turning. There's no water pressure. Nothing to drive them.",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 2,
+        "text": "The mechanism connects to something beneath the canal — the same layer the canal maps describe.",
+        "traitText": {
+          "musician": "The gears produce a harmonic. The canal amplifies it.",
+          "shopkeeper": "The mechanism is older than the gate. It predates the canal entirely."
+        },
+        "type": "revelation",
+        "advanceTrigger": {
+          "type": "detail",
+          "detail": "lock_mechanism"
+        }
+      }
+    ],
+    "choice": null,
+    "flatObject": {
+      "id": "canal_gear_tooth",
+      "description": "A tooth from the lock gate mechanism. Still warm from turning."
+    },
+    "rewards": {
+      "completion": {
+        "awareness": 2,
+        "insight": 2
+      }
+    }
+  },
+  "LI-06": {
+    "id": "LI-06",
+    "name": "The Promoter's Hidden Event",
+    "type": "deep",
+    "primaryLocation": "L09",
+    "trait": "all",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        {
+          "type": "npc_stage",
+          "npc": "nightclub_promoter",
+          "minStage": "familiar"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "She invites you to something. 'Not here. Not tonight's thing. The other thing. Saturday.'",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 2,
+        "text": "A warehouse. No address given — she draws a map on a receipt. Inside: people who perceive the mythological layer. All of them. They disagree about what they see.",
+        "type": "revelation",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 3,
+        "text": "You realize: you are not unique. You realize: no one agrees on what London is. This is the game's most honest moment.",
+        "type": "climactic",
+        "advanceTrigger": "automatic"
+      }
+    ],
+    "choice": {
+      "triggeredAfterStep": 3,
+      "prompt": "Someone at the gathering asks what you believe London is.",
+      "options": [
+        {
+          "id": "share",
+          "text": "I tell them what I see.",
+          "consequence": {
+            "narrativeText": "Your mythology, spoken aloud for the first time. The room is quiet. Some nod. Some don't. The Promoter catches your eye. 'That's why I invited you,' she says. 'You're the only one who said it that way.'",
+            "npcEffect": {
+              "nightclub_promoter": {
+                "stageUnlock": "familiar_aware"
+              }
+            },
+            "xp": {
+              "connection": 5,
+              "insight": 4
+            },
+            "flatObject": {
+              "id": "gathering_receipt_map",
+              "description": "The receipt map to the gathering. An address that doesn't exist. You found it anyway."
+            },
+            "eventEndingUnlocked": "BA-END-3"
+          }
+        },
+        {
+          "id": "listen",
+          "text": "I listen.",
+          "consequence": {
+            "narrativeText": "You hear five different versions of London. They're all true. None are complete. You leave with something you can't name — a widening. The mythology you hold has become one of many.",
+            "npcEffect": {
+              "nightclub_promoter": {
+                "stageUnlock": "familiar_unknowing"
+              }
+            },
+            "xp": {
+              "awareness": 3,
+              "insight": 5
+            },
+            "flatObject": null
+          }
+        }
+      ]
+    },
+    "rewards": {
+      "completion": {
+        "awareness": 3,
+        "insight": 3
+      }
+    }
+  },
+  "LI-07": {
+    "id": "LI-07",
+    "name": "The Courier's Warning",
+    "type": "quick",
+    "primaryLocation": "L08",
+    "trait": "all",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        {
+          "type": "npc_stage",
+          "npc": "bike_courier",
+          "minStage": "acquaintance"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "He stops. Not because he has time to. He hands you a fragment — a location, a day, a warning. Then he's gone.",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 2,
+        "text": "The location: a specific street corner. The day: three days from now. The warning: two words. 'Don't wait.'",
+        "type": "revelation",
+        "advanceTrigger": "automatic"
+      }
+    ],
+    "choice": {
+      "triggeredAfterStep": 2,
+      "prompt": "Three days later. The street corner.",
+      "options": [
+        {
+          "id": "go",
+          "text": "I go.",
+          "consequence": {
+            "narrativeText": "You go. The corner. Something is there — fleeting, unmistakably real. The Courier passes on the opposite side of the street. He doesn't look surprised to see you. He nods.",
+            "npcEffect": {
+              "bike_courier": {
+                "stageUnlock": "familiar_aware"
+              }
+            },
+            "xp": {
+              "awareness": 4,
+              "resonance": 3
+            },
+            "flatObject": {
+              "id": "courier_warning_fragment",
+              "description": "The fragment the Courier delivered. Location, date, warning. Accurate on all three."
+            }
+          }
+        },
+        {
+          "id": "skip",
+          "text": "I don't go.",
+          "consequence": {
+            "narrativeText": "You don't go. The next time you pass that corner, something is different. A door that wasn't there. A smell. A change in temperature. The Courier, when you see him: 'You should've come.'",
+            "npcEffect": {},
+            "xp": {
+              "insight": 3
+            },
+            "flatObject": null
+          }
+        }
+      ]
+    },
+    "rewards": {
+      "completion": {
+        "awareness": 2
+      }
+    }
+  },
+  "LI-09": {
+    "id": "LI-09",
+    "name": "The Canal Boat Logbook",
+    "type": "deep",
+    "primaryLocation": "L01",
+    "trait": "all",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        {
+          "type": "npc_stage",
+          "npc": "canal_painter",
+          "minStage": "familiar"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "She shows you the narrowboat's previous owner logbook. 'Found it in the bilge. Thought you'd want to see.'",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 2,
+        "text": "The journey begins on the Regent's Canal and ends somewhere the canal doesn't go. The final entry names a location that doesn't exist.",
+        "type": "research",
+        "advanceTrigger": {
+          "type": "detail",
+          "detail": "logbook_final_entry"
+        }
+      },
+      {
+        "id": 3,
+        "text": "The previous owner connects to NPCs in all three neighborhoods. The absence at the center of the network: this person.",
+        "traitText": {
+          "barista": "The logbook names the erased person. Not the name — a description. 'The one everyone knew. The one nobody can say.'"
+        },
+        "type": "revelation",
+        "advanceTrigger": "automatic"
+      }
+    ],
+    "choice": null,
+    "rewards": {
+      "completion": {
+        "awareness": 2,
+        "insight": 3
+      }
+    }
+  },
+  "LI-10": {
+    "id": "LI-10",
+    "name": "The Empty Lot Entity",
+    "type": "deep",
+    "primaryLocation": "L10",
+    "trait": "all",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        {
+          "type": "stat_min",
+          "stat": "awareness",
+          "value": 5
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "At high Awareness, the lot is not empty. A presence. Not threatening. Curious.",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 2,
+        "text": "The Night Fox guards the entrance. The space has opinions about who enters.",
+        "type": "research",
+        "advanceTrigger": {
+          "type": "detail",
+          "detail": "lot_silence"
+        }
+      },
+      {
+        "id": 3,
+        "text": "The lot is the geographic center of London's dream-cartography.",
+        "traitText": {
+          "wanderer": "The lot is dreaming. You are inside the dream. The space pulls at something in the chest.",
+          "musician": "47Hz. The same frequency. The lot is a speaker for something beneath.",
+          "shopkeeper": "The foundation marks on the map converge here. This is the center. This is where everything is anchored."
+        },
+        "type": "revelation",
+        "advanceTrigger": "automatic"
+      }
+    ],
+    "choice": null,
+    "rewards": {
+      "completion": {
+        "awareness": 3,
+        "resonance": 4
+      }
+    }
+  },
+  "LI-11": {
+    "id": "LI-11",
+    "name": "The Sound Artist's Archive",
+    "type": "deep",
+    "primaryLocation": "L04",
+    "trait": "musician",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        {
+          "type": "npc_stage",
+          "npc": "sound_artist",
+          "minStage": "familiar"
+        },
+        {
+          "type": "stat_min",
+          "stat": "awareness",
+          "value": 6
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "The complete archive. Every recording. Mapped chronologically.",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 2,
+        "text": "The anomalous sounds are increasing in complexity. Not noise. A language. London is trying to say something.",
+        "type": "research",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 3,
+        "text": "The Musician is the only one who can hear the full vocabulary. The archive has been waiting for a specific listener.",
+        "type": "revelation",
+        "advanceTrigger": "automatic"
+      }
+    ],
+    "choice": {
+      "triggeredAfterStep": 3,
+      "prompt": "The archive asks: play the recording that responds. The city is listening.",
+      "options": [
+        {
+          "id": "play",
+          "text": "I play. London hears.",
+          "consequence": {
+            "narrativeText": "You play. The canal outside the window responds. The frequency shifts. Something below the building resonates. The Sound Artist: 'That's it. That's what it's been trying to do.'",
+            "npcEffect": {
+              "sound_artist": {
+                "stageUnlock": "familiar_aware"
+              }
+            },
+            "xp": {
+              "awareness": 5,
+              "resonance": 5,
+              "insight": 4
+            },
+            "flatObject": {
+              "id": "archive_final_recording",
+              "description": "The recording that completed the sequence. London's voice, heard for the first time."
+            },
+            "eventEndingUnlocked": "M-END-1"
+          }
+        },
+        {
+          "id": "close",
+          "text": "I close the archive.",
+          "consequence": {
+            "narrativeText": "You close it. The Sound Artist watches. 'You heard it,' she says. 'That's enough.' You carry the full vocabulary with you. A language only you speak.",
+            "npcEffect": {
+              "sound_artist": {
+                "stageUnlock": "familiar_unknowing"
+              }
+            },
+            "xp": {
+              "insight": 5,
+              "resonance": 4
+            },
+            "flatObject": {
+              "id": "archive_key",
+              "description": "The archive key. Yours now. For when you're ready."
+            },
+            "eventEndingUnlocked": "M-END-3"
+          }
+        }
+      ]
+    },
+    "rewards": {
+      "completion": {
+        "awareness": 4,
+        "insight": 4
+      }
+    }
+  },
+  "LI-13": {
+    "id": "LI-13",
+    "name": "The Grapes' Cellar",
+    "type": "quick",
+    "primaryLocation": "L05",
+    "trait": "all",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        {
+          "type": "npc_stage",
+          "npc": "pub_landlord",
+          "minStage": "acquaintance"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "Pub Landlord mentions the cellar in passing. 'Don't go down there. Nobody goes down there.'",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 2,
+        "text": "The cellar predates the pub by two centuries.",
+        "traitText": {
+          "musician": "The cellar resonates at 47Hz. This is an amplification point.",
+          "shopkeeper": "The foundation stones don't match the building above. Older. Much older."
+        },
+        "type": "revelation",
+        "advanceTrigger": {
+          "type": "detail",
+          "detail": "cellar_door_l05"
+        }
+      }
+    ],
+    "choice": null,
+    "flatObject": {
+      "id": "cellar_stone_fragment",
+      "description": "A stone from the cellar floor. Older than the pub. Older than Limehouse."
+    },
+    "rewards": {
+      "completion": {
+        "awareness": 2,
+        "insight": 1
+      }
+    }
+  },
+  "BI-02": {
+    "id": "BI-02",
+    "name": "The Gallery's Rotating Exhibition",
+    "type": "deep",
+    "primaryLocation": "B02",
+    "trait": "all",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        {
+          "type": "npc_stage",
+          "npc": "gallery_owner",
+          "minStage": "acquaintance"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "Each season: one piece with no provenance. No artist. No title. The Gallery Owner: 'Interesting piece?'",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 2,
+        "text": "The piece responds to the weather. Rain: it darkens. Clear: it lightens. Not metaphorically — the paint physically shifts.",
+        "type": "research",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 3,
+        "text": "Four pieces across the seasons form a composite image.",
+        "traitText": {
+          "photographer": "The four pieces together: London photographed from below. As if something beneath the city were looking up.",
+          "barista": "The four pieces together: a map of connections. The center is an absence.",
+          "shopkeeper": "The four pieces together: a geological cross-section. Seven foundation points. Marked."
+        },
+        "type": "revelation",
+        "advanceTrigger": "automatic"
+      }
+    ],
+    "choice": null,
+    "flatObject": {
+      "id": "gallery_piece_sketch",
+      "description": "A sketch of the anomalous piece. It looks different every time you draw it."
+    },
+    "rewards": {
+      "completion": {
+        "awareness": 2,
+        "insight": 3
+      },
+      "eventEndingUnlocked": {
+        "trait": "photographer",
+        "endingId": "P-END-3"
+      }
+    }
+  },
+  "BI-04": {
+    "id": "BI-04",
+    "name": "The Railway Arch Renovation",
+    "type": "deep",
+    "primaryLocation": "B03",
+    "trait": "all",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        {
+          "type": "visit_count",
+          "location": "B03",
+          "count": 2
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "The tools have moved since yesterday. Overnight. Nobody has been here.",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 2,
+        "text": "Materials arrive from nowhere. A blueprint emerges on the workbench. The arch is becoming a resonance chamber.",
+        "type": "research",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 3,
+        "text": "Nobody is building this. Or: something is building it through the hands of whoever enters the space.",
+        "traitText": {
+          "musician": "The arch already resonates at specific frequencies. The renovation is tuning it.",
+          "wanderer": "You feel it in the palms when you touch the wall. The arch is being shaped by attention."
+        },
+        "type": "revelation",
+        "advanceTrigger": "automatic"
+      }
+    ],
+    "choice": null,
+    "rewards": {
+      "completion": {
+        "awareness": 2,
+        "insight": 3,
+        "resonance": 2
+      }
+    }
+  },
+  "BI-05": {
+    "id": "BI-05",
+    "name": "The Bermondsey Street Palimpsest",
+    "type": "deep",
+    "primaryLocation": "B09",
+    "trait": "all",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        {
+          "type": "stat_min",
+          "stat": "awareness",
+          "value": 4
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "After rain: text beneath the pavement. Older names. Older numbers. Half-visible.",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 2,
+        "text": "Six rains to read the complete letter. Each rainfall reveals a new portion.",
+        "type": "research",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 3,
+        "text": "The letter is complete. It is addressed to the city. It was written eight hundred years ago. It is still relevant.",
+        "traitText": {
+          "photographer": "The six portions photographed and assembled: a letter that anticipated everything that has happened to London since.",
+          "barista": "The letter mentions a name. The same name from the church register. The same absence.",
+          "shopkeeper": "The letter describes the foundation marks. Seven. It names their purpose."
+        },
+        "type": "revelation",
+        "advanceTrigger": "automatic"
+      }
+    ],
+    "choice": null,
+    "flatObject": {
+      "id": "palimpsest_tracing",
+      "description": "Six tracings assembled into one. A letter that has been waiting under the pavement."
+    },
+    "rewards": {
+      "completion": {
+        "awareness": 3,
+        "insight": 4
+      }
+    }
+  },
+  "BI-06": {
+    "id": "BI-06",
+    "name": "The Rooftop Revelation",
+    "type": "deep",
+    "primaryLocation": "B08",
+    "trait": "all",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        {
+          "type": "stat_min",
+          "stat": "awareness",
+          "value": 6
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "From the rooftop: all three neighborhoods visible simultaneously.",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 2,
+        "text": "At high Awareness: a pattern in the street layout. Not accidental. The streets form a shape.",
+        "type": "revelation",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 3,
+        "text": "The Watcher has been here. A folding chair, faded from weather, still unfolded. They sat here and saw what you now see.",
+        "traitText": {
+          "musician": "The shape in the streets: a tuning fork. Every road an arm of an instrument.",
+          "photographer": "The shape in the streets: a camera aperture. The city is its own lens.",
+          "wanderer": "The shape in the streets: a labyrinth. Not trapping — containing. Protecting something at the center.",
+          "barista": "The shape in the streets: a web. Every node a person. One node missing.",
+          "shopkeeper": "The shape in the streets: a foundation plan. Drawn first, built second. The city was planned before it was built."
+        },
+        "type": "climactic",
+        "advanceTrigger": "automatic"
+      }
+    ],
+    "choice": null,
+    "flatObject": {
+      "id": "rooftop_folding_chair_photo",
+      "description": "A photograph of the Watcher's chair. Still unfolded. Still facing the right direction."
+    },
+    "rewards": {
+      "completion": {
+        "awareness": 4,
+        "insight": 3,
+        "resonance": 3
+      }
+    }
+  },
+  "BI-07": {
+    "id": "BI-07",
+    "name": "The Vinyl That Shouldn't Exist",
+    "type": "quick",
+    "primaryLocation": "B10",
+    "trait": "musician",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        {
+          "type": "visit_count",
+          "location": "B10",
+          "count": 1
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "A record. No band name you recognize. No date. The studio listed burned before it was built.",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 2,
+        "text": "You play it. Behind the music: the canal frequency. 47Hz. A physical artifact of the acoustic mythology. The recording contains the complete canal sequence. This is what the canal has been trying to say.",
+        "type": "revelation",
+        "advanceTrigger": "automatic"
+      }
+    ],
+    "choice": null,
+    "flatObject": {
+      "id": "impossible_vinyl",
+      "description": "A record from a studio that burned before it was built. 47Hz sustained. Still playing somewhere."
+    },
+    "rewards": {
+      "completion": {
+        "awareness": 2,
+        "resonance": 4
+      }
+    }
+  },
+  "BI-08": {
+    "id": "BI-08",
+    "name": "The Street Preacher's Prophecy",
+    "type": "quick",
+    "primaryLocation": "B09",
+    "trait": "all",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        {
+          "type": "npc_stage",
+          "npc": "street_preacher",
+          "minStage": "acquaintance"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "Third encounter. He says something specific to your investigation — knowledge he shouldn't have.",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 2,
+        "text": "He turns a corner. Gone. Where he stood: text on the pavement. Not chalk. Something older. Something permanent.",
+        "traitText": {
+          "musician": "The text: the frequency. The exact frequency. Written in the pavement as if it has always been there.",
+          "photographer": "The text: coordinates. Not GPS — an older system. Where the next photograph must be taken.",
+          "wanderer": "The text: a direction. Magnetic north, adjusted. Pointing somewhere the map doesn't show.",
+          "barista": "The text: a name. Partial. Three letters. The first three letters of the name.",
+          "shopkeeper": "The text: a date. Tomorrow. And beneath it: 'The ground will remember.'"
+        },
+        "type": "revelation",
+        "advanceTrigger": "automatic"
+      }
+    ],
+    "choice": null,
+    "flatObject": {
+      "id": "preacher_pavement_text",
+      "description": "A photograph of the text in the pavement. It was there. You have proof."
+    },
+    "rewards": {
+      "completion": {
+        "awareness": 2,
+        "insight": 3
+      }
+    }
+  },
+  "BI-09": {
+    "id": "BI-09",
+    "name": "The Child's Map",
+    "type": "deep",
+    "primaryLocation": null,
+    "trait": "all",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        {
+          "type": "stat_min",
+          "stat": "awareness",
+          "value": 4
+        },
+        {
+          "type": "npc_stage",
+          "npc": "child_who_draws",
+          "minStage": "acquaintance"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "The child's drawing: an accurate map of all three neighborhoods. One building that doesn't exist.",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 2,
+        "text": "The address of the nonexistent building. It receives mail. Investigating: someone lives at an address without a building.",
+        "type": "research",
+        "advanceTrigger": {
+          "type": "detail",
+          "detail": "child_drawing_map"
+        }
+      },
+      {
+        "id": 3,
+        "text": "The erased person. A projection of the network. The child draws the negative space.",
+        "traitText": {
+          "barista": "The child is drawing the erased person's address. The mail still arrives. Someone collects it.",
+          "wanderer": "The nonexistent building occupies the geographic center of the dream-cartography."
+        },
+        "type": "revelation",
+        "advanceTrigger": "automatic"
+      }
+    ],
+    "choice": null,
+    "flatObject": {
+      "id": "child_map_copy",
+      "description": "A copy of the child's map. The nonexistent address circled. In your handwriting. You don't remember circling it."
+    },
+    "rewards": {
+      "completion": {
+        "awareness": 3,
+        "insight": 4
+      }
+    }
+  },
+  "BI-10": {
+    "id": "BI-10",
+    "name": "The Thames Path Figure",
+    "type": "deep",
+    "primaryLocation": "B05",
+    "trait": "all",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        {
+          "type": "stat_min",
+          "stat": "awareness",
+          "value": 6
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "Dawn. A figure walks the Rotherhithe path. Same direction. Every day.",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 2,
+        "text": "The Watcher is afraid of this figure. That alone means something.",
+        "type": "research",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 3,
+        "text": "This figure predates the Watcher. Predates the game's mythology. The oldest thing that moves in London.",
+        "type": "revelation",
+        "advanceTrigger": "automatic"
+      }
+    ],
+    "choice": {
+      "triggeredAfterStep": 3,
+      "prompt": "The figure reaches the end of the path and keeps walking. Beyond the map's edge.",
+      "options": [
+        {
+          "id": "follow",
+          "text": "I follow.",
+          "consequence": {
+            "narrativeText": "You follow. The path ends at the river wall. The figure steps through. Not into the water — through. Beyond the boundary. London becomes entirely the mythological layer. The real city is gone. The dream is all there is.",
+            "npcEffect": {},
+            "xp": {
+              "awareness": 5,
+              "resonance": 6
+            },
+            "flatObject": {
+              "id": "beyond_the_map_fragment",
+              "description": "A piece of the map that extends past its own edge. Still drawing itself."
+            },
+            "eventEndingUnlocked": "W-END-3"
+          }
+        },
+        {
+          "id": "stop",
+          "text": "I stop at the edge.",
+          "consequence": {
+            "narrativeText": "You stop. The figure doesn't look back. You stand at the boundary of what is knowable. You know the city from here. You know where the edge is. You never cross it. You never stop coming close.",
+            "npcEffect": {},
+            "xp": {
+              "insight": 5,
+              "resonance": 4
+            },
+            "flatObject": null
+          }
+        }
+      ]
+    },
+    "rewards": {
+      "completion": {
+        "awareness": 4,
+        "insight": 3
+      }
+    }
+  },
+  "BI-11": {
+    "id": "BI-11",
+    "name": "The Researcher's Model",
+    "type": "quick",
+    "primaryLocation": "B06",
+    "trait": "all",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        {
+          "type": "npc_stage",
+          "npc": "ai_researcher",
+          "minStage": "familiar"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "He steps away for coffee. The laptop screen: a simulation. A city.",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 2,
+        "text": "The simulation is the game's own map. Your location is marked. The simulation is running in real time.",
+        "type": "revelation",
+        "advanceTrigger": "automatic"
+      }
+    ],
+    "choice": null,
+    "flatObject": {
+      "id": "researcher_model_screenshot",
+      "description": "A photograph of the laptop screen. Your position marked. The date is today."
+    },
+    "rewards": {
+      "completion": {
+        "insight": 4,
+        "resonance": 3
+      }
+    }
+  },
+  "XN-01": {
+    "id": "XN-01",
+    "name": "The Network Convergence",
+    "type": "climactic",
+    "primaryLocation": null,
+    "trait": "barista",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        {
+          "type": "stat_min",
+          "stat": "awareness",
+          "value": 8
+        },
+        {
+          "type": "npc_stage",
+          "npc": "barista",
+          "minStage": "familiar"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "Seven NPCs connected by knowledge they shouldn't share. They orbit an absence.",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 2,
+        "text": "The network map is complete. The center: a space where a person should be. The Barista reconstructs the erased person from negative space.",
+        "type": "research",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 3,
+        "text": "You know the name. The erased person. You have assembled them from the traces they left in others.",
+        "type": "climactic",
+        "advanceTrigger": "automatic"
+      }
+    ],
+    "choice": {
+      "triggeredAfterStep": 3,
+      "prompt": "You know the name. The city is listening.",
+      "options": [
+        {
+          "id": "speak",
+          "text": "I say the name.",
+          "consequence": {
+            "narrativeText": "You say it. The network vibrates. Seven NPCs pause simultaneously across three neighborhoods. The Watcher is devastated — visible through a window. The erased person doesn't return. But the space they occupied is acknowledged. London heard you.",
+            "npcEffect": {
+              "barista": {
+                "stageUnlock": "familiar_aware"
+              },
+              "watcher": {
+                "stageUnlock": "familiar_unknowing"
+              }
+            },
+            "xp": {
+              "awareness": 5,
+              "connection": 6,
+              "resonance": 5
+            },
+            "flatObject": {
+              "id": "spoken_name_journal",
+              "description": "The journal page where you wrote the name before speaking it. The ink is still wet."
+            },
+            "eventEndingUnlocked": "BA-END-1"
+          }
+        },
+        {
+          "id": "keep",
+          "text": "I keep it.",
+          "consequence": {
+            "narrativeText": "You say nothing. The knowledge is weight. The hole remains. The Watcher's reasoning is understood, not agreed with. The name lives in the journal's last page. You'll carry it. That's enough.",
+            "npcEffect": {
+              "barista": {
+                "stageUnlock": "familiar_unknowing"
+              }
+            },
+            "xp": {
+              "insight": 6,
+              "connection": 4
+            },
+            "flatObject": {
+              "id": "sealed_journal_page",
+              "description": "The last page of the journal. Sealed. You know what it says."
+            },
+            "eventEndingUnlocked": "BA-END-2"
+          }
+        }
+      ]
+    },
+    "rewards": {
+      "completion": {
+        "awareness": 4,
+        "insight": 5
+      }
+    }
+  },
+  "XN-02": {
+    "id": "XN-02",
+    "name": "The Dream Cartography",
+    "type": "climactic",
+    "primaryLocation": "L10",
+    "trait": "wanderer",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        {
+          "type": "stat_min",
+          "stat": "awareness",
+          "value": 8
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "The emotional geography map is complete. London's dream-mind has a structure.",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 2,
+        "text": "The center: beneath the empty lot. The Wanderer has been circling it.",
+        "type": "research",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 3,
+        "text": "Going there means entering the dream directly. The lot opens.",
+        "type": "climactic",
+        "advanceTrigger": "automatic"
+      }
+    ],
+    "choice": {
+      "triggeredAfterStep": 3,
+      "prompt": "The lot is open. The center is real. London's consciousness is here.",
+      "options": [
+        {
+          "id": "enter",
+          "text": "I enter.",
+          "consequence": {
+            "narrativeText": "You enter. A feeling so vast it has gravity. London's consciousness: not a mind, not a god, not a thing — a sustained attention. It has been aware of you since you arrived. It opens its eyes. You are inside them.",
+            "npcEffect": {},
+            "xp": {
+              "awareness": 6,
+              "resonance": 8,
+              "insight": 5
+            },
+            "flatObject": {
+              "id": "dream_center_fragment",
+              "description": "Something from the center of the lot. It has no weight. It casts a shadow."
+            },
+            "eventEndingUnlocked": "W-END-1"
+          }
+        },
+        {
+          "id": "step_back",
+          "text": "I step back.",
+          "consequence": {
+            "narrativeText": "You step back. You understand what you are stepping back from. You become its guardian. The boundary between the city's dreaming and its waking. You will walk the edge forever. You never leave London. You never need to.",
+            "npcEffect": {},
+            "xp": {
+              "insight": 6,
+              "resonance": 6,
+              "connection": 4
+            },
+            "flatObject": {
+              "id": "dream_guardian_stone",
+              "description": "A stone from the lot's edge. You keep it in your pocket. It tells you when the dream shifts."
+            },
+            "eventEndingUnlocked": "W-END-2"
+          }
+        }
+      ]
+    },
+    "rewards": {
+      "completion": {
+        "awareness": 5,
+        "insight": 5
+      }
+    }
+  },
+  "XN-03": {
+    "id": "XN-03",
+    "name": "The Watcher's Confrontation",
+    "type": "climactic",
+    "primaryLocation": "G03",
+    "trait": "all",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        {
+          "type": "stat_min",
+          "stat": "awareness",
+          "value": 10
+        },
+        {
+          "type": "npc_stage",
+          "npc": "watcher",
+          "minStage": "familiar"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "The Watcher is sitting on the bench where the Old Man usually sits. The Old Man is absent.",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 2,
+        "text": "The Watcher: 'I sat where you're sitting. Three years ago.'",
+        "type": "revelation",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 3,
+        "text": "They tell you what happened to them. What the mythological layer did to the last person who went as far as you are going.",
+        "traitText": {
+          "musician": "I heard everything. For three years. Then it started hearing me back.",
+          "photographer": "I saw the next draft. London's revision. There are no people in it.",
+          "wanderer": "I followed the pull to its source. It noticed me. And then it didn't look away.",
+          "barista": "I erased them. I had to. They were becoming the network. Every connection in London flowing through one mind.",
+          "shopkeeper": "I touched the ground. The real ground. It moved. Like a breath. I've been monitoring it for seven years. It's breathing faster."
+        },
+        "type": "climactic",
+        "advanceTrigger": "automatic"
+      }
+    ],
+    "choice": {
+      "triggeredAfterStep": 3,
+      "prompt": "The Watcher: 'I'm not warning you. I'm telling you what happens.'",
+      "options": [
+        {
+          "id": "continue",
+          "text": "I need to see for myself.",
+          "consequence": {
+            "narrativeText": "The Watcher stands. 'Then you'll see.' They walk away. They don't look back. Your Awareness spikes. The mythological layer becomes vivid — more vivid than it has ever been. There is no going back. The Watcher is gone.",
+            "npcEffect": {
+              "watcher": {
+                "stageUnlock": "familiar_aware"
+              }
+            },
+            "xp": {
+              "awareness": 6,
+              "insight": 5,
+              "resonance": 5
+            },
+            "flatObject": {
+              "id": "watcher_parting_object",
+              "description": "Something the Watcher left on the bench. Small. Permanent."
+            },
+            "eventEndingUnlocked": null
+          }
+        },
+        {
+          "id": "stop",
+          "text": "Maybe you're right.",
+          "consequence": {
+            "narrativeText": "The Watcher looks at you for a long time. 'Thank you,' they say. They leave something on the bench. The mythological layer dims. Not gone — diminished. London is quieter. The canal is just a canal. But sometimes, at dusk, you still see it.",
+            "npcEffect": {
+              "watcher": {
+                "stageUnlock": "familiar_unknowing"
+              }
+            },
+            "xp": {
+              "insight": 5,
+              "resonance": 4,
+              "connection": 5
+            },
+            "flatObject": {
+              "id": "watcher_gift",
+              "description": "What the Watcher left. A small object. Warm. Still warm."
+            },
+            "eventEndingUnlocked": null
+          }
+        }
+      ]
+    },
+    "rewards": {
+      "completion": {
+        "awareness": 5,
+        "insight": 5,
+        "resonance": 5
+      }
     }
   }
 }

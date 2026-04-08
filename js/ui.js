@@ -1005,6 +1005,15 @@ const UI = (() => {
     panel.innerHTML = html;
 
     panel.querySelector('.inv-continue-btn').addEventListener('click', () => {
+      const endingId = consequence.eventEndingUnlocked;
+      if (endingId && EVENT_ENDINGS[endingId]) {
+        const endingTrait = EVENT_ENDINGS[endingId].trait;
+        const playerTrait = State.get('trait') || 'musician';
+        if (!endingTrait || endingTrait === playerTrait) {
+          setTimeout(() => { showEventEnding(endingId); }, 400);
+          return;
+        }
+      }
       showLocation();
     });
   }
@@ -1378,6 +1387,204 @@ const UI = (() => {
 
   // --- Leave London Ending Sequence ---
 
+  // Event endings data — 15 endings across 5 traits
+  const EVENT_ENDINGS = {
+    'M-END-1': {
+      name: 'The Full Recording',
+      trait: 'musician',
+      trigger: { investigationId: 'LI-11', choiceId: 'play' },
+      finalAction: 'You play the recording. The canal responds. The city hears itself for the first time.',
+      finalLine: 'Everyone can hear it now. Everyone.',
+      tone: 'triumphant and terrifying'
+    },
+    'M-END-2': {
+      name: 'The Silence',
+      trait: 'musician',
+      trigger: { investigationId: 'XN-03', choiceId: 'stop' },
+      finalAction: "The frequencies fade. The canal is just a canal. The city goes quiet. One melody survives — the barista's song.",
+      finalLine: 'Quiet now. Just the river. Just the rain.',
+      tone: 'melancholic, peaceful'
+    },
+    'M-END-3': {
+      name: 'The Instrument',
+      trait: 'musician',
+      trigger: { investigationId: 'LI-11', choiceId: 'close' },
+      finalAction: 'You became part of the recording. Future listeners will hear you in the archive.',
+      finalLine: "I'm part of it. Listen. I'm in there.",
+      tone: 'transcendent, eerie'
+    },
+    'P-END-1': {
+      name: 'The Next Draft',
+      trait: 'photographer',
+      trigger: { investigationId: 'XN-03', choiceId: 'continue' },
+      finalAction: "You document London's planned revision. The map of the future. Others will navigate what London becomes using your work.",
+      finalLine: "It's already changing. I saw what comes next.",
+      tone: 'awed, urgent'
+    },
+    'P-END-2': {
+      name: 'The Ordinary',
+      trait: 'photographer',
+      trigger: { investigationId: 'XN-03', choiceId: 'stop' },
+      finalAction: 'The palimpsest fades to one layer. London is concrete and rain. But sometimes, in certain light, the shadows still have too many edges.',
+      finalLine: 'Just a city. Just light. Just shadows. Almost.',
+      tone: 'bittersweet'
+    },
+    'P-END-3': {
+      name: 'The Archive',
+      trait: 'photographer',
+      trigger: { investigationId: 'BI-02', completed: true },
+      finalAction: 'The composite image: London photographed from below. Something beneath the city, looking up through transparent ground.',
+      finalLine: 'Some photographs are better kept in the dark.',
+      tone: 'unsettling, profound'
+    },
+    'W-END-1': {
+      name: 'The Waking',
+      trait: 'wanderer',
+      trigger: { investigationId: 'XN-02', choiceId: 'enter' },
+      finalAction: "London's consciousness encountered. A feeling so vast it has gravity. You woke London.",
+      finalLine: 'It opened its eyes. And I was inside them.',
+      tone: 'sublime, dangerous'
+    },
+    'W-END-2': {
+      name: 'The Dream-Keeper',
+      trait: 'wanderer',
+      trigger: { investigationId: 'XN-02', choiceId: 'step_back' },
+      finalAction: "You become the guardian of London's sleep. You walk the boundary between dreaming and waking. You never leave.",
+      finalLine: "I'll walk until it wakes. Or until I do.",
+      tone: 'devoted, lonely, beautiful'
+    },
+    'W-END-3': {
+      name: 'The Other Side',
+      trait: 'wanderer',
+      trigger: { investigationId: 'BI-10', choiceId: 'follow' },
+      finalAction: "You followed the Thames Path Figure beyond the map's edge. London becomes entirely the mythological layer. No return.",
+      finalLine: 'This is what London looks like from the inside.',
+      tone: 'transcendent, irreversible'
+    },
+    'BA-END-1': {
+      name: 'The Name Spoken',
+      trait: 'barista',
+      trigger: { investigationId: 'XN-01', choiceId: 'speak' },
+      finalAction: 'You spoke the name. Every NPC reacted. The network vibrated. The space acknowledged.',
+      finalLine: 'I said the name. The city heard me.',
+      tone: 'powerful, uncertain'
+    },
+    'BA-END-2': {
+      name: 'The Name Kept',
+      trait: 'barista',
+      trigger: { investigationId: 'XN-01', choiceId: 'keep' },
+      finalAction: "You kept the name. It lives in the journal's last page. A weight carried privately. That's enough.",
+      finalLine: "I know your name. That's enough. I'll keep it.",
+      tone: 'tender, solemn'
+    },
+    'BA-END-3': {
+      name: 'The New Node',
+      trait: 'barista',
+      trigger: { investigationId: 'LI-06', completed: true },
+      finalAction: "The Barista has become the network's center. Not by choice. By attention. They replaced what was erased.",
+      finalLine: "I'm the one they all know. I'm the center now.",
+      tone: 'quietly powerful, frightening'
+    },
+    'S-END-1': {
+      name: 'The Awakening',
+      trait: 'shopkeeper',
+      trigger: { investigationId: 'BI-01', choiceId: 'turn' },
+      finalAction: 'You touched the foundation stone. The ground shifted beneath the entire city. The foundation knows your touch.',
+      finalLine: 'The ground knows my hands. It moved for me.',
+      tone: 'geological awe'
+    },
+    'S-END-2': {
+      name: 'The Vigil',
+      trait: 'shopkeeper',
+      trigger: { investigationId: 'XN-03', choiceId: 'stop' },
+      finalAction: "You became the permanent thing. You took over the clockmaker's post. The next Shopkeeper will find the same key.",
+      finalLine: 'Someone has to stay. Someone has to remember.',
+      tone: 'committed, cyclical'
+    },
+    'S-END-3': {
+      name: 'The Deep Layer',
+      trait: 'shopkeeper',
+      trigger: { investigationId: 'BI-03', choiceId: 'stay' },
+      finalAction: 'Past Victorian. Past medieval. Past Roman. A living surface that responds to touch. Two beats per century.',
+      finalLine: 'I can feel every footstep. Every one. All of them.',
+      tone: 'cosmic intimacy'
+    }
+  };
+
+  function showEventEnding(endingId) {
+    const ending = EVENT_ENDINGS[endingId];
+    if (!ending) return;
+
+    ++_viewId;
+    Engine.onCanvasTap(null);
+
+    const trait = State.get('trait') || 'musician';
+    const traitLabel = trait.charAt(0).toUpperCase() + trait.slice(1);
+
+    // Screen 1: Final action
+    function showAction() {
+      Engine.setTimePeriod('night');
+      let html = '<p class="fragment-title" style="color:#5a5040;">' + esc(ending.name) + '</p>';
+      html += '<p class="location-text" style="margin-top:1rem;">' + esc(ending.finalAction) + '</p>';
+      html += '<button class="discovery-back-btn" style="margin-top:2rem;">...</button>';
+      panel.innerHTML = html;
+      panel.classList.add('scene-fade');
+      const cl = () => panel.classList.remove('scene-fade', 'scene-fade-warm');
+      panel.addEventListener('animationend', cl, { once: true }); setTimeout(cl, 1500);
+      panel.querySelector('.discovery-back-btn').addEventListener('click', () => {
+        Engine.fadeTransition(() => { showLine(); });
+      });
+    }
+
+    // Screen 2: Final line
+    function showLine() {
+      let html = '<div style="display:flex;align-items:center;justify-content:center;min-height:6rem;">';
+      html += '<p class="npc-physical" style="font-size:1.2em;text-align:center;color:#c8b8a0;line-height:1.8;">' + esc(ending.finalLine) + '</p>';
+      html += '</div>';
+      html += '<button class="discovery-back-btn" style="margin-top:2rem;">...</button>';
+      panel.innerHTML = html;
+      panel.classList.add('scene-fade-warm');
+      const cl = () => panel.classList.remove('scene-fade', 'scene-fade-warm');
+      panel.addEventListener('animationend', cl, { once: true }); setTimeout(cl, 1500);
+      panel.querySelector('.discovery-back-btn').addEventListener('click', () => {
+        Engine.fadeTransition(() => { showTitleCard(); });
+      });
+    }
+
+    // Screen 3: Title card
+    function showTitleCard() {
+      const createdAt = State.get('createdAt');
+      const days = createdAt ? Math.max(1, Math.floor((Date.now() - createdAt) / 86400000)) : 1;
+      const discoveries = (State.get('discoveries') || []).length;
+      const npcMem = State.get('npcMemory') || {};
+      const npcsMet = Object.keys(npcMem).filter(id => npcMem[id] && npcMem[id].visitCount > 0).length;
+
+      let html = '<div style="text-align:center;padding:2rem 1rem;">';
+      html += '<p style="font-size:1.6rem;letter-spacing:0.15em;color:#c8b8a0;margin-bottom:0.5rem;font-family:inherit;">Trace</p>';
+      html += '<p style="font-size:0.85rem;letter-spacing:0.1em;color:#8a7a60;margin-bottom:1.5rem;font-family:inherit;">' + esc(ending.name) + '</p>';
+      html += '<div style="border-top:1px solid #3a3020;padding-top:1.5rem;margin-bottom:1.5rem;">';
+      html += '<p class="journal-stat" style="color:#6a5a48;">The ' + esc(traitLabel) + '</p>';
+      html += '<p class="journal-stat" style="color:#4a4038;margin-top:0.4rem;">' + days + ' day' + (days !== 1 ? 's' : '') + ' in London</p>';
+      html += '<p class="journal-stat" style="color:#4a4038;">' + discoveries + ' things noticed &middot; ' + npcsMet + ' people known</p>';
+      html += '</div>';
+      html += '<p class="journal-stat" style="color:#5a5040;font-style:italic;">You leave London.</p>';
+      html += '<button class="notebook-close-btn" style="margin-top:2rem;" id="event-ending-end">...</button>';
+      html += '</div>';
+
+      panel.innerHTML = html;
+      panel.classList.add('scene-fade');
+      const cl = () => panel.classList.remove('scene-fade', 'scene-fade-warm');
+      panel.addEventListener('animationend', cl, { once: true }); setTimeout(cl, 1500);
+      document.getElementById('event-ending-end').addEventListener('click', () => {
+        State.set('completed', true);
+        showTitle(true);
+      });
+    }
+
+    Engine.audio.fadeOut(8);
+    Engine.fadeTransition(() => { showAction(); });
+  }
+
   function showLeaveSequence() {
     ++_viewId;
     Engine.onCanvasTap(null);
@@ -1405,6 +1612,26 @@ const UI = (() => {
       L08: { text: 'The platform. MERIDIAN — 3 MIN. A train that never came.', caption: 'The impossible, stated as fact. Ordinary.' },
       L09: { text: 'The market. Bass in my feet. Smoke between the stalls.', caption: 'I read it three times. Then believed.' },
       L10: { text: 'The empty lot. Weeds through concrete. The fox that watched me.', caption: 'Same eyes. They\'d seen the same things.' },
+      G01: { text: 'The clockmaker\'s shop. Every clock ticking. One not.', caption: 'He wound it. Or I did. Same thing.' },
+      G02: { text: 'The observatory terrace. Eleven seconds. The instruments measured something wrong.', caption: 'She printed it. Her hands steady. Her voice not.' },
+      G03: { text: 'The churchyard bench. The old man\'s half-thoughts. One complete sentence.', caption: 'He spoke it whole. Once. For me.' },
+      G04: { text: 'The foot tunnel. Longer than it should be. The tile count keeps changing.', caption: 'I counted twice. Different number. Both times.' },
+      G05: { text: 'The covered market. The stall that never packs up. Something meant for me.', caption: 'It knew what I needed. Before I did.' },
+      G06: { text: 'The Naval College. The painted ceiling arguing. About a decision I hadn\'t made yet.', caption: 'The figures had already decided. I just hadn\'t.' },
+      G07: { text: 'The bookshop. The church register. One name, every century, different ink.', caption: 'The city writes it again. It always writes it again.' },
+      G08: { text: 'The park at night. The astronomer measuring beneath the ground.', caption: 'Pointed at the earth. Finding something moving.' },
+      G09: { text: 'The foreshore. Low tide. An object in the clay that had been waiting.', caption: 'The Thames gives things back. When it\'s ready.' },
+      G10: { text: 'The Trafalgar Tavern. A pub on Crane Street that shouldn\'t exist, warm and present.', caption: 'Thursday. It\'s always there on Thursday.' },
+      B01: { text: 'The antiques market. A key in wrong metal. Seven marks across London.', caption: 'It was always here. It was waiting for me.' },
+      B02: { text: 'The gallery. Four paintings across four seasons. A composite revelation.', caption: 'It showed me what London is planning.' },
+      B03: { text: 'The railway arch. Tools moved overnight. Something building through my hands.', caption: 'I wasn\'t building. I was being used. Willingly.' },
+      B04: { text: 'The warehouse at night. The space larger than its walls. Configurations converging.', caption: 'He said \'different.\' That was enough.' },
+      B05: { text: 'The Thames path. A figure walking. Every day. The oldest thing that moves.', caption: 'I stopped at the edge. I always stop at the edge.' },
+      B06: { text: 'The co-working space. The simulation. My position marked. The date: today.', caption: 'It knows I\'m here. It always knew.' },
+      B07: { text: 'The old church. The crypt door. Something beneath that grew, not carved.', caption: 'Older than the city. Older than the name.' },
+      B08: { text: 'The rooftop. The Shard. The city as a pattern. The Watcher\'s empty chair.', caption: 'They sat here. Saw what I saw. Then stopped.' },
+      B09: { text: 'Long Lane corner. The preacher\'s text in the pavement. Not chalk.', caption: 'Some messages outlast the messenger.' },
+      B10: { text: 'The vinyl shop. A record from a studio that burned before it was built.', caption: '47Hz. Still playing somewhere. Always playing.' },
       flat: { text: 'Empty room. Empty notebook. Everything ahead.', caption: 'The window. The rooftops. The beginning.' }
     };
 
