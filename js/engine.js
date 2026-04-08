@@ -2777,6 +2777,44 @@ const Engine = (() => {
           case 'B10':  sceneVinylShop(t); break;
           default:     sceneCanalBasin(t); break;
         }
+        // Mythological tide overlay — very subtle, atmospheric
+        const _tide = (typeof Game !== 'undefined' && Game.getMythologicalTide) ? Game.getMythologicalTide() : 'restless';
+        if (_tide === 'restless') {
+          // Warm shimmer — very faint amber pulse
+          const shimmer = Math.sin(t * 0.3) * 0.008 + 0.012;
+          ctx.fillStyle = `rgba(200,160,80,${shimmer})`;
+          ctx.fillRect(0, 0, W, H);
+        } else if (_tide === 'deep') {
+          // Cool, contemplative — slight blue deepening
+          ctx.fillStyle = 'rgba(40,60,120,0.015)';
+          ctx.fillRect(0, 0, W, H);
+        } else if (_tide === 'bright') {
+          // Vivid — light blooms slightly
+          const bloom = Math.sin(t * 0.15) * 0.02 + 0.03;
+          ctx.fillStyle = `rgba(255,240,180,${bloom})`;
+          ctx.fillRect(0, 0, W, H);
+        } else if (_tide === 'still') {
+          // Slight desaturation via dark overlay
+          ctx.fillStyle = 'rgba(20,20,40,0.02)';
+          ctx.fillRect(0, 0, W, H);
+        }
+
+        // Seasonal palette — subtle overlay
+        const _season = (typeof Game !== 'undefined' && Game.getSeason) ? Game.getSeason() : 'autumn';
+        if (_season === 'spring') {
+          ctx.fillStyle = 'rgba(140,200,120,0.01)';
+          ctx.fillRect(0, 0, W, H);
+        } else if (_season === 'summer') {
+          ctx.fillStyle = 'rgba(220,180,60,0.015)';
+          ctx.fillRect(0, 0, W, H);
+        } else if (_season === 'autumn') {
+          ctx.fillStyle = 'rgba(180,100,40,0.015)';
+          ctx.fillRect(0, 0, W, H);
+        } else if (_season === 'winter') {
+          ctx.fillStyle = 'rgba(80,100,160,0.012)';
+          ctx.fillRect(0, 0, W, H);
+        }
+
         // The Watcher — still figure at edge of any exterior scene
         // Scales with awareness: larger and more present as player notices more
         if (_watcherVisible) {

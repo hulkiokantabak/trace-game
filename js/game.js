@@ -481,6 +481,63 @@ const Game = (() => {
     return consequence;
   }
 
+  // --- Seasons, Tides, City Events ---
+
+  // Returns 'spring' | 'summer' | 'autumn' | 'winter'
+  function getSeason() {
+    const month = new Date().getMonth(); // 0-11
+    if (month >= 2 && month <= 4) return 'spring';
+    if (month >= 5 && month <= 7) return 'summer';
+    if (month >= 8 && month <= 10) return 'autumn';
+    return 'winter';
+  }
+
+  // Returns 'restless' | 'deep' | 'bright' | 'still'
+  // Seeded by day-of-year so it's consistent within a day
+  function getMythologicalTide() {
+    const season = getSeason();
+    const tideConfig = (content.config && content.config.tides) || {};
+    const now = new Date();
+    const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 86400000);
+
+    // Build weighted pool based on season
+    const tideTypes = ['restless', 'deep', 'bright', 'still'];
+    const pool = [];
+    tideTypes.forEach(t => {
+      const cfg = tideConfig[t];
+      const weight = cfg ? (cfg.seasonWeights[season] || 0) : 1;
+      for (let i = 0; i < weight; i++) pool.push(t);
+    });
+    // Fallback if pool is empty (e.g. winter with no bright entries)
+    if (!pool.length) pool.push('still');
+
+    // Simulate cycling: use the seed to determine current position in a cycle
+    // Each tide lasts roughly 4 days; divide the year into periods
+    const periodSeed = Math.floor(dayOfYear / 4);
+    const tideSeed = (periodSeed * 1664525 + 1013904223) >>> 0;
+    const idx = tideSeed % pool.length;
+    return pool[idx];
+  }
+
+  // Returns the current active city event object or null
+  function getCurrentCityEvent() {
+    const events = (content.config && content.config.cityEvents) || [];
+    if (!events.length) return null;
+
+    const now = new Date();
+    const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 86400000);
+
+    // New event every ~18 days (roughly 2-3 weeks)
+    const eventPeriod = 18;
+    const eventIndex = Math.floor(dayOfYear / eventPeriod) % events.length;
+    const event = events[eventIndex];
+
+    // Check if within the event's duration window
+    const dayInPeriod = dayOfYear % eventPeriod;
+    if (dayInPeriod < event.duration) return event;
+    return null;
+  }
+
   // --- Leave London ---
 
   function canLeaveLondon() {
@@ -525,6 +582,7 @@ const Game = (() => {
     checkDetailAt, discoverDetail, checkDiscoveredDetailAt,
     checkInvestigationTriggers, getActiveInvestigations, getInvestigationChoice, makeInvestigationChoice,
     checkFragmentAtLocation, discoverFragment,
-    canLeaveLondon
+    canLeaveLondon,
+    getSeason, getMythologicalTide, getCurrentCityEvent
   };
 })();

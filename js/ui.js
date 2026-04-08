@@ -464,6 +464,32 @@ const UI = (() => {
       html += '<p class="ambient-encounter">' + esc(loc.permanentPresence) + '</p>';
     }
 
+    // Mythological tide — shown subtly, no header, suppressed during Forgetting
+    if (!forgetting) {
+      const tide = (Game.getMythologicalTide) ? Game.getMythologicalTide() : null;
+      const tideTexts = {
+        restless: 'Something stirs. The air has more weight than usual.',
+        deep:     null,  // Deep tide is silent — no text
+        bright:   'The light is wrong today. More of it than there should be.',
+        still:    'The quiet has arrived. The mythological layer rests.'
+      };
+      if (tide && tideTexts[tide]) {
+        html += '<p class="npc-physical" style="color:#6a6050;font-style:italic;margin-top:0.8rem;font-size:0.85em;">' + esc(tideTexts[tide]) + '</p>';
+      }
+    }
+
+    // City event — shown only at the event's relevant location (or all locations if location is null)
+    // Suppressed during Forgetting
+    if (!forgetting) {
+      const event = (Game.getCurrentCityEvent) ? Game.getCurrentCityEvent() : null;
+      if (event && (event.location === locId || event.location === null)) {
+        const playerTrait = State.get('trait');
+        if (!event.traitGated || event.traitGated === playerTrait) {
+          html += '<p class="location-text" style="color:#8a7a5a;margin-top:1rem;border-top:1px solid #2a2318;padding-top:0.8rem;">' + esc(event.description) + '</p>';
+        }
+      }
+    }
+
     // Metzen: post-investigation world scars — the world carries consequences
     const investigations = State.get('investigations') || {};
     if (locId === 'L02' && investigations['LI-02'] && investigations['LI-02'].complete) {

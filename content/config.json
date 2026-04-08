@@ -47,5 +47,213 @@
   "canvas": {
     "nativeWidth": 320,
     "nativeHeight": 180
-  }
+  },
+  "tides": {
+    "restless": { "name": "Restless Tide", "durationDays": [3,5], "seasonWeights": {"spring":1,"summer":1,"autumn":3,"winter":1} },
+    "deep":     { "name": "Deep Tide",     "durationDays": [4,7], "seasonWeights": {"spring":2,"summer":1,"autumn":1,"winter":2} },
+    "bright":   { "name": "Bright Tide",   "durationDays": [1,2], "seasonWeights": {"spring":1,"summer":3,"autumn":1,"winter":0} },
+    "still":    { "name": "Still Tide",    "durationDays": [1,3], "seasonWeights": {"spring":1,"summer":1,"autumn":1,"winter":3} }
+  },
+  "cityEvents": [
+    {
+      "id": "CE-01",
+      "name": "Observatory Anomaly",
+      "neighborhood": "greenwich",
+      "location": "G02",
+      "duration": 4,
+      "description": "A clock anomaly has made local news. The Observatory Keeper is stressed. The Watcher is more visible.",
+      "traitGated": null,
+      "mythologicalNote": "The meridian deviation is confirmed in the public record. Something has been loosened."
+    },
+    {
+      "id": "CE-02",
+      "name": "Park After Hours",
+      "neighborhood": "greenwich",
+      "location": "G08",
+      "duration": 1,
+      "description": "Greenwich Park stays open past dark tonight. The park at night is at its most mythologically vivid.",
+      "traitGated": null,
+      "mythologicalNote": "The park boundary dissolves after dark. What is normally background becomes foreground."
+    },
+    {
+      "id": "CE-03",
+      "name": "Meridian Festival",
+      "neighborhood": "greenwich",
+      "location": "G02",
+      "duration": 3,
+      "description": "Tourists crowd the meridian line. The player sees things in the crowd that nobody else does.",
+      "traitGated": null,
+      "mythologicalNote": "The line between worlds is also a line between east and west. Today it is crowded on both sides."
+    },
+    {
+      "id": "CE-04",
+      "name": "The Ship in the Dry Dock",
+      "neighborhood": "greenwich",
+      "location": "G06",
+      "duration": 1,
+      "description": "The Cutty Sark behaves strangely. Rigging moves without wind. The hold sounds occupied.",
+      "traitGated": null,
+      "mythologicalNote": "Eleven years on the sea, eleven years in glass. It remembers both."
+    },
+    {
+      "id": "CE-05",
+      "name": "Basin Arrival",
+      "neighborhood": "limehouse",
+      "location": "L01",
+      "duration": 3,
+      "description": "A narrowboat arrived that wasn't expected. No registered owner. Eleven years on the canal without stopping. The Canal Boat Painter recognizes the paint.",
+      "traitGated": null,
+      "mythologicalNote": "The boat has been on every canal. It knows which ones are real."
+    },
+    {
+      "id": "CE-06",
+      "name": "St Anne's Night",
+      "neighborhood": "limehouse",
+      "location": "L03",
+      "duration": 1,
+      "description": "The church opens for a night service for the first time in years. The interior is different at night.",
+      "traitGated": null,
+      "mythologicalNote": "The church at night is a different building. The daylight version is the cover."
+    },
+    {
+      "id": "CE-07",
+      "name": "Sound Installation",
+      "neighborhood": "limehouse",
+      "location": "L01",
+      "duration": 2,
+      "description": "The Sound Artist has permission for a public installation at the basin. The public hears ambiance. The Musician hears the hidden layer.",
+      "traitGated": null,
+      "mythologicalNote": "The installation is tuned to the canal frequency. The Sound Artist knows exactly what he is amplifying."
+    },
+    {
+      "id": "CE-08",
+      "name": "The Night Market Expansion",
+      "neighborhood": "limehouse",
+      "location": "L09",
+      "duration": 1,
+      "description": "The market appears on a night it shouldn't. Nobody organized it.",
+      "traitGated": null,
+      "mythologicalNote": "The market runs on a schedule that predates the market."
+    },
+    {
+      "id": "CE-09",
+      "name": "New Mural",
+      "neighborhood": "bermondsey",
+      "location": "B03",
+      "duration": 4,
+      "description": "A mural appeared overnight on a railway arch. Nobody saw it painted. It depicts something mythologically significant.",
+      "traitGated": null,
+      "mythologicalNote": "The paint is dry. It has always been dry."
+    },
+    {
+      "id": "CE-10",
+      "name": "Market Dawn",
+      "neighborhood": "bermondsey",
+      "location": "B01",
+      "duration": 2,
+      "description": "The antiques market has a pre-dawn hour where different objects appear — objects from the foundation layer.",
+      "traitGated": null,
+      "mythologicalNote": "Before the market opens to the public, it opens to something else."
+    },
+    {
+      "id": "CE-11",
+      "name": "Gallery After Dark",
+      "neighborhood": "bermondsey",
+      "location": "B02",
+      "duration": 1,
+      "description": "The gallery opens at midnight. By invitation. The art is different at night.",
+      "traitGated": null,
+      "mythologicalNote": "The gallery shows what it wants during the day. At midnight it shows what it has."
+    },
+    {
+      "id": "CE-12",
+      "name": "Warehouse Auction",
+      "neighborhood": "bermondsey",
+      "location": "B04",
+      "duration": 3,
+      "description": "The warehouse contents are supposedly being auctioned. The objects on offer don't match what's inside. The Night Guard says one word: 'Wrong.'",
+      "traitGated": null,
+      "mythologicalNote": "The auction is a cover. The real transfer happens in the objects that aren't listed."
+    },
+    {
+      "id": "CE-13",
+      "name": "The Fox Trail",
+      "neighborhood": null,
+      "location": null,
+      "duration": 1,
+      "description": "The Night Fox appears in all three neighborhoods tonight, leaving a visible trail. Following it reveals something at each stop.",
+      "traitGated": null,
+      "mythologicalNote": "The fox knows the route. It has always known the route."
+    },
+    {
+      "id": "CE-14",
+      "name": "The Thames Surge",
+      "neighborhood": null,
+      "location": null,
+      "duration": 2,
+      "description": "Unusually high tide. The foreshore is submerged. But in Limehouse basin, the water is lower than expected. Something is pulling it.",
+      "traitGated": null,
+      "mythologicalNote": "The Thames moves in two directions simultaneously today. One of them is not downstream."
+    },
+    {
+      "id": "CE-15",
+      "name": "The Walking Figure",
+      "neighborhood": null,
+      "location": null,
+      "duration": 2,
+      "description": "The Thames Path Figure is seen by multiple NPCs across all neighborhoods. The Watcher is agitated.",
+      "traitGated": null,
+      "mythologicalNote": "The Figure and the Watcher have not been in the same place before. Something has changed."
+    },
+    {
+      "id": "CE-16",
+      "name": "All Clocks",
+      "neighborhood": null,
+      "location": null,
+      "duration": 1,
+      "description": "Every clock in Greenwich shows a different time today. The times, when plotted, form a sequence.",
+      "traitGated": null,
+      "mythologicalNote": "The sequence spells something. The Observatory Keeper has not come in today."
+    },
+    {
+      "id": "CE-17",
+      "name": "The Chalk Map",
+      "neighborhood": null,
+      "location": null,
+      "duration": 1,
+      "description": "The Child Who Draws has covered an entire pavement section overnight. The map shows all three neighborhoods. And a fourth.",
+      "traitGated": null,
+      "mythologicalNote": "The fourth neighborhood has no name in any directory. The streets are real."
+    },
+    {
+      "id": "CE-18",
+      "name": "Network Pulse",
+      "neighborhood": null,
+      "location": null,
+      "duration": 1,
+      "description": "Every NPC mentions the same word today. Different contexts. Same word. The word is the first syllable of a name.",
+      "traitGated": "barista",
+      "mythologicalNote": "The barista hears it first. She always hears first."
+    },
+    {
+      "id": "CE-19",
+      "name": "Deep Tremor",
+      "neighborhood": null,
+      "location": null,
+      "duration": 1,
+      "description": "A tremor felt only in specific locations. Not seismic — felt in the hands, not the feet. The foundation marks are warm.",
+      "traitGated": "shopkeeper",
+      "mythologicalNote": "The shopkeeper's hands know the difference. They have been keeping this for years."
+    },
+    {
+      "id": "CE-20",
+      "name": "Signal Spike",
+      "neighborhood": null,
+      "location": null,
+      "duration": 1,
+      "description": "The canal frequency spikes for 24 hours. The recording, at half speed, contains a word.",
+      "traitGated": "musician",
+      "mythologicalNote": "The word is not in English. It is not in any language with a current speaker."
+    }
+  ]
 }
