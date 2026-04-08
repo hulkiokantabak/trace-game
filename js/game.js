@@ -358,7 +358,10 @@ const Game = (() => {
 
   function checkInvestigationTriggers() {
     const triggered = [];
+    const playerTrait = State.get('trait');
     for (const [id, inv] of Object.entries(content.investigations)) {
+      // Trait gate: skip investigations meant for a specific trait the player doesn't have
+      if (inv.trait && inv.trait !== 'all' && inv.trait !== playerTrait) continue;
       const stateInv = State.getInvestigation(id);
       if (stateInv.currentStep > 0 || stateInv.complete) continue;
       if (meetsConditions(inv.trigger.conditions)) {
@@ -375,7 +378,9 @@ const Game = (() => {
         case 'npc_stage': {
           const mem = State.getNpcMemory(cond.npc);
           const stages = ['stranger', 'acquaintance', 'familiar', 'confidant'];
-          if (stages.indexOf(mem.stage) < stages.indexOf(cond.minStage)) return false;
+          // Normalize familiar_aware / familiar_unknowing to 'familiar' for ordering purposes
+          const normalizeStage = s => (s && s.startsWith('familiar')) ? 'familiar' : s;
+          if (stages.indexOf(normalizeStage(mem.stage)) < stages.indexOf(normalizeStage(cond.minStage))) return false;
           break;
         }
         case 'discovery':

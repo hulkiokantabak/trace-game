@@ -296,7 +296,8 @@
             "flatObject": {
               "id": "foundation_stone_fragment",
               "description": "A fragment of warm stone from the deepest room. It hums at the frequency of the city."
-            }
+            },
+            "eventEndingUnlocked": "S-END-1"
           }
         },
         {
@@ -395,7 +396,8 @@
             "flatObject": {
               "id": "warehouse_notebook_entry",
               "description": "A page of your notebook. Your handwriting. You don't remember writing it. The date is tomorrow."
-            }
+            },
+            "eventEndingUnlocked": "S-END-3"
           }
         },
         {
@@ -1702,19 +1704,55 @@
         "advanceTrigger": "automatic"
       }
     ],
-    "choice": null,
-    "flatObject": {
-      "id": "gallery_piece_sketch",
-      "description": "A sketch of the anomalous piece. It looks different every time you draw it."
+    "choice": {
+      "triggeredAfterStep": 3,
+      "prompt": "The composite image is complete. Four seasons. Four pieces. One revelation.",
+      "options": [
+        {
+          "id": "document",
+          "text": "I photograph the complete composite.",
+          "consequence": {
+            "narrativeText": "The photograph: London seen from below. Something beneath the city, looking up through transparent ground. The Gallery Owner: 'That's what it's been trying to show. All four seasons. One moment.'",
+            "npcEffect": {
+              "gallery_owner": {
+                "stageUnlock": "familiar_aware"
+              }
+            },
+            "xp": {
+              "awareness": 3,
+              "insight": 4,
+              "resonance": 2
+            },
+            "flatObject": {
+              "id": "gallery_composite_photograph",
+              "description": "The composite photograph: London from below. Something looking up. Still developing."
+            },
+            "eventEndingUnlocked": "P-END-3"
+          }
+        },
+        {
+          "id": "sketch",
+          "text": "I sketch it. Keep it private.",
+          "consequence": {
+            "narrativeText": "The sketch lives in the notebook. No proof. Only the knowledge that London has layers that observe the layers above them. The Gallery Owner sees you drawing. Asks nothing.",
+            "npcEffect": {},
+            "xp": {
+              "awareness": 2,
+              "insight": 3
+            },
+            "flatObject": {
+              "id": "gallery_piece_sketch",
+              "description": "A sketch of the anomalous piece. It looks different every time you draw it."
+            },
+            "eventEndingUnlocked": null
+          }
+        }
+      ]
     },
     "rewards": {
       "completion": {
         "awareness": 2,
         "insight": 3
-      },
-      "eventEndingUnlocked": {
-        "trait": "photographer",
-        "endingId": "P-END-3"
       }
     }
   },
@@ -2404,7 +2442,10 @@
               "id": "watcher_parting_object",
               "description": "Something the Watcher left on the bench. Small. Permanent."
             },
-            "eventEndingUnlocked": null
+            "eventEndingUnlocked": null,
+            "eventEndingsByTrait": {
+              "photographer": "P-END-1"
+            }
           }
         },
         {
@@ -2426,7 +2467,12 @@
               "id": "watcher_gift",
               "description": "What the Watcher left. A small object. Warm. Still warm."
             },
-            "eventEndingUnlocked": null
+            "eventEndingUnlocked": null,
+            "eventEndingsByTrait": {
+              "musician": "M-END-2",
+              "photographer": "P-END-2",
+              "shopkeeper": "S-END-2"
+            }
           }
         }
       ]

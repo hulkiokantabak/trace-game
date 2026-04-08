@@ -901,7 +901,10 @@ const UI = (() => {
         html += '<p class="npc-physical">' + esc(details[Math.floor(Math.random() * details.length)]) + '.</p>';
       }
     }
-    html += '<p class="npc-dialogue">' + esc(line.text) + '</p>';
+    // Guard: watcher stranger entry is "" — render nothing rather than an empty box
+    if (line.text) {
+      html += '<p class="npc-dialogue">' + esc(line.text) + '</p>';
+    }
     if (result.nearStageShift) {
       html += '<p class="npc-physical" style="color:#6a6a58;font-style:italic;">Something shifts in the way they look at you.</p>';
     }
@@ -929,7 +932,10 @@ const UI = (() => {
       html += '<p class="stage-shift">A thread appears.</p>';
     }
     html += '<p class="inv-name">' + esc(triggered.investigation.name) + '</p>';
-    html += '<p class="inv-step-text">' + esc(step.text) + '</p>';
+    // traitText: show trait-specific variant if available, otherwise generic step text
+    const trait = State.get('trait');
+    const stepText = (step.traitText && trait && step.traitText[trait]) ? step.traitText[trait] : step.text;
+    html += '<p class="inv-step-text">' + esc(stepText) + '</p>';
     // Stat interaction: high insight reveals a bonus line on deeper investigation steps
     if (step.id > 1 && ((State.get('stats') || {}).insight || 0) >= 6) {
       html += '<p class="inv-insight">Something beneath the surface here. You almost see it.</p>';
@@ -1005,10 +1011,17 @@ const UI = (() => {
     panel.innerHTML = html;
 
     panel.querySelector('.inv-continue-btn').addEventListener('click', () => {
-      const endingId = consequence.eventEndingUnlocked;
+      const playerTrait = State.get('trait') || 'musician';
+      // eventEndingsByTrait: { musician: 'M-END-2', photographer: 'P-END-2', ... }
+      // Used when multiple traits share one choice but get different endings
+      let endingId = null;
+      if (consequence.eventEndingsByTrait && consequence.eventEndingsByTrait[playerTrait]) {
+        endingId = consequence.eventEndingsByTrait[playerTrait];
+      } else {
+        endingId = consequence.eventEndingUnlocked;
+      }
       if (endingId && EVENT_ENDINGS[endingId]) {
         const endingTrait = EVENT_ENDINGS[endingId].trait;
-        const playerTrait = State.get('trait') || 'musician';
         if (!endingTrait || endingTrait === playerTrait) {
           setTimeout(() => { showEventEnding(endingId); }, 400);
           return;
@@ -1591,13 +1604,26 @@ const UI = (() => {
 
     // NPC farewell lines (B8-ending-text.md)
     const NPC_FAREWELLS = {
-      barista:           'I saved your seat. In case you...',
-      canal_painter:     'The canal will be this colour tomorrow. Burnt umber.',
-      sound_artist:      'I\'ll keep recording. You\'ll be in the background now.',
-      tattoo_artist:     'The door I drew. It was for you. It always was.',
-      nightclub_promoter:'You were worth letting in.',
-      bike_courier:      'Gotta go. But yeah. You were alright.',
-      pub_landlord:      'Door\'s always open. Thursdays especially. You know why.'
+      barista:            'I saved your seat. In case you...',
+      canal_painter:      'The canal will be the same colour tomorrow. Different light, same colour.',
+      sound_artist:       'I\'ll keep recording. You\'ll be in the background now.',
+      tattoo_artist:      'The door I drew. It was for you. It always was.',
+      nightclub_promoter: 'You were worth letting in.',
+      bike_courier:       'Gotta go. But yeah. You were alright.',
+      pub_landlord:       'Door\'s always open. Thursdays especially. You know why.',
+      clockmaker:         'The clocks will keep time. Come back.',
+      old_man:            '...you were good company. Not many are.',
+      observatory_keeper: 'The instruments will still measure. Without you.',
+      data_scientist:     'You\'re still in the dataset. You always will be.',
+      market_vendor:      'Something here was yours. Still is.',
+      antiques_vendor:    'The market will miss a good eye.',
+      gallery_owner:      'Leaving? The city will still be asking questions.',
+      warehouse_guard:    'Go.',
+      urban_explorer:     'There are rooms under this city. Come back when you\'re ready.',
+      watcher:            'Good. Now you know when to stop.',
+      night_fox:          '*watches from the dark until you turn the corner*',
+      child_who_draws:    '*keeps drawing*',
+      ai_researcher:      'Imagine somewhere you have to be. Go there.'
     };
 
     // Location memory texts + B8 flashback captions
