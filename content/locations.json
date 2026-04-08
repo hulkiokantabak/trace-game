@@ -3270,6 +3270,22 @@
           "awareness": 3,
           "insight": 2
         }
+      },
+      {
+        "id": "bench_worn_wood",
+        "hitbox": {
+          "x": 40,
+          "y": 108,
+          "w": 180,
+          "h": 12
+        },
+        "description": "The bench wood. Worn smooth in the same place by the same person.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "The wood is worn to a different texture on the left side. Decades of the same weight. The same arm resting in the same place. Someone has been coming here for a very long time.",
+        "xp": {
+          "awareness": 1
+        }
       }
     ],
     "npcs_present": {
@@ -3394,6 +3410,22 @@
         "xp": {
           "awareness": 1
         }
+      },
+      {
+        "id": "tunnel_light_strips",
+        "hitbox": {
+          "x": 100,
+          "y": 8,
+          "w": 120,
+          "h": 16
+        },
+        "description": "The light strips overhead. Identical. Uniform. Wrong.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "Fluorescent strips, evenly spaced. They should make the tunnel feel modern. They make it feel older. As if the artificial light is maintaining something that the natural world has stopped maintaining.",
+        "xp": {
+          "awareness": 1
+        }
       }
     ],
     "npcs_present": {},
@@ -3511,6 +3543,22 @@
         "discovery_text": "The radio plays something that isn't a current station. The frequency is off — you're hearing the ghost of a signal that hasn't been broadcast for decades. The stall holder is singing along. He doesn't notice anything wrong.",
         "xp": {
           "awareness": 2
+        }
+      },
+      {
+        "id": "market_morning_steam",
+        "hitbox": {
+          "x": 60,
+          "y": 100,
+          "w": 80,
+          "h": 30
+        },
+        "description": "Steam rising from a coffee cup on the counter. The market awake.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "Three stalls open. Two people talking to nobody in particular. A dog asleep under a trestle table. The covered market in the morning has the specific warmth of a place that has been doing the same thing for a very long time.",
+        "xp": {
+          "awareness": 1
         }
       }
     ],
@@ -3772,6 +3820,22 @@
         "xp": {
           "awareness": 2
         }
+      },
+      {
+        "id": "window_dust_motes",
+        "hitbox": {
+          "x": 0,
+          "y": 20,
+          "w": 24,
+          "h": 100
+        },
+        "description": "Dust suspended in the window light. The same dust, always.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "The light comes in at this angle for twenty minutes a day. The dust hangs in it as if stopped. You have been in this bookshop three times now. The dust is always in the same place.",
+        "xp": {
+          "awareness": 1
+        }
       }
     ],
     "npcs_present": {},
@@ -3884,6 +3948,22 @@
         "discovery_text": "From here, London is at eye level, not below. The glass towers of Canary Wharf are companions, not objects. The scale shifts. This is the height at which the city stops being a subject and becomes a context.",
         "xp": {
           "awareness": 2
+        }
+      },
+      {
+        "id": "worn_path_hill",
+        "hitbox": {
+          "x": 60,
+          "y": 114,
+          "w": 200,
+          "h": 14
+        },
+        "description": "The path worn into the hill. Centuries of the same walk.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "The grass grows up to the path and stops. The path is four hundred years old at minimum — you know this without knowing how you know it. The feet that made this path are gone. The path remains.",
+        "xp": {
+          "awareness": 1
         }
       }
     ],
@@ -4011,6 +4091,22 @@
         "xp": {
           "awareness": 2
         }
+      },
+      {
+        "id": "thames_mud_surface",
+        "hitbox": {
+          "x": 0,
+          "y": 128,
+          "w": 280,
+          "h": 30
+        },
+        "description": "The Thames mud. Dark grey. It smells of four thousand years.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "You sink half an inch before it holds you. This mud is the accumulated silt of every flood, every storm, every season London has ever had. You are standing on time. It is soft underfoot.",
+        "xp": {
+          "awareness": 1
+        }
       }
     ],
     "npcs_present": {},
@@ -4123,6 +4219,22 @@
         "discovery_text": "Your foot on the floor: a vibration from below. Too low to be pipes. Too steady to be traffic. The cellar of the Trafalgar goes deeper than cellar plans show. Something in it produces a frequency that the pub floor transmits to your feet every evening.",
         "xp": {
           "awareness": 2
+        }
+      },
+      {
+        "id": "river_window_view",
+        "hitbox": {
+          "x": 202,
+          "y": 22,
+          "w": 96,
+          "h": 96
+        },
+        "description": "The Thames through the pub windows. Amber light through grime.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "The windows face the river. They have not been cleaned in a long time — not neglect, design. The grime filters the light to amber. The Thames through this glass looks the same as it did two hundred years ago.",
+        "xp": {
+          "awareness": 1
         }
       }
     ],
@@ -4520,6 +4632,22 @@
         "xp": {
           "awareness": 2
         }
+      },
+      {
+        "id": "arch_curve_stone",
+        "hitbox": {
+          "x": 40,
+          "y": 0,
+          "w": 240,
+          "h": 50
+        },
+        "description": "The curve of the arch overhead. Victorian brick, Victorian weight.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "The arch predates everything in the room by a hundred and fifty years. Everything else — the tools, the workbench, the lights — is provisional. The arch is permanent. It will be here when everything else is gone.",
+        "xp": {
+          "awareness": 1
+        }
       }
     ],
     "npcs_present": {
@@ -4648,6 +4776,22 @@
         "discovery_text": "Your feet on the concrete: a vibration below the threshold of sound. You crouch. Press your palm flat. It's rhythmic. Not pipes, not traffic. A pulse. The warehouse floor breathes once every four seconds. You count it for two minutes. Never misses.",
         "xp": {
           "awareness": 3
+        }
+      },
+      {
+        "id": "warehouse_entrance_dark",
+        "hitbox": {
+          "x": 0,
+          "y": 135,
+          "w": 60,
+          "h": 28
+        },
+        "description": "The warehouse entrance at night. The darkness is not empty.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "The darkness inside is different from the darkness outside. Outside: absence of light. Inside: something that replaced the light with something else. You stand at the threshold for a moment longer than you meant to.",
+        "xp": {
+          "awareness": 1
         }
       }
     ],
@@ -4785,6 +4929,22 @@
         "xp": {
           "awareness": 2
         }
+      },
+      {
+        "id": "river_surface_slow",
+        "hitbox": {
+          "x": 0,
+          "y": 75,
+          "w": 320,
+          "h": 35
+        },
+        "description": "The Thames here. It never quite holds still.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "The river at Rotherhithe is wider and slower than at Limehouse. The current barely moves. You can watch the same piece of water for thirty seconds before it is gone. Plenty of time to see what it carries.",
+        "xp": {
+          "awareness": 1
+        }
       }
     ],
     "npcs_present": {},
@@ -4903,6 +5063,22 @@
         "discovery_text": "The exposed brick isn't Victorian. You know Victorian brickwork. This is older — irregular, hand-fired. The building was here before the street was built around it. The co-working space, laptop fans and all, occupies a structure that predates most of London's infrastructure.",
         "xp": {
           "awareness": 2
+        }
+      },
+      {
+        "id": "leftbehind_notebook",
+        "hitbox": {
+          "x": 92,
+          "y": 90,
+          "w": 60,
+          "h": 26
+        },
+        "description": "A notebook left on a hot desk. No name. Half full.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "No name on the cover. Opened: meeting notes, lists, a phone number with no name, and halfway down page twelve, a sentence that stops mid-word. The handwriting changes before it stops. As if someone else finished it.",
+        "xp": {
+          "awareness": 1
         }
       }
     ],
@@ -5124,6 +5300,22 @@
         "xp": {
           "awareness": 2
         }
+      },
+      {
+        "id": "city_line_view",
+        "hitbox": {
+          "x": 60,
+          "y": 28,
+          "w": 200,
+          "h": 50
+        },
+        "description": "The city from above. Every crane. Every tower. London building itself.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "From up here you can count nine cranes. London is always mid-construction, always becoming something it is not yet. You wonder if the city knows what it is building toward, or if it is doing what it has always done — becoming, without plan.",
+        "xp": {
+          "awareness": 1
+        }
       }
     ],
     "npcs_present": {},
@@ -5252,6 +5444,22 @@
         "xp": {
           "awareness": 2
         }
+      },
+      {
+        "id": "pub_sign_bracket",
+        "hitbox": {
+          "x": 192,
+          "y": 28,
+          "w": 70,
+          "h": 18
+        },
+        "description": "The corner pub sign. The name is new. The bracket is not.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "The mounting bracket is Victorian iron — you can see where the old bolts left marks. The current sign is modern, painted, cheerful. The ghost of the previous name is faintly legible beneath the new paint. Something was here before.",
+        "xp": {
+          "awareness": 1
+        }
       }
     ],
     "npcs_present": {},
@@ -5356,6 +5564,22 @@
         "trait_required": "photographer",
         "awareness_required": 0,
         "discovery_text": "The shop light is at the right angle to make the dust visible. Every particle moving in its own pattern, independent of the others. The shop's air is full of material — sleeve dust, vinyl particles, paper fibres. Every record that's been handled here is still here, in the air.",
+        "xp": {
+          "awareness": 1
+        }
+      },
+      {
+        "id": "record_shop_smell",
+        "hitbox": {
+          "x": 0,
+          "y": 116,
+          "w": 320,
+          "h": 42
+        },
+        "description": "The smell of the shop. Old paper and vinyl and something underneath.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "Old paper. Dry vinyl. A faint basement smell under that — cold brick, stale air, something that has been sealed a long time. Not unpleasant. The smell of things kept. The smell of things that outlasted the people who left them.",
         "xp": {
           "awareness": 1
         }

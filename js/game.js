@@ -159,12 +159,41 @@ const Game = (() => {
 
   // --- NPCs ---
 
+  // Seasonal NPC availability modifiers (A6-world-systems.md)
+  // extraSlots: additional time periods when NPC is available this season
+  // reduced: true = NPC is less likely to appear (50% chance of being treated as unavailable)
+  const SEASONAL_NPC_MODIFIERS = {
+    spring: {
+      canal_painter:  { extraSlots: ['morning', 'afternoon', 'evening'] }, // outside more
+      market_vendor:  { extraSlots: ['morning'] }                          // market wakes earlier
+    },
+    summer: {
+      bike_courier:         { extraSlots: ['evening'] },   // works later
+      nightclub_promoter:   { extraSlots: ['afternoon'] }, // outdoor events
+      old_man:              { extraSlots: ['evening'] }    // longer days, stays later
+    },
+    autumn: {
+      old_man:       { extraSlots: ['evening'] },  // dusk earlier, stays for it
+      sound_artist:  { extraSlots: ['morning', 'evening'] }, // records more
+      data_scientist:{ extraSlots: ['evening'] }   // anomalies intensify
+    },
+    winter: {
+      canal_painter: { reduced: true },  // moves inside, less available outdoors
+      old_man:       { reduced: true },  // colder, comes less
+      pub_landlord:  { extraSlots: ['morning'] },    // longer evenings in pub
+      warehouse_guard:{ extraSlots: ['night'] },     // longest nights
+      clockmaker:    { extraSlots: ['evening'] }     // longer indoor hours
+    }
+  };
+
   function getNpcsAtLocation(locId) {
     const loc = content.locations[locId || State.get('location')];
     if (!loc || !loc.npcs_present) return [];
     const period = getTimePeriod();
     const dayNames = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
     const today = dayNames[new Date().getDay()];
+    const season = getSeason();
+    const seasonMods = SEASONAL_NPC_MODIFIERS[season] || {};
 
     // First-session grace: if the player has never met any NPC, override schedule
     // for the first NPC at this location so the world is never entirely empty on
@@ -178,7 +207,23 @@ const Game = (() => {
     for (const [npcId, schedule] of Object.entries(loc.npcs_present)) {
       const npc = content.npcs[npcId];
       if (!npc) continue;
-      const normallyAvailable = schedule.timeOfDay.includes(period) && schedule.days.includes(today);
+
+      // Base schedule check
+      let normallyAvailable = schedule.timeOfDay.includes(period) && schedule.days.includes(today);
+
+      // Apply seasonal modifier
+      const mod = seasonMods[npcId];
+      if (mod) {
+        if (mod.extraSlots && mod.extraSlots.includes(period) && schedule.days.includes(today)) {
+          normallyAvailable = true; // season extends their hours
+        }
+        if (mod.reduced && normallyAvailable) {
+          // 50% chance of being unavailable in this season
+          const daySeed = new Date().getDate() + npcId.charCodeAt(0);
+          if (daySeed % 2 === 0) normallyAvailable = false;
+        }
+      }
+
       // Grace: make the first (and only the first) NPC at this location available,
       // but only if no NPC here is normally available and grace hasn't been used yet.
       const available = normallyAvailable || (graceActive && !graceUsed && !result.some(e => e.available));

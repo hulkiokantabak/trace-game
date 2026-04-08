@@ -2819,8 +2819,31 @@ const Engine = (() => {
         // Scales with awareness: larger and more present as player notices more
         if (_watcherVisible) {
           const WATCHER_POS = {
+            // Limehouse
             L01: [290, 116], L03: [20, 116], L07: [12, 118],
-            L08: [260, 120], L09: [305, 124], L10: [260, 144]
+            L08: [260, 120], L09: [305, 124], L10: [260, 144],
+            // Greenwich — positioned per scene geometry
+            G01: [8,  62],   // Clockmaker: left window wall, barely a silhouette
+            G02: [305, 92],  // Observatory terrace: far right against dome wall
+            G03: [288, 108], // Churchyard: beside the gravestone, right edge
+            G04: [272, 100], // Foot tunnel: far end, receding into the vanishing point
+            G05: [285, 110], // Covered market: back of the furthest arch
+            G06: [6,  112],  // Naval College courtyard: left colonnade shadow
+            G07: [285, 112], // Bookshop: back corner behind shelves
+            G08: [14, 108],  // Park path: treeline left, still among the trunks
+            G09: [305, 116], // Thames foreshore: path edge far right
+            G10: [198, 108], // Trafalgar tavern: standing at the river window
+            // Bermondsey — positioned per scene geometry
+            B01: [288, 112], // Antiques market: far stall in the back arch
+            B02: [285, 112], // Gallery: far white wall corner, barely a shape
+            B03: [6,  88],   // Railway arch: far back left, swallowed by darkness
+            B04: [295, 105], // Warehouse night: machinery silhouette right edge
+            B05: [6,  112],  // Thames path Rotherhithe: left end of the railing
+            B06: [285, 108], // Co-working: far hot desk, back against brick
+            B07: [192, 102], // Old church: doorway shadow, centre-right
+            B08: [306, 104], // Rooftop: at the edge, looking out not in
+            B09: [128, 42],  // Street corner: in the gap between buildings, Long Lane
+            B10: [285, 108]  // Vinyl shop: near the counter, standing still
           };
           const wp = WATCHER_POS[currentLocation] || [290, 116];
           const wx = wp[0], wy = wp[1];
