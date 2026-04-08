@@ -543,7 +543,7 @@ const UI = (() => {
       pub_landlord: 'A glass ring on the bar. Still wet.',
       tattoo_artist: 'The needle buzz echoes. Or you imagine it does.',
       canal_painter: 'Paint flecks on the towpath wall. Fresh.',
-      bike_courier: 'Tyre marks on the platform. She was moving fast.',
+      bike_courier: 'Tyre marks on the platform. Moving fast. Always.',
       nightclub_promoter: 'Cigarette smoke ghosts by the entrance.',
       street_preacher: 'The churchyard gate is open. Someone was speaking here.'
     };
@@ -1009,8 +1009,9 @@ const UI = (() => {
         btn.addEventListener('click', () => {
           const consequence = Game.makeInvestigationChoice(invId, btn.dataset.choice);
           if (consequence) {
+            const _flashText = consequence.narrativeText || '';
             State.recordFlashbackMoment({ type: 'investigation_choice', locationId: State.get('location'), timePeriod: Game.getTimePeriod(),
-              text: consequence.narrativeText.length > 80 ? consequence.narrativeText.substring(0, 77) + '...' : consequence.narrativeText,
+              text: _flashText.length > 80 ? _flashText.substring(0, 77) + '...' : _flashText,
               caption: 'I chose. The other option still haunts.' });
             showConsequence(investigation, consequence);
           }
@@ -1755,11 +1756,11 @@ const UI = (() => {
         coveredLocs.add(locId);
       }
 
+      if (flashItems.length === 0) { showNpcFarewell(); return; }
+
       // Always end with flat day-one
       flashItems.push({ locationId: 'flat', timePeriod: 'evening', text: LOC_MEMORIES.flat.text, caption: LOC_MEMORIES.flat.caption });
       flashItems = flashItems.slice(0, 7);
-
-      if (flashItems.length === 0) { showNpcFarewell(); return; }
 
       let step = 0;
       function showNext() {

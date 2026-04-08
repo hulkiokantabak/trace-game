@@ -274,6 +274,10 @@ const Game = (() => {
     const stageChanged = newStage !== oldStage;
     if (stageChanged) State.setNpcStage(npcId, newStage);
 
+    // Advance any investigation step whose trigger is reaching this NPC's stage.
+    // Called here so it fires once per visit regardless of which dialogue path is taken.
+    checkInvestigationAdvanceOnNpc(npcId);
+
     const stageData = npc.dialogue[newStage];
     if (!stageData) return null;
 
@@ -460,6 +464,32 @@ const Game = (() => {
         if (nextStepIdx >= inv.steps.length - 1 && !inv.choice) {
           State.completeInvestigation(id, null, inv.rewards && inv.rewards.completion);
         }
+      }
+    }
+  }
+
+  // Check if interacting with an NPC advances any investigation step whose
+  // advanceTrigger is type 'npc_stage'. Called at the end of interactWithNpc.
+  // Mirrors checkInvestigationAdvance but for NPC-relationship triggers rather
+  // than detail discoveries.
+  function checkInvestigationAdvanceOnNpc(npcId) {
+    const stages = ['stranger', 'acquaintance', 'familiar', 'confidant'];
+    const normalizeStage = s => (s && s.startsWith('familiar')) ? 'familiar' : (s || 'stranger');
+    const currentStage = getNpcStage(npcId);
+    for (const [id, inv] of Object.entries(content.investigations)) {
+      const stateInv = State.getInvestigation(id);
+      if (stateInv.complete || stateInv.currentStep === 0) continue;
+      const nextStepIdx = stateInv.currentStep;
+      if (nextStepIdx >= inv.steps.length) continue;
+      const nextStep = inv.steps[nextStepIdx];
+      if (!nextStep.advanceTrigger || nextStep.advanceTrigger === 'automatic') continue;
+      if (nextStep.advanceTrigger.type !== 'npc_stage') continue;
+      if (nextStep.advanceTrigger.npc !== npcId) continue;
+      const reqStage = normalizeStage(nextStep.advanceTrigger.minStage);
+      if (stages.indexOf(normalizeStage(currentStage)) < stages.indexOf(reqStage)) continue;
+      State.advanceInvestigation(id, nextStep.id);
+      if (nextStepIdx >= inv.steps.length - 1 && !inv.choice) {
+        State.completeInvestigation(id, null, inv.rewards && inv.rewards.completion);
       }
     }
   }
