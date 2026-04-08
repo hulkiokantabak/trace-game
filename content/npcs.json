@@ -434,6 +434,249 @@
       }
     }
   },
+  "antiques_vendor": {
+    "id": "antiques_vendor",
+    "name": "The Market Vendor",
+    "primaryLocation": "B01",
+    "physicalSignature": "A limp — left leg. Never mentions it. Touches objects before pricing them, as though reading them with his fingers.",
+    "voiceRule": "Speaks in prices and values. Everything has a cost. Not just objects.",
+    "maxDialogueWords": 12,
+    "schedule": {
+      "available": { "timeOfDay": ["morning", "afternoon"], "days": ["wed", "thu", "fri", "sat", "sun"] },
+      "unavailable_reason": "The market is packed away. Tables bare. The square empty."
+    },
+    "dialogue": {
+      "stranger": {
+        "entry": { "text": "Looking or buying? Both cost something here.", "tag": "neutral" },
+        "ambient": [
+          { "text": "Don't handle it like that. It knows.", "tag": "neutral" },
+          { "text": "That one's not for sale. I keep it for reference.", "tag": "neutral" }
+        ]
+      },
+      "acquaintance": {
+        "trigger": { "visitCount": 3, "acrossDays": true },
+        "entry": { "text": "You've got an eye. Not everyone does.", "tag": "neutral" },
+        "ambient": [
+          { "text": "That story from the gallery — she's underselling it.", "tag": "neutral" },
+          { "text": "Some things appreciate. Others remember.", "tag": "neutral" }
+        ],
+        "weatherLines": {
+          "rain": { "text": "Rain keeps the wrong buyers home. Good.", "tag": "neutral" }
+        },
+        "timeLines": {
+          "morning": { "text": "Dawn buyers know. The rest come later.", "tag": "neutral" }
+        },
+        "traitLines": {
+          "musician": { "text": "This box. Open it slowly. Listen first.", "tag": "musician" },
+          "photographer": { "text": "This glass is old enough to remember the building it came from.", "tag": "photographer" },
+          "wanderer": { "text": "You moved toward it before you saw it. Interesting.", "tag": "wanderer" },
+          "barista": { "text": "This cup passed through twelve hands before mine.", "tag": "barista" },
+          "shopkeeper": { "text": "The key. Feel the weight of it. Wrong weight for the size.", "tag": "shopkeeper" }
+        }
+      },
+      "familiar": {
+        "trigger": { "visitCount": 7, "acrossDays": true, "requiresInvestigation": "BI-01" },
+        "entry": { "text": "The key? I'll give you the key. Cost is different from price.", "tag": "neutral" },
+        "ambient": [
+          { "text": "Some things here are older than their materials. I can't explain that.", "tag": "neutral" },
+          { "text": "The market has been here longer than the street.", "tag": "neutral" }
+        ],
+        "traitLines": {
+          "shopkeeper": { "text": "Some things aren't for sale. Some things are the city's. I keep them safe.", "tag": "shopkeeper" },
+          "barista": { "text": "This clock was his wife's mother's. The one the clockmaker doesn't talk about.", "tag": "barista" },
+          "musician": { "text": "Certain objects hum. Not metaphor. You'll hear it with the right ears.", "tag": "musician" }
+        },
+        "crossReference": { "text": "The warehouse guard brought me something last month. I didn't ask where from.", "minNpcsMet": 3 }
+      },
+      "familiar_aware": {
+        "entry": { "text": "You brought the key back. The street remembers that.", "tag": "neutral" },
+        "ambient": [
+          { "text": "The market was here before the street had a name. It'll be here after.", "tag": "neutral" }
+        ]
+      }
+    }
+  },
+  "gallery_owner": {
+    "id": "gallery_owner",
+    "name": "The Gallery Owner",
+    "primaryLocation": "B02",
+    "physicalSignature": "Tilts her head when she looks at you, exactly the angle she uses for paintings. You're always being assessed.",
+    "voiceRule": "Every statement is a question. Even when she's telling you something.",
+    "maxDialogueWords": 12,
+    "schedule": {
+      "available": { "timeOfDay": ["morning", "afternoon", "evening"], "days": ["tue", "wed", "thu", "fri", "sat"] },
+      "unavailable_reason": "The gallery is closed. The lights are on inside. No one answers."
+    },
+    "dialogue": {
+      "stranger": {
+        "entry": { "text": "First visit? You came straight to the back wall?", "tag": "neutral" },
+        "ambient": [
+          { "text": "Interesting piece?", "tag": "neutral" },
+          { "text": "Most people don't notice that one.", "tag": "neutral" }
+        ]
+      },
+      "acquaintance": {
+        "trigger": { "visitCount": 3, "acrossDays": true },
+        "entry": { "text": "You've been here before?", "tag": "neutral" },
+        "ambient": [
+          { "text": "You see the same piece differently each time?", "tag": "neutral" },
+          { "text": "The light changes. Or the painting does?", "tag": "neutral" }
+        ],
+        "weatherLines": {
+          "rain": { "text": "Rain light through those windows? Something happens to the paintings?", "tag": "neutral" }
+        },
+        "timeLines": {
+          "evening": { "text": "Private viewing tonight. You're already here?", "tag": "neutral" }
+        },
+        "traitLines": {
+          "musician": { "text": "The gallery has an acoustic quality? You noticed?", "tag": "musician" },
+          "photographer": { "text": "You're framing that one. With your eyes. Always the same frame?", "tag": "photographer" },
+          "wanderer": { "text": "You go to the same spot every time? Interesting?", "tag": "wanderer" },
+          "barista": { "text": "These two artists never met? Their brushstrokes finish each other's sentences?", "tag": "barista" },
+          "shopkeeper": { "text": "The walls here. They resist being painted over?", "tag": "shopkeeper" }
+        }
+      },
+      "familiar": {
+        "trigger": { "visitCount": 7, "acrossDays": true },
+        "entry": { "text": "Thursday evening. Private opening. Interested?", "tag": "neutral" },
+        "ambient": [
+          { "text": "The exhibition changed overnight? I didn't change it?", "tag": "neutral" },
+          { "text": "The painting I didn't acquire? Someone left it here anyway?", "tag": "neutral" }
+        ],
+        "traitLines": {
+          "photographer": { "text": "I saw. The painting rewrites itself. I don't ask questions. I ask questions?", "tag": "photographer" },
+          "barista": { "text": "The canvas in storage. Facing the wall. Nobody asked me to turn it?", "tag": "barista" },
+          "shopkeeper": { "text": "The building was something before a gallery. The walls remember what?", "tag": "shopkeeper" }
+        },
+        "crossReference": { "text": "The urban explorer was here last week. Left without looking at anything?", "minNpcsMet": 3 }
+      }
+    }
+  },
+  "warehouse_guard": {
+    "id": "warehouse_guard",
+    "name": "The Warehouse Guard",
+    "primaryLocation": "B04",
+    "physicalSignature": "Moves slowly, deliberately. Has decided most communication is unnecessary. When he makes eye contact, he holds it longer than comfortable.",
+    "voiceRule": "Single words. Occasionally two. A full sentence is an event.",
+    "maxDialogueWords": 8,
+    "schedule": {
+      "available": { "timeOfDay": ["evening", "night"], "days": ["mon", "tue", "wed", "thu", "fri", "sat", "sun"] },
+      "unavailable_reason": "The warehouse is locked. No light inside."
+    },
+    "dialogue": {
+      "stranger": {
+        "entry": { "text": "No.", "tag": "neutral" },
+        "ambient": [
+          { "text": "Late.", "tag": "neutral" },
+          { "text": "Move along.", "tag": "neutral" }
+        ]
+      },
+      "acquaintance": {
+        "trigger": { "visitCount": 3, "acrossDays": true },
+        "entry": { "text": "Again.", "tag": "neutral" },
+        "ambient": [
+          { "text": "Rain.", "tag": "neutral" },
+          { "text": "Quiet. Not always.", "tag": "neutral" }
+        ],
+        "weatherLines": {
+          "rain": { "text": "Wet.", "tag": "neutral" }
+        },
+        "timeLines": {
+          "night": { "text": "Night shift. Always.", "tag": "neutral" }
+        },
+        "traitLines": {
+          "musician": { "text": "Hear it? Low. Building.", "tag": "musician" },
+          "photographer": { "text": "Wrong angles. Every time.", "tag": "photographer" },
+          "wanderer": { "text": "Feel the floor. Listen.", "tag": "wanderer" },
+          "barista": { "text": "People come asking. Wrong building. Always.", "tag": "barista" },
+          "shopkeeper": { "text": "Marker. Floor. Look.", "tag": "shopkeeper" }
+        }
+      },
+      "familiar": {
+        "trigger": { "visitCount": 8, "acrossDays": true, "requiresInvestigation": "BI-03" },
+        "entry": { "text": "Careful. Wednesdays.", "tag": "neutral" },
+        "ambient": [
+          { "text": "It moves.", "tag": "neutral" },
+          { "text": "Not tonight. Maybe.", "tag": "neutral" }
+        ],
+        "traitLines": {
+          "musician": { "text": "Forty years. Always the same note.", "tag": "musician" },
+          "wanderer": { "text": "Stay. You'll feel it.", "tag": "wanderer" },
+          "shopkeeper": { "text": "Sleeping. The marker says.", "tag": "shopkeeper" }
+        },
+        "crossReference": { "text": "The market vendor. He knows. Ask him.", "minNpcsMet": 3 }
+      },
+      "familiar_aware": {
+        "entry": { "text": "You stayed. Different now.", "tag": "neutral" },
+        "ambient": [
+          { "text": "The warehouse remembers its contents. I guard what isn't there.", "tag": "neutral" }
+        ]
+      },
+      "familiar_unknowing": {
+        "entry": { "text": "The notebooks. You read them.", "tag": "neutral" },
+        "ambient": [
+          { "text": "Pattern. Forty years. Still moving.", "tag": "neutral" }
+        ]
+      }
+    }
+  },
+  "urban_explorer": {
+    "id": "urban_explorer",
+    "name": "The Urban Explorer",
+    "primaryLocation": "B03",
+    "physicalSignature": "Headlamp around neck in daylight. Scratches on forearms. Smells of brick dust. Leans into your space.",
+    "voiceRule": "Speaks in challenges and invitations. Everything is an access problem.",
+    "maxDialogueWords": 12,
+    "schedule": {
+      "available": { "timeOfDay": ["morning", "afternoon", "evening"], "days": ["mon", "tue", "wed", "thu", "fri", "sat", "sun"] },
+      "unavailable_reason": "They left an hour ago. A route drawn on the wall in chalk, no destination."
+    },
+    "dialogue": {
+      "stranger": {
+        "entry": { "text": "You wouldn't go down there.", "tag": "neutral" },
+        "ambient": [
+          { "text": "The arches go further than the map shows.", "tag": "neutral" },
+          { "text": "That sealed door. Three bolts. I've been in.", "tag": "neutral" }
+        ]
+      },
+      "acquaintance": {
+        "trigger": { "visitCount": 3, "acrossDays": true },
+        "entry": { "text": "Scared? Good. Smart people are.", "tag": "neutral" },
+        "ambient": [
+          { "text": "Rotherhithe Tuesday — don't. Trust me. Just don't.", "tag": "neutral" },
+          { "text": "Found a new entrance last week. Below the arches.", "tag": "neutral" }
+        ],
+        "weatherLines": {
+          "rain": { "text": "Rain floods the lower level. Not safe. Very interesting.", "tag": "neutral" }
+        },
+        "timeLines": {
+          "night": { "text": "Night's the right time. The security pattern changes.", "tag": "neutral" }
+        },
+        "traitLines": {
+          "musician": { "text": "Down there the echo lasts six minutes. Nothing natural echoes that long.", "tag": "musician" },
+          "photographer": { "text": "A room between two walls. Neither building has a door to it.", "tag": "photographer" },
+          "wanderer": { "text": "There are spaces that pull you in. Not metaphor. You'd feel it.", "tag": "wanderer" },
+          "barista": { "text": "The wall messages. Different decades. Same handwriting.", "tag": "barista" },
+          "shopkeeper": { "text": "Twenty metres down. Under everything. A mark. Fresh. Last week.", "tag": "shopkeeper" }
+        }
+      },
+      "familiar": {
+        "trigger": { "visitCount": 7, "acrossDays": true },
+        "entry": { "text": "I found a room. Nobody built it. Come with me.", "tag": "neutral" },
+        "ambient": [
+          { "text": "I cross all three neighbourhoods. The distances are wrong. I've timed them.", "tag": "neutral" },
+          { "text": "There's a route that doesn't exist on any map. 4AM. Only.", "tag": "neutral" }
+        ],
+        "traitLines": {
+          "musician": { "text": "The unbuilt room has perfect acoustics. For what, I don't know.", "tag": "musician" },
+          "photographer": { "text": "The room doesn't photograph correctly. The geometry refuses to resolve.", "tag": "photographer" },
+          "wanderer": { "text": "The spaces pull differently depending on who enters. You'd pull it wide open.", "tag": "wanderer" },
+          "shopkeeper": { "text": "Twenty metres down. A mark in the stone. It's the same symbol as the key.", "tag": "shopkeeper" }
+        },
+        "crossReference": { "text": "The warehouse guard let me in once. He was scared. He doesn't scare.", "minNpcsMet": 3 }
+      }
+    }
+  },
   "clockmaker": {
     "id": "clockmaker",
     "name": "The Clockmaker",

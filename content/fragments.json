@@ -212,5 +212,95 @@
     "location": "G01",
     "awareness_required": 2,
     "text": "Seven stones in London have never moved. Not since they were placed. The London Stone on Cannon Street is the famous one. Six others are unmarked, embedded in walls and foundations across the city. Each predates the building it supports. Each weighs more than it should. The clockmaker's shop is built on one."
+  },
+
+  "P-F2": {
+    "id": "P-F2",
+    "title": "The Absent Buildings",
+    "trait": "photographer",
+    "location": "B09",
+    "awareness_required": 2,
+    "text": "The London Survey of 1746 recorded every building on Bermondsey Street. Three buildings in the survey do not appear on any subsequent map. They were not demolished — no demolition record exists. They are simply absent from every document after 1746. The addresses still receive mail."
+  },
+
+  "P-F5": {
+    "id": "P-F5",
+    "title": "The City's Sentence",
+    "trait": "photographer",
+    "location": "B08",
+    "awareness_required": 4,
+    "text": "From the rooftop of the railway arch, the streets of Bermondsey form letters. Not in any alphabet currently in use. The letters are legible only from above and only at twilight when shadows extend the buildings' edges. Someone designed this. Not the urban planners. The city arranged itself into a sentence nobody has read."
+  },
+
+  "W-F3": {
+    "id": "W-F3",
+    "title": "The Accumulated Feeling",
+    "trait": "wanderer",
+    "location": "B07",
+    "awareness_required": 2,
+    "text": "Every building accumulates the emotions of its inhabitants. Hospitals feel different from schools. Prisons feel different from libraries. This isn't metaphor — studies in environmental psychology measure it. But nobody has measured a city. Nobody has asked what two thousand years of accumulated feeling produces. Perhaps because the answer moves."
+  },
+
+  "W-F7": {
+    "id": "W-F7",
+    "title": "London's Weight",
+    "trait": "wanderer",
+    "location": "B04",
+    "awareness_required": 6,
+    "text": "London has dreamed every night for two thousand years. Dreams process what the waking mind cannot. If London were to wake — if the dream ended — where would the unprocessed go? The sadness of every goodbye at every train station. The joy of every first kiss on every bridge. The weight of it. Would London survive its own waking?"
+  },
+
+  "W-F6": {
+    "id": "W-F6",
+    "title": "The Warning on the Railing",
+    "trait": "wanderer",
+    "location": "B05",
+    "awareness_required": 4,
+    "text": "A message scratched into the Thames Path railing near Rotherhithe, so faint you'd miss it unless you were looking. Or unless you were feeling. It reads: 'It noticed me in 2017. I noticed it back. That was my mistake. The noticing doesn't stop. Walk away if you can.'"
+  },
+
+  "BA-F3": {
+    "id": "BA-F3",
+    "title": "Three Degrees",
+    "trait": "barista",
+    "location": "B06",
+    "awareness_required": 2,
+    "text": "Network theory says six degrees separate any two people on earth. In London the number is three. In East London it's two. The connections aren't social media friendships. They're spatial — sharing a bus, breathing the same air, walking the same pavement within minutes of each other. The city is a contact network. Everyone touches everyone."
+  },
+
+  "BA-F7": {
+    "id": "BA-F7",
+    "title": "The Erased Name",
+    "trait": "barista",
+    "location": "B09",
+    "awareness_required": 6,
+    "text": "The erased name is not gone. It's distributed. Split across every person who ever knew them, like a word broken into letters scattered through a book. The letters are still there. The word can be reassembled. But should it be? A name that powerful, a connection that total — is that a person, or is that something a person should never be?"
+  },
+
+  "S-F1": {
+    "id": "S-F1",
+    "title": "The Key",
+    "trait": "shopkeeper",
+    "location": "B01",
+    "awareness_required": 2,
+    "text": "The key has no manufacturer's mark from any known foundry. The alloy contains traces of a mineral found only in the chalk deposits beneath the Thames Basin. The mineral has no industrial application. It has been in the ground since before the ice retreated. The key was made from the ground itself."
+  },
+
+  "S-F5": {
+    "id": "S-F5",
+    "title": "The People Who Feel the Ground",
+    "trait": "shopkeeper",
+    "location": "B03",
+    "awareness_required": 4,
+    "text": "Some people feel the ground more than others. Not seismologists — people with hands. Bricklayers who know which wall will stand. Gardeners who feel the soil's mood. Shopkeepers who've stood on the same floor for thirty years and can tell you when the building sighs. These people don't know what they know. But the ground knows them."
+  },
+
+  "S-F6": {
+    "id": "S-F6",
+    "title": "Still Sleeping",
+    "trait": "shopkeeper",
+    "location": "B04",
+    "awareness_required": 4,
+    "text": "A survey marker embedded in the warehouse floor. Official-looking but not from any known survey agency. Dated 2020. The coordinates are correct. The depth reading is not — it shows a measurement 400 metres below ground level. Standard surveys reach 30. Next to the marker, scratched in the concrete: 'Still sleeping. Check annually.'"
   }
 }

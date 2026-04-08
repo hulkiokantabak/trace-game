@@ -90,6 +90,67 @@
       "Every surface here has been sold twice."
     ]
   },
+  "bermondsey": {
+    "neutral": [
+      "The arches. Brick curves. Someone's hammering inside.",
+      "Market setting up. Dawn. Torch lights.",
+      "Bermondsey Street. Old side. New side.",
+      "The warehouse. Even daylight feels like night.",
+      "Train overhead. Ground vibrates. Then stops.",
+      "The gallery. White walls. Absolute quiet.",
+      "An arch entrance. Dark inside. Something in there.",
+      "The church at the end of the road. Oldest thing here.",
+      "Vinyl in the window. Someone's turntable audible.",
+      "The river is close. You can smell it."
+    ],
+    "time": {
+      "morning": "Bermondsey wakes busy. No time for stretching.",
+      "afternoon": "Afternoon. The galleries are open. The arches are open.",
+      "evening": "The galleries close. The restaurants open. The shift.",
+      "night": "The warehouse guard starts his round. A torch. A routine."
+    },
+    "weather": {
+      "rain": [
+        "Rain on the railway arches. Percussion.",
+        "The warehouse disappears in fog. Just the guard's torch."
+      ]
+    },
+    "musician": [
+      "The arch amplifies everything. A private concert hall.",
+      "A vinyl record from the shop. Forty years old. Still alive.",
+      "The overground rattle makes the arch walls resonate.",
+      "Brick and iron. Bermondsey's two pitches.",
+      "Under the arches: something that sounds like the city breathing."
+    ],
+    "photographer": [
+      "Gallery white. The art has nothing to compete with.",
+      "The rooftop. From up there the streets spell something.",
+      "The market at dawn. Long shadows. No tourists.",
+      "The warehouse. Industrial angles. Serious light.",
+      "Bermondsey Street. Old buildings photographed a thousand times. Still."
+    ],
+    "wanderer": [
+      "The church. Oldest building in the area. It knows.",
+      "The Thames path. The bench facing the water.",
+      "The warehouse at night pulls. I don't go in. Not yet.",
+      "The arch. The temperature drops inside.",
+      "Long Lane. Nothing remarkable. That's what's wrong."
+    ],
+    "barista": [
+      "The co-working space. Everyone stranger, everyone connected.",
+      "Market vendors nod to each other. A whole language.",
+      "The gallery. The same visitors, different Thursdays.",
+      "The vinyl shop. The owner knows everyone who's bought here.",
+      "The street corner. Something always almost happens."
+    ],
+    "shopkeeper": [
+      "The market object. Wrong materials. Wrong era.",
+      "These arches predate the railway. Someone else built them.",
+      "The church crypt. Something in the floor.",
+      "Bermondsey was a market town. The street remembers.",
+      "The warehouse floor. The depth marker. Someone checks it annually."
+    ]
+  },
   "greenwich": {
     "neutral": [
       "The park smells like cut grass and history.",

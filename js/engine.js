@@ -1773,6 +1773,866 @@ const Engine = (() => {
     ctx.fillRect(0, 155, W, 25);
   }
 
+  // ─── BERMONDSEY SCENES ───────────────────────────────────────────────────
+
+  // --- B01: The Antiques Market ---
+  function sceneAntiquesMarket(t, npcVisible) {
+    // Sky — muted morning grey
+    const sky = (timePeriod === 'night') ? '#0c0e14' : (timePeriod === 'morning') ? '#b0b8c8' : '#9096a8';
+    ctx.fillStyle = sky;
+    ctx.fillRect(0, 0, W, 60);
+    if (timePeriod === 'night') drawStars(t, 25);
+
+    // Ground — old tarmac, worn
+    ctx.fillStyle = '#3c3830';
+    ctx.fillRect(0, 130, W, 50);
+    ctx.fillStyle = '#322e26';
+    ctx.fillRect(0, 126, W, 6);
+
+    // Back — railway arches (brick)
+    ctx.fillStyle = '#4a3e34';
+    ctx.fillRect(0, 55, W, 75);
+    // Arch outlines
+    for (let ax = 0; ax < W; ax += 80) {
+      ctx.fillStyle = '#3a3028';
+      ctx.fillRect(ax + 10, 60, 60, 70);
+      ctx.fillStyle = '#2e2820';
+      ctx.fillRect(ax + 14, 64, 52, 66);
+    }
+    // Brick texture rows
+    ctx.fillStyle = 'rgba(0,0,0,0.12)';
+    for (let by = 58; by < 130; by += 6) ctx.fillRect(0, by, W, 1);
+
+    // Market stalls — foreground
+    const stallColors = ['#5c4e3a','#4e4230','#544638','#4a3e2c'];
+    const stallPositions = [0, 80, 165, 245];
+    stallPositions.forEach((sx, i) => {
+      // Trestle legs
+      ctx.fillStyle = '#2a2218';
+      ctx.fillRect(sx + 6, 128, 4, 18);
+      ctx.fillRect(sx + 62, 128, 4, 18);
+      // Table top
+      ctx.fillStyle = stallColors[i % stallColors.length];
+      ctx.fillRect(sx, 118, 72, 12);
+      ctx.fillStyle = 'rgba(0,0,0,0.15)';
+      ctx.fillRect(sx, 118, 72, 2);
+      // Objects on stall — small rect clusters
+      ctx.fillStyle = '#8a7a60';
+      ctx.fillRect(sx + 8, 110, 10, 9);
+      ctx.fillRect(sx + 22, 112, 14, 7);
+      ctx.fillStyle = '#c8a860';
+      ctx.fillRect(sx + 40, 108, 7, 11);
+      ctx.fillStyle = '#6a8090';
+      ctx.fillRect(sx + 52, 113, 12, 6);
+    });
+
+    // Specific detail — the antique key (on first stall)
+    ctx.fillStyle = '#d4a830';
+    ctx.fillRect(28, 109, 8, 3);
+    ctx.fillRect(32, 107, 3, 3);
+    ctx.fillStyle = '#b89020';
+    ctx.fillRect(34, 110, 2, 2);
+
+    // Overhead awning — canvas
+    ctx.fillStyle = 'rgba(80,70,50,0.7)';
+    ctx.fillRect(0, 60, W, 14);
+    ctx.fillStyle = 'rgba(60,52,38,0.5)';
+    for (let ax = 0; ax < W; ax += 40) ctx.fillRect(ax, 60, 2, 14); // folds
+
+    // NPC — antiques vendor, standing behind first stall
+    if (npcVisible) {
+      ctx.fillStyle = '#3a2e24';
+      ctx.fillRect(18, 100, 16, 28); // body
+      ctx.fillRect(21, 92, 10, 10); // head
+      // Hands on table
+      ctx.fillStyle = '#b09070';
+      ctx.fillRect(14, 120, 5, 4);
+      ctx.fillRect(32, 120, 5, 4);
+    }
+
+    // Dust motes in morning light
+    if (timePeriod === 'morning') {
+      ctx.fillStyle = 'rgba(220,200,140,0.04)';
+      for (let i = 0; i < 4; i++) ctx.fillRect(i * 80 + 20, 65, 1, 55);
+    }
+  }
+
+  // --- B02: The Gallery ---
+  function sceneGallery(t, npcVisible) {
+    // White walls, clinical
+    ctx.fillStyle = '#e8e4de';
+    ctx.fillRect(0, 0, W, H);
+
+    // Ceiling — slightly off-white, recessed lighting track
+    ctx.fillStyle = '#d8d4ce';
+    ctx.fillRect(0, 0, W, 20);
+    // Track lighting
+    ctx.fillStyle = '#a8a49e';
+    ctx.fillRect(0, 8, W, 3);
+    // Light cones (subtle)
+    const spotPositions = [40, 110, 190, 265];
+    spotPositions.forEach(sx => {
+      ctx.fillStyle = 'rgba(255,240,200,0.08)';
+      ctx.beginPath();
+      ctx.moveTo(sx, 11);
+      ctx.lineTo(sx - 22, 80);
+      ctx.lineTo(sx + 22, 80);
+      ctx.closePath();
+      ctx.fill();
+    });
+
+    // Floor — pale concrete
+    ctx.fillStyle = '#c4c0ba';
+    ctx.fillRect(0, 148, W, 32);
+    ctx.fillStyle = '#bebab4';
+    ctx.fillRect(0, 146, W, 4);
+
+    // Back wall with artwork
+    ctx.fillStyle = '#dedad4';
+    ctx.fillRect(0, 20, W, 128);
+    // Shadow at base of wall
+    ctx.fillStyle = 'rgba(0,0,0,0.06)';
+    ctx.fillRect(0, 136, W, 12);
+
+    // Artworks — sparse, deliberate spacing
+    const artworks = [
+      { x: 20, y: 30, w: 42, h: 60, c: '#c0a870' },   // warm canvas
+      { x: 110, y: 40, w: 30, h: 44, c: '#2a3a4a' },   // dark photo
+      { x: 185, y: 26, w: 56, h: 70, c: '#8a7068' },   // muted painting
+      { x: 270, y: 38, w: 32, h: 50, c: '#3a4830' },   // dark green
+    ];
+    artworks.forEach(({ x, y, w, h, c }) => {
+      // Frame
+      ctx.fillStyle = '#c8c4be';
+      ctx.fillRect(x - 3, y - 3, w + 6, h + 6);
+      ctx.fillStyle = '#b0aca6';
+      ctx.fillRect(x - 2, y - 2, w + 4, h + 4);
+      // Canvas
+      ctx.fillStyle = c;
+      ctx.fillRect(x, y, w, h);
+      // Subtle paint texture
+      ctx.fillStyle = 'rgba(255,255,255,0.04)';
+      ctx.fillRect(x + 2, y + 2, w - 4, Math.floor(h / 2));
+    });
+
+    // Gallery placard under each artwork
+    artworks.forEach(({ x, y, w, h }) => {
+      ctx.fillStyle = '#c0bcb6';
+      ctx.fillRect(x + Math.floor(w / 2) - 8, y + h + 6, 16, 5);
+    });
+
+    // NPC — gallery owner, centre-right, still
+    if (npcVisible) {
+      ctx.fillStyle = '#2a2622';
+      ctx.fillRect(230, 110, 14, 38); // body — dark suit
+      ctx.fillRect(233, 101, 8, 10); // head
+      // Slight tilt — hand raised
+      ctx.fillStyle = '#c4a07e';
+      ctx.fillRect(242, 122, 5, 3);
+    }
+
+    // Time-of-day wash — daylight through unseen window
+    if (timePeriod === 'evening') {
+      ctx.fillStyle = 'rgba(200,140,60,0.04)';
+      ctx.fillRect(0, 0, W, H);
+    }
+  }
+
+  // --- B03: The Railway Arch Workshop ---
+  function sceneArchWorkshop(t, npcVisible) {
+    // Dark brick arch, very dim
+    ctx.fillStyle = '#0e0b08';
+    ctx.fillRect(0, 0, W, H);
+
+    // Arch shape — back wall curves
+    ctx.fillStyle = '#1a1410';
+    ctx.fillRect(0, 0, W, H);
+    // Arch curve (approximated as rounded top)
+    ctx.fillStyle = '#221c16';
+    ctx.fillRect(40, 0, 240, 90);
+    ctx.fillRect(60, 0, 200, 20);
+
+    // Brick texture — back wall
+    ctx.fillStyle = '#2a201a';
+    for (let bx = 0; bx < 240; bx += 24) {
+      for (let by = 0; by < 110; by += 8) {
+        if ((bx + by) % 16 < 8) ctx.fillRect(40 + bx, by, 22, 6);
+      }
+    }
+
+    // Floor — cracked concrete
+    ctx.fillStyle = '#1c1a14';
+    ctx.fillRect(0, 140, W, 40);
+    ctx.fillStyle = '#141210';
+    ctx.fillRect(0, 138, W, 4);
+    // Crack
+    ctx.fillStyle = '#0e0c0a';
+    ctx.fillRect(90, 140, 1, 35);
+    ctx.fillRect(91, 155, 1, 20);
+
+    // Workbenches — both sides
+    ctx.fillStyle = '#1e1610';
+    ctx.fillRect(0, 118, 100, 24);
+    ctx.fillRect(220, 118, 100, 24);
+    ctx.fillStyle = '#261e14';
+    ctx.fillRect(0, 116, 100, 4);
+    ctx.fillRect(220, 116, 100, 4);
+
+    // Tools and materials — left bench
+    ctx.fillStyle = '#3a3a3a';
+    ctx.fillRect(8, 108, 24, 10); // vice
+    ctx.fillStyle = '#888';
+    ctx.fillRect(20, 104, 3, 6);
+    ctx.fillStyle = '#8a7060';
+    ctx.fillRect(40, 110, 18, 6); // wooden block
+    ctx.fillRect(64, 112, 12, 4); // scrap
+
+    // Right bench — maps/blueprints
+    ctx.fillStyle = '#d0c8a0';
+    ctx.fillRect(230, 106, 40, 12); // blueprint
+    ctx.fillStyle = '#a89870';
+    ctx.fillRect(232, 108, 36, 8);
+    ctx.fillStyle = '#4a6888';
+    ctx.fillRect(234, 109, 1, 6); // line drawing
+    ctx.fillRect(240, 109, 1, 6);
+    ctx.fillRect(246, 109, 1, 6);
+
+    // Single work light overhead — cone of pale yellow
+    ctx.fillStyle = 'rgba(220,200,140,0.06)';
+    ctx.fillRect(120, 40, 80, 80);
+    ctx.fillStyle = '#6a6050';
+    ctx.fillRect(155, 28, 10, 18); // light housing
+    ctx.fillStyle = '#e0d090';
+    ctx.fillRect(157, 38, 6, 4); // bulb
+
+    // NPC — urban explorer near right bench
+    if (npcVisible) {
+      ctx.fillStyle = '#2e2820';
+      ctx.fillRect(224, 90, 16, 30); // body — utility jacket
+      ctx.fillRect(227, 80, 10, 12); // head
+      // Headlamp (explorer detail)
+      ctx.fillStyle = '#d0c880';
+      ctx.fillRect(226, 80, 12, 3);
+      const lampGlow = Math.sin(t * 0.8) * 0.01 + 0.04;
+      ctx.fillStyle = `rgba(220,210,150,${lampGlow})`;
+      ctx.fillRect(224, 82, 80, 30);
+    }
+
+    // Flicker — work light
+    const flicker = Math.sin(t * 17) * 0.01 + 0.02;
+    ctx.fillStyle = `rgba(220,200,140,${flicker})`;
+    ctx.fillRect(120, 40, 80, 100);
+  }
+
+  // --- B04: The Warehouse — Night ---
+  function sceneWarehouse(t, npcVisible) {
+    // Near-black interior, vast
+    ctx.fillStyle = '#080a0c';
+    ctx.fillRect(0, 0, W, H);
+
+    // High ceiling — faint structure
+    ctx.fillStyle = '#0e1014';
+    ctx.fillRect(0, 0, W, 30);
+    // Steel beams
+    ctx.fillStyle = '#141820';
+    ctx.fillRect(0, 10, W, 4);
+    ctx.fillRect(80, 0, 4, 30);
+    ctx.fillRect(160, 0, 4, 30);
+    ctx.fillRect(240, 0, 4, 30);
+
+    // High windows — moonlight or city glow
+    const moonColor = (timePeriod === 'night') ? '#c8d4e0' : '#808898';
+    ctx.fillStyle = '#1a2030';
+    ctx.fillRect(50, 14, 40, 22);
+    ctx.fillRect(140, 14, 40, 22);
+    ctx.fillRect(230, 14, 40, 22);
+    // Moonlight wash through windows
+    ctx.fillStyle = `rgba(180,200,220,0.05)`;
+    ctx.fillRect(50, 36, 40, 80);
+    ctx.fillRect(140, 36, 40, 80);
+    ctx.fillRect(230, 36, 40, 80);
+    // Window panes
+    ctx.fillStyle = moonColor;
+    ctx.fillRect(68, 14, 2, 22); // vertical bar
+    ctx.fillRect(158, 14, 2, 22);
+    ctx.fillRect(248, 14, 2, 22);
+
+    // Floor — vast, wet concrete
+    ctx.fillStyle = '#0c0e10';
+    ctx.fillRect(0, 140, W, 40);
+    ctx.fillStyle = '#101418';
+    ctx.fillRect(0, 138, W, 4);
+    // Reflected light pools on floor
+    ctx.fillStyle = 'rgba(180,200,220,0.03)';
+    ctx.fillRect(52, 140, 36, 40);
+    ctx.fillRect(142, 140, 36, 40);
+    ctx.fillRect(232, 140, 36, 40);
+
+    // Stack of pallets — left dark corner
+    ctx.fillStyle = '#1a1510';
+    ctx.fillRect(0, 120, 50, 22);
+    ctx.fillStyle = '#221c14';
+    ctx.fillRect(2, 116, 46, 6);
+    ctx.fillRect(2, 122, 46, 6);
+    ctx.fillRect(2, 128, 46, 6);
+
+    // Old machinery silhouette — right wall
+    ctx.fillStyle = '#101418';
+    ctx.fillRect(260, 80, 60, 60);
+    ctx.fillStyle = '#181c24';
+    ctx.fillRect(268, 70, 20, 72);
+    ctx.fillRect(295, 88, 15, 52);
+    // Pipes
+    ctx.fillRect(265, 78, 55, 4);
+    ctx.fillRect(280, 60, 4, 22);
+
+    // Subtle hum — floor vibration at night
+    const vibration = Math.sin(t * 3.1) * 0.008 + 0.012;
+    ctx.fillStyle = `rgba(40,60,100,${vibration})`;
+    ctx.fillRect(0, 155, W, 25);
+
+    // NPC — warehouse guard, near entrance far left
+    if (npcVisible) {
+      ctx.fillStyle = '#1a1e24';
+      ctx.fillRect(8, 105, 14, 35); // body — dark jacket
+      ctx.fillRect(11, 96, 8, 10); // head
+      // Small torch — faint circle of light
+      const torchOn = Math.floor(t * 0.3) % 4 !== 0;
+      if (torchOn) {
+        ctx.fillStyle = 'rgba(220,190,120,0.08)';
+        ctx.fillRect(0, 80, 80, 60);
+      }
+    }
+  }
+
+  // --- B05: The Thames Path — Rotherhithe ---
+  function sceneRotherhithePath(t) {
+    // Sky — wide, flat, Thames sky
+    ctx.fillStyle = makeSkyGradient(0, 70);
+    ctx.fillRect(0, 0, W, 70);
+    if (timePeriod === 'night') drawStars(t, 35);
+
+    // Far bank — industrial south-bank silhouette
+    ctx.fillStyle = (timePeriod === 'night') ? '#0a0e14' : '#2a3020';
+    ctx.fillRect(0, 58, W, 18);
+    // Industrial structures far bank
+    const farBank = [
+      [20, 38, 8, 22], [40, 30, 10, 30], [65, 42, 6, 18],
+      [90, 36, 12, 24], [120, 44, 8, 16], [145, 32, 6, 28],
+      [185, 40, 10, 20], [215, 34, 8, 26], [250, 42, 14, 18],
+      [280, 36, 10, 24]
+    ];
+    ctx.fillStyle = (timePeriod === 'night') ? '#0c1018' : '#1e2818';
+    farBank.forEach(([x, y, w, h]) => ctx.fillRect(x, y, w, h));
+
+    // River — dark, wide
+    ctx.fillStyle = (timePeriod === 'night') ? '#0c1420' : '#1a2a3a';
+    ctx.fillRect(0, 74, W, 38);
+    // River texture — horizontal ripples
+    ctx.fillStyle = 'rgba(120,160,180,0.06)';
+    for (let ry = 78; ry < 110; ry += 5) {
+      const wave = Math.sin(t * 0.6 + ry * 0.2) * 4;
+      ctx.fillRect(wave, ry, W - 8, 2);
+    }
+    // River shimmer at night
+    if (timePeriod === 'night') {
+      ctx.fillStyle = 'rgba(180,200,240,0.04)';
+      for (let sx = 0; sx < W; sx += 30) {
+        ctx.fillRect(sx + Math.sin(t * 0.4 + sx) * 3, 76, 8, 36);
+      }
+    }
+
+    // Path — worn tarmac foreground
+    ctx.fillStyle = '#2e2c28';
+    ctx.fillRect(0, 112, W, 50);
+    ctx.fillStyle = '#262420';
+    ctx.fillRect(0, 110, W, 4);
+    // Path cracks
+    ctx.fillStyle = '#201e1c';
+    ctx.fillRect(60, 114, 1, 40);
+    ctx.fillRect(160, 118, 1, 32);
+
+    // Old jetty posts — standing in river
+    const posts = [30, 90, 155, 218, 285];
+    posts.forEach(px => {
+      ctx.fillStyle = '#1c1a16';
+      ctx.fillRect(px, 88, 5, 28); // post above waterline
+      ctx.fillStyle = '#141210';
+      ctx.fillRect(px, 100, 5, 16); // post in water
+      // Barnacle line
+      ctx.fillStyle = '#2a2820';
+      ctx.fillRect(px, 100, 5, 3);
+    });
+
+    // Mooring ring on nearest post
+    ctx.fillStyle = '#7a6040';
+    ctx.fillRect(27, 92, 11, 3);
+    ctx.fillRect(30, 89, 5, 8);
+
+    // Foreground railing
+    ctx.fillStyle = '#3a3430';
+    ctx.fillRect(0, 108, W, 4);
+    for (let rx = 10; rx < W; rx += 20) {
+      ctx.fillRect(rx, 96, 3, 14);
+    }
+
+    // Weather — rain if active
+    if (_weather === 'rain') {
+      ctx.fillStyle = 'rgba(150,180,220,0.18)';
+      for (let i = 0; i < W; i += 4) {
+        const offset = (t * 60 + i * 7) % H;
+        ctx.fillRect(i + 1, offset, 1, 6);
+      }
+    }
+  }
+
+  // --- B06: The Co-Working Space ---
+  function sceneCoWorking(t) {
+    // Exposed brick + modern interior
+    ctx.fillStyle = '#1c1614';
+    ctx.fillRect(0, 0, W, H);
+
+    // Ceiling — white painted, industrial
+    ctx.fillStyle = '#d0ccc6';
+    ctx.fillRect(0, 0, W, 22);
+    // Exposed ductwork
+    ctx.fillStyle = '#a0a090';
+    ctx.fillRect(0, 8, W, 10);
+    ctx.fillStyle = '#909080';
+    ctx.fillRect(0, 10, W, 6);
+    // Duct bolts
+    ctx.fillStyle = '#808070';
+    for (let bx = 20; bx < W; bx += 40) ctx.fillRect(bx, 10, 3, 6);
+
+    // Back wall — exposed brick
+    ctx.fillStyle = '#3a2c24';
+    ctx.fillRect(0, 22, W, 110);
+    ctx.fillStyle = 'rgba(0,0,0,0.1)';
+    for (let bx = 0; bx < W; bx += 28) {
+      for (let by = 24; by < 132; by += 8) {
+        if ((bx + by) % 16 < 12) ctx.fillRect(bx, by, 26, 6);
+      }
+    }
+
+    // Floor — polished concrete
+    ctx.fillStyle = '#2a2820';
+    ctx.fillRect(0, 132, W, 48);
+    ctx.fillStyle = '#242220';
+    ctx.fillRect(0, 130, W, 4);
+
+    // Hot desks — four in a row
+    const deskX = [10, 90, 170, 250];
+    deskX.forEach((dx, i) => {
+      // Desk
+      ctx.fillStyle = '#d4cfc8';
+      ctx.fillRect(dx, 108, 64, 26);
+      ctx.fillStyle = '#c8c3bc';
+      ctx.fillRect(dx, 106, 64, 4);
+      // Laptop screen
+      ctx.fillStyle = '#1a1e2a';
+      ctx.fillRect(dx + 8, 88, 40, 22);
+      ctx.fillStyle = '#243040';
+      ctx.fillRect(dx + 10, 90, 36, 18);
+      // Screen glow — each screen slightly different content
+      const screenColors = ['#2a4060','#203828','#402830','#304428'];
+      ctx.fillStyle = screenColors[i % screenColors.length];
+      ctx.fillRect(dx + 12, 92, 32, 14);
+      // Screen light on face of empty desk (no npc shown)
+      const glow = Math.sin(t * 0.3 + i * 1.2) * 0.01 + 0.03;
+      ctx.fillStyle = `rgba(100,140,200,${glow})`;
+      ctx.fillRect(dx, 108, 64, 20);
+    });
+
+    // Coffee cups — scattered
+    ctx.fillStyle = '#e8d8b0';
+    ctx.fillRect(58, 106, 6, 8);
+    ctx.fillRect(148, 106, 6, 8);
+    ctx.fillRect(304, 104, 6, 8);
+
+    // Natural light — windows implied left
+    ctx.fillStyle = 'rgba(200,190,160,0.04)';
+    ctx.fillRect(0, 22, 40, 110);
+
+    if (timePeriod === 'evening' || timePeriod === 'night') {
+      ctx.fillStyle = 'rgba(20,16,12,0.25)';
+      ctx.fillRect(0, 0, W, H);
+    }
+  }
+
+  // --- B07: The Old Church — St Mary Magdalen ---
+  function sceneOldChurch(t) {
+    // Exterior/mixed — overgrown churchyard
+    ctx.fillStyle = makeSkyGradient(0, 65);
+    ctx.fillRect(0, 0, W, 65);
+    if (timePeriod === 'night') drawStars(t, 30);
+
+    // Ground — long grass and old stone
+    ctx.fillStyle = '#2a3020';
+    ctx.fillRect(0, 130, W, 50);
+    ctx.fillStyle = '#243018';
+    ctx.fillRect(0, 128, W, 4);
+    // Grass tufts
+    ctx.fillStyle = '#2e3822';
+    for (let gx = 0; gx < W; gx += 14) {
+      ctx.fillRect(gx, 126 - Math.floor(Math.sin(gx * 1.3) * 3), 2, 6);
+      ctx.fillRect(gx + 6, 124, 2, 4);
+    }
+
+    // Church building — Norman stone, compact
+    ctx.fillStyle = '#7a7468';
+    ctx.fillRect(60, 48, 200, 84);
+    ctx.fillStyle = '#8a8478';
+    ctx.fillRect(62, 46, 196, 84);
+    // Stone blocks texture
+    ctx.fillStyle = 'rgba(0,0,0,0.08)';
+    for (let bx = 62; bx < 258; bx += 22) {
+      for (let by = 46; by < 130; by += 10) {
+        if ((bx + by) % 20 < 10) ctx.fillRect(bx, by, 20, 8);
+      }
+    }
+
+    // Tower — left side, square Norman
+    ctx.fillStyle = '#6e6860';
+    ctx.fillRect(60, 18, 52, 114);
+    ctx.fillStyle = '#787268';
+    ctx.fillRect(62, 20, 48, 110);
+    // Tower top battlements
+    for (let bx = 62; bx < 110; bx += 10) {
+      ctx.fillStyle = '#6e6860';
+      ctx.fillRect(bx, 16, 6, 6);
+    }
+
+    // Window — arched (approximated)
+    ctx.fillStyle = '#1a1e2a';
+    ctx.fillRect(74, 48, 20, 32);
+    ctx.fillStyle = '#222840';
+    ctx.fillRect(76, 50, 16, 28);
+    // Window lead lines
+    ctx.fillStyle = '#2a3248';
+    ctx.fillRect(83, 50, 2, 28);
+    ctx.fillRect(76, 64, 16, 2);
+
+    // Rose window — centre church
+    ctx.fillStyle = '#1a2030';
+    ctx.fillRect(150, 56, 24, 24);
+    ctx.fillStyle = '#283840';
+    ctx.fillRect(152, 58, 20, 20);
+    // Simplified tracery
+    ctx.fillStyle = '#304850';
+    ctx.fillRect(161, 58, 2, 20); // vertical
+    ctx.fillRect(152, 67, 20, 2); // horizontal
+
+    // Door — arched, dark wood
+    ctx.fillStyle = '#1a1410';
+    ctx.fillRect(190, 102, 30, 30);
+    ctx.fillStyle = '#221c16';
+    ctx.fillRect(192, 104, 26, 28);
+    // Door hinges
+    ctx.fillStyle = '#4a4040';
+    ctx.fillRect(192, 107, 4, 6);
+    ctx.fillRect(192, 120, 4, 6);
+    // Iron ring
+    ctx.fillStyle = '#3a3a3a';
+    ctx.fillRect(213, 115, 5, 5);
+
+    // Gravestone — foreground right
+    ctx.fillStyle = '#6a6460';
+    ctx.fillRect(256, 110, 20, 24);
+    ctx.fillStyle = '#7a7470';
+    ctx.fillRect(258, 108, 16, 4); // top curve
+    ctx.fillStyle = '#5c5854';
+    ctx.fillRect(264, 114, 4, 12); // inscription shadow
+
+    // Lichen on stones — subtle overlay
+    ctx.fillStyle = 'rgba(100,120,60,0.06)';
+    ctx.fillRect(60, 46, 200, 86);
+  }
+
+  // --- B08: The Rooftop ---
+  function sceneRooftop(t) {
+    // Sky — wide open, Bermondsey panorama
+    ctx.fillStyle = makeSkyGradient(0, 90);
+    ctx.fillRect(0, 0, W, 90);
+    if (timePeriod === 'night') drawStars(t, 50);
+
+    // Far horizon — City towers, Shard
+    const cityColor = (timePeriod === 'night') ? '#0e1018' : (timePeriod === 'morning') ? '#3a4050' : '#2a3038';
+    ctx.fillStyle = cityColor;
+    // The Shard — unmistakable silhouette, far right
+    ctx.fillRect(268, 28, 12, 56);
+    ctx.fillRect(270, 20, 8, 10);
+    ctx.fillRect(272, 14, 4, 8);
+    ctx.fillRect(273, 10, 2, 6);
+    // Other towers
+    ctx.fillRect(240, 40, 14, 44);
+    ctx.fillRect(220, 46, 10, 38);
+    ctx.fillRect(200, 50, 8, 34);
+    ctx.fillRect(180, 52, 6, 32);
+    // Shard spire light at night
+    if (timePeriod === 'night') {
+      const spireGlow = Math.sin(t * 1.4) * 0.3 + 0.7;
+      ctx.fillStyle = `rgba(220,100,80,${spireGlow * 0.6})`;
+      ctx.fillRect(273, 10, 2, 2);
+    }
+
+    // Mid-ground — Bermondsey roofscape
+    ctx.fillStyle = (timePeriod === 'night') ? '#141618' : '#3a3830';
+    ctx.fillRect(0, 74, W, 30);
+    // Roof variety — terraces, warehouse roofs
+    const roofLine = [
+      [0,68,40,36], [40,72,30,32], [70,64,50,40], [120,70,40,34],
+      [160,66,35,38], [195,72,30,32]
+    ];
+    const rfColor = (timePeriod === 'night') ? '#101214' : '#2e2c28';
+    ctx.fillStyle = rfColor;
+    roofLine.forEach(([x, y, w, h]) => ctx.fillRect(x, y, w, h));
+    // Chimneys
+    ctx.fillStyle = (timePeriod === 'night') ? '#0c0e10' : '#262422';
+    [[15,60,6,10],[55,62,4,12],[88,52,8,14],[145,62,5,10],[172,58,6,10]].forEach(([x,y,w,h]) => ctx.fillRect(x,y,w,h));
+
+    // Rooftop deck — our rooftop, concrete
+    ctx.fillStyle = '#3c3a34';
+    ctx.fillRect(0, 104, W, 50);
+    ctx.fillStyle = '#303028';
+    ctx.fillRect(0, 102, W, 4);
+
+    // Gravel texture on deck
+    ctx.fillStyle = 'rgba(0,0,0,0.15)';
+    for (let gx = 4; gx < W; gx += 8) ctx.fillRect(gx, 108, 3, 2);
+
+    // Rooftop details — AC unit, door housing, aerials
+    ctx.fillStyle = '#2a2824';
+    ctx.fillRect(0, 86, 40, 18); // door housing / stairwell box
+    ctx.fillStyle = '#323028';
+    ctx.fillRect(2, 84, 36, 4);
+    // Door
+    ctx.fillStyle = '#1e1c18';
+    ctx.fillRect(12, 88, 18, 16);
+    // AC unit
+    ctx.fillStyle = '#404038';
+    ctx.fillRect(240, 92, 36, 14);
+    ctx.fillStyle = '#383630';
+    ctx.fillRect(242, 90, 32, 4);
+    // Aerial — far left
+    ctx.fillStyle = '#282622';
+    ctx.fillRect(280, 80, 2, 24);
+    ctx.fillRect(274, 82, 14, 1);
+    ctx.fillRect(274, 86, 14, 1);
+
+    // Night — city light wash
+    if (timePeriod === 'night') {
+      ctx.fillStyle = 'rgba(60,80,140,0.04)';
+      ctx.fillRect(0, 0, W, H);
+    }
+    // Morning — pale gold light
+    if (timePeriod === 'morning') {
+      ctx.fillStyle = 'rgba(220,180,80,0.05)';
+      ctx.fillRect(0, 0, W, H);
+    }
+
+    // Wind effect — subtle
+    const windShift = Math.sin(t * 0.4) * 0.008;
+    ctx.fillStyle = `rgba(200,220,240,${Math.abs(windShift)})`;
+    ctx.fillRect(0, 0, W, 90);
+  }
+
+  // --- B09: The Street Corner — Long Lane ---
+  function sceneStreetCorner(t) {
+    // Sky — street-level view, buildings framing
+    ctx.fillStyle = makeSkyGradient(0, 50);
+    ctx.fillRect(0, 0, W, 50);
+    if (timePeriod === 'night') drawStars(t, 20);
+
+    // Street — tarmac
+    ctx.fillStyle = '#282420';
+    ctx.fillRect(0, 128, W, 52);
+    ctx.fillStyle = '#201e1c';
+    ctx.fillRect(0, 126, W, 4);
+    // Road markings — double yellow lines
+    ctx.fillStyle = '#c09820';
+    ctx.fillRect(0, 136, W, 2);
+    ctx.fillRect(0, 140, W, 2);
+
+    // Pavement
+    ctx.fillStyle = '#3a3630';
+    ctx.fillRect(0, 112, W, 18);
+    ctx.fillStyle = '#302e28';
+    ctx.fillRect(0, 110, W, 4);
+    // Paving slab joints
+    ctx.fillStyle = 'rgba(0,0,0,0.15)';
+    for (let sx = 0; sx < W; sx += 20) ctx.fillRect(sx, 112, 1, 18);
+
+    // Left building — Victorian terrace
+    ctx.fillStyle = '#6a5a4a';
+    ctx.fillRect(0, 14, 120, 100);
+    ctx.fillStyle = '#7a6a58';
+    ctx.fillRect(2, 12, 116, 100);
+    // Windows — two floors
+    const leftWins = [[10,22,22,28],[40,22,22,28],[70,22,22,28],[10,62,22,24],[40,62,22,24],[70,62,22,24]];
+    leftWins.forEach(([x,y,w,h]) => {
+      ctx.fillStyle = (timePeriod === 'night') ? '#1a2030' : '#8a9aaa';
+      ctx.fillRect(x, y, w, h);
+      if (timePeriod === 'night') {
+        const warmLight = Math.random() > 0.5;
+        ctx.fillStyle = warmLight ? 'rgba(200,160,80,0.3)' : 'rgba(20,30,50,0.5)';
+        ctx.fillRect(x+1, y+1, w-2, h-2);
+      }
+      ctx.fillStyle = 'rgba(0,0,0,0.2)';
+      ctx.fillRect(x + Math.floor(w/2), y, 1, h);
+      ctx.fillRect(x, y + Math.floor(h/2), w, 1);
+    });
+
+    // Right building — corner pub
+    ctx.fillStyle = '#5a4e40';
+    ctx.fillRect(190, 22, 130, 92);
+    ctx.fillStyle = '#685a4a';
+    ctx.fillRect(192, 20, 128, 92);
+    // Pub sign — corner facade
+    ctx.fillStyle = '#4a3830';
+    ctx.fillRect(192, 28, 70, 18);
+    ctx.fillStyle = '#c0a840';
+    ctx.fillRect(196, 32, 60, 10);
+    // Pub windows — large ground-floor
+    ctx.fillStyle = (timePeriod === 'night') ? '#302010' : '#7a8890';
+    ctx.fillRect(195, 60, 50, 36);
+    ctx.fillRect(260, 60, 50, 36);
+    if (timePeriod === 'evening' || timePeriod === 'night') {
+      ctx.fillStyle = 'rgba(220,140,40,0.35)';
+      ctx.fillRect(196, 61, 48, 34);
+      ctx.fillRect(261, 61, 48, 34);
+    }
+
+    // Street light — right pavement
+    ctx.fillStyle = '#2e2c28';
+    ctx.fillRect(170, 52, 4, 62);
+    ctx.fillStyle = '#3a3830';
+    ctx.fillRect(166, 50, 12, 4);
+    if (timePeriod === 'evening' || timePeriod === 'night') {
+      ctx.fillStyle = '#e8d090';
+      ctx.fillRect(167, 46, 10, 6);
+      const lampRadius = 0.1 + Math.sin(t * 0.5) * 0.01;
+      ctx.fillStyle = `rgba(230,200,100,${lampRadius})`;
+      ctx.fillRect(140, 44, 60, 70);
+    }
+
+    // Between-buildings — the gap, Long Lane receding
+    ctx.fillStyle = (timePeriod === 'night') ? '#080a0c' : '#1a1814';
+    ctx.fillRect(120, 40, 70, 74);
+    ctx.fillStyle = (timePeriod === 'night') ? '#0c0e12' : '#242018';
+    ctx.fillRect(125, 44, 60, 68);
+
+    // Weather — rain
+    if (_weather === 'rain') {
+      ctx.fillStyle = 'rgba(150,180,220,0.14)';
+      for (let i = 0; i < W; i += 5) {
+        const offset = (t * 55 + i * 9) % H;
+        ctx.fillRect(i + 1, offset, 1, 7);
+      }
+    }
+  }
+
+  // --- B10: The Vinyl Shop ---
+  function sceneVinylShop(t) {
+    // Dark, warm interior
+    ctx.fillStyle = '#100c08';
+    ctx.fillRect(0, 0, W, H);
+
+    // Ceiling — low, dark timber
+    ctx.fillStyle = '#1a1410';
+    ctx.fillRect(0, 0, W, 24);
+    // Beam
+    ctx.fillStyle = '#221a14';
+    ctx.fillRect(0, 14, W, 8);
+    ctx.fillRect(100, 0, 8, 24);
+
+    // Record sleeves on back wall — grid display
+    const sleeveColors = [
+      '#4a2030','#20304a','#3a4020','#4a3a20',
+      '#2a1a3a','#204030','#3a2010','#1a3040',
+      '#40201a','#203828','#2a2a40','#402818',
+    ];
+    const sleeveW = 24, sleeveH = 24;
+    for (let row = 0; row < 2; row++) {
+      for (let col = 0; col < 12; col++) {
+        const sx = 8 + col * 26, sy = 18 + row * 26;
+        ctx.fillStyle = sleeveColors[(row * 12 + col) % sleeveColors.length];
+        ctx.fillRect(sx, sy, sleeveW, sleeveH);
+        // Sleeve detail — label stripe
+        ctx.fillStyle = 'rgba(255,255,255,0.06)';
+        ctx.fillRect(sx, sy + sleeveH - 5, sleeveW, 5);
+      }
+    }
+
+    // Record crates — foreground
+    ctx.fillStyle = '#1e1810';
+    ctx.fillRect(0, 118, W, 40);
+    ctx.fillStyle = '#26201a';
+    ctx.fillRect(0, 116, W, 4);
+    // Individual crates
+    const cratePositions = [8, 80, 152, 224];
+    cratePositions.forEach((cx, i) => {
+      ctx.fillStyle = '#2a2018';
+      ctx.fillRect(cx, 118, 60, 38);
+      ctx.fillStyle = '#221a12';
+      ctx.fillRect(cx + 2, 120, 56, 34);
+      // Record spines in crate
+      const spineCount = 8 + i * 2;
+      for (let s = 0; s < spineCount; s++) {
+        ctx.fillStyle = sleeveColors[(i * 5 + s) % sleeveColors.length];
+        ctx.fillRect(cx + 3 + s * 6, 122, 5, 28);
+      }
+    });
+
+    // Counter — right side
+    ctx.fillStyle = '#1c1610';
+    ctx.fillRect(260, 90, 60, 68);
+    ctx.fillStyle = '#241e16';
+    ctx.fillRect(258, 88, 62, 4);
+    // Old till on counter
+    ctx.fillStyle = '#303028';
+    ctx.fillRect(266, 76, 30, 14);
+    ctx.fillStyle = '#383830';
+    ctx.fillRect(268, 74, 26, 4);
+
+    // Turntable — on counter shelf above
+    ctx.fillStyle = '#1a1814';
+    ctx.fillRect(268, 56, 24, 18);
+    ctx.fillStyle = '#2a2820';
+    ctx.fillRect(270, 58, 20, 14);
+    // Platter
+    ctx.fillStyle = '#080808';
+    ctx.beginPath();
+    ctx.arc(280, 65, 8, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#101010';
+    ctx.beginPath();
+    ctx.arc(280, 65, 3, 0, Math.PI * 2);
+    ctx.fill();
+    // Spinning — if morning/afternoon
+    const spinAngle = t * 2;
+    if (timePeriod === 'morning' || timePeriod === 'afternoon') {
+      ctx.fillStyle = '#1a1818';
+      ctx.fillRect(279, 57, 2, 8 * Math.cos(spinAngle) > 0 ? 1 : 0);
+    }
+
+    // Warm lamp over counter
+    ctx.fillStyle = '#e0b060';
+    ctx.fillRect(286, 44, 6, 4);
+    const lampWarm = 0.06 + Math.sin(t * 0.7) * 0.01;
+    ctx.fillStyle = `rgba(200,140,40,${lampWarm})`;
+    ctx.fillRect(256, 46, 64, 46);
+
+    // Musician detail — sheet music / chord diagram pinned to wall
+    if (true) { // always show — musician notices it
+      ctx.fillStyle = '#d0c8a0';
+      ctx.fillRect(14, 76, 28, 16);
+      ctx.fillStyle = '#b0a880';
+      ctx.fillRect(16, 78, 24, 12);
+      ctx.fillStyle = '#1a1814';
+      for (let ln = 0; ln < 4; ln++) ctx.fillRect(16, 80 + ln * 3, 24, 1);
+    }
+  }
+
   // --- Title overlay ---
 
   function drawTitle(alpha) {
@@ -1905,6 +2765,16 @@ const Engine = (() => {
           case 'G08':  sceneParkPath(t); break;
           case 'G09':  sceneForeshore(t); break;
           case 'G10':  sceneTrafalgar(t); break;
+          case 'B01':  sceneAntiquesMarket(t, locationNpcs['antiques_vendor']); break;
+          case 'B02':  sceneGallery(t, locationNpcs['gallery_owner']); break;
+          case 'B03':  sceneArchWorkshop(t, locationNpcs['urban_explorer']); break;
+          case 'B04':  sceneWarehouse(t, locationNpcs['warehouse_guard']); break;
+          case 'B05':  sceneRotherhithePath(t); break;
+          case 'B06':  sceneCoWorking(t); break;
+          case 'B07':  sceneOldChurch(t); break;
+          case 'B08':  sceneRooftop(t); break;
+          case 'B09':  sceneStreetCorner(t); break;
+          case 'B10':  sceneVinylShop(t); break;
           default:     sceneCanalBasin(t); break;
         }
         // The Watcher — still figure at edge of any exterior scene

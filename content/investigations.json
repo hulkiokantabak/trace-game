@@ -161,6 +161,134 @@
       "completion": { "awareness": 2 }
     }
   },
+  "BI-01": {
+    "id": "BI-01",
+    "name": "The Antiques Market Object",
+    "type": "deep",
+    "primaryLocation": "B01",
+    "trait": "all",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        { "type": "discovery", "detail": "antique_key" }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "A key. Brass. The metal is wrong — not old enough for antique, not new enough for modern. The Market Vendor: 'It's been here. It's always been here.'",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 2,
+        "text": "Metal analysis (Data Scientist): unknown alloy. Mineral traces found only in Thames Basin chalk deposits. The key has a maker's mark — a symbol. The same symbol appears in the old Bermondsey map.",
+        "type": "research",
+        "advanceTrigger": { "type": "discovery", "detail": "old_bermondsey_map" },
+        "pacing": { "minHoursAfterPrevious": 0 }
+      },
+      {
+        "id": 3,
+        "text": "You find seven marks across the city. Foundation marks. They form a geometry. The center: beneath St Mary Magdalen, Bermondsey. The crypt door.",
+        "type": "revelation",
+        "advanceTrigger": { "type": "discovery", "detail": "church_crypt_door" },
+        "pacing": { "minHoursAfterPrevious": 0 }
+      }
+    ],
+    "choice": {
+      "triggeredAfterStep": 3,
+      "prompt": "The church. The crypt door. The key fits.",
+      "options": [
+        {
+          "id": "turn",
+          "text": "It's been waiting.",
+          "consequence": {
+            "narrativeText": "The door opens onto stairs going deeper than the crypt should allow. Past Victorian brick. Past medieval stone. Past Roman concrete. Into something older. At the bottom: a space. Not carved. Grown. The walls are warm. A stone in the center of the floor hums. You touch it.",
+            "npcEffect": {},
+            "xp": { "awareness": 5, "insight": 3, "resonance": 2 },
+            "flatObject": { "id": "foundation_stone_fragment", "description": "A fragment of warm stone from the deepest room. It hums at the frequency of the city." }
+          }
+        },
+        {
+          "id": "return",
+          "text": "Some doors should stay closed.",
+          "consequence": {
+            "narrativeText": "The Market Vendor takes the key. Wraps it in cloth. Places it under the counter. 'It'll wait,' he says. 'It's been waiting.' He looks at you. 'You're the first to bring it back.' He tells you everything he knows about the ground beneath Bermondsey.",
+            "npcEffect": { "antiques_vendor": { "stageUnlock": "familiar_aware" } },
+            "xp": { "insight": 5, "connection": 4 },
+            "flatObject": null
+          }
+        }
+      ]
+    },
+    "rewards": {
+      "completion": { "awareness": 3, "insight": 2 }
+    }
+  },
+  "BI-03": {
+    "id": "BI-03",
+    "name": "The Warehouse at Night",
+    "type": "deep",
+    "primaryLocation": "B04",
+    "trait": "all",
+    "trigger": {
+      "type": "composite",
+      "conditions": [
+        { "type": "npc_stage", "npc": "warehouse_guard", "minStage": "familiar" }
+      ]
+    },
+    "steps": [
+      {
+        "id": 1,
+        "text": "Warehouse Guard: 'Careful.' Then, after a silence: 'It moves.'",
+        "type": "discovery",
+        "advanceTrigger": "automatic"
+      },
+      {
+        "id": 2,
+        "text": "Return visit. The shelving has rearranged. The door that was left is now right. The guard's notebook: forty years of configurations. The warehouse shifts. It follows a pattern.",
+        "type": "research",
+        "advanceTrigger": { "type": "discovery", "detail": "warehouse_survey_marker" },
+        "pacing": { "minHoursAfterPrevious": 0 }
+      },
+      {
+        "id": 3,
+        "text": "The guard's notebook shows the configurations converging on a specific arrangement. The arrangement forms a door. Not a doorway — the space itself becomes a door.",
+        "type": "revelation",
+        "advanceTrigger": { "type": "npc_stage", "npc": "warehouse_guard", "minStage": "familiar" },
+        "pacing": { "minHoursAfterPrevious": 0 }
+      }
+    ],
+    "choice": {
+      "triggeredAfterStep": 3,
+      "prompt": "The guard: 'It moves fastest at night. If you stay, you'll feel it. I stay every night.'",
+      "options": [
+        {
+          "id": "stay",
+          "text": "I'll stay.",
+          "consequence": {
+            "narrativeText": "The night. The darkness. The slow impossible rearrangement of space around you. Time dilates. What felt like an hour was six. The guard finds you at dawn. 'You look different,' he says. One word. 'Different.' Your notebook contains an entry you don't remember writing.",
+            "npcEffect": { "warehouse_guard": { "stageUnlock": "familiar_aware" } },
+            "xp": { "insight": 6, "awareness": 3 },
+            "flatObject": { "id": "warehouse_notebook_entry", "description": "A page of your notebook. Your handwriting. You don't remember writing it. The date is tomorrow." }
+          }
+        },
+        {
+          "id": "study",
+          "text": "Show me the notebooks instead.",
+          "consequence": {
+            "narrativeText": "The guard spreads the notebooks. Forty years of grid configurations. You see it: the pattern is not random. It is a message. Each configuration is a character. The message is long. You've read the first three words. They are not comforting.",
+            "npcEffect": { "warehouse_guard": { "stageUnlock": "familiar_unknowing" } },
+            "xp": { "insight": 4, "awareness": 4 },
+            "flatObject": { "id": "warehouse_pattern_copy", "description": "A copy of the warehouse grid configurations. The first three characters translate to something you wish you didn't understand." }
+          }
+        }
+      ]
+    },
+    "rewards": {
+      "completion": { "insight": 3, "awareness": 2 }
+    }
+  },
   "GI-01": {
     "id": "GI-01",
     "name": "The Stopped Clock",
