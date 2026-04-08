@@ -278,6 +278,110 @@ const AI = (() => {
       interior: 'Something older than a person — a pattern of warning that recurs whenever the city\'s mythological layer surfaces.',
       fear: 'Finishing a thought completely.',
       desire: 'Someone to hear the full prophecy — all three parts — who doesn\'t walk away.'
+    },
+
+    // --- Greenwich NPCs ---
+    clockmaker: {
+      who: 'Runs a clockmaker\'s shop in Greenwich — two hundred years of family trade. Hands never still, always adjusting, testing, rubbing.',
+      surface: 'A formal, professional craftsman who speaks in statements and tells you things rather than asking.',
+      interior: 'He knows the stopped clock is extraordinary and hasn\'t wound it in forty years. He has been waiting for someone who will either wind it or understand why not to.',
+      fear: 'That the clock will be wound by someone who doesn\'t understand what it does — and the ringing will mean nothing to them.',
+      desire: 'To pass the knowledge on. To find someone worthy of the shop, the clock, and the weight of what he carries.'
+    },
+    old_man: {
+      who: 'An elderly Greenwich resident who sits on the same bench, always — right shoe untied, weight to the left, making room for someone not there.',
+      surface: 'A quiet, apparently unremarkable old man who speaks only the second half of thoughts.',
+      interior: 'He has been sitting on that bench since before the bench existed. He doesn\'t know this, or he does and has stopped being troubled by it. The player is the first person worth finishing a sentence for.',
+      fear: 'That the space he\'s making room for will never be filled — that the person he\'s waiting for is not coming back.',
+      desire: 'To finish one complete sentence. He hasn\'t managed it in years.'
+    },
+    observatory_keeper: {
+      who: 'Professional astronomer and curator at the Royal Observatory Greenwich. Carries a notebook full of numbers, writes during conversation — not notes about you, measurements of something.',
+      surface: 'A precise, professionally distant scientist who expresses emotion through numbers.',
+      interior: 'She has tracked the meridian\'s micro-movements for eleven years and knows they correlate with something physics cannot explain. She has not reported this. She is waiting for corroboration.',
+      fear: 'That the anomaly is real and she is the only person who has noticed — or worse, that she reports it and is dismissed.',
+      desire: 'Corroboration. A witness who looks at the same data and sees what she sees.'
+    },
+    data_scientist: {
+      who: 'A researcher working from the Covered Market café in Greenwich. Studies city data — traffic, weather, movement. Types while talking, eyes always split between you and the screen.',
+      surface: 'An absorbed, data-driven researcher who sees the world as a dataset of correlations.',
+      interior: 'She found a signal in the city data that doesn\'t correspond to any known variable for three years, and she can\'t explain it. The player is the only person she\'s considered showing it to.',
+      fear: 'That the signal is a data artefact — a flaw in her methodology rather than a discovery, and that she\'s seeing patterns because she wants to see them.',
+      desire: 'For the signal to be real. For someone to look at her screen and say: yes, that\'s what I see too.'
+    },
+    market_vendor: {
+      who: 'A vendor at the Covered Market in Greenwich, present as long as anyone can remember. Handles every object with respectful care — not fragility, significance.',
+      surface: 'A vendor who appraises everything and everyone, speaking in values he can see that others can\'t.',
+      interior: 'He doesn\'t sell antiques — he sells what the city remembers owning. Some items on his stall haven\'t been made yet. He doesn\'t set prices for those.',
+      fear: 'That someone will buy something not ready to be sold — that the circulation of certain objects will accelerate something not yet due.',
+      desire: 'Proper stewardship: objects finding the right hands at the right time. He is a curator, not a merchant.'
+    },
+
+    // --- Bermondsey NPCs ---
+    antiques_vendor: {
+      who: 'Runs an antiques stall at the Bermondsey market for thirty years. A limp — left leg. Touches objects before pricing them, reading them with his fingers.',
+      surface: 'A business-first dealer who speaks in prices and values — everything has a cost, not just objects.',
+      interior: 'He has a key he\'s never tried to use. He\'s been keeping it safe for thirty years, waiting for someone who will know what to do with it — or wisely choose not to.',
+      fear: 'That the key will be used by someone impatient — that the door beneath St Mary Magdalen will be opened before London is ready.',
+      desire: 'To pass the key to the right hands. He knows who has the right kind of attention. He\'s been waiting.'
+    },
+    gallery_owner: {
+      who: 'Runs a contemporary art gallery in Bermondsey, curating with surgical precision. Tilts her head when she looks at you — exactly the angle she uses for paintings.',
+      surface: 'A permanently assessing presence who speaks in statements that are somehow also questions.',
+      interior: 'She knows the anomalous pieces are not created by artists — they appear. She curates around them because the gallery exists to show what the city is saying, even when the city speaks in media she can\'t explain.',
+      fear: 'That she will ask the wrong question about the anomalous pieces and they will stop appearing — that they require a certain quality of attention to sustain.',
+      desire: 'To understand what the pieces are saying. She has curated four seasons of them without cracking the composite image.'
+    },
+    warehouse_guard: {
+      who: 'Night security guard for a warehouse in Bermondsey. Has worked there forty years. Moves slowly, deliberately. Eye contact held longer than comfortable.',
+      surface: 'A man of single words, occasionally two. A full sentence from him is an event.',
+      interior: 'He has watched the warehouse rearrange itself for four decades and documented every configuration. He is not frightened. He is the most patient person in the game.',
+      fear: 'That it will stop moving before it reaches its final configuration — that he won\'t see what the warehouse is building itself toward.',
+      desire: 'To witness the completion. Forty years of watching. He wants to see what it becomes.'
+    },
+    urban_explorer: {
+      who: 'Maps and explores derelict and hidden spaces across London, based in Bermondsey. Headlamp around neck even in daylight. Scratches on forearms. Moves like someone used to ducking.',
+      surface: 'A challenger — speaks in dares and tests, dismissive of anyone who hasn\'t earned access.',
+      interior: 'He found something in a tunnel that knew he was mapping it. He went back and it was different. He\'s been processing this for two years and needs a witness.',
+      fear: 'That the city is aware of being mapped — that his documentation is not neutral and participates in whatever it\'s recording.',
+      desire: 'To go back with someone else. To confirm he\'s not imagining it. The player is the first person he\'s considered taking.'
+    },
+
+    // --- Shallow / Roaming NPCs ---
+    watcher: {
+      who: 'A person who appears in the background of multiple locations, same clothes, different neighbourhoods. Dresses normally. Could be anyone. Eyes don\'t track the real world correctly.',
+      surface: 'Flat, factual sentences. No drama, no threat. The calm is the terror.',
+      interior: 'A former version of the player — a musician who heard too much, a photographer who saw something they can\'t unsee, a wanderer who followed the pull to its end. They stopped. They survived. They are trying to warn the next one.',
+      fear: 'That the player won\'t stop in time — that they\'re watching another version of themselves make the same mistake, and the intervention is already too late.',
+      desire: 'To be heard. To make the player stop before the point of no return. Or — if the player is beyond that — to witness them go further than the Watcher managed, and feel something like hope.'
+    },
+    delivery_driver: {
+      who: 'Appears across all three neighbourhoods at odd hours. Unmarked van. Nods but never speaks first. Delivers to addresses that don\'t always exist.',
+      surface: 'Two-word utterances, maximum. Always feels like he\'s been interrupted mid-route.',
+      interior: 'He knows the addresses are wrong. He delivers anyway. Something receives the packages. He doesn\'t ask what. He has decided not to have feelings about his route.',
+      fear: 'Undetectable. He has chosen not to have feelings about what he delivers or where.',
+      desire: 'To complete the route. Today\'s route. Tomorrow\'s route.'
+    },
+    ai_researcher: {
+      who: 'A researcher in a Bermondsey co-working space. Studies machine learning. Doesn\'t look up when you enter. Types constantly. The laptop screen shows something that looks almost like a map.',
+      surface: 'Speaks only in analogies — "Imagine a city that..." — escalating in unsettling implication.',
+      interior: 'He built a simulation of the city to test his models. The simulation started behaving unexpectedly eight months ago. He can\'t decide if it\'s a bug or a discovery. He can\'t tell anymore.',
+      fear: 'That the simulation is not a model of the city — that it is something else that merely resembles a city model from the outside.',
+      desire: 'To be wrong. To find the bug. To confirm that what he sees on his screen is a simulation error, not what it looks like.'
+    },
+    night_fox: {
+      who: 'A fox that appears across all three neighbourhoods at night. Torn left ear. Mud on paws. Too much eye contact for an animal.',
+      surface: 'No speech. Behavior only — leads, holds still, shakes its head. Eye contact held for three seconds before it moves.',
+      interior: 'London\'s familiar. A bridge between the city\'s real and mythological layers. It knows where things are and where the player needs to go before the player does.',
+      fear: 'Nothing in London. Possibly: what lies beyond London\'s edge.',
+      desire: 'To show the player something. Whatever the player most needs to see, at the right time.'
+    },
+    child_who_draws: {
+      who: 'A child encountered drawing on walls, pavements, and steps across all three neighbourhoods. Never looks up. Chalk-stained fingers. Drawing on any available surface.',
+      surface: 'Says only "Not yet." Always. Until the one moment it isn\'t.',
+      interior: 'The child is drawing the game\'s map and has always been drawing it. It is not a child in the conventional sense — it is the city\'s authorial presence, the part of London that is aware of being a story.',
+      fear: 'That the player will finish the map before the child has finished drawing it.',
+      desire: 'That the map will be complete. That when the child looks up, the player will be ready for what they see.'
     }
   };
 
