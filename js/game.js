@@ -96,10 +96,12 @@ const Game = (() => {
 
     // Flat-specific thoughts
     if (toId === 'flat' && content.thoughts.flat) {
-      return pick(content.thoughts.flat.returning);
+      const pool = content.thoughts.flat.returning;
+      if (pool && pool.length) return pick(pool);
     }
     if (fromId === 'flat' && content.thoughts.flat) {
-      return pick(content.thoughts.flat.leaving);
+      const pool = content.thoughts.flat.leaving;
+      if (pool && pool.length) return pick(pool);
     }
 
     // Determine neighborhood for thought selection
@@ -122,7 +124,12 @@ const Game = (() => {
     }
 
     // General neighborhood thought
-    return pick(nbrThoughts.neutral);
+    // Guard: fall back to limehouse neutral if the resolved neighborhood has no neutral array
+    const neutralPool = (nbrThoughts && nbrThoughts.neutral && nbrThoughts.neutral.length)
+      ? nbrThoughts.neutral
+      : (content.thoughts.limehouse && content.thoughts.limehouse.neutral) || [];
+    if (!neutralPool.length) return '';
+    return pick(neutralPool);
   }
 
   function pick(arr) {

@@ -7,8 +7,10 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="theme-color" content="#0a0a0f">
-  <!-- CSP: no external scripts, styles, or connections except AI provider APIs (connect-src). -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://api.anthropic.com https://api.openai.com https://generativelanguage.googleapis.com https://openrouter.ai http://localhost:11434; media-src 'self'; font-src 'self'; manifest-src 'self';">
+  <!-- CSP: no external scripts, styles, or connections except AI provider APIs (connect-src).
+       gc.zgo.at is GoatCounter analytics — the script is allowed in script-src and the beacon
+       goes to connect-src. localhost:11434 is Ollama. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline' https://gc.zgo.at; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://api.anthropic.com https://api.openai.com https://generativelanguage.googleapis.com https://openrouter.ai http://localhost:11434 https://hulkiokantabak.goatcounter.com; media-src 'self'; font-src 'self'; manifest-src 'self';">
   <link rel="manifest" href="manifest.json">
   <title>Trace</title>
   <link rel="stylesheet" href="css/game.css">
@@ -47,6 +49,6 @@
       Engine.start();
     });
   </script>
-  <script data-goatcounter="https://hulkiokantabak.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <script data-goatcounter="https://hulkiokantabak.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>

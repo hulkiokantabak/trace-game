@@ -2025,7 +2025,7 @@ const Engine = (() => {
   }
 
   // --- B04: The Warehouse — Night ---
-  function sceneWarehouse(t, npcVisible) {
+  function sceneWarehouseNight(t, npcVisible) {
     // Near-black interior, vast
     ctx.fillStyle = '#080a0c';
     ctx.fillRect(0, 0, W, H);
@@ -2768,7 +2768,7 @@ const Engine = (() => {
           case 'B01':  sceneAntiquesMarket(t, locationNpcs['antiques_vendor']); break;
           case 'B02':  sceneGallery(t, locationNpcs['gallery_owner']); break;
           case 'B03':  sceneArchWorkshop(t, locationNpcs['urban_explorer']); break;
-          case 'B04':  sceneWarehouse(t, locationNpcs['warehouse_guard']); break;
+          case 'B04':  sceneWarehouseNight(t, locationNpcs['warehouse_guard']); break;
           case 'B05':  sceneRotherhithePath(t); break;
           case 'B06':  sceneCoWorking(t); break;
           case 'B07':  sceneOldChurch(t); break;
