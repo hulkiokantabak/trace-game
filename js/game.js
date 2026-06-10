@@ -368,9 +368,11 @@ const Game = (() => {
         const inv = State.getInvestigation(req.id);
         if (inv.currentStep < req.minStep) continue;
       }
-      // Deep discovery gate — only appears when all other details at this location are found
+      // Deep discovery gate — only appears when all other freely-discoverable details
+      // at this location are found. Investigation-gated details are excluded: they only
+      // become tappable mid-investigation, so they must not block the deep detail.
       if (detail.requires_all_discovered) {
-        const otherDetails = loc.interactableDetails.filter(d => d.id !== detail.id && !d.requires_all_discovered);
+        const otherDetails = loc.interactableDetails.filter(d => d.id !== detail.id && !d.requires_all_discovered && !d.requires_investigation);
         const allOthersFound = otherDetails.every(d => State.isDiscovered(d.id));
         if (!allOthersFound) continue;
       }
@@ -415,10 +417,63 @@ const Game = (() => {
       if (stateInv.currentStep > 0 || stateInv.complete) continue;
       if (meetsConditions(inv.trigger.conditions)) {
         State.advanceInvestigation(id, 1);
+        // Settle: roll through any 'automatic' steps, catch up on already-discovered
+        // detail triggers, and auto-complete single-step / choiceless investigations.
+        settleInvestigation(id, inv);
         triggered.push({ id, investigation: inv, step: inv.steps[0] });
       }
     }
+    // A trigger or settle above may have satisfied another investigation's
+    // already-discovered detail trigger; do one catch-up pass so nothing stalls.
+    settleAllInvestigations();
     return triggered;
+  }
+
+  // Roll a single investigation forward as far as it can go without further player
+  // input: advance through every 'automatic' step, advance through any detail/discovery
+  // trigger whose detail is already in the player's discoveries (handles out-of-order
+  // discovery), stop at npc_stage steps (which need an interaction) and at the choice
+  // gate, and auto-complete choiceless investigations that reach their final step.
+  function settleInvestigation(id, inv) {
+    if (!inv) return;
+    let stateInv = State.getInvestigation(id);
+    let guard = 0;
+    while (guard++ < 64) {
+      if (stateInv.complete) break;
+      const curStep = stateInv.currentStep; // 1-indexed; 0 = not triggered
+      if (curStep === 0) break;
+      // Reached (or passed) the final step: auto-complete if there is no choice.
+      if (curStep >= inv.steps.length) {
+        if (!inv.choice) {
+          State.completeInvestigation(id, null, inv.rewards && inv.rewards.completion);
+          stateInv = State.getInvestigation(id);
+        }
+        break;
+      }
+      const nextStep = inv.steps[curStep]; // step we may advance INTO (array is 0-indexed)
+      const at = nextStep.advanceTrigger;
+      let canAdvance = false;
+      if (at === 'automatic') {
+        canAdvance = true;
+      } else if (at && (at.type === 'detail' || at.type === 'discovery') && State.isDiscovered(at.detail)) {
+        // Out-of-order catch-up: the trigger detail was discovered before this step
+        // became current, so no discoverDetail event will fire — advance now.
+        canAdvance = true;
+      }
+      if (!canAdvance) break; // npc_stage or undiscovered detail — wait for the player
+      State.advanceInvestigation(id, nextStep.id);
+      stateInv = State.getInvestigation(id);
+    }
+  }
+
+  // Settle every active investigation (catch-up pass after any state change that
+  // could satisfy a now-current step's already-discovered detail trigger).
+  function settleAllInvestigations() {
+    for (const [id, inv] of Object.entries(content.investigations)) {
+      const stateInv = State.getInvestigation(id);
+      if (stateInv.complete || stateInv.currentStep === 0) continue;
+      settleInvestigation(id, inv);
+    }
   }
 
   function meetsConditions(conditions) {
@@ -457,13 +512,14 @@ const Game = (() => {
       const nextStepIdx = stateInv.currentStep; // steps are 1-indexed, array is 0-indexed
       if (nextStepIdx >= inv.steps.length) continue;
       const nextStep = inv.steps[nextStepIdx];
-      if (nextStep.advanceTrigger === 'automatic') continue;
-      if (nextStep.advanceTrigger.type === 'detail' && nextStep.advanceTrigger.detail === detailId) {
+      if (!nextStep.advanceTrigger || nextStep.advanceTrigger === 'automatic') continue;
+      // Accept both 'detail' and 'discovery' advance-trigger types (same semantics:
+      // the step advances when the named location detail is discovered).
+      const at = nextStep.advanceTrigger;
+      if ((at.type === 'detail' || at.type === 'discovery') && at.detail === detailId) {
         State.advanceInvestigation(id, nextStep.id);
-        // Auto-complete choiceless investigations that reach their final step
-        if (nextStepIdx >= inv.steps.length - 1 && !inv.choice) {
-          State.completeInvestigation(id, null, inv.rewards && inv.rewards.completion);
-        }
+        // Roll through any following 'automatic' steps and auto-complete if choiceless.
+        settleInvestigation(id, inv);
       }
     }
   }
@@ -488,9 +544,8 @@ const Game = (() => {
       const reqStage = normalizeStage(nextStep.advanceTrigger.minStage);
       if (stages.indexOf(normalizeStage(currentStage)) < stages.indexOf(reqStage)) continue;
       State.advanceInvestigation(id, nextStep.id);
-      if (nextStepIdx >= inv.steps.length - 1 && !inv.choice) {
-        State.completeInvestigation(id, null, inv.rewards && inv.rewards.completion);
-      }
+      // Roll through any following 'automatic' steps and auto-complete if choiceless.
+      settleInvestigation(id, inv);
     }
   }
 

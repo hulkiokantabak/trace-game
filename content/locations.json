@@ -606,6 +606,26 @@
           "awareness": 3,
           "resonance": 3
         }
+      },
+      {
+        "id": "logbook_final_entry",
+        "hitbox": {
+          "x": 205,
+          "y": 58,
+          "w": 20,
+          "h": 12
+        },
+        "description": "A logbook left open on the narrowboat deck.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "requires_investigation": {
+          "id": "LI-09",
+          "minStep": 1
+        },
+        "discovery_text": "The canal boat's logbook, open to its last page. Decades of moorings and weather — then one final entry, undated: \"It isn't the water that moves. It's everything else, holding still around it.\"",
+        "xp": {
+          "awareness": 2
+        }
       }
     ],
     "npcs_present": {
@@ -1683,6 +1703,26 @@
           "awareness": 2,
           "resonance": 3
         }
+      },
+      {
+        "id": "cellar_door_l05",
+        "hitbox": {
+          "x": 24,
+          "y": 118,
+          "w": 16,
+          "h": 24
+        },
+        "description": "The cellar door behind the bar, slightly ajar.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "requires_investigation": {
+          "id": "LI-13",
+          "minStep": 1
+        },
+        "discovery_text": "The landlord nods you toward the back. The cellar door stands ajar on cold air and the smell of river. The steps go down further than the building is tall. The Thames is closer down there than it has any right to be.",
+        "xp": {
+          "awareness": 2
+        }
       }
     ],
     "npcs_present": {
@@ -2170,7 +2210,54 @@
         }
       }
     ],
-    "npcs_present": {},
+    "npcs_present": {
+      "watcher": {
+        "timeOfDay": [
+          "afternoon",
+          "evening",
+          "night"
+        ],
+        "days": [
+          "mon",
+          "tue",
+          "wed",
+          "thu",
+          "fri",
+          "sat",
+          "sun"
+        ]
+      },
+      "child_who_draws": {
+        "timeOfDay": [
+          "morning",
+          "afternoon"
+        ],
+        "days": [
+          "mon",
+          "tue",
+          "wed",
+          "thu",
+          "fri",
+          "sat",
+          "sun"
+        ]
+      },
+      "delivery_driver": {
+        "timeOfDay": [
+          "morning",
+          "night"
+        ],
+        "days": [
+          "mon",
+          "tue",
+          "wed",
+          "thu",
+          "fri",
+          "sat",
+          "sun"
+        ]
+      }
+    },
     "ambientLife": [
       "water_drip",
       "mechanism_creak",
@@ -2871,9 +2958,61 @@
         "xp": {
           "awareness": 2
         }
+      },
+      {
+        "id": "empty_lot_door",
+        "hitbox": {
+          "x": 272,
+          "y": 20,
+          "w": 24,
+          "h": 30
+        },
+        "description": "A doorway in the scarred wall, where no door should be.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "requires_investigation": {
+          "id": "LI-03",
+          "minStep": 2
+        },
+        "discovery_text": "The tattoo led here. In the brick scar — the outline of a door, bricked over, but the mortar around it is newer than the wall. As if it was sealed recently. As if it was used.",
+        "xp": {
+          "awareness": 2
+        }
       }
     ],
-    "npcs_present": {},
+    "npcs_present": {
+      "watcher": {
+        "timeOfDay": [
+          "afternoon",
+          "evening",
+          "night"
+        ],
+        "days": [
+          "mon",
+          "tue",
+          "wed",
+          "thu",
+          "fri",
+          "sat",
+          "sun"
+        ]
+      },
+      "night_fox": {
+        "timeOfDay": [
+          "evening",
+          "night"
+        ],
+        "days": [
+          "mon",
+          "tue",
+          "wed",
+          "thu",
+          "fri",
+          "sat",
+          "sun"
+        ]
+      }
+    },
     "ambientLife": [
       "wind_through_gap",
       "fox_distant",
@@ -3428,7 +3567,39 @@
         }
       }
     ],
-    "npcs_present": {},
+    "npcs_present": {
+      "watcher": {
+        "timeOfDay": [
+          "afternoon",
+          "evening",
+          "night"
+        ],
+        "days": [
+          "mon",
+          "tue",
+          "wed",
+          "thu",
+          "fri",
+          "sat",
+          "sun"
+        ]
+      },
+      "delivery_driver": {
+        "timeOfDay": [
+          "morning",
+          "night"
+        ],
+        "days": [
+          "mon",
+          "tue",
+          "wed",
+          "thu",
+          "fri",
+          "sat",
+          "sun"
+        ]
+      }
+    },
     "ambientLife": [
       "footsteps_echo",
       "tunnel_hum",
@@ -3559,6 +3730,26 @@
         "discovery_text": "Three stalls open. Two people talking to nobody in particular. A dog asleep under a trestle table. The covered market in the morning has the specific warmth of a place that has been doing the same thing for a very long time.",
         "xp": {
           "awareness": 1
+        }
+      },
+      {
+        "id": "market_stall_object",
+        "hitbox": {
+          "x": 180,
+          "y": 120,
+          "w": 30,
+          "h": 24
+        },
+        "description": "An object left on the stall that never packs up.",
+        "trait_required": null,
+        "awareness_required": 2,
+        "requires_investigation": {
+          "id": "GI-08",
+          "minStep": 1
+        },
+        "discovery_text": "The stall is still here. It is always still here. On the trestle, a single object waits where the trader would set out wares — placed for you, as if the stall knew you would come back to look.",
+        "xp": {
+          "awareness": 2
         }
       }
     ],
@@ -3703,7 +3894,23 @@
         }
       }
     ],
-    "npcs_present": {},
+    "npcs_present": {
+      "child_who_draws": {
+        "timeOfDay": [
+          "morning",
+          "afternoon"
+        ],
+        "days": [
+          "mon",
+          "tue",
+          "wed",
+          "thu",
+          "fri",
+          "sat",
+          "sun"
+        ]
+      }
+    },
     "ambientLife": [
       "gulls_above",
       "tourist_groups",
@@ -3836,6 +4043,27 @@
         "xp": {
           "awareness": 1
         }
+      },
+      {
+        "id": "church_register",
+        "hitbox": {
+          "x": 130,
+          "y": 110,
+          "w": 40,
+          "h": 30
+        },
+        "description": "A heavy ledger shelved among the older books.",
+        "trait_required": null,
+        "awareness_required": 4,
+        "requires_investigation": {
+          "id": "GI-09",
+          "minStep": 1
+        },
+        "discovery_text": "A parish register, rebound twice. Births, marriages, burials — and a fourth column, unlabelled, in a hand that changes every few decades but never stops. The same surnames recur. Greenwich keeps its own.",
+        "xp": {
+          "awareness": 2,
+          "insight": 1
+        }
       }
     ],
     "npcs_present": {},
@@ -3964,6 +4192,26 @@
         "discovery_text": "The grass grows up to the path and stops. The path is four hundred years old at minimum — you know this without knowing how you know it. The feet that made this path are gone. The path remains.",
         "xp": {
           "awareness": 1
+        }
+      },
+      {
+        "id": "park_survey_marker",
+        "hitbox": {
+          "x": 290,
+          "y": 145,
+          "w": 24,
+          "h": 20
+        },
+        "description": "A small marker set into the path near the crest.",
+        "trait_required": null,
+        "awareness_required": 4,
+        "requires_investigation": {
+          "id": "GI-06",
+          "minStep": 1
+        },
+        "discovery_text": "A brass survey marker, flush with the path. No benchmark number. Just a spiral, scored deep. The kind of mark a surveyor leaves to say: measured, and found wanting.",
+        "xp": {
+          "awareness": 2
         }
       }
     ],
@@ -4109,7 +4357,39 @@
         }
       }
     ],
-    "npcs_present": {},
+    "npcs_present": {
+      "watcher": {
+        "timeOfDay": [
+          "afternoon",
+          "evening",
+          "night"
+        ],
+        "days": [
+          "mon",
+          "tue",
+          "wed",
+          "thu",
+          "fri",
+          "sat",
+          "sun"
+        ]
+      },
+      "night_fox": {
+        "timeOfDay": [
+          "evening",
+          "night"
+        ],
+        "days": [
+          "mon",
+          "tue",
+          "wed",
+          "thu",
+          "fri",
+          "sat",
+          "sun"
+        ]
+      }
+    },
     "ambientLife": [
       "river_current",
       "gulls_calling",
@@ -4947,7 +5227,39 @@
         }
       }
     ],
-    "npcs_present": {},
+    "npcs_present": {
+      "watcher": {
+        "timeOfDay": [
+          "afternoon",
+          "evening",
+          "night"
+        ],
+        "days": [
+          "mon",
+          "tue",
+          "wed",
+          "thu",
+          "fri",
+          "sat",
+          "sun"
+        ]
+      },
+      "night_fox": {
+        "timeOfDay": [
+          "evening",
+          "night"
+        ],
+        "days": [
+          "mon",
+          "tue",
+          "wed",
+          "thu",
+          "fri",
+          "sat",
+          "sun"
+        ]
+      }
+    },
     "ambientLife": [
       "river_current",
       "distant_cranes",
@@ -5082,7 +5394,22 @@
         }
       }
     ],
-    "npcs_present": {},
+    "npcs_present": {
+      "ai_researcher": {
+        "timeOfDay": [
+          "morning",
+          "afternoon",
+          "evening"
+        ],
+        "days": [
+          "mon",
+          "tue",
+          "wed",
+          "thu",
+          "fri"
+        ]
+      }
+    },
     "ambientLife": [
       "laptop_fans",
       "coffee_machine",
@@ -5318,7 +5645,39 @@
         }
       }
     ],
-    "npcs_present": {},
+    "npcs_present": {
+      "watcher": {
+        "timeOfDay": [
+          "afternoon",
+          "evening",
+          "night"
+        ],
+        "days": [
+          "mon",
+          "tue",
+          "wed",
+          "thu",
+          "fri",
+          "sat",
+          "sun"
+        ]
+      },
+      "delivery_driver": {
+        "timeOfDay": [
+          "morning",
+          "night"
+        ],
+        "days": [
+          "mon",
+          "tue",
+          "wed",
+          "thu",
+          "fri",
+          "sat",
+          "sun"
+        ]
+      }
+    },
     "ambientLife": [
       "wind_constant",
       "crane_groan",
@@ -5460,9 +5819,46 @@
         "xp": {
           "awareness": 1
         }
+      },
+      {
+        "id": "child_drawing_map",
+        "hitbox": {
+          "x": 120,
+          "y": 140,
+          "w": 40,
+          "h": 30
+        },
+        "description": "The child's chalk drawing, spread across the pavement.",
+        "trait_required": null,
+        "awareness_required": 4,
+        "requires_investigation": {
+          "id": "BI-09",
+          "minStep": 1
+        },
+        "discovery_text": "Chalk on the paving — not a picture, a map. Streets you know, drawn from above by someone who has never been above them. And streets you don't know yet, drawn just as surely. The child works on the part that hasn't happened.",
+        "xp": {
+          "awareness": 2,
+          "insight": 1
+        }
       }
     ],
-    "npcs_present": {},
+    "npcs_present": {
+      "child_who_draws": {
+        "timeOfDay": [
+          "morning",
+          "afternoon"
+        ],
+        "days": [
+          "mon",
+          "tue",
+          "wed",
+          "thu",
+          "fri",
+          "sat",
+          "sun"
+        ]
+      }
+    },
     "ambientLife": [
       "traffic_constant",
       "pigeon_flutter",
