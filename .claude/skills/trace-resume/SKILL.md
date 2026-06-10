@@ -11,11 +11,11 @@ description: >
 
 ## What This Is
 
-**Trace** is a solo narrative exploration game set in present-day East London (Limehouse MVP). The player moves to Limehouse, notices things others can't, builds NPC relationships, follows investigation threads that reveal a mythological layer beneath everyday London.
+**Trace** is a solo narrative exploration game set in present-day East London (Limehouse, Greenwich, Bermondsey). The player moves to Limehouse, notices things others can't, builds NPC relationships, follows investigation threads that reveal a mythological layer beneath everyday London.
 
 **Live:** https://hulkiokantabak.github.io/trace-game/
 **Repo:** GitHub Pages, static files, master branch deploys directly.
-**Commit:** `9cf39a0` — Joint panel fixes (April 2026)
+**Commit:** `6356062` — Bug fix pass: npc_stage advance triggers, dead guard, gender, null guard (April 2026)
 
 ---
 
@@ -31,24 +31,39 @@ The MVP is feature-complete and deployed. All 7 build milestones are done:
 | 3 — Noticing (tap-to-discover, no markers, trait/awareness gating) | Complete |
 | 4 — Investigation (5 nodes: LI-01, LI-02, LI-04, LI-08, LI-12) | Complete |
 | 5 — Full Limehouse (all locations, fragments, The Forgetting, the Watcher) | Complete |
-| 6 — Sound (Web Audio API procedural ambient, punctuation sounds) | Complete |
+| 6 — Sound (Web Audio API procedural ambient, punctuation sounds) | Built, then removed — audio killed in `9b47e91` |
 | 7 — Polish (mobile touch, save hardening, Settings/AI config screen) | Complete |
+
+### The April 7-8 Expansion Wave
+
+Thirteen commits after `9cf39a0` took the game well past the Limehouse MVP:
+
+- **Endings system** (`9bcd345`): `showLeaveSequence` rewritten to the full 5-step A8 design (decision screen, flashback montage with B8 captions, NPC farewell, last flat, departure title card); flashback moment tracking in `js/state.js`; dialogue depth for Bike Courier, Pub Landlord, Tattoo Artist; Watcher graduated opacity by awareness.
+- **Audio killed** (`9b47e91`): Web Audio API initialization disabled — see Milestone 6 above.
+- **Greenwich neighbourhood** (`610338c`): 10 locations (G01-G10), 5 NPCs (clockmaker, old_man, observatory_keeper, data_scientist, market_vendor), 10 fragments, 2 investigation nodes, full pixel-art scenes.
+- **Bermondsey expansion** (`23d30b8`): 10 locations (B01-B10), 4 NPCs (antiques_vendor, gallery_owner, urban_explorer, warehouse_guard), 10 fragments, 2 investigations.
+- **Content wave** (`f619f91`): 5 more NPCs (watcher, delivery_driver, ai_researcher, night_fox, child_who_draws), 28 new investigation nodes (9 → 37 total, including 3 cross-neighbourhood XN climax nodes), 15 event endings (3 per trait — `EVENT_ENDINGS` + `showEventEnding()` in `js/ui.js`, unlocked via `eventEndingUnlocked` consequence fields), LOC_MEMORIES extended to all 31 locations.
+- **AI personality documents for 14 NPCs** (`f55ef4d`): Greenwich, Bermondsey, and shallow NPCs added to `NPC_PERSONALITIES` in `js/ai.js` — all 22 NPCs now covered.
+- **Seasons, mythological tides, city events** (`a2a5734`): 4 tides with seasonal weighting, 20 city events — config in `content/config.json`, logic in `js/game.js`.
+- Plus fix passes: `7a28905`, `03f24a7`, `86829a1`, `6356062`.
+
+Current totals: 31 locations (30 + flat), 22 NPCs, 37 investigation nodes, 28 lore fragments, 15 event endings.
 
 ### Content Inventory
 
 | File | Lines | State |
 |------|-------|-------|
-| `js/engine.js` | 2032 | Complete — canvas renderer, game loop, audio, pixel art for all 10 locations |
-| `js/state.js` | 257 | Complete — localStorage save/load, XP, stat progression, NPC memory |
-| `js/game.js` | 514 | Complete — navigation, NPC scheduling, investigation logic, time/weather |
-| `js/ui.js` | 1516 | Complete — all DOM: dialogue, notebook, flat view, choices, character creation |
-| `js/ai.js` | 345 | Present, inactive — API adapter scaffold for post-MVP Living Conversations |
-| `content/locations.json` | 1533 | Complete — 10 locations + flat, all content fields populated |
-| `content/npcs.json` | 453 | Complete — 8 NPCs, all dialogue stages through Familiar |
-| `content/investigations.json` | 197 | Complete — 5 nodes (LI-01, LI-02, LI-04, LI-08, LI-12) |
-| `content/fragments.json` | 126 | Complete — 15 lore fragments across all 5 traits (3 per trait) |
-| `content/thoughts.json` | 110 | Complete — walking thoughts: neutral + all 5 traits + time + weather + flat leaving/returning |
-| `content/config.json` | 51 | Complete — time palettes, weather, forgetting, XP values, NPC thresholds |
+| `js/engine.js` | 3330 | Complete — canvas renderer, game loop, pixel art for all 31 locations (audio code present but disabled) |
+| `js/state.js` | 243 | Complete — localStorage save/load, XP, stat progression, NPC memory, flashback moments |
+| `js/game.js` | 580 | Complete — navigation, NPC scheduling, investigation logic, time/weather, seasons/tides/city events |
+| `js/ui.js` | 1705 | Complete — all DOM: dialogue, notebook, flat view, choices, character creation, endings |
+| `js/ai.js` | 509 | Present, inactive — API adapter scaffold + personality data for all 22 NPCs |
+| `content/locations.json` | 5603 | Complete — 30 locations + flat, all content fields populated |
+| `content/npcs.json` | 3063 | Complete — 22 NPCs across the three neighbourhoods |
+| `content/investigations.json` | 2488 | Complete — 37 nodes (13 LI, 10 GI, 11 BI, 3 XN) |
+| `content/fragments.json` | 282 | Complete — 28 lore fragments across all 5 traits (8 Limehouse, 10 Greenwich, 10 Bermondsey) |
+| `content/thoughts.json` | 232 | Complete — walking thoughts: neutral + all 5 traits + time + weather + flat leaving/returning |
+| `content/config.json` | 259 | Complete — time palettes, weather, forgetting, XP values, NPC thresholds, tides, 20 city events |
 
 **Game-bible documents are in the root directory** (not in a `game-bible/` subfolder). All `.md` files except `CLAUDE.md`, `README.md`, `HANDOFF.md` are design reference.
 
@@ -179,15 +194,15 @@ if (!isFirstVisit && loc.permanentPresence && !forgetting) { /* return visits */
 
 - **AI layer** (`js/ai.js`): Present but inactive. Settings screen exists with API key input. The Living Conversations system is complete in design (`AI-personality-documents.md`) but wiring to actual API calls is post-MVP.
 - **Autopilot** (`A7-autopilot-agents.md`): Not implemented. Post-MVP.
-- **Endings** (`A8-ending-system.md`): Not implemented. Post-MVP.
-- **Greenwich / Bermondsey**: Locked until post-MVP. The edges of Limehouse show these as visible but unreachable paths.
+- **Endings** (`A8-ending-system.md`): Implemented — Leave London 5-step sequence (`9bcd345`) plus 15 event endings, 3 per trait (`f619f91`). See `showLeaveSequence`, `EVENT_ENDINGS`, `showEventEnding()` in `js/ui.js`.
+- **Greenwich / Bermondsey**: Shipped — G01-G10 (`610338c`) and B01-B10 (`23d30b8`) are live and reachable.
 - **Forgetting depth**: The Forgetting desaturates the canvas palette and shifts NPC behavior. May need more playtesting at the edges of its cycle.
 
 ### Technical
 
 - **`preview_screenshot` consistently times out** in this development environment — use `preview_eval` + `preview_console_logs` to verify DOM changes instead of screenshots.
 - **`preview_snapshot`** is reliable and gives clean accessibility tree output — prefer this for verifying text content and DOM structure.
-- **Audio**: The Web Audio API implementation uses the `AudioContext` pattern. If sound is disruptive during development, suspend with: `Engine.audio._ctx.suspend()` via `preview_eval`.
+- **Audio**: Removed — `Engine.audio.init()` returns early and `_ctx` stays null (`9b47e91`, "Kill audio"). The audio code remains in `js/engine.js` but never initializes.
 
 ---
 
@@ -266,6 +281,19 @@ All sessions and what they produced (newest first):
 
 | Session | Commit | Work |
 |---------|--------|------|
+| April 2026 | `6356062` | Bug fix pass: npc_stage advance triggers, dead guard, gender, null guard |
+| April 2026 | `86829a1` | Three content gaps: universal details, Watcher positions, seasonal schedules |
+| April 2026 | `a2a5734` | Seasons, mythological tides, and city events system |
+| April 2026 | `f55ef4d` | AI personality documents for 14 NPCs (Greenwich, Bermondsey, shallow) |
+| April 2026 | `03f24a7` | Bug, wiring, and content-quality fixes across new additions |
+| April 2026 | `f619f91` | 5 NPCs, 28 investigation nodes, 15 event endings, extended LOC_MEMORIES |
+| April 2026 | `7a28905` | Fix duplicate sceneWarehouse, CSP blocking analytics, pickThought null guard |
+| April 2026 | `23d30b8` | Bermondsey expansion: B01-B10, 4 NPCs, 10 fragments, 2 investigations |
+| April 2026 | `610338c` | Greenwich neighbourhood: 10 locations, 5 NPCs, 10 fragments, investigations |
+| April 2026 | `9b47e91` | Kill audio — disable Web Audio API initialization |
+| April 2026 | `9bcd345` | Finish open work: NPC depth, Watcher presence, AI personalities, endings system |
+| April 2026 | `5d40a6d` | .nojekyll + README download links for handoff files |
+| April 2026 | `7dcb93c` | trace-resume skill added + HANDOFF updated |
 | April 2026 | `9cf39a0` | Joint panel: 11 player-experience fixes (panel + session above) |
 | Prior | `779c1e7` | README added |
 | Prior | `d097581` | GoatCounter analytics |

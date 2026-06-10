@@ -35,22 +35,20 @@ js/
 content/
 ├── locations.json, npcs.json, investigations.json
 ├── fragments.json, thoughts.json, config.json
-assets/
-├── sprites/, locations/, overlays/, ui/, audio/
 ```
 
-## Current Phase: MVP
+There is no `assets/` directory — all pixel art is drawn in code (`js/engine.js`).
 
-**Scope:** Limehouse only (10 locations). Musician trait only. 6 deep NPCs + 2 shallow. 5 investigation nodes. 3 lore fragments. Day/night cycle. Rain weather. The Forgetting (simplified). The Watcher (background only).
+## Current Phase: Post-MVP Expansion
 
-**Build order:** Screen → Movement → NPCs → Noticing → Investigation → Full Limehouse → Sound → Polish
+**Scope:** Three neighbourhoods — Limehouse (L01-L10), Greenwich (G01-G10), Bermondsey (B01-B10) — plus the flat. All 5 traits unlocked. 22 NPCs. 37 investigation nodes. 28 lore fragments. Seasons, mythological tides, and 20 city events. 15 event endings (3 per trait) plus the Leave London sequence. Day/night cycle. Rain weather. The Forgetting. The Watcher.
 
-See `game-bible/MVP-DEFINITION.md` for complete scope.
-See `game-bible/IMPLEMENTATION-ROADMAP.md` for build order, milestones, and JSON schemas.
+See `MVP-DEFINITION.md` for the original MVP scope.
+See `IMPLEMENTATION-ROADMAP.md` for build order, milestones, and JSON schemas.
 
 ## The Game Bible
 
-All design documents are in `game-bible/`. **Read these before making design decisions.**
+All design documents are in the repository root. **Read these before making design decisions.**
 
 ### Phase 1 — Foundation
 - `A1-world-structure.md` — Map, 30 locations, connections, data architecture, mobile layout spec
@@ -108,7 +106,7 @@ All text in the game is tagged:
 - `neutral` — all traits see this
 - `musician`, `photographer`, `wanderer`, `barista`, `shopkeeper` — trait-specific, only loaded for that trait
 
-For MVP, only `neutral` and `musician` tags are active.
+All tags are active — all 5 traits are unlocked and selectable.
 
 ## The Masters System
 
