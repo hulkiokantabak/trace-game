@@ -1189,11 +1189,11 @@
         ],
         "traitLines": {
           "shopkeeper": {
-            "text": "Some things aren't for sale. Some things are the city's. I keep them safe.",
+            "text": "Some things aren't for sale. Some things are the city's.",
             "tag": "shopkeeper"
           },
           "barista": {
-            "text": "This clock was his wife's mother's. The one the clockmaker doesn't talk about.",
+            "text": "Clock was his wife's mother's. The one the clockmaker doesn't talk about.",
             "tag": "barista"
           },
           "musician": {
@@ -1202,7 +1202,7 @@
           }
         },
         "crossReference": {
-          "text": "The warehouse guard brought me something last month. I didn't ask where from.",
+          "text": "The warehouse guard brought me something. I didn't ask where from.",
           "minNpcsMet": 3
         }
       },
@@ -1213,7 +1213,7 @@
         },
         "ambient": [
           {
-            "text": "The market was here before the street had a name. It'll be here after.",
+            "text": "The market was here before the street. It'll be here after.",
             "tag": "neutral"
           }
         ]
@@ -1336,11 +1336,11 @@
         ],
         "traitLines": {
           "photographer": {
-            "text": "I saw. The painting rewrites itself. I don't ask questions. I ask questions?",
+            "text": "I saw it rewrite itself? But I don't ask, do I?",
             "tag": "photographer"
           },
           "barista": {
-            "text": "The canvas in storage. Facing the wall. Nobody asked me to turn it?",
+            "text": "The canvas. Facing the wall. Nobody asked me to turn it?",
             "tag": "barista"
           },
           "shopkeeper": {
@@ -1497,7 +1497,7 @@
         },
         "ambient": [
           {
-            "text": "The warehouse remembers its contents. I guard what isn't there.",
+            "text": "Remembers its contents. I guard what isn't there.",
             "tag": "neutral"
           }
         ]
@@ -1642,16 +1642,16 @@
             "tag": "photographer"
           },
           "wanderer": {
-            "text": "The spaces pull differently depending on who enters. You'd pull it wide open.",
+            "text": "The spaces pull differently. You'd pull it wide open.",
             "tag": "wanderer"
           },
           "shopkeeper": {
-            "text": "Twenty metres down. A mark in the stone. It's the same symbol as the key.",
+            "text": "Twenty metres down. A mark. The same symbol as the key.",
             "tag": "shopkeeper"
           }
         },
         "crossReference": {
-          "text": "The warehouse guard let me in once. He was scared. He doesn't scare.",
+          "text": "The warehouse guard let me in. He was scared. He doesn't scare.",
           "minNpcsMet": 3
         }
       }
@@ -2080,7 +2080,7 @@
             "tag": "photographer"
           },
           "wanderer": {
-            "text": "You stand in the same spot each visit. 1.3 metres from the line.",
+            "text": "You stand in the same spot. 1.3 metres from the line.",
             "tag": "wanderer"
           },
           "barista": {
@@ -2280,17 +2280,17 @@
         },
         "ambient": [
           {
-            "text": "I found a signal in the city data. Not traffic. Not weather. Not human.",
+            "text": "I found a signal. Not traffic. Not weather. Not human.",
             "tag": "neutral"
           },
           {
-            "text": "The pattern predicts where you'll go next. It predicted you before you arrived.",
+            "text": "The pattern predicts where you'll go. It predicted you before you arrived.",
             "tag": "neutral"
           }
         ],
         "traitLines": {
           "musician": {
-            "text": "The city is playing something. My models see it. I can almost hear it.",
+            "text": "The city is playing something. I can almost hear it.",
             "tag": "musician"
           },
           "photographer": {
@@ -2394,7 +2394,7 @@
             "tag": "musician"
           },
           "photographer": {
-            "text": "This glass is old enough to have seen the building it came from.",
+            "text": "This glass is old enough to have seen the building.",
             "tag": "photographer"
           },
           "wanderer": {
@@ -2640,7 +2640,7 @@
         ],
         "crossReference": {
           "minNpcsMet": 5,
-          "text": "Every one of us makes the city more visible. More visible means more vulnerable. You decide if that's what you want.",
+          "text": "We make the city more visible. More visible, more vulnerable. You decide if that's what you want.",
           "tag": "neutral"
         }
       },

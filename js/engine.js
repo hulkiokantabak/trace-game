@@ -1030,6 +1030,12 @@ const Engine = (() => {
     ctx.fillRect(286, 38, 10, 14);
     ctx.fillStyle = '#0c0a12';
     ctx.fillRect(288, 40, 6, 10);
+    // Bricked-up doorway — faint sealed outline in the wall's shadow tone
+    ctx.fillStyle = 'rgba(200,180,140,0.04)';
+    ctx.fillRect(274, 22, 20, 1); // lintel
+    ctx.fillRect(274, 22, 1, 28); // left jamb
+    ctx.fillRect(293, 22, 1, 28); // right jamb
+    ctx.fillRect(274, 49, 20, 1); // threshold
 
     // Ground (cracked concrete)
     ctx.fillStyle = '#10101a';
@@ -1359,7 +1365,7 @@ const Engine = (() => {
   }
 
   // --- G05: The Covered Market ---
-  function sceneCoveredMarket(t, npcVisible) {
+  function sceneCoveredMarket(t, dataSci, vendor) {
     // Sky through canvas gaps
     ctx.fillStyle = makeSkyGradient(0, 40);
     ctx.fillRect(0, 0, W, 40);
@@ -1415,7 +1421,7 @@ const Engine = (() => {
     }
 
     // NPC — data scientist, corner with laptop
-    if (npcVisible === 'data_scientist' || npcVisible) {
+    if (dataSci) {
       ctx.fillStyle = '#2a2a3a';
       ctx.fillRect(235, 65, 18, 25); // body
       ctx.fillRect(237, 58, 14, 8); // head
@@ -1429,11 +1435,31 @@ const Engine = (() => {
       ctx.fillRect(234, 74, 2, 2);
       ctx.fillRect(240, 76, 2, 2);
       ctx.fillRect(237, 73, 1, 1);
+    } else if (vendor) {
+      // Market vendor — standing behind the central stall, hands near the table
+      ctx.fillStyle = '#4a3a26'; // worn apron/coat, market browns
+      ctx.fillRect(180, 100, 4, 10); // body
+      ctx.fillStyle = '#9a7a58'; // head/skin
+      ctx.fillRect(180, 95, 4, 4); // head
+      ctx.fillStyle = '#3a2c1c'; // cap
+      ctx.fillRect(180, 94, 4, 2);
+      ctx.fillStyle = '#9a7a58'; // hands near the table object
+      ctx.fillRect(178, 104, 2, 2);
+      ctx.fillRect(184, 104, 2, 2);
     }
 
     // Radio glow — left stall
     ctx.fillStyle = 'rgba(80,160,80,0.1)';
     ctx.fillRect(8, 90, 4, 4);
+
+    // The stall that never packs up — low table, single pale object
+    ctx.fillStyle = '#3a2a18'; // table legs (market wood, shadowed)
+    ctx.fillRect(176, 116, 2, 6);
+    ctx.fillRect(188, 116, 2, 6);
+    ctx.fillStyle = '#5a4326'; // table top (warm market wood)
+    ctx.fillRect(175, 113, 14, 3);
+    ctx.fillStyle = '#c8bc98'; // single pale object centred on it
+    ctx.fillRect(181, 110, 3, 3);
   }
 
   // --- G06: The Naval College Courtyard ---
@@ -1571,6 +1597,17 @@ const Engine = (() => {
     ctx.fillStyle = 'rgba(220,200,140,0.06)';
     const angle = Math.sin(t * 0.02) * 3;
     ctx.fillRect(200 + angle, 60, 25, 65);
+
+    // Heavy ledger — open register on a low stand
+    ctx.fillStyle = '#1e160e'; // low stand (dark bookshop wood)
+    ctx.fillRect(128, 116, 12, 4);
+    ctx.fillRect(129, 120, 2, 6);
+    ctx.fillRect(137, 120, 2, 6);
+    ctx.fillStyle = '#2a1c10'; // dark cover, splayed open
+    ctx.fillRect(127, 112, 14, 3);
+    ctx.fillStyle = '#9a8a60'; // open pages — two angled leaves
+    ctx.fillRect(128, 110, 5, 3);
+    ctx.fillRect(135, 111, 5, 3);
   }
 
   // --- G08: The Park Path ---
@@ -1641,6 +1678,13 @@ const Engine = (() => {
       ctx.fillStyle = 'rgba(200,220,200,0.02)';
       ctx.fillRect(0, 84, W, 2);
     }
+
+    // Weathered-brass survey marker — set into the ground near the path edge
+    const markNight = timePeriod === 'night';
+    ctx.fillStyle = markNight ? '#6a5c30' : '#8a7a40'; // peg base, darker brass
+    ctx.fillRect(300, 151, 3, 3);
+    ctx.fillStyle = markNight ? '#8a7a48' : '#b0a060'; // worn brass top, catching light
+    ctx.fillRect(300, 150, 3, 1);
   }
 
   // --- G09: The Thames Foreshore ---
@@ -2176,14 +2220,7 @@ const Engine = (() => {
       ctx.fillRect(rx, 96, 3, 14);
     }
 
-    // Weather — rain if active
-    if (_weather === 'rain') {
-      ctx.fillStyle = 'rgba(150,180,220,0.18)';
-      for (let i = 0; i < W; i += 4) {
-        const offset = (t * 60 + i * 7) % H;
-        ctx.fillRect(i + 1, offset, 1, 6);
-      }
-    }
+    // Rain is drawn globally for every scene (see the _raining overlay in render()).
   }
 
   // --- B06: The Co-Working Space ---
@@ -2521,14 +2558,14 @@ const Engine = (() => {
     ctx.fillStyle = (timePeriod === 'night') ? '#0c0e12' : '#242018';
     ctx.fillRect(125, 44, 60, 68);
 
-    // Weather — rain
-    if (_weather === 'rain') {
-      ctx.fillStyle = 'rgba(150,180,220,0.14)';
-      for (let i = 0; i < W; i += 5) {
-        const offset = (t * 55 + i * 9) % H;
-        ctx.fillRect(i + 1, offset, 1, 7);
-      }
-    }
+    // Faint pale-chalk map marks on the pavement — a small grid someone scratched out
+    ctx.fillStyle = 'rgba(200,200,184,0.18)';
+    ctx.fillRect(116, 140, 14, 1); // horizontal street line
+    ctx.fillRect(118, 144, 12, 1); // second street line
+    ctx.fillRect(122, 137, 1, 9);  // vertical cross-street
+    ctx.fillRect(127, 138, 1, 7);  // short turning
+
+    // Rain is drawn globally for every scene (see the _raining overlay in render()).
   }
 
   // --- B10: The Vinyl Shop ---
@@ -2759,7 +2796,7 @@ const Engine = (() => {
           case 'G02':  sceneObservatory(t, locationNpcs['observatory_keeper']); break;
           case 'G03':  sceneStAlfege(t, locationNpcs['old_man']); break;
           case 'G04':  sceneFootTunnel(t); break;
-          case 'G05':  sceneCoveredMarket(t, locationNpcs['data_scientist'] || locationNpcs['market_vendor']); break;
+          case 'G05':  sceneCoveredMarket(t, locationNpcs['data_scientist'], locationNpcs['market_vendor']); break;
           case 'G06':  sceneNavalCollege(t); break;
           case 'G07':  sceneBookshop(t); break;
           case 'G08':  sceneParkPath(t); break;

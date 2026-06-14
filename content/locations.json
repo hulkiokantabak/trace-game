@@ -610,10 +610,10 @@
       {
         "id": "logbook_final_entry",
         "hitbox": {
-          "x": 205,
-          "y": 58,
-          "w": 20,
-          "h": 12
+          "x": 192,
+          "y": 73,
+          "w": 18,
+          "h": 9
         },
         "description": "A logbook left open on the narrowboat deck.",
         "trait_required": null,
@@ -1707,10 +1707,10 @@
       {
         "id": "cellar_door_l05",
         "hitbox": {
-          "x": 24,
-          "y": 118,
-          "w": 16,
-          "h": 24
+          "x": 6,
+          "y": 109,
+          "w": 12,
+          "h": 20
         },
         "description": "The cellar door behind the bar, slightly ajar.",
         "trait_required": null,
@@ -2526,11 +2526,6 @@
         "Down from the platform. Into noise.",
         "Charcoal smoke. The market's on.",
         "Generators and bass. Limehouse at night."
-      ],
-      "from_B09": [
-        "Back through the tunnel. Limehouse smells different now.",
-        "The market. Warm. After Bermondsey.",
-        "Generators and LED strings. Limehouse."
       ],
       "from_L10": [
         "From silence to everything. The market.",

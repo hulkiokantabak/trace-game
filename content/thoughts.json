@@ -99,56 +99,56 @@
       "Train overhead. Ground vibrates. Then stops.",
       "The gallery. White walls. Absolute quiet.",
       "An arch entrance. Dark inside. Something in there.",
-      "The church at the end of the road. Oldest thing here.",
+      "The church at the road's end. Oldest thing.",
       "Vinyl in the window. Someone's turntable audible.",
       "The river is close. You can smell it."
     ],
     "time": {
       "morning": "Bermondsey wakes busy. No time for stretching.",
-      "afternoon": "Afternoon. The galleries are open. The arches are open.",
+      "afternoon": "Afternoon. The galleries open. The arches open.",
       "evening": "The galleries close. The restaurants open. The shift.",
-      "night": "The warehouse guard starts his round. A torch. A routine."
+      "night": "The warehouse guard starts his round. A torch."
     },
     "weather": {
       "rain": [
         "Rain on the railway arches. Percussion.",
-        "The warehouse disappears in fog. Just the guard's torch."
+        "The warehouse vanishes in fog. The guard's torch."
       ]
     },
     "musician": [
       "The arch amplifies everything. A private concert hall.",
-      "A vinyl record from the shop. Forty years old. Still alive.",
+      "A vinyl record. Forty years old. Still alive.",
       "The overground rattle makes the arch walls resonate.",
       "Brick and iron. Bermondsey's two pitches.",
-      "Under the arches: something that sounds like the city breathing."
+      "Under the arches: a sound like breathing."
     ],
     "photographer": [
-      "Gallery white. The art has nothing to compete with.",
-      "The rooftop. From up there the streets spell something.",
+      "Gallery white. The art competes with nothing.",
+      "The rooftop. From here the streets spell something.",
       "The market at dawn. Long shadows. No tourists.",
       "The warehouse. Industrial angles. Serious light.",
-      "Bermondsey Street. Old buildings photographed a thousand times. Still."
+      "Bermondsey Street. Photographed a thousand times. Still."
     ],
     "wanderer": [
-      "The church. Oldest building in the area. It knows.",
+      "The church. Oldest building here. It knows.",
       "The Thames path. The bench facing the water.",
-      "The warehouse at night pulls. I don't go in. Not yet.",
+      "The warehouse pulls at night. Not yet inside.",
       "The arch. The temperature drops inside.",
       "Long Lane. Nothing remarkable. That's what's wrong."
     ],
     "barista": [
       "The co-working space. Everyone stranger, everyone connected.",
-      "Market vendors nod to each other. A whole language.",
+      "Market vendors nod to each other. A language.",
       "The gallery. The same visitors, different Thursdays.",
-      "The vinyl shop. The owner knows everyone who's bought here.",
+      "The vinyl shop. The owner knows every buyer.",
       "The street corner. Something always almost happens."
     ],
     "shopkeeper": [
       "The market object. Wrong materials. Wrong era.",
-      "These arches predate the railway. Someone else built them.",
+      "These arches predate the railway. Someone else built.",
       "The church crypt. Something in the floor.",
       "Bermondsey was a market town. The street remembers.",
-      "The warehouse floor. The depth marker. Someone checks it annually."
+      "The warehouse floor. A depth marker. Checked yearly."
     ]
   },
   "greenwich": {
@@ -173,14 +173,14 @@
     "weather": {
       "rain": [
         "The cobbles shine. Everything doubled in reflections.",
-        "Rain on the meridian line. The brass runs wet."
+        "Rain on the meridian. The brass runs wet."
       ]
     },
     "musician": [
       "A hum under the clockmaker's floor. Low.",
       "The tunnel has a note. E-flat. Sustained.",
       "Forty clocks. Forty different pitches.",
-      "The park at dawn. Wind in the old chestnuts.",
+      "The park at dawn. Wind in the chestnuts.",
       "The river carries sound differently here."
     ],
     "photographer": [
@@ -206,10 +206,10 @@
     ],
     "shopkeeper": [
       "The clockmaker's hands. Always adjusting something.",
-      "That stone in the floor. Older than the building.",
+      "That floor stone. Older than the building.",
       "The cobblestones remember ships. Dockyard memory.",
       "Brass and oak. Nothing here is decorative.",
-      "The market vendor handles objects with too much care."
+      "The market vendor handles objects too carefully."
     ]
   },
   "flat": {
