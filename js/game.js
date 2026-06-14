@@ -237,7 +237,7 @@ const Game = (() => {
     const npc = content.npcs[npcId];
     if (!npc) return 'stranger';
     const mem = State.getNpcMemory(npcId);
-    const stages = ['acquaintance', 'familiar'];
+    const stages = ['acquaintance', 'familiar', 'confidant'];
     let highestStage = null;
     for (const stage of stages) {
       const trigger = npc.dialogue[stage] && npc.dialogue[stage].trigger;
@@ -283,7 +283,7 @@ const Game = (() => {
 
     // The Forgetting: familiar NPCs feel like acquaintances — the mythological
     // warmth recedes and only the surface relationship remains
-    const effectiveStageData = forgetting && newStage.startsWith('familiar') && npc.dialogue['acquaintance']
+    const effectiveStageData = forgetting && (newStage.startsWith('familiar') || newStage === 'confidant') && npc.dialogue['acquaintance']
       ? npc.dialogue['acquaintance']
       : stageData;
 
@@ -293,7 +293,7 @@ const Game = (() => {
     }
 
     // Meier: soft progression hint — when close to next stage, show warmth
-    const nextStages = ['acquaintance', 'familiar'];
+    const nextStages = ['acquaintance', 'familiar', 'confidant'];
     for (const ns of nextStages) {
       const nsTrigger = npc.dialogue[ns] && npc.dialogue[ns].trigger;
       if (nsTrigger && newStage !== ns && mem.visitCount === nsTrigger.visitCount - 1) {
@@ -354,6 +354,9 @@ const Game = (() => {
 
     const period = getTimePeriod();
 
+    // Collect all details under the tap and return the smallest (most specific) hitbox, so
+    // a precise detail is never shadowed by a large whole-scene one that overlaps the point.
+    let best = null, bestArea = Infinity;
     for (const detail of loc.interactableDetails) {
       if (State.isDiscovered(detail.id)) continue;
       if (detail.trait_required && detail.trait_required !== trait) continue;
@@ -378,10 +381,11 @@ const Game = (() => {
       }
       const h = detail.hitbox;
       if (cx >= h.x && cx <= h.x + h.w && cy >= h.y && cy <= h.y + h.h) {
-        return detail;
+        const area = h.w * h.h;
+        if (area < bestArea) { best = detail; bestArea = area; }
       }
     }
-    return null;
+    return best;
   }
 
   function discoverDetail(detail) {

@@ -1707,7 +1707,7 @@ const UI = (() => {
 
     function getBestFarewell() {
       const npcMem = State.get('npcMemory') || {};
-      const stageOrder = ['familiar_aware', 'familiar_unknowing', 'familiar', 'acquaintance'];
+      const stageOrder = ['confidant', 'familiar_aware', 'familiar_unknowing', 'familiar', 'acquaintance'];
       for (const targetStage of stageOrder) {
         for (const [npcId, mem] of Object.entries(npcMem)) {
           if (mem && mem.visitCount > 0 && mem.stage === targetStage && NPC_FAREWELLS[npcId]) {

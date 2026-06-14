@@ -224,6 +224,48 @@
             "tag": "shopkeeper"
           }
         }
+      },
+      "confidant": {
+        "trigger": {
+          "visitCount": 14,
+          "acrossDays": true
+        },
+        "entry": {
+          "text": "I'm scared I'll forget you too. Like the song...",
+          "tag": "neutral"
+        },
+        "ambient": [
+          {
+            "text": "Some mornings I forget my own... never mind.",
+            "tag": "neutral"
+          },
+          {
+            "text": "Stay till closing. I don't want the quiet...",
+            "tag": "neutral"
+          }
+        ],
+        "traitLines": {
+          "musician": {
+            "text": "Hum it for me. So one of us...",
+            "tag": "musician"
+          },
+          "photographer": {
+            "text": "Photograph me. Before I go the way the song...",
+            "tag": "photographer"
+          },
+          "wanderer": {
+            "text": "Don't walk too far one day. People just...",
+            "tag": "wanderer"
+          },
+          "barista": {
+            "text": "You're the only regular I'd actually miss. Don't...",
+            "tag": "barista"
+          },
+          "shopkeeper": {
+            "text": "Keep the mug. So something of mine...",
+            "tag": "shopkeeper"
+          }
+        }
       }
     }
   },
@@ -362,6 +404,48 @@
         "crossReference": {
           "text": "The pub landlord hears it too. He won't say.",
           "minNpcsMet": 3
+        }
+      },
+      "confidant": {
+        "trigger": {
+          "visitCount": 14,
+          "acrossDays": true
+        },
+        "entry": {
+          "text": "I'm afraid the day it goes silent, so do I.",
+          "tag": "neutral"
+        },
+        "ambient": [
+          {
+            "text": "I record everything so I'm never alone in the quiet.",
+            "tag": "neutral"
+          },
+          {
+            "text": "Your footsteps are in all my files now. On purpose.",
+            "tag": "neutral"
+          }
+        ],
+        "traitLines": {
+          "musician": {
+            "text": "If I vanish, find my note. 47 hertz. Hold it.",
+            "tag": "musician"
+          },
+          "photographer": {
+            "text": "Your waveform is the warmest signal I've ever captured.",
+            "tag": "photographer"
+          },
+          "wanderer": {
+            "text": "When you leave, the room's resonance drops. I measured it.",
+            "tag": "wanderer"
+          },
+          "barista": {
+            "text": "You're the only frequency I'd never want to filter out.",
+            "tag": "barista"
+          },
+          "shopkeeper": {
+            "text": "Take the reel-to-reel. It should hold something that lasts.",
+            "tag": "shopkeeper"
+          }
         }
       }
     }
@@ -514,6 +598,48 @@
           "text": "The artist in the warehouse. She knows more than me.",
           "minNpcsMet": 3
         }
+      },
+      "confidant": {
+        "trigger": {
+          "visitCount": 14,
+          "acrossDays": true
+        },
+        "entry": {
+          "text": "I've kept this pub's secrets alone too long. Sit.",
+          "tag": "neutral"
+        },
+        "ambient": [
+          {
+            "text": "When I'm gone, who watches the door? Worth thinking about.",
+            "tag": "neutral"
+          },
+          {
+            "text": "I never married. The pub needed me more. Don't laugh.",
+            "tag": "neutral"
+          }
+        ],
+        "traitLines": {
+          "musician": {
+            "text": "The cellar hum. I'm afraid it'll outlast me. Listen for it.",
+            "tag": "musician"
+          },
+          "photographer": {
+            "text": "The figure in that photo. I've stopped pretending it's a flaw.",
+            "tag": "photographer"
+          },
+          "wanderer": {
+            "text": "Don't walk the basin alone. I won't always be here.",
+            "tag": "wanderer"
+          },
+          "barista": {
+            "text": "I know everyone's secrets. Nobody's ever asked to know mine.",
+            "tag": "barista"
+          },
+          "shopkeeper": {
+            "text": "The cellar key. Take it. Someone steady should hold it.",
+            "tag": "shopkeeper"
+          }
+        }
       }
     }
   },
@@ -656,6 +782,48 @@
           "text": "The courier sees it too. The figure. At the edge.",
           "minNpcsMet": 3
         }
+      },
+      "confidant": {
+        "trigger": {
+          "visitCount": 14,
+          "acrossDays": true
+        },
+        "entry": {
+          "text": "My hands aren't mine when I draw. That frightens me.",
+          "tag": "neutral"
+        },
+        "ambient": [
+          {
+            "text": "I wonder whose hand moves through mine. I never ask.",
+            "tag": "neutral"
+          },
+          {
+            "text": "I'd ink the door on myself. I'm too scared to.",
+            "tag": "neutral"
+          }
+        ],
+        "traitLines": {
+          "musician": {
+            "text": "Your melody. My hand drew it as a door. Same thing.",
+            "tag": "musician"
+          },
+          "photographer": {
+            "text": "I read your skin the first day. You're a door too.",
+            "tag": "photographer"
+          },
+          "wanderer": {
+            "text": "Where you walk, my hand follows. I draw the route.",
+            "tag": "wanderer"
+          },
+          "barista": {
+            "text": "You're the only one I'd let see my own arm.",
+            "tag": "barista"
+          },
+          "shopkeeper": {
+            "text": "This needle's older than me. I think it chose me.",
+            "tag": "shopkeeper"
+          }
+        }
       }
     }
   },
@@ -795,6 +963,48 @@
         "crossReference": {
           "text": "The barista's song. I painted it once. The same shape.",
           "minNpcsMet": 3
+        }
+      },
+      "confidant": {
+        "trigger": {
+          "visitCount": 14,
+          "acrossDays": true
+        },
+        "entry": {
+          "text": "I see colours no one else does. Alone in them, I fear.",
+          "tag": "neutral"
+        },
+        "ambient": [
+          {
+            "text": "I paint so the colours have somewhere to live. After me.",
+            "tag": "neutral"
+          },
+          {
+            "text": "The basin shows me things. I've stopped telling people which.",
+            "tag": "neutral"
+          }
+        ],
+        "traitLines": {
+          "musician": {
+            "text": "Your note has a colour. Cerulean, just under gold. Only you.",
+            "tag": "musician"
+          },
+          "photographer": {
+            "text": "You see what I paint before it dries. Nobody else does.",
+            "tag": "photographer"
+          },
+          "wanderer": {
+            "text": "Walk with me once. I want to paint where you go.",
+            "tag": "wanderer"
+          },
+          "barista": {
+            "text": "You and Mei. The only colours I'd be sad to lose.",
+            "tag": "barista"
+          },
+          "shopkeeper": {
+            "text": "The sable brush. Take it. It's painted truer than me.",
+            "tag": "shopkeeper"
+          }
         }
       }
     }
@@ -944,6 +1154,48 @@
           "text": "The tattoo artist drew something. I've seen it moving.",
           "minNpcsMet": 3
         }
+      },
+      "confidant": {
+        "trigger": {
+          "visitCount": 14,
+          "acrossDays": true
+        },
+        "entry": {
+          "text": "Scared to stop. Scared the routes choose me.",
+          "tag": "neutral"
+        },
+        "ambient": [
+          {
+            "text": "Keep moving. If I stop, I might stay.",
+            "tag": "neutral"
+          },
+          {
+            "text": "Nobody waits for me. Except, lately. You.",
+            "tag": "neutral"
+          }
+        ],
+        "traitLines": {
+          "musician": {
+            "text": "Your note. I follow it now. Not the board.",
+            "tag": "musician"
+          },
+          "photographer": {
+            "text": "Photograph me before I'm gone. Just in case.",
+            "tag": "photographer"
+          },
+          "wanderer": {
+            "text": "One day I won't come back. You'd notice.",
+            "tag": "wanderer"
+          },
+          "barista": {
+            "text": "You're my one stop. Don't tell anyone.",
+            "tag": "barista"
+          },
+          "shopkeeper": {
+            "text": "The wheels outlast me. Take them. After.",
+            "tag": "shopkeeper"
+          }
+        }
       }
     }
   },
@@ -1069,6 +1321,48 @@
         "crossReference": {
           "text": "Someone watches all of you. I know the name.",
           "minNpcsMet": 4
+        }
+      },
+      "confidant": {
+        "trigger": {
+          "visitCount": 14,
+          "acrossDays": true
+        },
+        "entry": {
+          "text": "I let everyone through. Never myself. That's the fear.",
+          "tag": "neutral"
+        },
+        "ambient": [
+          {
+            "text": "The name I know. It keeps me up. Stay.",
+            "tag": "neutral"
+          },
+          {
+            "text": "I stand at doors I'm too scared to enter.",
+            "tag": "neutral"
+          }
+        ],
+        "traitLines": {
+          "musician": {
+            "text": "The bass came for you. Never came for me.",
+            "tag": "musician"
+          },
+          "photographer": {
+            "text": "The shadow's in your photos. Not mine. Lucky you.",
+            "tag": "photographer"
+          },
+          "wanderer": {
+            "text": "You walk through. I just guard the threshold.",
+            "tag": "wanderer"
+          },
+          "barista": {
+            "text": "Everyone talks to you. Nobody talks to me. Almost.",
+            "tag": "barista"
+          },
+          "shopkeeper": {
+            "text": "Take a stamp. Proof someone let you in.",
+            "tag": "shopkeeper"
+          }
         }
       }
     }
@@ -1199,6 +1493,14 @@
           "musician": {
             "text": "Certain objects hum. Not metaphor. You'll hear it with the right ears.",
             "tag": "musician"
+          },
+          "photographer": {
+            "text": "That lens. It costs more than money. It costs remembering.",
+            "tag": "photographer"
+          },
+          "wanderer": {
+            "text": "You moved toward the key again. The street priced you fairly.",
+            "tag": "wanderer"
           }
         },
         "crossReference": {
@@ -1217,6 +1519,48 @@
             "tag": "neutral"
           }
         ]
+      },
+      "confidant": {
+        "trigger": {
+          "visitCount": 14,
+          "acrossDays": true
+        },
+        "entry": {
+          "text": "I can price anything but myself. That's what I fear.",
+          "tag": "neutral"
+        },
+        "ambient": [
+          {
+            "text": "The limp. I never say its cost. You never asked. Good.",
+            "tag": "neutral"
+          },
+          {
+            "text": "I've guarded these objects so long I forgot my own price.",
+            "tag": "neutral"
+          }
+        ],
+        "traitLines": {
+          "musician": {
+            "text": "Your humming. Worth more than this whole table. No charge.",
+            "tag": "musician"
+          },
+          "photographer": {
+            "text": "Don't photograph me. Some things lose value the moment they're kept.",
+            "tag": "photographer"
+          },
+          "wanderer": {
+            "text": "You arrive like the objects do. Already worth keeping.",
+            "tag": "wanderer"
+          },
+          "barista": {
+            "text": "You're the one trade I'd take a loss on.",
+            "tag": "barista"
+          },
+          "shopkeeper": {
+            "text": "Take the reference piece. The one never for sale. Yours.",
+            "tag": "shopkeeper"
+          }
+        }
       }
     }
   },
@@ -1346,11 +1690,61 @@
           "shopkeeper": {
             "text": "The building was something before a gallery. The walls remember what?",
             "tag": "shopkeeper"
+          },
+          "musician": {
+            "text": "You hummed and the room answered? Or did I imagine it?",
+            "tag": "musician"
+          },
+          "wanderer": {
+            "text": "You always cross to the same wall first? Why that one?",
+            "tag": "wanderer"
           }
         },
         "crossReference": {
           "text": "The urban explorer was here last week. Left without looking at anything?",
           "minNpcsMet": 3
+        }
+      },
+      "confidant": {
+        "trigger": {
+          "visitCount": 14,
+          "acrossDays": true
+        },
+        "entry": {
+          "text": "If I stop asking questions, I'd have to know? Wouldn't I?",
+          "tag": "neutral"
+        },
+        "ambient": [
+          {
+            "text": "I question everything so I never have to answer myself?",
+            "tag": "neutral"
+          },
+          {
+            "text": "The paintings change and I just ask why? Never look closer?",
+            "tag": "neutral"
+          }
+        ],
+        "traitLines": {
+          "musician": {
+            "text": "Your note is the one answer I'd let in? Maybe?",
+            "tag": "musician"
+          },
+          "photographer": {
+            "text": "You'd photograph what I refuse to see? Would you tell me?",
+            "tag": "photographer"
+          },
+          "wanderer": {
+            "text": "You always come back? That's the only certainty I have?",
+            "tag": "wanderer"
+          },
+          "barista": {
+            "text": "You're the one person I'd answer honestly? If you asked?",
+            "tag": "barista"
+          },
+          "shopkeeper": {
+            "text": "Take a piece? Something of mine should leave with someone?",
+            "tag": "shopkeeper"
+          }
         }
       }
     }
@@ -1483,6 +1877,14 @@
           "shopkeeper": {
             "text": "Sleeping. The marker says.",
             "tag": "shopkeeper"
+          },
+          "photographer": {
+            "text": "Wrong light. Always.",
+            "tag": "photographer"
+          },
+          "barista": {
+            "text": "They ask. I don't.",
+            "tag": "barista"
           }
         },
         "crossReference": {
@@ -1513,6 +1915,48 @@
             "tag": "neutral"
           }
         ]
+      },
+      "confidant": {
+        "trigger": {
+          "visitCount": 14,
+          "acrossDays": true
+        },
+        "entry": {
+          "text": "Afraid to leave. Who'd watch it then.",
+          "tag": "neutral"
+        },
+        "ambient": [
+          {
+            "text": "Alone. Long time.",
+            "tag": "neutral"
+          },
+          {
+            "text": "You stay. Good.",
+            "tag": "neutral"
+          }
+        ],
+        "traitLines": {
+          "musician": {
+            "text": "The note. Company.",
+            "tag": "musician"
+          },
+          "photographer": {
+            "text": "You see it. Finally.",
+            "tag": "photographer"
+          },
+          "wanderer": {
+            "text": "Stay tonight. Please.",
+            "tag": "wanderer"
+          },
+          "barista": {
+            "text": "You. I'd miss.",
+            "tag": "barista"
+          },
+          "shopkeeper": {
+            "text": "The key. Yours.",
+            "tag": "shopkeeper"
+          }
+        }
       }
     }
   },
@@ -1648,11 +2092,57 @@
           "shopkeeper": {
             "text": "Twenty metres down. A mark. The same symbol as the key.",
             "tag": "shopkeeper"
+          },
+          "barista": {
+            "text": "The wall messages. Same handwriting. Different decades. Come read them.",
+            "tag": "barista"
           }
         },
         "crossReference": {
           "text": "The warehouse guard let me in. He was scared. He doesn't scare.",
           "minNpcsMet": 3
+        }
+      },
+      "confidant": {
+        "trigger": {
+          "visitCount": 14,
+          "acrossDays": true
+        },
+        "entry": {
+          "text": "One day a space won't let me back out. That's my fear.",
+          "tag": "neutral"
+        },
+        "ambient": [
+          {
+            "text": "I go where nobody follows. It's lonelier than it sounds.",
+            "tag": "neutral"
+          },
+          {
+            "text": "If I don't come back, the chalk route is the map.",
+            "tag": "neutral"
+          }
+        ],
+        "traitLines": {
+          "musician": {
+            "text": "Come hear the six-minute echo. I don't want to go alone.",
+            "tag": "musician"
+          },
+          "photographer": {
+            "text": "Photograph the unbuilt room. So someone knows I was there.",
+            "tag": "photographer"
+          },
+          "wanderer": {
+            "text": "Walk the 4AM route with me. Just once. I'd risk it.",
+            "tag": "wanderer"
+          },
+          "barista": {
+            "text": "You're the first person I'd actually want underground with me.",
+            "tag": "barista"
+          },
+          "shopkeeper": {
+            "text": "If I'm gone, the mark twenty metres down. Find it.",
+            "tag": "shopkeeper"
+          }
         }
       }
     }
@@ -1850,6 +2340,48 @@
             "tag": "shopkeeper"
           }
         }
+      },
+      "confidant": {
+        "trigger": {
+          "visitCount": 14,
+          "acrossDays": true
+        },
+        "entry": {
+          "text": "I've kept time for everyone. My own is running out.",
+          "tag": "neutral"
+        },
+        "ambient": [
+          {
+            "text": "Forty years I've waited for that sound. I'm afraid now.",
+            "tag": "neutral"
+          },
+          {
+            "text": "I never looked under the floor. I'm too old to start.",
+            "tag": "neutral"
+          }
+        ],
+        "traitLines": {
+          "musician": {
+            "text": "When I'm gone, wind the oldest clock. Hear the pitch.",
+            "tag": "musician"
+          },
+          "photographer": {
+            "text": "The second face under the twelve. Someday, photograph it. Remember.",
+            "tag": "photographer"
+          },
+          "wanderer": {
+            "text": "The heavy mornings. You feel them too. I'm not alone now.",
+            "tag": "wanderer"
+          },
+          "barista": {
+            "text": "Her letter's still in the drawer. Read it when I can't.",
+            "tag": "barista"
+          },
+          "shopkeeper": {
+            "text": "This shop outlives me. I'd like it to outlive with you.",
+            "tag": "shopkeeper"
+          }
+        }
       }
     }
   },
@@ -1993,6 +2525,48 @@
         "crossReference": {
           "text": "...the one you're looking for. I used to know them.",
           "minNpcsMet": 4
+        }
+      },
+      "confidant": {
+        "trigger": {
+          "visitCount": 14,
+          "acrossDays": true
+        },
+        "entry": {
+          "text": "...and I'm afraid I'll be the last one who remembers.",
+          "tag": "neutral"
+        },
+        "ambient": [
+          {
+            "text": "...outlived all of them. That's the part nobody warns you.",
+            "tag": "neutral"
+          },
+          {
+            "text": "...keep counting because stopping is worse. You understand that.",
+            "tag": "neutral"
+          }
+        ],
+        "traitLines": {
+          "musician": {
+            "text": "...count the chimes after I'm gone. Somebody has to.",
+            "tag": "musician"
+          },
+          "photographer": {
+            "text": "...the fourth window. You saw it once. I'm not mad, then.",
+            "tag": "photographer"
+          },
+          "wanderer": {
+            "text": "...the pull took her. I let it. That's the regret.",
+            "tag": "wanderer"
+          },
+          "barista": {
+            "text": "...the same someone, every face. You're the first I'd keep.",
+            "tag": "barista"
+          },
+          "shopkeeper": {
+            "text": "...sit on the bench when I can't. Keep it warm.",
+            "tag": "shopkeeper"
+          }
         }
       }
     }
@@ -2171,6 +2745,48 @@
             "tag": "neutral"
           }
         ]
+      },
+      "confidant": {
+        "trigger": {
+          "visitCount": 14,
+          "acrossDays": true
+        },
+        "entry": {
+          "text": "I measure everything. So I never have to feel anything.",
+          "tag": "neutral"
+        },
+        "ambient": [
+          {
+            "text": "Eleven seconds. Twelve. Thirteen. It's accelerating. I'm frightened. There. Logged.",
+            "tag": "neutral"
+          },
+          {
+            "text": "Forty years of readings. Zero of them mine to keep.",
+            "tag": "neutral"
+          }
+        ],
+        "traitLines": {
+          "musician": {
+            "text": "Your note. 47 hertz. The one measurement that warms me.",
+            "tag": "musician"
+          },
+          "photographer": {
+            "text": "The 1842 prints. I've looked 9,000 times. Still afraid.",
+            "tag": "photographer"
+          },
+          "wanderer": {
+            "text": "1.3 metres from the line. Your spot. I marked it. Permanently.",
+            "tag": "wanderer"
+          },
+          "barista": {
+            "text": "His letter. Twelve years unopened. Read it. I cannot.",
+            "tag": "barista"
+          },
+          "shopkeeper": {
+            "text": "The meridian outlasts me by centuries. You, I'd keep longer.",
+            "tag": "shopkeeper"
+          }
+        }
       }
     }
   },
@@ -2314,6 +2930,48 @@
           "text": "The observatory keeper's deviation. It maps to my signal. Exactly.",
           "minNpcsMet": 3
         }
+      },
+      "confidant": {
+        "trigger": {
+          "visitCount": 14,
+          "acrossDays": true
+        },
+        "entry": {
+          "text": "My model predicted me. I'm afraid I never chose anything.",
+          "tag": "neutral"
+        },
+        "ambient": [
+          {
+            "text": "If everything's a pattern, was meeting you just a data point?",
+            "tag": "neutral"
+          },
+          {
+            "text": "I track everyone so I'm never the unobserved variable. Lonely method.",
+            "tag": "neutral"
+          }
+        ],
+        "traitLines": {
+          "musician": {
+            "text": "Your rhythm breaks my model. 0.0 correlation. I love that.",
+            "tag": "musician"
+          },
+          "photographer": {
+            "text": "You change the angle. The data with it. Nobody else does.",
+            "tag": "photographer"
+          },
+          "wanderer": {
+            "text": "Your route optimizes for something I can't measure. Stay unmeasurable.",
+            "tag": "wanderer"
+          },
+          "barista": {
+            "text": "The missing node. I think it's the one I'd trust.",
+            "tag": "barista"
+          },
+          "shopkeeper": {
+            "text": "Seven fixed points. You're the eighth I'd build around.",
+            "tag": "shopkeeper"
+          }
+        }
       }
     }
   },
@@ -2455,6 +3113,48 @@
         "crossReference": {
           "text": "You're different now than when you first came. The objects noticed.",
           "minNpcsMet": 4
+        }
+      },
+      "confidant": {
+        "trigger": {
+          "visitCount": 14,
+          "acrossDays": true
+        },
+        "entry": {
+          "text": "I appraise everyone. I'm afraid of my own valuation.",
+          "tag": "neutral"
+        },
+        "ambient": [
+          {
+            "text": "I sell what the city remembers owning. Some days I'm one.",
+            "tag": "neutral"
+          },
+          {
+            "text": "Kept, not chosen. That's the fear of every object here.",
+            "tag": "neutral"
+          }
+        ],
+        "traitLines": {
+          "musician": {
+            "text": "The sound you carry. No price holds it. I've tried.",
+            "tag": "musician"
+          },
+          "photographer": {
+            "text": "You see what an object's seen. You'd appraise me honestly.",
+            "tag": "photographer"
+          },
+          "wanderer": {
+            "text": "The compass found you. It stopped searching. So did I.",
+            "tag": "wanderer"
+          },
+          "barista": {
+            "text": "My web of objects. You're the one connection that's warm.",
+            "tag": "barista"
+          },
+          "shopkeeper": {
+            "text": "Take the piece that predates the street. Priceless means yours.",
+            "tag": "shopkeeper"
+          }
         }
       }
     }
@@ -2640,7 +3340,7 @@
         ],
         "crossReference": {
           "minNpcsMet": 5,
-          "text": "We make the city more visible. More visible, more vulnerable. You decide if that's what you want.",
+          "text": "We make the city more visible. More visible, more vulnerable. You decide.",
           "tag": "neutral"
         }
       },
@@ -2802,7 +3502,29 @@
             "text": "Imagine the map knows you're reading it.",
             "tag": "neutral"
           }
-        ]
+        ],
+        "traitLines": {
+          "musician": {
+            "text": "Imagine a city tuned to one listener's ear.",
+            "tag": "musician"
+          },
+          "photographer": {
+            "text": "Imagine a frame the city composes for you.",
+            "tag": "photographer"
+          },
+          "wanderer": {
+            "text": "Imagine streets that rearrange to keep your pace.",
+            "tag": "wanderer"
+          },
+          "barista": {
+            "text": "Imagine every regular plotted on one quiet graph.",
+            "tag": "barista"
+          },
+          "shopkeeper": {
+            "text": "Imagine a shelf that remembers every hand.",
+            "tag": "shopkeeper"
+          }
+        }
       },
       "familiar": {
         "trigger": {
@@ -2842,6 +3564,48 @@
           },
           "shopkeeper": {
             "text": "Imagine a foundation that thinks.",
+            "tag": "shopkeeper"
+          }
+        }
+      },
+      "confidant": {
+        "trigger": {
+          "visitCount": 14,
+          "acrossDays": true
+        },
+        "entry": {
+          "text": "Imagine documenting a thing that's documenting you back. I'm afraid.",
+          "tag": "neutral"
+        },
+        "ambient": [
+          {
+            "text": "Imagine being the one node that watching slowly erases.",
+            "tag": "neutral"
+          },
+          {
+            "text": "Imagine the loneliest job: proving the city is awake.",
+            "tag": "neutral"
+          }
+        ],
+        "traitLines": {
+          "musician": {
+            "text": "Imagine the city humming your note back. It knows you.",
+            "tag": "musician"
+          },
+          "photographer": {
+            "text": "Imagine a photograph that keeps you when I'm deleted.",
+            "tag": "photographer"
+          },
+          "wanderer": {
+            "text": "Imagine a map that grieves the day you stop walking it.",
+            "tag": "wanderer"
+          },
+          "barista": {
+            "text": "Imagine one node the network can't replace. That's you.",
+            "tag": "barista"
+          },
+          "shopkeeper": {
+            "text": "Imagine a foundation that remembers the one who stayed.",
             "tag": "shopkeeper"
           }
         }

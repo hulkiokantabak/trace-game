@@ -15,7 +15,7 @@ description: >
 
 **Live:** https://hulkiokantabak.github.io/trace-game/
 **Repo:** GitHub Pages, static files, master branch deploys directly.
-**Commit:** `6356062` — Bug fix pass: npc_stage advance triggers, dead guard, gender, null guard (April 2026)
+**Commit:** depth-completion pass (this session) on top of `30871e7` — Greenwich/Bermondsey unlocked, all 15 endings reachable, confidant tier added
 
 ---
 
@@ -47,7 +47,7 @@ Thirteen commits after `9cf39a0` took the game well past the Limehouse MVP:
 - **Seasons, mythological tides, city events** (`a2a5734`): 4 tides with seasonal weighting, 20 city events — config in `content/config.json`, logic in `js/game.js`.
 - Plus fix passes: `7a28905`, `03f24a7`, `86829a1`, `6356062`.
 
-Current totals: 31 locations (30 + flat), 22 NPCs, 37 investigation nodes, 28 lore fragments, 15 event endings.
+Current totals: 31 locations (30 + flat), 22 NPCs (17 with a confidant tier), 37 investigation nodes, 35 lore fragments, 15 event endings. Greenwich/Bermondsey now have ~7-9 noticing details per location and Limehouse-parity walking-thought pools.
 
 ### Content Inventory
 
@@ -61,11 +61,68 @@ Current totals: 31 locations (30 + flat), 22 NPCs, 37 investigation nodes, 28 lo
 | `content/locations.json` | 5603 | Complete — 30 locations + flat, all content fields populated |
 | `content/npcs.json` | 3063 | Complete — 22 NPCs across the three neighbourhoods |
 | `content/investigations.json` | 2488 | Complete — 37 nodes (13 LI, 10 GI, 11 BI, 3 XN) |
-| `content/fragments.json` | 282 | Complete — 28 lore fragments across all 5 traits (8 Limehouse, 10 Greenwich, 10 Bermondsey) |
+| `content/fragments.json` | ~315 | Complete — 35 DISTINCT lore fragments (keys were de-duplicated this session; was silently 28 due to 7 colliding keys) |
 | `content/thoughts.json` | 232 | Complete — walking thoughts: neutral + all 5 traits + time + weather + flat leaving/returning |
 | `content/config.json` | 259 | Complete — time palettes, weather, forgetting, XP values, NPC thresholds, tides, 20 city events |
 
 **Game-bible documents are in the root directory** (not in a `game-bible/` subfolder). All `.md` files except `CLAUDE.md`, `README.md`, `HANDOFF.md` are design reference.
+
+---
+
+## This Session — Audit, parallel-work reconciliation, depth completion
+
+Three advisory panels (Game Design Masters, Literary Masters, Game Design Experts) + a
+read-only recon swarm drove a full audit and a depth-completion pass, pushed across several
+commits on top of the remote engine rebuild (`30871e7`, which unlocked all 30 locations,
+placed the 5 roaming NPCs, added 7 investigation details, and added `settleInvestigation`).
+
+**Undocumented implementation decisions a new session MUST know:**
+
+- **Fragment keys are unique again.** `fragments.json` had 7 duplicate keys (P-F1/2/3,
+  W-F2/3, S-F1/2) that collapsed 35 authored fragments to 28 at `JSON.parse`, silently
+  dropping the Limehouse photographer/wanderer/shopkeeper fragments. The Greenwich/Bermondsey
+  twins were renamed (P-F4/6/8, W-F5/8, S-F4/7). **35 distinct fragments now.**
+- **Choiceless investigations award their top-level `flatObject`** via
+  `completeChoicelessInvestigation()` (game.js); `settleInvestigation` previously completed
+  them without granting the object (LI-05, LI-13, GI-04/08, BI-05/08/09/11).
+- **One capped atmosphere line per visit.** `showLocation` (ui.js) selects a single optional
+  atmospheric line by priority (rare encounter > first-visit impression > city event >
+  permanent presence > tide > ambient life) instead of stacking them. Mythological-layer
+  lines (tide, city events) are suppressed in interior locations and the flat. `bodySensation`
+  and world-state scars are shown separately.
+- **`prefers-reduced-motion`** skips the JS typewriter reveal (ui.js); CSS already covered the
+  animations.
+- **`confidant` is the deepest relationship tier.** Trigger convention:
+  `{ visitCount: 14, acrossDays: true }`. Implemented for the **17 deep NPCs only** (NOT
+  street_preacher / watcher / child_who_draws / delivery_driver / night_fox). `getNpcStage`
+  (game.js) includes 'confidant'; it downgrades to acquaintance during The Forgetting;
+  `getBestFarewell` (ui.js) ranks it highest. Every confidant line ≤ that NPC's
+  `maxDialogueWords`.
+- **Tap detection returns the SMALLEST matching hitbox** (`checkDetailAt`, game.js), so a
+  precise detail is never shadowed by a large whole-scene one that overlaps the tap — needed
+  now that G/B locations pack ~7-9 details each.
+- **XN-03 (the Watcher's Confrontation) awareness gate lowered 10 → 8**, matching XN-01/XN-02,
+  so the 4 endings it gates (M-END-2, P-END-1/2, S-END-2) aren't all behind the single
+  hardest node.
+- **AI Claude model list refreshed** to `claude-sonnet-4-6` (default),
+  `claude-haiku-4-5-20251001`, `claude-sonnet-4-20250514`; AI settings now states the
+  plaintext-key storage risk in plain language.
+- **The B05/B09 crash:** `sceneRotherhithePath` and `sceneStreetCorner` read `_weather` (a
+  `Game`-IIFE local invisible to the `Engine` closure) → ReferenceError every frame. Fixed by
+  removing the two redundant scene-local rain blocks (rain is drawn globally via `_raining`).
+
+**Content depth completed:** confidant tier (17 NPCs), Greenwich/Bermondsey walking-thought
+pools brought to Limehouse parity (neutral 14, each trait 10), **+60 noticing details** across
+G/B (each location now ≥7), the 7 investigation details made visible (2 hitboxes realigned to
+existing art, 4 minimal cues drawn, G05 vendor sprite branched), and ALL text re-cut to the
+locked budgets (NPC dialogue ≤ maxDialogueWords, walking thoughts ≤8 words, fragments
+≤4 sentences / ≤60 words). Zero budget violations game-wide.
+
+**Known remaining (design decisions, not bugs):** the deliberately-minimal special NPCs have
+no confidant tier by design; the 2 largest whole-scene details (arch_echo B03,
+river_surface_slow B05) yield their centre to a smaller overlapping detail but stay tappable
+elsewhere; G/B detail density is ~7-9/location vs Limehouse's ~12 (a meaningful uplift, not
+mechanical parity — by design, per Ueda's "don't fill silence").
 
 ---
 

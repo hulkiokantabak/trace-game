@@ -2383,7 +2383,7 @@
         {
           "type": "stat_min",
           "stat": "awareness",
-          "value": 10
+          "value": 8
         },
         {
           "type": "npc_stage",

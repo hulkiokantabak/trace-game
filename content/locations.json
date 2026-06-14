@@ -3137,6 +3137,55 @@
         "xp": {
           "awareness": 1
         }
+      },
+      {
+        "id": "clockmaker_screwdriver",
+        "hitbox": {
+          "x": 58,
+          "y": 151,
+          "w": 8,
+          "h": 14
+        },
+        "description": "A screwdriver standing upright in the bench.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "A jeweller's screwdriver, driven into the bench like a marker. The handle is worn to the shape of one thumb. It stands exactly upright. You nudge it; it returns to vertical, as if the bench prefers it that way.",
+        "xp": {
+          "awareness": 1
+        }
+      },
+      {
+        "id": "clockmaker_dust_columns",
+        "hitbox": {
+          "x": 6,
+          "y": 8,
+          "w": 26,
+          "h": 68
+        },
+        "description": "Dust in the high window's light.",
+        "trait_required": null,
+        "awareness_required": 1,
+        "discovery_text": "The light from the one high window falls in three columns. The dust inside them hangs without settling. You watch a single mote for a full minute. It rises. In a room this still, nothing should rise.",
+        "xp": {
+          "awareness": 1
+        }
+      },
+      {
+        "id": "clockmaker_shelf_join",
+        "hitbox": {
+          "x": 250,
+          "y": 94,
+          "w": 60,
+          "h": 6
+        },
+        "description": "The shelf line behind the clocks. A seam in the wood.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 3,
+        "discovery_text": "Where two shelf boards meet, the grain doesn't align — but the join is seamless, planed flat by someone who refused to accept the mismatch. Decades of small corrections. The shop is held together by a patience that outlives the man who keeps it.",
+        "xp": {
+          "awareness": 2,
+          "insight": 1
+        }
       }
     ],
     "npcs_present": {
@@ -3271,6 +3320,54 @@
         "trait_required": "wanderer",
         "awareness_required": 0,
         "discovery_text": "The terrace stone is cold through your shoes even on a warm afternoon. The hill holds something that the sun can't warm. Not damp — something older than damp. The stone was here before the observatory. It remembers a different purpose.",
+        "xp": {
+          "awareness": 2
+        }
+      },
+      {
+        "id": "observatory_dome",
+        "hitbox": {
+          "x": 246,
+          "y": 8,
+          "w": 54,
+          "h": 60
+        },
+        "description": "The copper dome over the great telescope.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "The dome has a slit, and the slit is open a hand's width — even now, in daylight, when nothing inside should be looking. It points not at the sky but at the city below. As if the instrument finished measuring stars and started on us.",
+        "xp": {
+          "awareness": 1
+        }
+      },
+      {
+        "id": "observatory_canary_glow",
+        "hitbox": {
+          "x": 172,
+          "y": 72,
+          "w": 56,
+          "h": 46
+        },
+        "description": "The towers of Canary Wharf, downriver.",
+        "trait_required": null,
+        "awareness_required": 1,
+        "discovery_text": "The lights at Canary Wharf blink in no pattern you can name — except that the longer you watch, the more they seem to answer each other. One tower, then another, then a third across the water. A conversation in glass, held above a river that has heard everything.",
+        "xp": {
+          "awareness": 1
+        }
+      },
+      {
+        "id": "observatory_terrace_wall",
+        "hitbox": {
+          "x": 10,
+          "y": 88,
+          "w": 120,
+          "h": 14
+        },
+        "description": "The low terrace wall. Worn along its top edge.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 2,
+        "discovery_text": "The top of the wall is polished to a shine in one stretch — exactly where a forearm rests when someone leans to look out. Two hundred years of the same gesture. The stone has a memory the people leaning on it do not.",
         "xp": {
           "awareness": 2
         }
@@ -3420,6 +3517,54 @@
         "xp": {
           "awareness": 1
         }
+      },
+      {
+        "id": "stalfege_window_arch",
+        "hitbox": {
+          "x": 211,
+          "y": 29,
+          "w": 28,
+          "h": 14
+        },
+        "description": "The stone arch above the middle window.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "The arch above the centre window is cut from a paler stone than the wall around it — replaced, once, after something. The mason matched the curve perfectly but couldn't match the colour. The repair shows only to someone looking up. Most people don't.",
+        "xp": {
+          "awareness": 1
+        }
+      },
+      {
+        "id": "stalfege_churchyard_grass",
+        "hitbox": {
+          "x": 10,
+          "y": 146,
+          "w": 120,
+          "h": 28
+        },
+        "description": "The grass to the left of the path. Uneven.",
+        "trait_required": "wanderer",
+        "awareness_required": 1,
+        "discovery_text": "The grass here grows in low mounds, regularly spaced, though no stones mark them. Your feet find the dips between without your looking. The ground remembers a shape the surface has forgotten. You walk the gaps the way you'd walk a corridor.",
+        "xp": {
+          "awareness": 2
+        }
+      },
+      {
+        "id": "stalfege_bench_leg",
+        "hitbox": {
+          "x": 152,
+          "y": 130,
+          "w": 8,
+          "h": 20
+        },
+        "description": "The bench's right leg. Set into the ground.",
+        "trait_required": "photographer",
+        "awareness_required": 2,
+        "discovery_text": "The right leg has sunk a finger's width deeper than the left, year by year, under the weight that always sits on that side. The bench leans, very slightly, toward the place the old man waits. As if even the furniture has started keeping him company.",
+        "xp": {
+          "awareness": 2
+        }
       }
     ],
     "npcs_present": {
@@ -3559,6 +3704,55 @@
         "discovery_text": "Fluorescent strips, evenly spaced. They should make the tunnel feel modern. They make it feel older. As if the artificial light is maintaining something that the natural world has stopped maintaining.",
         "xp": {
           "awareness": 1
+        }
+      },
+      {
+        "id": "tunnel_green_band",
+        "hitbox": {
+          "x": 0,
+          "y": 30,
+          "w": 18,
+          "h": 120
+        },
+        "description": "The green border tiles running the tunnel's length.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "The green band runs unbroken from one end to the other — except for a single tile, halfway down, set the wrong way round. Its border faces in. You run your hand along the line and feel the one tile that doesn't belong, like a missed stitch in something otherwise perfect.",
+        "xp": {
+          "awareness": 1
+        }
+      },
+      {
+        "id": "tunnel_drip",
+        "hitbox": {
+          "x": 20,
+          "y": 44,
+          "w": 12,
+          "h": 90
+        },
+        "description": "Water tracking down the left wall.",
+        "trait_required": "musician",
+        "awareness_required": 1,
+        "discovery_text": "A drip falls from the same seam, over and over, onto the same tile. You time it: never quite regular. It speeds and slows in a rhythm that takes minutes to repeat. The river above is breathing through the clay, and the tunnel is keeping the count.",
+        "xp": {
+          "awareness": 2
+        }
+      },
+      {
+        "id": "tunnel_far_dark",
+        "hitbox": {
+          "x": 110,
+          "y": 82,
+          "w": 100,
+          "h": 18
+        },
+        "description": "The dark at the far end. Where the tunnel recedes.",
+        "trait_required": "wanderer",
+        "awareness_required": 3,
+        "discovery_text": "The vanishing point should brighten as you walk toward it. It doesn't. The dark holds its distance exactly, no matter how many steps you take. For a moment you are sure the far end is walking too — keeping pace, staying ahead, never closing.",
+        "xp": {
+          "awareness": 2,
+          "insight": 1
         }
       }
     ],
@@ -3746,6 +3940,54 @@
         "xp": {
           "awareness": 2
         }
+      },
+      {
+        "id": "market_awning_scallop",
+        "hitbox": {
+          "x": 100,
+          "y": 10,
+          "w": 80,
+          "h": 30
+        },
+        "description": "The canvas awning. Its scalloped lower edge.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "The awning's scalloped hem sways though there's no wind under the covered roof. Each scallop moves a half-beat after the one beside it, a slow ripple passing along the canvas. Something is breathing in the rafters, or the cloth simply never learned to be still.",
+        "xp": {
+          "awareness": 1
+        }
+      },
+      {
+        "id": "market_cart_groove",
+        "hitbox": {
+          "x": 58,
+          "y": 60,
+          "w": 8,
+          "h": 88
+        },
+        "description": "A groove worn deep into the stone floor.",
+        "trait_required": "wanderer",
+        "awareness_required": 1,
+        "discovery_text": "A single track worn into the stone, cart-wheel deep, running from the entrance to a stall that no longer exists. The wear stops dead at an empty patch of floor. Whatever was delivered here, for however long, was delivered to nothing you can see.",
+        "xp": {
+          "awareness": 2
+        }
+      },
+      {
+        "id": "market_right_stall",
+        "hitbox": {
+          "x": 272,
+          "y": 54,
+          "w": 46,
+          "h": 60
+        },
+        "description": "The far right stall. Shuttered, but stocked.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 2,
+        "discovery_text": "The right stall is closed — no trader, no float, no signage. But the shelves behind it are full, dusted, arranged with care. Someone restocks a stall that never opens. You think of a shop kept ready for a customer who has been expected for a very long time.",
+        "xp": {
+          "awareness": 2
+        }
       }
     ],
     "npcs_present": {
@@ -3886,6 +4128,55 @@
         "discovery_text": "The cobbles are laid in a specific pattern — not random, not just decorative. A geometry that repeats at larger and larger scales. A fractal planned in stone. The pattern is too complex for coincidence and too old for computer assistance. Someone worked this out by hand.",
         "xp": {
           "awareness": 2
+        }
+      },
+      {
+        "id": "naval_left_column",
+        "hitbox": {
+          "x": 30,
+          "y": 38,
+          "w": 10,
+          "h": 110
+        },
+        "description": "A column in the left colonnade.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "Each column has a twin across the courtyard, placed to the inch. You sight along this one to its partner and the two edges line up exactly — except at the very base, where this column stands a hair proud of the others. The one flaw in a perfect room. You can't unsee it now.",
+        "xp": {
+          "awareness": 1
+        }
+      },
+      {
+        "id": "naval_gull",
+        "hitbox": {
+          "x": 40,
+          "y": 26,
+          "w": 60,
+          "h": 8
+        },
+        "description": "A gull crossing the gap between the wings.",
+        "trait_required": "musician",
+        "awareness_required": 1,
+        "discovery_text": "The gull's cry returns off both wings at once, a beat apart, and the two echoes meet in the middle of the courtyard where you're standing. For a moment the bird is calling in harmony with itself. The architecture was built to do this. Nobody mentions it in the guides.",
+        "xp": {
+          "awareness": 1
+        }
+      },
+      {
+        "id": "naval_door_handle",
+        "hitbox": {
+          "x": 157,
+          "y": 130,
+          "w": 10,
+          "h": 18
+        },
+        "description": "The handle on the Painted Hall door.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 3,
+        "discovery_text": "The brass handle is worn bright by three centuries of hands — but the wear is high, where a tall person grips, and again much lower, where a child would. The two patches, nothing between them. As if only the very tall and the very small ever opened this door.",
+        "xp": {
+          "awareness": 2,
+          "insight": 1
         }
       }
     ],
@@ -4059,6 +4350,54 @@
           "awareness": 2,
           "insight": 1
         }
+      },
+      {
+        "id": "bookshop_right_shelf",
+        "hitbox": {
+          "x": 246,
+          "y": 92,
+          "w": 70,
+          "h": 24
+        },
+        "description": "A shelf of spines, all the same faded blue.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "A run of identical blue spines, no titles. You ease one out: blank pages, every one. A whole shelf of empty books, dusted and kept as though full. The owner shelved silence and gave it a section.",
+        "xp": {
+          "awareness": 1
+        }
+      },
+      {
+        "id": "bookshop_floorboard",
+        "hitbox": {
+          "x": 84,
+          "y": 126,
+          "w": 152,
+          "h": 16
+        },
+        "description": "The floorboards between the shelves. One sits proud.",
+        "trait_required": "wanderer",
+        "awareness_required": 1,
+        "discovery_text": "One board near the centre is raised a fraction, polished smoother than the rest. Everyone who comes in steps over it without thinking — the whole shop has learned the avoidance. You stand on it deliberately. It gives, very slightly. Something hollow is underneath.",
+        "xp": {
+          "awareness": 2
+        }
+      },
+      {
+        "id": "bookshop_low_spine",
+        "hitbox": {
+          "x": 4,
+          "y": 120,
+          "w": 70,
+          "h": 24
+        },
+        "description": "The lowest left shelf. A spine pulled out a little.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 2,
+        "discovery_text": "On the bottom shelf, one book juts out a centimetre past its neighbours — pushed by a hand, not fallen. You slide it flush. Next time you look, it's out again, exactly as far. Someone keeps marking their place in a book they never take down.",
+        "xp": {
+          "awareness": 2
+        }
       }
     ],
     "npcs_present": {},
@@ -4208,6 +4547,54 @@
         "xp": {
           "awareness": 2
         }
+      },
+      {
+        "id": "park_chestnut_canopy",
+        "hitbox": {
+          "x": 4,
+          "y": 10,
+          "w": 60,
+          "h": 30
+        },
+        "description": "The crown of the old chestnut. Heavy, low.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "The canopy holds still when the smaller trees toss in the wind. Not stiff — the leaves move, individually — but the mass of it stays put, the way a person stands their ground. The other trees lean away from it slightly, as if giving it room.",
+        "xp": {
+          "awareness": 1
+        }
+      },
+      {
+        "id": "park_distant_dome",
+        "hitbox": {
+          "x": 232,
+          "y": 12,
+          "w": 48,
+          "h": 56
+        },
+        "description": "The observatory dome at the top of the hill.",
+        "trait_required": "photographer",
+        "awareness_required": 1,
+        "discovery_text": "From here the dome catches the last light and holds it a beat longer than the sky around it — pale when everything else has gone grey. You climb this hill at dusk and the dome is always the last lit thing, like a held breath at the top of the rise.",
+        "xp": {
+          "awareness": 2
+        }
+      },
+      {
+        "id": "park_midground_tree",
+        "hitbox": {
+          "x": 270,
+          "y": 52,
+          "w": 24,
+          "h": 40
+        },
+        "description": "A small tree on the right of the path. Bare in one spot.",
+        "trait_required": "wanderer",
+        "awareness_required": 2,
+        "discovery_text": "One side of this tree has no leaves and never has — the side that faces the crest, the wind, the open city. The sheltered side is full. The tree has shaped itself around something it keeps turning away from. You find you've stopped on the same side it has.",
+        "xp": {
+          "awareness": 2
+        }
       }
     ],
     "npcs_present": {},
@@ -4349,6 +4736,55 @@
         "discovery_text": "You sink half an inch before it holds you. This mud is the accumulated silt of every flood, every storm, every season London has ever had. You are standing on time. It is soft underfoot.",
         "xp": {
           "awareness": 1
+        }
+      },
+      {
+        "id": "foreshore_cutty_mast",
+        "hitbox": {
+          "x": 258,
+          "y": 72,
+          "w": 8,
+          "h": 50
+        },
+        "description": "A ship's mast above the far wall. The Cutty Sark.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "The mast stands dead still against a sky full of moving cloud. A ship that hasn't sailed in a century, rigged and ready, pointing at a horizon it will never reach. From down here on the clay it looks less like a monument and more like something waiting for a tide that's overdue.",
+        "xp": {
+          "awareness": 1
+        }
+      },
+      {
+        "id": "foreshore_north_bank",
+        "hitbox": {
+          "x": 100,
+          "y": 38,
+          "w": 80,
+          "h": 30
+        },
+        "description": "The far bank. Its low line of buildings.",
+        "trait_required": "wanderer",
+        "awareness_required": 1,
+        "discovery_text": "The opposite bank seems closer than it should — you could almost call across. Then a boat passes between, and the gap reveals itself: wide, grey, impossible to shout over. The river makes the far side look near. It has been quietly lying about distance for as long as there's been a river.",
+        "xp": {
+          "awareness": 2
+        }
+      },
+      {
+        "id": "foreshore_wet_patch",
+        "hitbox": {
+          "x": 250,
+          "y": 122,
+          "w": 50,
+          "h": 24
+        },
+        "description": "A wet patch in the clay. It holds the light.",
+        "trait_required": "photographer",
+        "awareness_required": 2,
+        "discovery_text": "A skin of water lies in the hollow, mirror-flat. It shows the sky — but a shade lighter, a moment earlier, the clouds in a position they left a breath ago. The puddle is reflecting a sky that has already moved on. You photograph it before the tide takes the evidence.",
+        "xp": {
+          "awareness": 2,
+          "insight": 1
         }
       }
     ],
@@ -4511,6 +4947,54 @@
         "xp": {
           "awareness": 1
         }
+      },
+      {
+        "id": "trafalgar_tap_handles",
+        "hitbox": {
+          "x": 38,
+          "y": 100,
+          "w": 50,
+          "h": 20
+        },
+        "description": "The beer taps along the bar. Three of them.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "Three tap handles, each worn smooth at a different height — tall puller, average, short. The same three hands, year on year, pulling the same three pumps. You could draw the bodies that fit these grips without ever seeing them. The pub remembers its regulars in brass.",
+        "xp": {
+          "awareness": 1
+        }
+      },
+      {
+        "id": "trafalgar_ceiling_beam",
+        "hitbox": {
+          "x": 120,
+          "y": 0,
+          "w": 12,
+          "h": 36
+        },
+        "description": "A dark beam crossing the ceiling.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 2,
+        "discovery_text": "The beam is ship's timber — you can see the peg holes from another life, where ribs and decking once bolted on. The Trafalgar was built from broken-up vessels. The pub watching the river is partly made of the river's dead. It never quite came ashore.",
+        "xp": {
+          "awareness": 2
+        }
+      },
+      {
+        "id": "trafalgar_bar_end",
+        "hitbox": {
+          "x": 2,
+          "y": 120,
+          "w": 28,
+          "h": 24
+        },
+        "description": "The far end of the bar. A worn hollow in the wood.",
+        "trait_required": "wanderer",
+        "awareness_required": 1,
+        "discovery_text": "The bar's end is dished out, the varnish gone, the wood beneath pale and soft as a worn step. The stool there is empty. It is, you suspect, always empty — the place kept for someone whose elbow wore this hollow and then stopped coming. The dish remains. It is the right shape for waiting.",
+        "xp": {
+          "awareness": 2
+        }
       }
     ],
     "npcs_present": {},
@@ -4638,6 +5122,54 @@
         "discovery_text": "He pours without looking at you. The flask is passed to the next stall holder. Passed back. A circuit. Everyone in the market part of the same conversation, not a word exchanged. The flask is the sentence.",
         "xp": {
           "awareness": 1
+        }
+      },
+      {
+        "id": "market_arch_dark",
+        "hitbox": {
+          "x": 94,
+          "y": 64,
+          "w": 52,
+          "h": 64
+        },
+        "description": "The mouth of a railway arch behind the stalls.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "The arch goes back further than the brick suggests it should. Traders stack crates at its mouth but never inside; the dark begins exactly where the awning's shadow ends, and nobody crosses it. A train passes overhead. The dark doesn't flinch.",
+        "xp": {
+          "awareness": 1
+        }
+      },
+      {
+        "id": "market_stall_objects",
+        "hitbox": {
+          "x": 88,
+          "y": 108,
+          "w": 64,
+          "h": 11
+        },
+        "description": "A cluster of objects on the second stall.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 1,
+        "discovery_text": "A brass compass, a doorknob, a child's shoe, a key. No common thread — except that each is the kind of thing left behind, not given away. A table of last objects. You wonder who lets go of a single shoe, and why the market always seems to have one.",
+        "xp": {
+          "awareness": 2
+        }
+      },
+      {
+        "id": "market_awning_fold",
+        "hitbox": {
+          "x": 80,
+          "y": 60,
+          "w": 80,
+          "h": 14
+        },
+        "description": "The canvas awning over the stalls. Its deep folds.",
+        "trait_required": "wanderer",
+        "awareness_required": 2,
+        "discovery_text": "The folds in the canvas hold pockets of last night's cold long into the morning. You pass under and the temperature drops, just for a step, the way it does in a doorway of a house nobody lives in. The awning keeps the night the way the market keeps everything: well past its time.",
+        "xp": {
+          "awareness": 2
         }
       }
     ],
@@ -4771,6 +5303,55 @@
         "trait_required": "shopkeeper",
         "awareness_required": 2,
         "discovery_text": "The concrete floor has been polished for decades but you can see the original surface around the edges: hand-poured, aggregate showing. The gallery repurposed an industrial floor from a building that was here before. The floor has carried weight it doesn't speak about.",
+        "xp": {
+          "awareness": 2
+        }
+      },
+      {
+        "id": "gallery_left_canvas",
+        "hitbox": {
+          "x": 17,
+          "y": 27,
+          "w": 48,
+          "h": 66
+        },
+        "description": "The warm canvas on the far left wall.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "An abstract in warm ochre — except that if you let your eyes unfocus, the shapes resolve into a street you know, seen from above. Refocus and it's just paint again. The longer you stand, the more sure you are it's Bermondsey, and the less you can prove it.",
+        "xp": {
+          "awareness": 1
+        }
+      },
+      {
+        "id": "gallery_placard",
+        "hitbox": {
+          "x": 18,
+          "y": 96,
+          "w": 16,
+          "h": 7
+        },
+        "description": "The placard beneath the left canvas.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 2,
+        "discovery_text": "The card lists a title, a medium, and a date — but no artist. Where the name should be: a single small symbol, a circle with a cross through it. You've seen it on a key, on a map, on a foundation stone. The gallery credits the work to a mark, not a person.",
+        "xp": {
+          "awareness": 2,
+          "insight": 1
+        }
+      },
+      {
+        "id": "gallery_track_light",
+        "hitbox": {
+          "x": 100,
+          "y": 5,
+          "w": 120,
+          "h": 9
+        },
+        "description": "The lighting track across the ceiling.",
+        "trait_required": "photographer",
+        "awareness_required": 1,
+        "discovery_text": "The spotlights are aimed with care, each one centred on its painting — except the one over the empty stretch of wall, burning steadily at nothing. You ask the receptionist. She says a piece used to hang there. She can't remember which, or when it left. The light still waits for it.",
         "xp": {
           "awareness": 2
         }
@@ -4923,6 +5504,55 @@
         "xp": {
           "awareness": 1
         }
+      },
+      {
+        "id": "arch_vice",
+        "hitbox": {
+          "x": 8,
+          "y": 104,
+          "w": 24,
+          "h": 14
+        },
+        "description": "An iron vice clamped to the left bench.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "The vice is shut on nothing — jaws closed tight, gripping empty air. You turn the handle to open it and meet resistance, as if it's holding something you can't see. You leave it as you found it. Some things in this arch are better left clamped.",
+        "xp": {
+          "awareness": 1
+        }
+      },
+      {
+        "id": "arch_blueprint",
+        "hitbox": {
+          "x": 230,
+          "y": 106,
+          "w": 40,
+          "h": 12
+        },
+        "description": "A blueprint unrolled on the right bench.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 1,
+        "discovery_text": "A draughtsman's drawing of the arch itself — every brick numbered. But the plan shows a chamber beneath the floor, hatched and labelled in a hand gone brown with age: 'do not open.' The workshop was built over a door. The door was drawn, then sealed, then forgotten by everyone but this paper.",
+        "xp": {
+          "awareness": 2
+        }
+      },
+      {
+        "id": "arch_floor_crack",
+        "hitbox": {
+          "x": 86,
+          "y": 140,
+          "w": 12,
+          "h": 35
+        },
+        "description": "A crack running across the concrete floor.",
+        "trait_required": "wanderer",
+        "awareness_required": 2,
+        "discovery_text": "The crack is warm. You crouch and hold your palm above it: a thread of warm air rises, steady, smelling faintly of cold stone and standing water. The floor is split over something that breathes. The crack is the only place the thing underneath gets to exhale.",
+        "xp": {
+          "awareness": 2,
+          "insight": 1
+        }
       }
     ],
     "npcs_present": {
@@ -5067,6 +5697,55 @@
         "discovery_text": "The darkness inside is different from the darkness outside. Outside: absence of light. Inside: something that replaced the light with something else. You stand at the threshold for a moment longer than you meant to.",
         "xp": {
           "awareness": 1
+        }
+      },
+      {
+        "id": "warehouse_high_window",
+        "hitbox": {
+          "x": 50,
+          "y": 14,
+          "w": 40,
+          "h": 22
+        },
+        "description": "A high window. Moonlight, or city glow.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "The window is too high to reach, too small to climb, and grimed near opaque — yet a clean arc has been wiped across the inside of the glass. From in here. By a hand on a ladder nobody keeps. Someone, sometime, wanted to see out badly enough to climb for it.",
+        "xp": {
+          "awareness": 1
+        }
+      },
+      {
+        "id": "warehouse_pallets",
+        "hitbox": {
+          "x": 0,
+          "y": 116,
+          "w": 38,
+          "h": 26
+        },
+        "description": "A stack of old pallets in the corner.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 1,
+        "discovery_text": "The pallets are stamped with shipping marks from ports that have closed — Surrey Docks, gone fifty years. They've been stacked here since before the warehouse changed hands, waiting for a cargo that was cancelled when the river trade died. Still stacked. Still waiting to be loaded.",
+        "xp": {
+          "awareness": 2
+        }
+      },
+      {
+        "id": "warehouse_machinery",
+        "hitbox": {
+          "x": 284,
+          "y": 90,
+          "w": 30,
+          "h": 50
+        },
+        "description": "An old machine against the far wall.",
+        "trait_required": "musician",
+        "awareness_required": 2,
+        "discovery_text": "The machine is dead — unplugged, rusted, its belt long perished. But press your ear to its flank and it carries a sound from somewhere else: the four-second pulse from under the floor, conducted up through the metal. The dead machine is a stethoscope. It listens to whatever the warehouse is keeping below.",
+        "xp": {
+          "awareness": 2,
+          "insight": 1
         }
       }
     ],
@@ -5219,6 +5898,54 @@
         "discovery_text": "The river at Rotherhithe is wider and slower than at Limehouse. The current barely moves. You can watch the same piece of water for thirty seconds before it is gone. Plenty of time to see what it carries.",
         "xp": {
           "awareness": 1
+        }
+      },
+      {
+        "id": "rotherhithe_jetty_post",
+        "hitbox": {
+          "x": 153,
+          "y": 88,
+          "w": 8,
+          "h": 28
+        },
+        "description": "A black jetty post standing in the river.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "One of a row of old mooring posts, the last of a jetty that's otherwise gone. The tide line is carved into it, dark and clear — but well above where the water reaches now. The river used to come higher here. The post remembers a Thames that was bigger than this one.",
+        "xp": {
+          "awareness": 1
+        }
+      },
+      {
+        "id": "rotherhithe_mooring_ring",
+        "hitbox": {
+          "x": 26,
+          "y": 88,
+          "w": 13,
+          "h": 10
+        },
+        "description": "A rusted mooring ring on the nearest post.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 2,
+        "discovery_text": "The iron ring is seized solid with rust, fused to its post — except the inner edge, which is worn bright and smooth, as if a rope passed through it recently and often. Nothing has moored here in decades. Something still runs a line through this ring. You don't touch it.",
+        "xp": {
+          "awareness": 2
+        }
+      },
+      {
+        "id": "rotherhithe_path_crack",
+        "hitbox": {
+          "x": 56,
+          "y": 114,
+          "w": 12,
+          "h": 40
+        },
+        "description": "A crack splitting the tarmac path.",
+        "trait_required": "wanderer",
+        "awareness_required": 1,
+        "discovery_text": "The crack runs dead straight, river to railing, ignoring the way cracks usually wander. Grass grows from it in a thin green line. You follow it with your eye and it points, precisely, at the cold bench. As if the path is drawing an arrow to the one place it wants you to sit.",
+        "xp": {
+          "awareness": 2
         }
       }
     ],
@@ -5387,6 +6114,55 @@
         "xp": {
           "awareness": 1
         }
+      },
+      {
+        "id": "cowork_first_desk",
+        "hitbox": {
+          "x": 18,
+          "y": 88,
+          "w": 40,
+          "h": 22
+        },
+        "description": "The first hot desk. A laptop, lid open, glowing.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "The screen is on, a document open, the cursor blinking at the end of a line — but no chair is pulled out, no bag, no coffee, no person. The laptop has been left mid-sentence. You wait. Nobody comes to claim it. The cursor keeps blinking, patient as a held breath.",
+        "xp": {
+          "awareness": 1
+        }
+      },
+      {
+        "id": "cowork_ductwork",
+        "hitbox": {
+          "x": 60,
+          "y": 8,
+          "w": 120,
+          "h": 10
+        },
+        "description": "Exposed ductwork running the ceiling.",
+        "trait_required": "musician",
+        "awareness_required": 1,
+        "discovery_text": "The ducting carries sound between rooms it shouldn't connect. Press close and you hear typing from somewhere — but slower than anyone here is working, and steady, like a teletype. An old machine in an empty room, networked to this one through tin and air. Nobody else looks up.",
+        "xp": {
+          "awareness": 2
+        }
+      },
+      {
+        "id": "cowork_far_cup",
+        "hitbox": {
+          "x": 300,
+          "y": 102,
+          "w": 14,
+          "h": 12
+        },
+        "description": "A coffee cup at the end desk. Still steaming.",
+        "trait_required": "barista",
+        "awareness_required": 2,
+        "discovery_text": "The cup steams gently — fresh — at a desk where the chair is tucked in and the screen is dark. You touch the side: hot. Made minutes ago, by someone who isn't here and didn't sit. In a room where everyone is two steps from everyone, this cup belongs to the one person who is no steps from anyone.",
+        "xp": {
+          "awareness": 2,
+          "insight": 1
+        }
       }
     ],
     "npcs_present": {
@@ -5515,6 +6291,55 @@
           "awareness": 3,
           "insight": 1
         }
+      },
+      {
+        "id": "church_tower",
+        "hitbox": {
+          "x": 62,
+          "y": 20,
+          "w": 48,
+          "h": 90
+        },
+        "description": "The square Norman tower. Battlements above.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "The tower has no clock and no bell visible in the openings — but on the quarter-hour you feel a low note pass through the soles of your feet, the way a bell's strike carries through stone. A bell that isn't there, rung on time, for nobody. The tower keeps the hours its own way.",
+        "xp": {
+          "awareness": 1
+        }
+      },
+      {
+        "id": "church_rose_window",
+        "hitbox": {
+          "x": 150,
+          "y": 56,
+          "w": 24,
+          "h": 24
+        },
+        "description": "The round window above the door.",
+        "trait_required": "photographer",
+        "awareness_required": 1,
+        "discovery_text": "The tracery divides the rose window into segments — and at this hour the light through it throws a pattern on the floor that isn't the window's shape. It's a map: streets, a river's bend, seven marked points. The glass casts more than it shows. You step into the pattern. It fits you like a place.",
+        "xp": {
+          "awareness": 2,
+          "insight": 1
+        }
+      },
+      {
+        "id": "church_gravestone",
+        "hitbox": {
+          "x": 256,
+          "y": 108,
+          "w": 20,
+          "h": 26
+        },
+        "description": "A leaning gravestone near the wall.",
+        "trait_required": "wanderer",
+        "awareness_required": 2,
+        "discovery_text": "The inscription has worn to ghosts, all but one line at the base, kept legible as if by hand: 'returned.' No name, no dates — only that. You run your thumb over it. The grooves are sharp, recut, fresh. Someone tends a single word on a grave too old to read.",
+        "xp": {
+          "awareness": 2
+        }
       }
     ],
     "npcs_present": {},
@@ -5637,6 +6462,55 @@
         "discovery_text": "From up here you can count nine cranes. London is always mid-construction, always becoming something it is not yet. You wonder if the city knows what it is building toward, or if it is doing what it has always done — becoming, without plan.",
         "xp": {
           "awareness": 1
+        }
+      },
+      {
+        "id": "rooftop_stairwell_door",
+        "hitbox": {
+          "x": 12,
+          "y": 88,
+          "w": 18,
+          "h": 16
+        },
+        "description": "The stairwell door. The only way down.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "The door you came up through. It's swung shut behind you, though there's no wind on this sheltered side and you're sure you left it open. The handle is cold. For a second you wonder whether it opens from this side, then it does, easily. You leave it propped this time.",
+        "xp": {
+          "awareness": 1
+        }
+      },
+      {
+        "id": "rooftop_gravel",
+        "hitbox": {
+          "x": 20,
+          "y": 110,
+          "w": 100,
+          "h": 18
+        },
+        "description": "The gravel and bitumen of the deck.",
+        "trait_required": "wanderer",
+        "awareness_required": 1,
+        "discovery_text": "The gravel is scuffed into a single path — door to chair, chair to parapet, nowhere else — worn through to the black bitumen beneath. One person's whole rooftop, walked into the surface. You set your feet in the track without deciding to. It fits the stride exactly.",
+        "xp": {
+          "awareness": 2
+        }
+      },
+      {
+        "id": "rooftop_shard",
+        "hitbox": {
+          "x": 268,
+          "y": 10,
+          "w": 14,
+          "h": 74
+        },
+        "description": "The Shard, far off, catching the light.",
+        "trait_required": "photographer",
+        "awareness_required": 3,
+        "discovery_text": "The Shard's glass throws the low sun back at you in a single point, sharp as a struck match — and it holds, unblinking, long after the angle should have moved it on. You raise your camera. The flare stays put, waiting, until you've framed it. Then, only then, it slides off the glass and is gone.",
+        "xp": {
+          "awareness": 2,
+          "insight": 1
         }
       }
     ],
@@ -5835,6 +6709,55 @@
           "awareness": 2,
           "insight": 1
         }
+      },
+      {
+        "id": "corner_upstairs_window",
+        "hitbox": {
+          "x": 10,
+          "y": 22,
+          "w": 22,
+          "h": 28
+        },
+        "description": "An upstairs window in the terrace.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "Every other window on the terrace reflects the street. This one is dark — curtained, you assume, until you notice the curtain hasn't moved across three visits, three times of day, three weathers. The same fold, the same gap. A window dressed once and never opened. You feel watched from exactly there.",
+        "xp": {
+          "awareness": 1
+        }
+      },
+      {
+        "id": "corner_lamp",
+        "hitbox": {
+          "x": 166,
+          "y": 46,
+          "w": 12,
+          "h": 30
+        },
+        "description": "The street lamp at the kerb.",
+        "trait_required": "musician",
+        "awareness_required": 1,
+        "discovery_text": "The lamp ticks as it warms — a faint metronome you'd never notice over the traffic, except the traffic falls into it. Brakes, a horn, a door: each lands on the tick, never between. For half a minute the whole ordinary corner is keeping time to a streetlight. Then a bus breaks the spell.",
+        "xp": {
+          "awareness": 2
+        }
+      },
+      {
+        "id": "corner_long_lane_gap",
+        "hitbox": {
+          "x": 128,
+          "y": 44,
+          "w": 56,
+          "h": 14
+        },
+        "description": "The gap between buildings. Long Lane receding.",
+        "trait_required": "wanderer",
+        "awareness_required": 2,
+        "discovery_text": "The lane between the buildings runs back further than the block is deep. You pace the frontage, then the gap: the arithmetic doesn't close. There's more street back there than there is room for street. You don't walk down it. Some corners hold a little extra, and don't like to be measured.",
+        "xp": {
+          "awareness": 2,
+          "insight": 1
+        }
       }
     ],
     "npcs_present": {
@@ -5973,6 +6896,55 @@
         "discovery_text": "Old paper. Dry vinyl. A faint basement smell under that — cold brick, stale air, something that has been sealed a long time. Not unpleasant. The smell of things kept. The smell of things that outlasted the people who left them.",
         "xp": {
           "awareness": 1
+        }
+      },
+      {
+        "id": "vinyl_wall_sleeve",
+        "hitbox": {
+          "x": 10,
+          "y": 20,
+          "w": 46,
+          "h": 24
+        },
+        "description": "A record sleeve pinned to the back-wall display.",
+        "trait_required": null,
+        "awareness_required": 0,
+        "discovery_text": "A sleeve faded almost to white by years on this wall — except for a clean rectangle in the middle, the exact size of a sleeve, where another once hung in front of it. The ghost of a record that protected this one from the light. The shadow of an album nobody can name.",
+        "xp": {
+          "awareness": 1
+        }
+      },
+      {
+        "id": "vinyl_old_till",
+        "hitbox": {
+          "x": 266,
+          "y": 76,
+          "w": 30,
+          "h": 14
+        },
+        "description": "A heavy old till on the counter.",
+        "trait_required": "shopkeeper",
+        "awareness_required": 1,
+        "discovery_text": "A mechanical till, brass-keyed, no power to it. You press a key out of habit and the drawer rolls open with a single clean bell-note — the same note the turntable is holding, the same the barista hums. The till has no business knowing that pitch. It rings it anyway, and waits, drawer open, for a sale.",
+        "xp": {
+          "awareness": 2,
+          "insight": 1
+        }
+      },
+      {
+        "id": "vinyl_counter_lamp",
+        "hitbox": {
+          "x": 282,
+          "y": 44,
+          "w": 12,
+          "h": 12
+        },
+        "description": "The warm lamp over the counter.",
+        "trait_required": "photographer",
+        "awareness_required": 2,
+        "discovery_text": "The lamp throws a warm pool over the counter and nowhere else — but its light reaches the dust in the air and stops it, mid-drift, the motes hanging in the cone as if set in amber. Step out of the light and they move again. The lamp doesn't illuminate the shop. It pauses the part it touches.",
+        "xp": {
+          "awareness": 2
         }
       }
     ],

@@ -101,7 +101,11 @@
       "An arch entrance. Dark inside. Something in there.",
       "The church at the road's end. Oldest thing.",
       "Vinyl in the window. Someone's turntable audible.",
-      "The river is close. You can smell it."
+      "The river is close. You can smell it.",
+      "The co-working glass. Laptops glowing. Nobody speaks.",
+      "Long Lane runs straight. Too straight, somehow.",
+      "The Thames path. The water keeping pace.",
+      "Bermondsey Street ends at the church. Always has."
     ],
     "time": {
       "morning": "Bermondsey wakes busy. No time for stretching.",
@@ -120,35 +124,60 @@
       "A vinyl record. Forty years old. Still alive.",
       "The overground rattle makes the arch walls resonate.",
       "Brick and iron. Bermondsey's two pitches.",
-      "Under the arches: a sound like breathing."
+      "Under the arches: a sound like breathing.",
+      "The vinyl shop spins something. Bass through brick.",
+      "Market trolleys at dawn. A scattered percussion.",
+      "The church bell. One note over the warehouses.",
+      "The Thames path. The river's low constant drone.",
+      "The co-working hum. Machines pretending to be silent."
     ],
     "photographer": [
       "Gallery white. The art competes with nothing.",
       "The rooftop. From here the streets spell something.",
       "The market at dawn. Long shadows. No tourists.",
       "The warehouse. Industrial angles. Serious light.",
-      "Bermondsey Street. Photographed a thousand times. Still."
+      "Bermondsey Street. Photographed a thousand times. Still.",
+      "The arch mouth. Light dies three steps in.",
+      "Vinyl sleeves in the window. Faded square frames.",
+      "The Thames path at dusk. River as mirror.",
+      "The church spire. A vertical against flat brick.",
+      "Market stalls at dawn. Steam catching low light."
     ],
     "wanderer": [
       "The church. Oldest building here. It knows.",
       "The Thames path. The bench facing the water.",
       "The warehouse pulls at night. Not yet inside.",
       "The arch. The temperature drops inside.",
-      "Long Lane. Nothing remarkable. That's what's wrong."
+      "Long Lane. Nothing remarkable. That's what's wrong.",
+      "The Thames path. Wind off the water bites.",
+      "Cobbles by the warehouse. The ground tilts down.",
+      "The vinyl shop floor. Worn soft by browsing.",
+      "The market at dawn. Cold rises through soles.",
+      "The church step. Stone hollowed by centuries."
     ],
     "barista": [
       "The co-working space. Everyone stranger, everyone connected.",
       "Market vendors nod to each other. A language.",
       "The gallery. The same visitors, different Thursdays.",
       "The vinyl shop. The owner knows every buyer.",
-      "The street corner. Something always almost happens."
+      "The street corner. Something always almost happens.",
+      "The co-working desk. Strangers sharing an outlet.",
+      "Two browsers reach for the same record.",
+      "The arch workshop. The welder waves. Almost.",
+      "The Thames path bench. Always someone just leaving.",
+      "The church doorway. People shelter, then part."
     ],
     "shopkeeper": [
       "The market object. Wrong materials. Wrong era.",
       "These arches predate the railway. Someone else built.",
       "The church crypt. Something in the floor.",
       "Bermondsey was a market town. The street remembers.",
-      "The warehouse floor. A depth marker. Checked yearly."
+      "The warehouse floor. A depth marker. Checked yearly.",
+      "The vinyl. Pressed before my birth. Still spinning.",
+      "Arch brickwork. Hand-laid. Soot-black. Permanent.",
+      "The church font. Stone that outlived its parish.",
+      "Warehouse iron rails. Built to carry, still carrying.",
+      "The market's oldest stall. The same scales. Brass."
     ]
   },
   "greenwich": {
@@ -162,7 +191,11 @@
       "Stone and symmetry. The city planned this part.",
       "Observatory above. The hill knows what it holds.",
       "Old wood and river light. The pub waits.",
-      "The tunnel. Cream tiles. The city crossing itself."
+      "The tunnel. Cream tiles. The city crossing itself.",
+      "The foreshore at low tide. The river retreating.",
+      "Time starts here. The brass line says so.",
+      "Masts of the Cutty Sark. Dry-docked. Still.",
+      "The hill watches the whole city age."
     ],
     "time": {
       "morning": "Greenwich wakes slowly. Like it's thinking.",
@@ -181,35 +214,60 @@
       "The tunnel has a note. E-flat. Sustained.",
       "Forty clocks. Forty different pitches.",
       "The park at dawn. Wind in the chestnuts.",
-      "The river carries sound differently here."
+      "The river carries sound differently here.",
+      "The foot tunnel hums one held chord.",
+      "The Cutty Sark's rigging sings in wind.",
+      "The meridian. A frequency you can almost hear.",
+      "Foghorns on the river. The lowest note.",
+      "The observatory dome. Sound spirals up inside."
     ],
     "photographer": [
       "The Naval College. Symmetry as composition.",
       "The foreshore at low tide. Everything exposed.",
       "River light through the pub's unwashed glass.",
       "The hill frames the city. A viewfinder.",
-      "The tunnel's perspective. Vanishing point below."
+      "The tunnel's perspective. Vanishing point below.",
+      "The observatory at dusk. Dome catching last light.",
+      "The meridian brass. A line splitting the frame.",
+      "Cutty Sark masts. Black against pale sky.",
+      "The park's avenue. Trees framing the distance.",
+      "Low tide mudflats. Grey on grey on silver."
     ],
     "wanderer": [
       "The hill rises and the city drops behind.",
       "The tunnel's midpoint. Something resists the step.",
       "The foreshore clay. Older than the path.",
       "The bench. Worn to the shape of waiting.",
-      "The park before dawn. The oldest feeling."
+      "The park before dawn. The oldest feeling.",
+      "Climbing to the observatory. The legs remember.",
+      "The foreshore pulls. Down toward the water.",
+      "Cold tiles underfoot. The tunnel breathes damp.",
+      "The meridian line. One foot each side.",
+      "The foreshore shingle shifts. The river took it."
     ],
     "barista": [
       "Coffee from three directions in the market.",
       "The pub landlord knows everyone's name.",
       "She's working there again. Same corner table.",
       "Market vendors nodding to each other. A language.",
-      "The hymnal page. Someone's handwriting. Urgent."
+      "The hymnal page. Someone's handwriting. Urgent.",
+      "Tourists photograph each other on the meridian. Smiling.",
+      "The clockmaker nods. He almost remembers me.",
+      "Two strangers share the foreshore. Heads down.",
+      "The tunnel. We pass without a word.",
+      "The naval pensioner feeds gulls. Same bench."
     ],
     "shopkeeper": [
       "The clockmaker's hands. Always adjusting something.",
       "That floor stone. Older than the building.",
       "The cobblestones remember ships. Dockyard memory.",
       "Brass and oak. Nothing here is decorative.",
-      "The market vendor handles objects too carefully."
+      "The market vendor handles objects too carefully.",
+      "The meridian brass. A million soles wore it.",
+      "The Cutty Sark's hull. Copper older than memory.",
+      "The naval college gates. Iron that outlasts crowns.",
+      "Foreshore finds. Clay pipes. Centuries underfoot.",
+      "The observatory's brass instruments. Built to outlive us."
     ]
   },
   "flat": {
