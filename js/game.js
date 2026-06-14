@@ -446,6 +446,10 @@ const Game = (() => {
       if (curStep >= inv.steps.length) {
         if (!inv.choice) {
           State.completeInvestigation(id, null, inv.rewards && inv.rewards.completion);
+          // Award the node's top-level flatObject (LI-05, LI-13, GI-04/08, BI-05/08/09/11, …).
+          // Choice nodes award theirs through makeInvestigationChoice; choiceless ones had
+          // no award path, so their flat object never accumulated.
+          if (inv.flatObject) State.addFlatObject(inv.flatObject);
           stateInv = State.getInvestigation(id);
         }
         break;

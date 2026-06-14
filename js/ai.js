@@ -29,7 +29,7 @@ const AI = (() => {
     claude: {
       name: 'Claude',
       endpoint: 'https://api.anthropic.com/v1/messages',
-      models: ['claude-sonnet-4-20250514'],
+      models: ['claude-sonnet-4-6', 'claude-haiku-4-5-20251001', 'claude-sonnet-4-20250514'],
       buildRequest(model, systemPrompt, messages, maxTokens) {
         return {
           url: this.endpoint,

@@ -48,6 +48,15 @@ const UI = (() => {
     sky_open: 'The sky is bigger here. Nothing between you and it.'
   };
 
+  /** True when the user has asked the OS/browser to minimise motion. */
+  function _prefersReducedMotion() {
+    try {
+      return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    } catch (e) {
+      return false;
+    }
+  }
+
   /** Escape HTML to prevent XSS from JSON content or localStorage data */
   function esc(s) {
     if (typeof s !== 'string') return '';
@@ -55,6 +64,12 @@ const UI = (() => {
   }
 
   function typewriterReveal(element, text, msPerWord, onComplete) {
+    // Reduced motion: skip the per-word reveal entirely — show the full text at once.
+    if (_prefersReducedMotion()) {
+      element.textContent = text;
+      if (onComplete) onComplete();
+      return () => {};
+    }
     const words = text.split(' ');
     let idx = 0;
     let done = false;
@@ -454,40 +469,62 @@ const UI = (() => {
       html += '<p class="ambient-encounter">' + esc(loc.bodySensation) + '</p>';
     }
 
-    // Metzen: mythological impression — shown only on first visit, a door left ajar
-    if (isFirstVisit && loc.mythologicalImpression && !forgetting) {
-      html += '<p class="ambient-encounter" style="font-style:italic;opacity:0.7;">' + esc(loc.mythologicalImpression) + '</p>';
-    }
-
-    // Metzen: permanent presence — always shown on return visits, accumulates meaning
-    if (!isFirstVisit && loc.permanentPresence && !forgetting) {
-      html += '<p class="ambient-encounter">' + esc(loc.permanentPresence) + '</p>';
-    }
-
-    // Mythological tide — shown subtly, no header, suppressed during Forgetting
+    // Ueda's cap: at most ONE optional atmospheric line per visit. bodySensation (the body
+    // anchor, above) and world-state scars (below) are shown separately; everything else —
+    // a rare encounter, the first-visit impression, an active city event, the permanent
+    // presence, the tide, ambient life — competes for a single slot, highest priority first,
+    // so a return visit reads as one quiet gift rather than a stack of four lines.
+    // Mythological-layer lines (city events, tide) are exterior-only: the layer does not
+    // reach indoors, and never intrudes on the flat.
+    const isInterior = loc.type !== 'exterior';
+    let _atmo = null; // { text, style }
+    const _setAtmo = (text, style) => { if (!_atmo && text) _atmo = { text: text, style: style || '' }; };
     if (!forgetting) {
-      const tide = (Game.getMythologicalTide) ? Game.getMythologicalTide() : null;
-      const tideTexts = {
-        restless: 'Something stirs. The air has more weight than usual.',
-        deep:     null,  // Deep tide is silent — no text
-        bright:   'The light is wrong today. More of it than there should be.',
-        still:    'The quiet has arrived. The mythological layer rests.'
-      };
-      if (tide && tideTexts[tide]) {
-        html += '<p class="npc-physical" style="color:#6a6050;font-style:italic;margin-top:0.8rem;font-size:0.85em;">' + esc(tideTexts[tide]) + '</p>';
+      // 1. Rare encounters — the highlight of a visit, when they happen.
+      if (!isFirstVisit && (locId === 'L10' || locId === 'L01') && (period === 'evening' || period === 'night') && Math.random() < 0.35) {
+        _setAtmo('A fox sits at the edge of the light. It watches you. It doesn\'t leave.');
       }
-    }
-
-    // City event — shown only at the event's relevant location (or all locations if location is null)
-    // Suppressed during Forgetting
-    if (!forgetting) {
-      const event = (Game.getCurrentCityEvent) ? Game.getCurrentCityEvent() : null;
-      if (event && (event.location === locId || event.location === null)) {
-        const playerTrait = State.get('trait');
-        if (!event.traitGated || event.traitGated === playerTrait) {
-          html += '<p class="location-text" style="color:#8a7a5a;margin-top:1rem;border-top:1px solid #2a2318;padding-top:0.8rem;">' + esc(event.description) + '</p>';
+      if (!isFirstVisit && (locId === 'L03' || locId === 'L05') && period === 'afternoon' && Math.random() < 0.15) {
+        _setAtmo(locId === 'L03'
+          ? 'A man stands by the churchyard gate. He speaks to no one. "The stones remember. The water remembers. Only we choose to forget."'
+          : 'A voice from the corner, unhurried. "This pub was here before the street. The street was here before the city. The city was here before the name."');
+      }
+      // 2. First-visit mythological impression — a door left ajar.
+      if (isFirstVisit && loc.mythologicalImpression) {
+        _setAtmo(loc.mythologicalImpression, 'font-style:italic;opacity:0.7;');
+      }
+      // 3. A dated city event at this location — exterior only.
+      if (!isInterior) {
+        const event = (Game.getCurrentCityEvent) ? Game.getCurrentCityEvent() : null;
+        if (event && (event.location === locId || event.location === null)) {
+          const eventTrait = State.get('trait');
+          if (!event.traitGated || event.traitGated === eventTrait) {
+            _setAtmo(event.description, 'color:#8a7a5a;');
+          }
         }
       }
+      // 4. The permanent presence — the thing always there (return visits).
+      if (!isFirstVisit && loc.permanentPresence) {
+        _setAtmo(loc.permanentPresence);
+      }
+      // 5. The mythological tide — exterior only.
+      if (!isInterior) {
+        const tide = (Game.getMythologicalTide) ? Game.getMythologicalTide() : null;
+        const tideTexts = {
+          restless: 'Something stirs. The air has more weight than usual.',
+          deep:     null,  // Deep tide is silent — no text
+          bright:   'The light is wrong today. More of it than there should be.',
+          still:    'The quiet has arrived. The mythological layer rests.'
+        };
+        if (tide && tideTexts[tide]) _setAtmo(tideTexts[tide], 'color:#6a6050;font-style:italic;font-size:0.85em;');
+      }
+      // 6. Ambient life — the world breathing (return visits).
+      if (!isFirstVisit && loc.ambientLife && loc.ambientLife.length > 0 && Math.random() < 0.15) {
+        _setAtmo(AMBIENT_TEXTS[loc.ambientLife[Math.floor(Math.random() * loc.ambientLife.length)]]);
+      }
+    }
+    if (_atmo) {
+      html += '<p class="ambient-encounter"' + (_atmo.style ? ' style="' + _atmo.style + '"' : '') + '>' + esc(_atmo.text) + '</p>';
     }
 
     // Metzen: post-investigation world scars — the world carries consequences
@@ -590,31 +627,10 @@ const UI = (() => {
       html += '<p class="weather-text">' + esc(loc.weatherEffects[weather]) + '</p>';
     }
 
-    // Metzen: ambient life — the world breathes on return visits, not first encounters
-    // Ueda: 15% — each ambient moment should feel like a gift, not chatter
-    // Suppressed during Forgetting and on first visit
-    if (!forgetting && !isFirstVisit && loc.ambientLife && loc.ambientLife.length > 0 && Math.random() < 0.15) {
-      const key = loc.ambientLife[Math.floor(Math.random() * loc.ambientLife.length)];
-      const text = AMBIENT_TEXTS[key];
-      if (text) html += '<p class="ambient-encounter">' + esc(text) + '</p>';
-    }
-
-    // Time-of-day communicated through canvas palette and ambient audio
-
-    // Ueda: Forgetting text removed — the desaturation overlay IS the feeling
-
-    // Night Fox — appears at L10 and L01 at dusk/night
-    if (!forgetting && !isFirstVisit && (locId === 'L10' || locId === 'L01') && (period === 'evening' || period === 'night') && Math.random() < 0.35) {
-      html += '<p class="ambient-encounter">A fox sits at the edge of the light. It watches you. It doesn\'t leave.</p>';
-    }
-
-    // Street Preacher — rare appearances at L03 and L05
-    if (!forgetting && !isFirstVisit && (locId === 'L03' || locId === 'L05') && period === 'afternoon' && Math.random() < 0.15) {
-      const preacherLines = locId === 'L03'
-        ? 'A man stands by the churchyard gate. He speaks to no one. "The stones remember. The water remembers. Only we choose to forget."'
-        : 'A voice from the corner, unhurried. "This pub was here before the street. The street was here before the city. The city was here before the name."';
-      html += '<p class="ambient-encounter">' + esc(preacherLines) + '</p>';
-    }
+    // Time-of-day communicated through canvas palette and ambient audio.
+    // Ueda: Forgetting text removed — the desaturation overlay IS the feeling.
+    // Ambient life, the Night Fox, and the Street Preacher are now selected above as part
+    // of the single capped atmosphere slot, so they never stack on the permanent presence.
 
     if (adjacent.length) {
       html += '<div class="nav-buttons">';
@@ -1227,7 +1243,8 @@ const UI = (() => {
     let html = '<div class="notebook"><p class="notebook-title">Living Conversations</p>';
     html += '<div class="notebook-content">';
 
-    html += '<p class="journal-stat" style="margin-bottom:1rem;">NPCs can speak with their own voice using an AI provider. You supply the key. It never leaves your browser.</p>';
+    html += '<p class="journal-stat" style="margin-bottom:0.6rem;">NPCs can speak with their own voice using an AI provider. You supply the key. It never leaves your browser.</p>';
+    html += '<p class="journal-stat" style="margin-bottom:1rem;color:#8a6a4a;">It is stored unencrypted in this browser. Anyone with access to this device, or a browser extension, could read it. Use a key with a low spending limit, and remove it when you\'re done.</p>';
 
     // Provider select
     html += '<div class="notebook-entry">';
